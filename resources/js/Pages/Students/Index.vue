@@ -1,10 +1,17 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { 
     Plus,
     Edit,
@@ -12,17 +19,31 @@ import {
     Search,
     Filter,
     Download,
-    Eye
+    Eye,
+    GraduationCap
 } from 'lucide-vue-next';
 
-defineProps({
-    students: Array
+const props = defineProps({
+    students: Array,
+    filters: Object
 });
+
+const page = usePage();
+const searchQuery = ref(page.props.filters?.search || '');
 
 const deleteStudent = (id) => {
     if (confirm('Are you sure you want to delete this student?')) {
         router.delete(route('students.destroy', id));
     }
+};
+
+const performSearch = () => {
+    router.get(route('students.index'), { search: searchQuery.value }, { preserveState: true });
+};
+
+const clearSearch = () => {
+    searchQuery.value = '';
+    router.get(route('students.index'), {}, { preserveState: true });
 };
 </script>
 
@@ -69,10 +90,21 @@ const deleteStudent = (id) => {
                             <div class="relative">
                                 <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                 <input
+                                    v-model="searchQuery"
+                                    @keyup.enter="performSearch"
                                     type="text"
                                     placeholder="Search students..."
                                     class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 />
+                                <button
+                                    v-if="searchQuery"
+                                    @click="clearSearch"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                >
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
                             <Button variant="outline" size="sm">
                                 <Filter class="w-4 h-4" />
@@ -119,25 +151,34 @@ const deleteStudent = (id) => {
                                         </Badge>
                                     </td>
                                     <td class="py-3 px-4">
-                                        <div class="flex items-center justify-end space-x-2">
-                                            <Link :href="route('students.show', student.id)">
-                                                <Button variant="ghost" size="sm">
-                                                    <Eye class="w-4 h-4" />
-                                                </Button>
-                                            </Link>
-                                            <Link :href="route('students.edit', student.id)">
-                                                <Button variant="ghost" size="sm">
-                                                    <Edit class="w-4 h-4" />
-                                                </Button>
-                                            </Link>
-                                            <Button 
-                                                variant="ghost" 
-                                                size="sm" 
-                                                @click="deleteStudent(student.id)"
-                                                class="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
-                                            >
-                                                <Trash2 class="w-4 h-4" />
-                                            </Button>
+                                        <div class="flex items-center justify-end">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger as-child>
+                                                    <Button variant="ghost" size="sm">
+                                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                                                        </svg>
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end">
+                                                    <DropdownMenuItem as-child>
+                                                        <Link :href="route('students.show', student.id)" class="flex items-center">
+                                                            <Eye class="w-4 h-4 mr-2" />
+                                                            View Details
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem as-child>
+                                                        <Link :href="route('students.edit', student.id)" class="flex items-center">
+                                                            <Edit class="w-4 h-4 mr-2" />
+                                                            Edit Student
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem @click="deleteStudent(student.id)" class="flex items-center text-red-600">
+                                                        <Trash2 class="w-4 h-4 mr-2" />
+                                                        Delete Student
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
                                         </div>
                                     </td>
                                 </tr>

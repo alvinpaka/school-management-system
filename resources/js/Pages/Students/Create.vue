@@ -1,5 +1,5 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,10 +41,12 @@ const submit = () => {
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <Button variant="ghost" size="sm" :href="route('students.index')">
-                    <ArrowLeft class="w-4 h-4 mr-2" />
-                    Back to Students
-                </Button>
+                <Link :href="route('students.index')">
+                    <Button variant="ghost" size="sm">
+                        <ArrowLeft class="w-4 h-4 mr-2" />
+                        Back to Students
+                    </Button>
+                </Link>
                 <span class="text-gray-400">|</span>
                 <span>Add New Student</span>
             </div>
@@ -87,6 +89,7 @@ const submit = () => {
                                         type="email"
                                         class="mt-1 block w-full"
                                         required
+                                        autocomplete="username"
                                     />
                                     <div v-if="form.errors.email" class="text-red-600 text-sm mt-1">
                                         {{ form.errors.email }}
@@ -101,6 +104,7 @@ const submit = () => {
                                         type="password"
                                         class="mt-1 block w-full"
                                         required
+                                        autocomplete="new-password"
                                     />
                                     <div v-if="form.errors.password" class="text-red-600 text-sm mt-1">
                                         {{ form.errors.password }}
@@ -179,9 +183,11 @@ const submit = () => {
 
                         <!-- Form Actions -->
                         <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <Button variant="outline" type="button" :href="route('students.index')">
-                                Cancel
-                            </Button>
+                            <Link :href="route('students.index')">
+                                <Button variant="outline" type="button">
+                                    Cancel
+                                </Button>
+                            </Link>
                             <Button type="submit" :disabled="form.processing">
                                 <Save class="w-4 h-4 mr-2" />
                                 {{ form.processing ? 'Creating...' : 'Create Student' }}

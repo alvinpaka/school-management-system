@@ -8,16 +8,55 @@ use App\Models\AcademicClass;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class StudentController extends Controller
 {
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        
+        if (strlen($search) < 2) {
+            return response()->json(['students' => []]);
+        }
+        
+        $students = Student::with(['user', 'academicClass', 'section'])
+            ->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($subQuery) use ($search) {
+                    $subQuery->where('name', 'like', '%' . $search . '%')
+                           ->orWhere('email', 'like', '%' . $search . '%');
+                })
+                ->orWhere('admission_number', 'like', '%' . $search . '%');
+            })
+            ->limit(10)
+            ->get();
+        
+        return response()->json(['students' => $students]);
+    }
+
     public function index()
     {
-        $students = Student::with(['user', 'academicClass', 'section'])->get();
+        $search = request('search');
+        
+        $query = Student::with(['user', 'academicClass', 'section']);
+        
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($subQuery) use ($search) {
+                    $subQuery->where('name', 'like', '%' . $search . '%')
+                           ->orWhere('email', 'like', '%' . $search . '%');
+                })
+                ->orWhere('admission_number', 'like', '%' . $search . '%');
+            });
+        }
+        
+        $students = $query->get();
+        
         return Inertia::render('Students/Index', [
-            'students' => $students
+            'students' => $students,
+            'filters' => ['search' => $search]
         ]);
     }
 

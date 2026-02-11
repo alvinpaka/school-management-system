@@ -37,10 +37,12 @@ const submit = () => {
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <Button variant="ghost" size="sm" :href="route('fees.index')">
-                    <ArrowLeft class="w-4 h-4 mr-2" />
-                    Back to Fees
-                </Button>
+                <Link :href="route('fees.index')">
+                    <Button variant="ghost" size="sm">
+                        <ArrowLeft class="w-4 h-4 mr-2" />
+                        Back to Fees
+                    </Button>
+                </Link>
                 <span class="text-gray-400">|</span>
                 <span>Record New Fee</span>
             </div>
@@ -101,15 +103,15 @@ const submit = () => {
                                 </div>
 
                                 <div>
-                                    <Label for="amount">Amount</Label>
+                                    <Label for="amount">Amount (UGX)</Label>
                                     <Input
                                         id="amount"
                                         v-model="form.amount"
                                         type="number"
                                         class="mt-1 block w-full"
-                                        placeholder="0.00"
+                                        placeholder="0"
                                         min="0"
-                                        step="0.01"
+                                        step="1"
                                         required
                                     />
                                     <div v-if="form.errors.amount" class="text-red-600 text-sm mt-1">
@@ -154,9 +156,11 @@ const submit = () => {
 
                         <!-- Form Actions -->
                         <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <Button variant="outline" type="button" :href="route('fees.index')">
-                                Cancel
-                            </Button>
+                            <Link :href="route('fees.index')">
+                                <Button variant="outline" type="button">
+                                    Cancel
+                                </Button>
+                            </Link>
                             <Button type="submit" :disabled="form.processing">
                                 <Save class="w-4 h-4 mr-2" />
                                 {{ form.processing ? 'Recording...' : 'Record Fee' }}

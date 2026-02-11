@@ -1,5 +1,5 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -39,10 +39,12 @@ const submit = () => {
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <Button variant="ghost" size="sm" :href="route('classes.index')">
-                    <ArrowLeft class="w-4 h-4 mr-2" />
-                    Back to Classes
-                </Button>
+                <Link :href="route('classes.index')">
+                    <Button variant="ghost" size="sm">
+                        <ArrowLeft class="w-4 h-4 mr-2" />
+                        Back to Classes
+                    </Button>
+                </Link>
                 <span class="text-gray-400">|</span>
                 <span>Add New Class</span>
             </div>
@@ -135,9 +137,11 @@ const submit = () => {
 
                         <!-- Form Actions -->
                         <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <Button variant="outline" type="button" :href="route('classes.index')">
-                                Cancel
-                            </Button>
+                            <Link :href="route('classes.index')">
+                                <Button variant="outline" type="button">
+                                    Cancel
+                                </Button>
+                            </Link>
                             <Button type="submit" :disabled="form.processing">
                                 <Save class="w-4 h-4 mr-2" />
                                 {{ form.processing ? 'Creating...' : 'Create Class' }}

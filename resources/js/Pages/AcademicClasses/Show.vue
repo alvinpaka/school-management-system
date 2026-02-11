@@ -4,11 +4,18 @@ import Sidebar from '@/Components/Sidebar.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { 
     ArrowLeft,
     BookOpen,
     Users,
-    Grid3x3
+    Grid3x3,
+    Edit
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -25,10 +32,12 @@ const props = defineProps({
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <Button variant="ghost" size="sm" :href="route('classes.index')">
-                    <ArrowLeft class="w-4 h-4 mr-2" />
-                    Back to Classes
-                </Button>
+                <Link :href="route('classes.index')">
+                    <Button variant="ghost" size="sm">
+                        <ArrowLeft class="w-4 h-4 mr-2" />
+                        Back to Classes
+                    </Button>
+                </Link>
                 <span class="text-gray-400">|</span>
                 <span>Class Details</span>
             </div>
@@ -102,13 +111,31 @@ const props = defineProps({
 
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700 mt-6">
-                        <Button variant="outline" :href="route('classes.index')">
-                            <ArrowLeft class="w-4 h-4 mr-2" />
-                            Back to List
-                        </Button>
-                        <Link :href="route('classes.edit', academicClass.id)">
-                            <Button>Edit Class</Button>
+                        <Link :href="route('classes.index')">
+                            <Button variant="outline">
+                                <ArrowLeft class="w-4 h-4 mr-2" />
+                                Back to List
+                            </Button>
                         </Link>
+                        
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                                <Button>
+                                    Actions
+                                    <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem as-child>
+                                    <Link :href="route('classes.edit', academicClass.id)" class="flex items-center">
+                                        <Edit class="w-4 h-4 mr-2" />
+                                        Edit Class
+                                    </Link>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </CardContent>
             </Card>

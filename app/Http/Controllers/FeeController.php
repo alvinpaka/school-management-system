@@ -32,6 +32,14 @@ class FeeController extends Controller
         return redirect()->route('fees.index')->with('success', 'Fee recorded successfully.');
     }
 
+    public function show(Fee $fee)
+    {
+        $fee->load('student.user');
+        return Inertia::render('Fees/Show', [
+            'fee' => $fee
+        ]);
+    }
+
     public function edit(Fee $fee)
     {
         $fee->load('student.user');

@@ -1,16 +1,25 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { 
     ArrowLeft,
     User,
     Mail,
-    GraduationCap,
+    Phone,
     Calendar,
-    MapPin
+    MapPin,
+    Edit,
+    Trash2,
+    GraduationCap
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -19,6 +28,12 @@ const props = defineProps({
         required: true
     }
 });
+
+const deleteStudent = () => {
+    if (confirm('Are you sure you want to delete this student?')) {
+        router.delete(route('students.destroy', props.student.id));
+    }
+};
 </script>
 
 <template>
@@ -27,10 +42,12 @@ const props = defineProps({
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <Button variant="ghost" size="sm" :href="route('students.index')">
+            <Link :href="route('students.index')">
+                <Button variant="ghost" size="sm">
                     <ArrowLeft class="w-4 h-4 mr-2" />
                     Back to Students
                 </Button>
+            </Link>
                 <span class="text-gray-400">|</span>
                 <span>Student Details</span>
             </div>
@@ -103,13 +120,35 @@ const props = defineProps({
 
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700 mt-6">
-                        <Button variant="outline" :href="route('students.index')">
-                            <ArrowLeft class="w-4 h-4 mr-2" />
-                            Back to List
-                        </Button>
-                        <Link :href="route('students.edit', student.id)">
-                            <Button>Edit Student</Button>
+                        <Link :href="route('students.index')">
+                            <Button variant="outline">
+                                <ArrowLeft class="w-4 h-4 mr-2" />
+                                Back to List
+                            </Button>
                         </Link>
+                        
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                                <Button>
+                                    Actions
+                                    <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem as-child>
+                                    <Link :href="route('students.edit', student.id)" class="flex items-center">
+                                        <Edit class="w-4 h-4 mr-2" />
+                                        Edit Student
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem @click="deleteStudent" class="flex items-center text-red-600">
+                                    <Trash2 class="w-4 h-4 mr-2" />
+                                    Delete Student
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </CardContent>
             </Card>

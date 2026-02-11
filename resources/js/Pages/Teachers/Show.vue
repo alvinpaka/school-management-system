@@ -1,15 +1,23 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { 
     ArrowLeft,
     User,
     Mail,
     Phone,
-    Briefcase
+    Briefcase,
+    Edit,
+    Trash2
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -18,6 +26,12 @@ const props = defineProps({
         required: true
     }
 });
+
+const deleteTeacher = () => {
+    if (confirm('Are you sure you want to delete this teacher?')) {
+        router.delete(route('teachers.destroy', props.teacher.id));
+    }
+};
 </script>
 
 <template>
@@ -26,10 +40,12 @@ const props = defineProps({
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <Button variant="ghost" size="sm" :href="route('teachers.index')">
-                    <ArrowLeft class="w-4 h-4 mr-2" />
-                    Back to Teachers
-                </Button>
+                <Link :href="route('teachers.index')">
+                    <Button variant="ghost" size="sm">
+                        <ArrowLeft class="w-4 h-4 mr-2" />
+                        Back to Teachers
+                    </Button>
+                </Link>
                 <span class="text-gray-400">|</span>
                 <span>Teacher Details</span>
             </div>
@@ -94,13 +110,35 @@ const props = defineProps({
 
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700 mt-6">
-                        <Button variant="outline" :href="route('teachers.index')">
-                            <ArrowLeft class="w-4 h-4 mr-2" />
-                            Back to List
-                        </Button>
-                        <Link :href="route('teachers.edit', teacher.id)">
-                            <Button>Edit Teacher</Button>
+                        <Link :href="route('teachers.index')">
+                            <Button variant="outline">
+                                <ArrowLeft class="w-4 h-4 mr-2" />
+                                Back to List
+                            </Button>
                         </Link>
+                        
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                                <Button>
+                                    Actions
+                                    <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem as-child>
+                                    <Link :href="route('teachers.edit', teacher.id)" class="flex items-center">
+                                        <Edit class="w-4 h-4 mr-2" />
+                                        Edit Teacher
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem @click="deleteTeacher" class="flex items-center text-red-600">
+                                    <Trash2 class="w-4 h-4 mr-2" />
+                                    Delete Teacher
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </CardContent>
             </Card>

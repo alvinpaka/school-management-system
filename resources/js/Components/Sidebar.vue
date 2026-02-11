@@ -8,9 +8,10 @@ import {
     BookOpen,
     Calendar,
     FileText,
-    User,
-    Settings,
-    Search
+    DollarSign,
+    UserCheck,
+    ClipboardList,
+    Edit3
 } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,7 +20,12 @@ import Header from '@/Components/Header.vue';
 const page = usePage();
 const user = computed(() => page.props.auth.user);
 const searchQuery = ref('');
+const searchResults = ref([]);
+const showSearchResults = ref(false);
+const isSearching = ref(false);
 const isCollapsed = ref(false);
+const isHovering = ref(false);
+const hoveredItem = ref(null);
 
 const isAdmin = computed(() => user.value?.roles?.includes('admin'));
 const isTeacher = computed(() => user.value?.roles?.includes('teacher'));
@@ -46,7 +52,7 @@ const menuItems = computed(() => {
       {
         name: 'Teachers',
         href: route('teachers.index'),
-        icon: GraduationCap,
+        icon: UserCheck,
         active: route().current('teachers.*')
       },
       {
@@ -58,13 +64,13 @@ const menuItems = computed(() => {
       {
         name: 'Subjects',
         href: route('subjects.index'),
-        icon: FileText,
+        icon: Edit3,
         active: route().current('subjects.*')
       },
       {
         name: 'Attendance',
         href: route('attendance.index'),
-        icon: Calendar,
+        icon: ClipboardList,
         active: route().current('attendance.*')
       },
       {
@@ -76,7 +82,7 @@ const menuItems = computed(() => {
       {
         name: 'Fees',
         href: route('fees.index'),
-        icon: FileText,
+        icon: DollarSign,
         active: route().current('fees.*')
       }
     );
@@ -93,7 +99,7 @@ const menuItems = computed(() => {
       {
         name: 'Attendance',
         href: route('attendance.index'),
-        icon: Calendar,
+        icon: ClipboardList,
         active: route().current('attendance.*')
       },
       {
@@ -139,12 +145,84 @@ const menuItems = computed(() => {
 
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value;
+  // Add haptic feedback-like animation
+  const sidebar = document.querySelector('.sidebar-main');
+  if (sidebar) {
+    sidebar.style.transform = 'scale(0.98)';
+    setTimeout(() => {
+      sidebar.style.transform = 'scale(1)';
+    }, 150);
+  }
 };
 
 const performSearch = () => {
   if (searchQuery.value.trim()) {
     router.get(route('students.index', { search: searchQuery.value }));
   }
+};
+
+const searchStudents = async () => {
+  if (!searchQuery.value || searchQuery.value.trim().length < 2) {
+    searchResults.value = [];
+    showSearchResults.value = false;
+    return;
+  }
+  
+  isSearching.value = true;
+  try {
+    // Use GET for search (no CSRF issues)
+    const response = await fetch(route('students.search', { search: searchQuery.value }), {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      },
+      credentials: 'same-origin'
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      searchResults.value = data.students || [];
+      showSearchResults.value = searchResults.value.length > 0;
+    } else {
+      searchResults.value = [];
+      showSearchResults.value = false;
+    }
+  } catch (error) {
+    searchResults.value = [];
+    showSearchResults.value = false;
+  } finally {
+    isSearching.value = false;
+  }
+};
+
+const selectStudent = (student) => {
+  searchQuery.value = '';
+  searchResults.value = [];
+  showSearchResults.value = false;
+  router.visit(route('students.show', student.id));
+};
+
+const clearSearch = () => {
+  searchQuery.value = '';
+  searchResults.value = [];
+  showSearchResults.value = false;
+};
+
+// Close search results when clicking outside
+const handleClickOutside = (event) => {
+  const searchContainer = event.target.closest('.search-container');
+  if (!searchContainer) {
+    showSearchResults.value = false;
+  }
+};
+
+// Add interactive hover effects
+const setHoveredItem = (itemName) => {
+  hoveredItem.value = itemName;
+};
+
+const clearHoveredItem = () => {
+  hoveredItem.value = null;
 };
 </script>
 
@@ -153,23 +231,28 @@ const performSearch = () => {
     <!-- Sidebar -->
     <div 
       :class="[
-        'bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out',
+        'bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out shadow-lg sidebar-main',
         isCollapsed ? 'w-20' : 'w-64'
       ]"
-      class="flex flex-col"
+      class="flex flex-col relative"
+      @mouseenter="isHovering = true"
+      @mouseleave="isHovering = false"
     >
       <!-- Logo Section -->
-      <div class="flex items-center justify-between p-4">
+      <div class="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
         <div v-if="!isCollapsed" class="flex items-center space-x-3">
-          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-md transform transition-transform duration-200 hover:scale-105">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
           </div>
-          <span class="text-lg font-bold text-gray-800 dark:text-white">EduManage</span>
+          <div>
+            <span class="text-xl font-bold text-gray-800 dark:text-white">EduManage</span>
+            <div class="text-xs text-gray-500 dark:text-gray-400">School System</div>
+          </div>
         </div>
-        <div v-else class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mx-auto">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div v-else class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center mx-auto shadow-md transform transition-transform duration-200 hover:scale-105">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
         </div>
@@ -177,10 +260,10 @@ const performSearch = () => {
           @click="toggleSidebar"
           variant="ghost"
           size="sm"
-          class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700"
+          class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
         >
           <svg 
-            :class="['w-5 h-5 text-gray-500 dark:text-gray-400 transition-transform duration-200', isCollapsed ? 'rotate-180' : '']" 
+            :class="['w-5 h-5 text-gray-500 dark:text-gray-400 transition-all duration-300', isCollapsed ? 'rotate-180' : '']" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -191,58 +274,141 @@ const performSearch = () => {
       </div>
 
       <!-- Search Section (Admin Only) -->
-      <div v-if="isAdmin && !isCollapsed" class="p-4 border-b border-gray-200 dark:border-gray-700">
-        <div class="relative">
-          <Input
-            v-model="searchQuery"
-            @keyup.enter="performSearch"
-            placeholder="Search students..."
-            class="pl-10"
-          />
-          <div class="absolute left-3 top-1/2 -translate-y-1/2">
-            <Search class="w-4 h-4 text-gray-400" />
+      <div v-if="isAdmin && !isCollapsed" class="p-4">
+        <div class="search-container relative">
+          <div class="relative border border-gray-200 dark:border-gray-700 rounded-xl focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 dark:focus-within:ring-blue-800 transition-all duration-200">
+            <Input
+              v-model="searchQuery"
+              @input="searchStudents"
+              @keyup.enter="performSearch"
+              @focus="() => showSearchResults = (searchResults.value || []).length > 0"
+              placeholder="Search students..."
+              class="pl-10 border-0 focus:ring-0 bg-gray-50 dark:bg-gray-700"
+            />
+            <div class="absolute left-3 top-1/2 -translate-y-1/2">
+              <Search class="w-4 h-4 text-gray-400" />
+            </div>
+            <div v-if="isSearching" class="absolute right-3 top-1/2 -translate-y-1/2">
+              <div class="animate-spin w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full"></div>
+            </div>
+            <button
+              v-if="searchQuery"
+              @click="clearSearch"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Search Results Dropdown -->
+          <div 
+            v-if="showSearchResults && searchResults.length > 0"
+            @click.stop
+            class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl z-[9999] max-h-80 overflow-y-auto backdrop-blur-sm"
+          >
+            <div class="py-2">
+              <div
+                v-for="student in searchResults"
+                :key="student.id"
+                @click="selectStudent(student)"
+                class="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all duration-200 flex items-center space-x-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0"
+              >
+                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <span class="text-white text-sm font-bold">{{ student.user.name.charAt(0).toUpperCase() }}</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-semibold text-gray-900 dark:text-white truncate">{{ student.user.name }}</div>
+                  <div class="text-sm text-gray-500 dark:text-gray-400 truncate">{{ student.user.email }}</div>
+                  <div class="text-xs text-blue-600 dark:text-blue-400 font-medium">{{ student.admission_number }}</div>
+                </div>
+                <div class="text-gray-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div v-if="searchResults.length === 0 && searchQuery.trim().length >= 2" class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 text-center">
+              No students found
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Navigation Menu -->
-      <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+      <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
         <template v-for="item in menuItems" :key="item.name">
           <Link
             :href="item.href"
+            @mouseenter="() => setHoveredItem(item.name)"
+            @mouseleave="clearHoveredItem"
             :class="[
-              'flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200',
+              'group flex items-center px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 relative overflow-hidden',
               item.active 
-                ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-l-4 border-blue-600 dark:border-blue-400' 
-                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-700 shadow-sm' 
+                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:shadow-sm',
+              hoveredItem === item.name && !item.active ? 'translate-x-1' : '',
+              isCollapsed ? 'justify-center' : ''
             ]"
           >
+            <!-- Animated background effect -->
+            <div 
+              v-if="hoveredItem === item.name && !item.active"
+              class="absolute inset-0 bg-blue-50 dark:bg-blue-900/20 opacity-0 animate-pulse"
+            ></div>
+            
             <component 
               :is="item.icon" 
-              :class="['w-5 h-5 flex-shrink-0', isCollapsed ? 'mx-auto' : 'mr-3']" 
+              :class="[
+                'w-5 h-5 flex-shrink-0 relative z-10 transition-transform duration-200',
+                isCollapsed ? 'mx-auto' : 'mr-3',
+                hoveredItem === item.name ? 'scale-110' : '',
+                item.active ? 'text-blue-600 dark:text-blue-400' : ''
+              ]" 
             />
-            <span v-if="!isCollapsed">{{ item.name }}</span>
+            <span 
+              v-if="!isCollapsed" 
+              class="relative z-10 transition-all duration-200"
+              :class="hoveredItem === item.name ? 'font-semibold' : ''"
+            >
+              {{ item.name }}
+            </span>
+            
+            <!-- Active indicator -->
+            <div 
+              v-if="item.active && !isCollapsed"
+              class="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full animate-pulse"
+            ></div>
           </Link>
         </template>
       </nav>
 
       <!-- User Section -->
-      <div class="p-4 border-t border-gray-200 dark:border-gray-700">
-        <div v-if="!isCollapsed" class="flex items-center space-x-3">
-          <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-            <User class="w-4 h-4 text-white" />
+      <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+        <div v-if="!isCollapsed" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 cursor-pointer">
+          <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center shadow-sm">
+            <User class="w-5 h-5 text-white" />
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+            <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">
               {{ user?.name || 'User' }}
             </p>
-            <p class="text-xs text-gray-500 dark:text-gray-400 truncate">
+            <p class="text-xs text-gray-500 dark:text-gray-400 truncate flex items-center">
+              <span class="w-2 h-2 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>
               {{ isAdmin ? 'Administrator' : isTeacher ? 'Teacher' : 'Student' }}
             </p>
           </div>
+          <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
         </div>
-        <div v-else class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mx-auto">
-          <User class="w-4 h-4 text-white" />
+        <div v-else class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mx-auto shadow-sm hover:scale-110 transition-transform duration-200 cursor-pointer">
+          <User class="w-5 h-5 text-white" />
         </div>
       </div>
     </div>
@@ -267,7 +433,7 @@ const performSearch = () => {
 <style scoped>
 /* Custom scrollbar for sidebar */
 nav::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 nav::-webkit-scrollbar-track {
@@ -275,19 +441,51 @@ nav::-webkit-scrollbar-track {
 }
 
 nav::-webkit-scrollbar-thumb {
-  background-color: rgba(156, 163, 175, 0.3);
-  border-radius: 2px;
+  background-color: rgba(156, 163, 175, 0.2);
+  border-radius: 3px;
+  transition: background-color 0.2s;
 }
 
 nav::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(156, 163, 175, 0.5);
+  background-color: rgba(156, 163, 175, 0.4);
 }
 
 .dark nav::-webkit-scrollbar-thumb {
-  background-color: rgba(75, 85, 99, 0.3);
+  background-color: rgba(75, 85, 99, 0.2);
 }
 
 .dark nav::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(75, 85, 99, 0.5);
+  background-color: rgba(75, 85, 99, 0.4);
+}
+
+/* Sidebar animations */
+.sidebar-main {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects */
+.group:hover .group-hover\:translate-x-1 {
+  transform: translateX(0.25rem);
+}
+
+/* Pulse animation for active indicators */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-property: color, background-color, border-color, transform, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 </style>

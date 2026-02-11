@@ -4,6 +4,12 @@ import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { 
     Plus,
     Edit,
@@ -16,7 +22,8 @@ import {
     Calendar,
     CheckCircle,
     Clock,
-    AlertCircle
+    AlertCircle,
+    User
 } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -126,8 +133,8 @@ const getStatusClass = (status) => {
                                     </td>
                                     <td class="py-3 px-4">
                                         <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                            <DollarSign class="w-4 h-4 mr-1" />
-                                            {{ fee.amount }}
+                                            <span class="font-medium mr-1">UGX</span>
+                                            {{ Number(fee.amount).toLocaleString() }}
                                         </div>
                                     </td>
                                     <td class="py-3 px-4">
@@ -142,25 +149,34 @@ const getStatusClass = (status) => {
                                         </Badge>
                                     </td>
                                     <td class="py-3 px-4">
-                                        <div class="flex items-center justify-end space-x-2">
-                                            <Link :href="route('fees.show', fee.id)">
-                                                <Button variant="ghost" size="sm">
-                                                    <Eye class="w-4 h-4" />
-                                                </Button>
-                                            </Link>
-                                            <Link :href="route('fees.edit', fee.id)">
-                                                <Button variant="ghost" size="sm">
-                                                    <Edit class="w-4 h-4" />
-                                                </Button>
-                                            </Link>
-                                            <Button 
-                                                variant="ghost" 
-                                                size="sm" 
-                                                @click="deleteFee(fee.id)"
-                                                class="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
-                                            >
-                                                <Trash2 class="w-4 h-4" />
-                                            </Button>
+                                        <div class="flex items-center justify-end">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger as-child>
+                                                    <Button variant="ghost" size="sm">
+                                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                                                        </svg>
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end">
+                                                    <DropdownMenuItem as-child>
+                                                        <Link :href="route('fees.show', fee.id)" class="flex items-center">
+                                                            <Eye class="w-4 h-4 mr-2" />
+                                                            View Details
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem as-child>
+                                                        <Link :href="route('fees.edit', fee.id)" class="flex items-center">
+                                                            <Edit class="w-4 h-4 mr-2" />
+                                                            Edit Fee
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem @click="deleteFee(fee.id)" class="flex items-center text-red-600">
+                                                        <Trash2 class="w-4 h-4 mr-2" />
+                                                        Delete Fee
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
                                         </div>
                                     </td>
                                 </tr>

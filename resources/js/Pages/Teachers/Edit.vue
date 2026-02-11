@@ -1,10 +1,18 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, Link } from '@inertiajs/vue3';
+import Sidebar from '@/Components/Sidebar.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { 
+    ArrowLeft,
+    Save,
+    User,
+    Mail,
+    Phone,
+    Briefcase
+} from 'lucide-vue-next';
 
 const props = defineProps({
     teacher: Object
@@ -27,65 +35,145 @@ const submit = () => {
 <template>
     <Head title="Edit Teacher" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Edit Teacher: {{ teacher.user.name }}
-            </h2>
+    <Sidebar>
+        <template #header-title>
+            <div class="flex items-center space-x-3">
+                <Link :href="route('teachers.index')">
+                    <Button variant="ghost" size="sm">
+                        <ArrowLeft class="w-4 h-4 mr-2" />
+                        Back to Teachers
+                    </Button>
+                </Link>
+                <span class="text-gray-400">|</span>
+                <span>Edit Teacher</span>
+            </div>
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
-                <div class="bg-white border border-gray-200 p-6 dark:bg-gray-800 dark:border-gray-700">
-                    <form @submit.prevent="submit">
-                        <div class="grid grid-cols-1 gap-6">
-                            <div>
-                                <InputLabel for="name" value="Name" />
-                                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required />
-                                <InputError class="mt-2" :message="form.errors.name" />
-                            </div>
-
-                            <div>
-                                <InputLabel for="email" value="Email" />
-                                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
-                                <InputError class="mt-2" :message="form.errors.email" />
-                            </div>
-
-                            <div>
-                                <InputLabel for="password" value="Password (Leave blank to keep current)" />
-                                <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" />
-                                <InputError class="mt-2" :message="form.errors.password" />
-                            </div>
-
-                            <div>
-                                <InputLabel for="employee_id" value="Employee ID" />
-                                <TextInput id="employee_id" type="text" class="mt-1 block w-full font-mono" v-model="form.employee_id" required />
-                                <InputError class="mt-2" :message="form.errors.employee_id" />
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-4">
+        <div class="mx-auto max-w-7xl">
+            <!-- Form Card -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Edit Teacher Information</CardTitle>
+                    <CardDescription>
+                        Update the teacher's personal and professional information.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form @submit.prevent="submit" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Personal Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Personal Information</h3>
+                                
                                 <div>
-                                    <InputLabel for="phone" value="Phone" />
-                                    <TextInput id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" />
-                                    <InputError class="mt-2" :message="form.errors.phone" />
+                                    <Label for="name">Full Name</Label>
+                                    <Input
+                                        id="name"
+                                        v-model="form.name"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                        autofocus
+                                    />
+                                    <div v-if="form.errors.name" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.name }}
+                                    </div>
                                 </div>
 
                                 <div>
-                                    <InputLabel for="specialization" value="Specialization" />
-                                    <TextInput id="specialization" type="text" class="mt-1 block w-full" v-model="form.specialization" />
-                                    <InputError class="mt-2" :message="form.errors.specialization" />
+                                    <Label for="email">Email Address</Label>
+                                    <Input
+                                        id="email"
+                                        v-model="form.email"
+                                        type="email"
+                                        class="mt-1 block w-full"
+                                        required
+                                        autocomplete="username"
+                                    />
+                                    <div v-if="form.errors.email" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.email }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <Label for="password">New Password (leave blank to keep current)</Label>
+                                    <Input
+                                        id="password"
+                                        v-model="form.password"
+                                        type="password"
+                                        class="mt-1 block w-full"
+                                        placeholder="Leave empty to keep current password"
+                                        autocomplete="new-password"
+                                    />
+                                    <div v-if="form.errors.password" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.password }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Professional Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Professional Information</h3>
+                                
+                                <div>
+                                    <Label for="employee_id">Employee ID</Label>
+                                    <Input
+                                        id="employee_id"
+                                        v-model="form.employee_id"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                    />
+                                    <div v-if="form.errors.employee_id" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.employee_id }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <Label for="phone">Phone Number</Label>
+                                    <Input
+                                        id="phone"
+                                        v-model="form.phone"
+                                        type="tel"
+                                        class="mt-1 block w-full"
+                                        placeholder="e.g., +1234567890"
+                                    />
+                                    <div v-if="form.errors.phone" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.phone }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <Label for="specialization">Specialization</Label>
+                                    <Input
+                                        id="specialization"
+                                        v-model="form.specialization"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        placeholder="e.g., Mathematics, Physics, English"
+                                    />
+                                    <div v-if="form.errors.specialization" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.specialization }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-8 flex justify-end">
-                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Update Teacher
-                            </PrimaryButton>
+                        <!-- Form Actions -->
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <Link :href="route('teachers.index')">
+                                <Button variant="outline" type="button">
+                                    Cancel
+                                </Button>
+                            </Link>
+                            <Button type="submit" :disabled="form.processing">
+                                <Save class="w-4 h-4 mr-2" />
+                                {{ form.processing ? 'Updating...' : 'Update Teacher' }}
+                            </Button>
                         </div>
                     </form>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
-    </AuthenticatedLayout>
+    </Sidebar>
 </template>

@@ -7,8 +7,13 @@ import {
 } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 
 const page = usePage();
@@ -52,8 +57,8 @@ const userRole = computed(() => {
         <DarkModeToggle variant="ghost" />
         
         <!-- User Dropdown -->
-        <Dropdown align="right" width="48">
-          <template #trigger>
+        <DropdownMenu>
+          <DropdownMenuTrigger as-child>
             <Button variant="ghost" size="sm" class="flex items-center space-x-2">
               <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
                 <User class="w-4 h-4 text-white" />
@@ -70,32 +75,27 @@ const userRole = computed(() => {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </Button>
-          </template>
-
-          <template #content>
-            <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-600">
-              <div class="text-base font-medium text-gray-800 dark:text-gray-200">
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" class="w-56">
+            <div class="px-2 py-1.5 text-sm">
+              <div class="font-medium text-gray-900 dark:text-white">
                 {{ user?.name || 'User' }}
               </div>
-              <div class="text-sm font-medium text-gray-500">
+              <div class="text-gray-500 dark:text-gray-400">
                 {{ user?.email || '' }}
               </div>
             </div>
-
-            <div class="py-1">
-              <DropdownLink :href="route('profile.edit')">
+            <DropdownMenuSeparator />
+            <DropdownMenuItem as-child>
+              <a :href="route('profile.edit')" class="w-full cursor-pointer">
                 Profile
-              </DropdownLink>
-              <DropdownLink
-                :href="route('logout')"
-                method="post"
-                as="button"
-              >
-                Log Out
-              </DropdownLink>
-            </div>
-          </template>
-        </Dropdown>
+              </a>
+            </DropdownMenuItem>
+            <DropdownMenuItem @click="router.post(route('logout'))" class="cursor-pointer">
+              Log Out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   </header>

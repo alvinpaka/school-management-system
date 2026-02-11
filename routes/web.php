@@ -27,6 +27,7 @@ use App\Http\Controllers\TimetableController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/students/search', [StudentController::class, 'search'])->name('students.search');
 
     Route::middleware(['role:admin'])->group(function () {
         Route::resource('students', StudentController::class);

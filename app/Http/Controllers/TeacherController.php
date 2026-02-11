@@ -24,6 +24,13 @@ class TeacherController extends Controller
         return Inertia::render('Teachers/Create');
     }
 
+    public function show(Teacher $teacher)
+    {
+        return Inertia::render('Teachers/Show', [
+            'teacher' => $teacher->load('user')
+        ]);
+    }
+
     public function store(StoreTeacherRequest $request)
     {
         $user = User::create([

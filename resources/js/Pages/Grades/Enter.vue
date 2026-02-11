@@ -1,10 +1,21 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm, router } from '@inertiajs/vue3';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import TextInput from '@/Components/TextInput.vue';
+import Sidebar from '@/Components/Sidebar.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { ref, watch } from 'vue';
+import { 
+    Save,
+    Search,
+    Filter,
+    Download,
+    User,
+    Award,
+    CheckCircle
+} from 'lucide-vue-next';
 
 const props = defineProps({
     exam: Object,
@@ -55,72 +66,139 @@ const submit = () => {
 <template>
     <Head title="Enter Grades" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Enter Grades: {{ exam.name }} ({{ exam.subject.name }})
-            </h2>
+    <Sidebar>
+        <template #header-title>
+            Enter Grades: {{ exam.name }}
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="bg-white border border-gray-200 p-6 mb-6 dark:bg-gray-800 dark:border-gray-700">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+        <div class="mx-auto max-w-7xl">
+            <!-- Page Header -->
+            <div class="mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ exam.name }}</h2>
+                        <p class="text-gray-600 dark:text-gray-400">{{ exam.subject.name }} - {{ exam.max_marks }} marks</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <Button variant="outline" size="sm">
+                            <Download class="w-4 h-4 mr-2" />
+                            Export Grades
+                        </Button>
+                        <Button @click="submit" :disabled="form.processing">
+                            <Save class="w-4 h-4 mr-2" />
+                            Save Grades
+                        </Button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters Card -->
+            <Card class="mb-6">
+                <CardHeader>
+                    <CardTitle>Class Selection</CardTitle>
+                    <CardDescription>Select class and section to enter grades</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                            <InputLabel for="class" value="Class" />
-                            <select id="class" v-model="form.academic_class_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-0 rounded-none">
+                            <Label for="class" value="Class" />
+                            <select 
+                                id="class" 
+                                v-model="form.academic_class_id" 
+                                @change="fetchStudents"
+                                class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-0 rounded-lg"
+                            >
                                 <option value="">Select Class</option>
                                 <option v-for="cls in classes" :key="cls.id" :value="cls.id">{{ cls.name }}</option>
                             </select>
                         </div>
                         <div>
-                            <InputLabel for="section" value="Section" />
-                            <select id="section" v-model="form.section_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-0 rounded-none">
+                            <Label for="section" value="Section" />
+                            <select 
+                                id="section" 
+                                v-model="form.section_id" 
+                                @change="fetchStudents"
+                                class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-0 rounded-lg"
+                            >
                                 <option value="">Select Section</option>
-                                <option v-for="sec in sections" :key="sec.id" :value="sec.id">{{ sec.name }}</option>
+                                <option v-for="section in sections" :key="section.id" :value="section.id">{{ section.name }}</option>
                             </select>
                         </div>
-                        <div>
-                            <PrimaryButton @click="fetchStudents" :disabled="!form.academic_class_id || !form.section_id">
-                                Get Student List
-                            </PrimaryButton>
+                        <div class="flex items-end">
+                            <Badge class="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                                <Award class="w-3 h-3 mr-1" />
+                                {{ exam.max_marks }} Max Marks
+                            </Badge>
                         </div>
                     </div>
-                </div>
+                </CardContent>
+            </Card>
 
-                <div v-if="form.grades.length > 0" class="bg-white border border-gray-200 overflow-hidden dark:bg-gray-800 dark:border-gray-700">
-                    <form @submit.prevent="submit">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead class="bg-gray-50 dark:bg-gray-900">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marks Obtained (Max: {{ exam.max_marks }})</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                <tr v-for="(item, index) in form.grades" :key="index">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{{ item.name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                        <TextInput type="number" v-model="form.grades[index].marks_obtained" class="block w-32" :max="exam.max_marks" min="0" required />
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                        <TextInput type="text" v-model="form.grades[index].remarks" class="block w-full text-xs" placeholder="Optional remarks" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="p-6 bg-gray-50 dark:bg-gray-900 flex justify-end">
-                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Save Grades
-                            </PrimaryButton>
+            <!-- Grades Entry -->
+            <Card v-if="form.grades.length > 0">
+                <CardHeader>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <CardTitle>Student Grades</CardTitle>
+                            <CardDescription>{{ form.grades.length }} students</CardDescription>
                         </div>
-                    </form>
-                </div>
-                <div v-else-if="filters.academic_class_id" class="p-6 text-center text-gray-500">
-                    No students found for this class and section.
-                </div>
-            </div>
+                        <div class="flex items-center space-x-2">
+                            <Badge class="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                                <CheckCircle class="w-3 h-3 mr-1" />
+                                {{ form.grades.filter(g => g.marks_obtained >= exam.passing_marks).length }} Passed
+                            </Badge>
+                            <Badge class="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                                {{ form.grades.filter(g => g.marks_obtained < exam.passing_marks).length }} Failed
+                            </Badge>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div class="space-y-3">
+                        <div v-for="student in form.grades" :key="student.student_id" class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                                    <User class="w-5 h-5 text-white" />
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900 dark:text-white">{{ student.name }}</div>
+                                    <div class="text-sm text-gray-500 dark:text-gray-400">ID: {{ student.student_id }}</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center space-x-2">
+                                    <Input
+                                        type="number"
+                                        v-model="student.marks_obtained"
+                                        :min="0"
+                                        :max="exam.max_marks"
+                                        class="w-20"
+                                        placeholder="Marks"
+                                    />
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">/ {{ exam.max_marks }}</span>
+                                </div>
+                                <Input
+                                    v-model="student.remarks"
+                                    placeholder="Remarks"
+                                    class="w-32"
+                                />
+                                <Badge :class="student.marks_obtained >= exam.passing_marks ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'">
+                                    {{ student.marks_obtained >= exam.passing_marks ? 'Pass' : 'Fail' }}
+                                </Badge>
+                            </div>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Empty State -->
+            <Card v-else>
+                <CardContent class="text-center py-12">
+                    <Award class="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No Students Found</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Select a class and section to enter grades</p>
+                </CardContent>
+            </Card>
         </div>
-    </AuthenticatedLayout>
+    </Sidebar>
 </template>

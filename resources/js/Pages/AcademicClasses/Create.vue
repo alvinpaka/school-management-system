@@ -1,11 +1,18 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import Sidebar from '@/Components/Sidebar.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { ref } from 'vue';
+import { 
+    ArrowLeft,
+    Save,
+    Plus,
+    Trash2,
+    BookOpen
+} from 'lucide-vue-next';
 
 const form = useForm({
     name: '',
@@ -29,55 +36,118 @@ const submit = () => {
 <template>
     <Head title="Add Class" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Add New Academic Class
-            </h2>
+    <Sidebar>
+        <template #header-title>
+            <div class="flex items-center space-x-3">
+                <Button variant="ghost" size="sm" :href="route('classes.index')">
+                    <ArrowLeft class="w-4 h-4 mr-2" />
+                    Back to Classes
+                </Button>
+                <span class="text-gray-400">|</span>
+                <span>Add New Class</span>
+            </div>
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
-                <div class="bg-white border border-gray-200 p-6 dark:bg-gray-800 dark:border-gray-700">
-                    <form @submit.prevent="submit">
-                        <div class="grid grid-cols-1 gap-6">
-                            <div>
-                                <InputLabel for="name" value="Class Name (e.g. Grade 10)" />
-                                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required />
-                                <InputError class="mt-2" :message="form.errors.name" />
+        <div class="mx-auto max-w-7xl">
+            <!-- Form Card -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Class Information</CardTitle>
+                    <CardDescription>Enter the details for the new academic class</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form @submit.prevent="submit" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Basic Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Basic Information</h3>
+                                
+                                <div>
+                                    <Label for="name">Class Name</Label>
+                                    <Input
+                                        id="name"
+                                        v-model="form.name"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        placeholder="e.g., Grade 10"
+                                        required
+                                        autofocus
+                                    />
+                                    <div v-if="form.errors.name" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.name }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <Label for="code">Class Code</Label>
+                                    <Input
+                                        id="code"
+                                        v-model="form.code"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        placeholder="e.g., G10"
+                                        required
+                                    />
+                                    <div v-if="form.errors.code" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.code }}
+                                    </div>
+                                </div>
                             </div>
 
-                            <div>
-                                <InputLabel for="code" value="Class Code (e.g. G10)" />
-                                <TextInput id="code" type="text" class="mt-1 block w-full font-mono" v-model="form.code" required />
-                                <InputError class="mt-2" :message="form.errors.code" />
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between items-center mb-2">
-                                    <InputLabel value="Sections" />
-                                    <button type="button" @click="addSection" class="text-xs font-bold text-blue-600 uppercase">+ Add Section</button>
+                            <!-- Sections -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Sections</h3>
+                                
+                                <div class="space-y-3">
+                                    <div v-for="(section, index) in form.sections" :key="index" class="flex items-center space-x-2">
+                                        <Input
+                                            v-model="form.sections[index]"
+                                            type="text"
+                                            class="flex-1"
+                                            placeholder="Section name"
+                                            required
+                                        />
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            @click="removeSection(index)"
+                                            :disabled="form.sections.length === 1"
+                                            class="text-red-600 hover:text-red-700"
+                                        >
+                                            <Trash2 class="w-4 h-4" />
+                                        </Button>
+                                    </div>
+                                    
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        @click="addSection"
+                                        class="w-full"
+                                    >
+                                        <Plus class="w-4 h-4 mr-2" />
+                                        Add Section
+                                    </Button>
                                 </div>
-                                <div v-for="(section, index) in form.sections" :key="index" class="flex items-center mb-2">
-                                    <TextInput type="text" v-model="form.sections[index]" class="block w-full" placeholder="Section Name (e.g. A)" required />
-                                    <button type="button" @click="removeSection(index)" class="ml-2 text-red-600" v-if="form.sections.length > 1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </div>
-                                <InputError class="mt-2" v-for="(error, i) in form.errors" :key="i" :message="i.startsWith('sections.') ? error : ''" />
                             </div>
                         </div>
 
-                        <div class="mt-8 flex justify-end">
-                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Save Class
-                            </PrimaryButton>
+                        <!-- Form Actions -->
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <Button variant="outline" type="button" :href="route('classes.index')">
+                                Cancel
+                            </Button>
+                            <Button type="submit" :disabled="form.processing">
+                                <Save class="w-4 h-4 mr-2" />
+                                {{ form.processing ? 'Creating...' : 'Create Class' }}
+                            </Button>
                         </div>
                     </form>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
-    </AuthenticatedLayout>
+    </Sidebar>
 </template>
+
+                                        

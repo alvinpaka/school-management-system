@@ -1,10 +1,19 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import Sidebar from '@/Components/Sidebar.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { 
+    ArrowLeft,
+    Save,
+    User,
+    Mail,
+    Lock,
+    GraduationCap,
+    Calendar
+} from 'lucide-vue-next';
 
 defineProps({
     classes: Array,
@@ -29,77 +38,158 @@ const submit = () => {
 <template>
     <Head title="Add Student" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Add New Student
-            </h2>
+    <Sidebar>
+        <template #header-title>
+            <div class="flex items-center space-x-3">
+                <Button variant="ghost" size="sm" :href="route('students.index')">
+                    <ArrowLeft class="w-4 h-4 mr-2" />
+                    Back to Students
+                </Button>
+                <span class="text-gray-400">|</span>
+                <span>Add New Student</span>
+            </div>
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
-                <div class="bg-white border border-gray-200 p-6 dark:bg-gray-800 dark:border-gray-700">
-                    <form @submit.prevent="submit">
-                        <div class="grid grid-cols-1 gap-6">
-                            <div>
-                                <InputLabel for="name" value="Name" />
-                                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required />
-                                <InputError class="mt-2" :message="form.errors.name" />
-                            </div>
-
-                            <div>
-                                <InputLabel for="email" value="Email" />
-                                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
-                                <InputError class="mt-2" :message="form.errors.email" />
-                            </div>
-
-                            <div>
-                                <InputLabel for="password" value="Password" />
-                                <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required />
-                                <InputError class="mt-2" :message="form.errors.password" />
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-4">
+        <div class="mx-auto max-w-7xl">
+            <!-- Form Card -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Student Information</CardTitle>
+                    <CardDescription>Enter the details for the new student</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form @submit.prevent="submit" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Personal Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Personal Information</h3>
+                                
                                 <div>
-                                    <InputLabel for="class" value="Class" />
-                                    <select id="class" v-model="form.academic_class_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-0 rounded-none">
-                                        <option value="" disabled>Select Class</option>
-                                        <option v-for="cls in classes" :key="cls.id" :value="cls.id">{{ cls.name }}</option>
-                                    </select>
-                                    <InputError class="mt-2" :message="form.errors.academic_class_id" />
+                                    <Label for="name">Full Name</Label>
+                                    <Input
+                                        id="name"
+                                        v-model="form.name"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                        autofocus
+                                    />
+                                    <div v-if="form.errors.name" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.name }}
+                                    </div>
                                 </div>
 
                                 <div>
-                                    <InputLabel for="section" value="Section" />
-                                    <select id="section" v-model="form.section_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-0 rounded-none">
-                                        <option value="" disabled>Select Section</option>
-                                        <option v-for="sec in sections" :key="sec.id" :value="sec.id">{{ sec.name }}</option>
-                                    </select>
-                                    <InputError class="mt-2" :message="form.errors.section_id" />
+                                    <Label for="email">Email Address</Label>
+                                    <Input
+                                        id="email"
+                                        v-model="form.email"
+                                        type="email"
+                                        class="mt-1 block w-full"
+                                        required
+                                    />
+                                    <div v-if="form.errors.email" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.email }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <Label for="password">Password</Label>
+                                    <Input
+                                        id="password"
+                                        v-model="form.password"
+                                        type="password"
+                                        class="mt-1 block w-full"
+                                        required
+                                    />
+                                    <div v-if="form.errors.password" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.password }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <Label for="date_of_birth">Date of Birth</Label>
+                                    <Input
+                                        id="date_of_birth"
+                                        v-model="form.date_of_birth"
+                                        type="date"
+                                        class="mt-1 block w-full"
+                                    />
+                                    <div v-if="form.errors.date_of_birth" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.date_of_birth }}
+                                    </div>
                                 </div>
                             </div>
 
-                            <div>
-                                <InputLabel for="admission_number" value="Admission Number" />
-                                <TextInput id="admission_number" type="text" class="mt-1 block w-full font-mono" v-model="form.admission_number" required />
-                                <InputError class="mt-2" :message="form.errors.admission_number" />
-                            </div>
+                            <!-- Academic Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Academic Information</h3>
+                                
+                                <div>
+                                    <Label for="admission_number">Admission Number</Label>
+                                    <Input
+                                        id="admission_number"
+                                        v-model="form.admission_number"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        required
+                                    />
+                                    <div v-if="form.errors.admission_number" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.admission_number }}
+                                    </div>
+                                </div>
 
-                            <div>
-                                <InputLabel for="date_of_birth" value="Date of Birth" />
-                                <TextInput id="date_of_birth" type="date" class="mt-1 block w-full" v-model="form.date_of_birth" />
-                                <InputError class="mt-2" :message="form.errors.date_of_birth" />
+                                <div>
+                                    <Label for="academic_class_id">Class</Label>
+                                    <select
+                                        id="academic_class_id"
+                                        v-model="form.academic_class_id"
+                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        required
+                                    >
+                                        <option value="">Select a class</option>
+                                        <option v-for="cls in classes" :key="cls.id" :value="cls.id">
+                                            {{ cls.name }}
+                                        </option>
+                                    </select>
+                                    <div v-if="form.errors.academic_class_id" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.academic_class_id }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <Label for="section_id">Section</Label>
+                                    <select
+                                        id="section_id"
+                                        v-model="form.section_id"
+                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        required
+                                    >
+                                        <option value="">Select a section</option>
+                                        <option v-for="section in sections" :key="section.id" :value="section.id">
+                                            {{ section.name }}
+                                        </option>
+                                    </select>
+                                    <div v-if="form.errors.section_id" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.section_id }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mt-8 flex justify-end">
-                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Save Student
-                            </PrimaryButton>
+                        <!-- Form Actions -->
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <Button variant="outline" type="button" :href="route('students.index')">
+                                Cancel
+                            </Button>
+                            <Button type="submit" :disabled="form.processing">
+                                <Save class="w-4 h-4 mr-2" />
+                                {{ form.processing ? 'Creating...' : 'Create Student' }}
+                            </Button>
                         </div>
                     </form>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
-    </AuthenticatedLayout>
+    </Sidebar>
 </template>

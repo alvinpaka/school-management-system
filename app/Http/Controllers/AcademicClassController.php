@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAcademicClassRequest;
 use App\Http\Requests\UpdateAcademicClassRequest;
 use App\Models\AcademicClass;
 use App\Models\Section;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AcademicClassController extends Controller
@@ -18,9 +19,39 @@ class AcademicClassController extends Controller
         ]);
     }
 
+    public function studentIndex(Request $request)
+    {
+        $user = $request->user();
+        $classes = collect([]);
+        
+        // If user is a student, only show their class
+        if ($user->hasRole('student')) {
+            $student = $user->student;
+            if ($student) {
+                $classes = collect([$student->academicClass]);
+            }
+        }
+        // If user is teacher, show their assigned classes
+        elseif ($user->hasRole('teacher')) {
+            // TODO: Get classes assigned to this teacher
+            $classes = AcademicClass::with('sections')->get();
+        }
+        
+        return Inertia::render('AcademicClasses/Index', [
+            'classes' => $classes
+        ]);
+    }
+
     public function create()
     {
         return Inertia::render('AcademicClasses/Create');
+    }
+
+    public function show(AcademicClass $class)
+    {
+        return Inertia::render('AcademicClasses/Show', [
+            'academicClass' => $class->load('sections')
+        ]);
     }
 
     public function store(StoreAcademicClassRequest $request)

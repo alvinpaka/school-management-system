@@ -1,10 +1,16 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import Sidebar from '@/Components/Sidebar.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { 
+    ArrowLeft,
+    Save,
+    BookOpen,
+    FileText
+} from 'lucide-vue-next';
 
 const form = useForm({
     name: '',
@@ -20,49 +26,100 @@ const submit = () => {
 <template>
     <Head title="Add Subject" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Add New Subject
-            </h2>
+    <Sidebar>
+        <template #header-title>
+            <div class="flex items-center space-x-3">
+                <Button variant="ghost" size="sm" :href="route('subjects.index')">
+                    <ArrowLeft class="w-4 h-4 mr-2" />
+                    Back to Subjects
+                </Button>
+                <span class="text-gray-400">|</span>
+                <span>Add New Subject</span>
+            </div>
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
-                <div class="bg-white border border-gray-200 p-6 dark:bg-gray-800 dark:border-gray-700">
-                    <form @submit.prevent="submit">
-                        <div class="grid grid-cols-1 gap-6">
-                            <div>
-                                <InputLabel for="name" value="Subject Name" />
-                                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required />
-                                <InputError class="mt-2" :message="form.errors.name" />
+        <div class="mx-auto max-w-7xl">
+            <!-- Form Card -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Subject Information</CardTitle>
+                    <CardDescription>Enter the details for the new subject</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form @submit.prevent="submit" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Basic Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Basic Information</h3>
+                                
+                                <div>
+                                    <Label for="name">Subject Name</Label>
+                                    <Input
+                                        id="name"
+                                        v-model="form.name"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        placeholder="e.g., Mathematics"
+                                        required
+                                        autofocus
+                                    />
+                                    <div v-if="form.errors.name" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.name }}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <Label for="code">Subject Code</Label>
+                                    <Input
+                                        id="code"
+                                        v-model="form.code"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        placeholder="e.g., MATH"
+                                        required
+                                    />
+                                    <div v-if="form.errors.code" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.code }}
+                                    </div>
+                                </div>
                             </div>
 
-                            <div>
-                                <InputLabel for="code" value="Subject Code" />
-                                <TextInput id="code" type="text" class="mt-1 block w-full font-mono" v-model="form.code" required />
-                                <InputError class="mt-2" :message="form.errors.code" />
-                            </div>
-
-                            <div>
-                                <InputLabel for="type" value="Subject Type" />
-                                <select id="type" v-model="form.type" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-0 rounded-none">
-                                    <option value="theory">Theory</option>
-                                    <option value="practical">Practical</option>
-                                    <option value="both">Both</option>
-                                </select>
-                                <InputError class="mt-2" :message="form.errors.type" />
+                            <!-- Subject Type -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Subject Type</h3>
+                                
+                                <div>
+                                    <Label for="type">Type</Label>
+                                    <select
+                                        id="type"
+                                        v-model="form.type"
+                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        required
+                                    >
+                                        <option value="theory">Theory</option>
+                                        <option value="practical">Practical</option>
+                                        <option value="elective">Elective</option>
+                                    </select>
+                                    <div v-if="form.errors.type" class="text-red-600 text-sm mt-1">
+                                        {{ form.errors.type }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mt-8 flex justify-end">
-                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Save Subject
-                            </PrimaryButton>
+                        <!-- Form Actions -->
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <Button variant="outline" type="button" :href="route('subjects.index')">
+                                Cancel
+                            </Button>
+                            <Button type="submit" :disabled="form.processing">
+                                <Save class="w-4 h-4 mr-2" />
+                                {{ form.processing ? 'Creating...' : 'Create Subject' }}
+                            </Button>
                         </div>
                     </form>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
-    </AuthenticatedLayout>
+    </Sidebar>
 </template>

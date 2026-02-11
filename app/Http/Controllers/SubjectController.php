@@ -22,6 +22,13 @@ class SubjectController extends Controller
         return Inertia::render('Subjects/Create');
     }
 
+    public function show(Subject $subject)
+    {
+        return Inertia::render('Subjects/Show', [
+            'subject' => $subject
+        ]);
+    }
+
     public function store(StoreSubjectRequest $request)
     {
         Subject::create($request->validated());

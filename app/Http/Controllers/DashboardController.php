@@ -27,7 +27,7 @@ class DashboardController extends Controller
 
         if ($user->hasRole('teacher')) {
             return Inertia::render('Dashboard/Teacher', [
-                'teacher' => $user->teacher ? $user->teacher->load('user') : null,
+                'teacher' => $user->teacher ? $user->teacher->load(['user', 'classes']) : null,
             ]);
         }
 
@@ -37,6 +37,7 @@ class DashboardController extends Controller
             ]);
         }
 
-        return Inertia::render('Dashboard');
+        // If user has no role, show an error page
+        abort(403, 'You do not have a role assigned. Please contact the administrator.');
     }
 }

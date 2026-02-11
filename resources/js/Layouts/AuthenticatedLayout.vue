@@ -5,6 +5,8 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import DarkModeToggle from '@/Components/DarkModeToggle.vue';
+import Header from '@/Components/Header.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
@@ -91,7 +93,10 @@ const showingNavigationDropdown = ref(false);
                             </div>
                         </div>
 
-                        <div class="hidden sm:ms-6 sm:flex sm:items-center">
+                        <div class="hidden sm:ms-6 sm:flex sm:items-center sm:space-x-3">
+                            <!-- Dark Mode Toggle -->
+                            <DarkModeToggle variant="ghost" />
+                            
                             <!-- Settings Dropdown -->
                             <div class="relative ms-3">
                                 <Dropdown align="right" width="48">
@@ -278,14 +283,11 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header
-                class="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700"
-                v-if="$slots.header"
-            >
-                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <Header v-if="$slots.header">
+                <template #header-title>
                     <slot name="header" />
-                </div>
-            </header>
+                </template>
+            </Header>
 
             <!-- Page Content -->
             <main>

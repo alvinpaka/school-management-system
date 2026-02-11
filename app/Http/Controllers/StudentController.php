@@ -29,6 +29,13 @@ class StudentController extends Controller
         ]);
     }
 
+    public function show(Student $student)
+    {
+        return Inertia::render('Students/Show', [
+            'student' => $student->load(['user', 'academicClass', 'section'])
+        ]);
+    }
+
     public function store(StoreStudentRequest $request)
     {
         $user = User::create([

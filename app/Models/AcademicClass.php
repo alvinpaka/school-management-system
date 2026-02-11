@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Section;
 use App\Models\Student;
+use App\Models\Teacher;
 
 class AcademicClass extends Model
 {
@@ -18,5 +19,10 @@ class AcademicClass extends Model
     public function students()
     {
         return $this->hasMany(Student::class);
+    }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'class_teacher');
     }
 }

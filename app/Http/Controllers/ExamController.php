@@ -26,6 +26,13 @@ class ExamController extends Controller
         ]);
     }
 
+    public function show(Exam $exam)
+    {
+        return Inertia::render('Exams/Show', [
+            'exam' => $exam->load('subject')
+        ]);
+    }
+
     public function store(StoreExamRequest $request)
     {
         Exam::create($request->validated());

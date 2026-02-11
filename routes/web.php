@@ -23,6 +23,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\FeeController;
+use App\Http\Controllers\TimetableController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -34,6 +35,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('subjects', SubjectController::class);
         Route::resource('exams', ExamController::class);
         Route::resource('fees', FeeController::class);
+    });
+
+    Route::middleware(['role:admin|teacher|student'])->group(function () {
+        Route::get('grades', [GradeController::class, 'index'])->name('grades.index');
+        Route::get('timetable', [TimetableController::class, 'index'])->name('timetable.index');
+        Route::get('my-classes', [AcademicClassController::class, 'studentIndex'])->name('classes.index');
     });
 
     Route::middleware(['role:admin|teacher', 'throttle:60,1'])->group(function () {

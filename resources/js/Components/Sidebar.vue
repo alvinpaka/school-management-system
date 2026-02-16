@@ -73,99 +73,85 @@ const menuItems = computed(() => {
         name: 'Students',
         href: route('students.index'),
         icon: Users,
-        active: route().current('students.*'),
-        permission: 'create students'
+        active: route().current('students.*')
       },
       {
         name: 'Teachers',
         href: route('teachers.index'),
         icon: UserCheck,
-        active: route().current('teachers.*'),
-        permission: 'create teachers'
+        active: route().current('teachers.*')
       },
       {
         name: 'Parents',
         href: route('parents.index'),
         icon: Users2,
-        active: route().current('parents.*'),
-        permission: 'create parents'
+        active: route().current('parents.*')
       },
       {
         name: 'Library',
         href: route('library.index'),
         icon: Library,
-        active: route().current('library.*'),
-        permission: 'create library'
+        active: route().current('library.*')
       },
       {
         name: 'Account',
         href: route('fees.index'),
         icon: Calculator,
-        active: route().current('fees.*'),
-        permission: 'create fees'
+        active: route().current('fees.*')
       },
       {
         name: 'Classes',
         href: route('classes.index'),
         icon: BookOpen,
-        active: route().current('classes.*'),
-        permission: 'create classes'
+        active: route().current('classes.*')
       },
       {
         name: 'Subjects',
         href: route('subjects.index'),
         icon: Edit3,
-        active: route().current('subjects.*'),
-        permission: 'create subjects'
+        active: route().current('subjects.*')
       },
       {
         name: 'Class Routine',
         href: route('timetable.index'),
         icon: Calendar,
-        active: route().current('timetable.*'),
-        permission: 'create class routine'
+        active: route().current('timetable.*')
       },
       {
         name: 'Attendance',
         href: route('attendance.index'),
         icon: ClipboardList,
-        active: route().current('attendance.*'),
-        permission: 'create attendance'
+        active: route().current('attendance.*')
       },
       {
         name: 'Exams',
         href: route('exams.index'),
         icon: FileText,
-        active: route().current('exams.*'),
-        permission: 'create exams'
+        active: route().current('exams.*')
       },
       {
         name: 'Transport',
         href: route('transport.index'),
         icon: Bus,
-        active: route().current('transport.*'),
-        permission: 'create transport'
+        active: route().current('transport.*')
       },
       {
         name: 'Notice',
         href: route('notice.index'),
         icon: Bell,
-        active: route().current('notice.*'),
-        permission: 'create notices'
+        active: route().current('notice.*')
       },
       {
         name: 'Map',
         href: route('map.index'),
         icon: Map,
-        active: route().current('map.*'),
-        permission: 'create map'
+        active: route().current('map.*')
       },
       {
         name: 'Report Cards',
         href: route('report-cards.index'),
         icon: FileText,
-        active: route().current('report-cards.*'),
-        permission: 'create report cards'
+        active: route().current('report-cards.*')
       }
     );
   }

@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -62,14 +62,10 @@ const deleteTeacher = () => {
     router.delete(route('teachers.destroy', props.teacher.id));
 };
 
-const getInitials = (name) => {
-    return name
-        .split(' ')
-        .map(word => word[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2);
-};
+const capitalize = computed(() => (str) => {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+});
 
 const formatDate = (date) => {
     if (!date) return 'Not specified';
@@ -78,6 +74,16 @@ const formatDate = (date) => {
         month: 'long', 
         day: 'numeric' 
     });
+};
+
+const getInitials = (name) => {
+    if (!name || typeof name !== 'string') return 'PA';
+    return name
+        .split(' ')
+        .map(word => word[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2);
 };
 </script>
 
@@ -355,7 +361,7 @@ const formatDate = (date) => {
                                         Relationship
                                     </div>
                                     <div class="col-span-2 text-sm text-gray-900 dark:text-white">
-                                        {{ teacher.emergency_contact_relationship || 'Not specified' }}
+                                        {{ capitalize(teacher.emergency_contact_relationship) || 'Not specified' }}
                                     </div>
                                 </div>
 

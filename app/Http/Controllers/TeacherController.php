@@ -80,7 +80,7 @@ class TeacherController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole('teacher');
+        $user->assignRole($request->role);
 
         // Handle photo upload
         $photoPath = null;
@@ -121,10 +121,22 @@ class TeacherController extends Controller
 
     public function update(UpdateTeacherRequest $request, Teacher $teacher)
     {
+        // Debug: Log all request data
+        \Log::info('Update request data:', [
+            'all' => $request->all(),
+            'hasFile' => $request->hasFile('photo'),
+            'files' => $request->allFiles(),
+        ]);
+
         $teacher->user->update([
             'name' => $request->name,
             'email' => $request->email,
         ]);
+
+        // Update role if changed
+        if ($request->role) {
+            $teacher->user->syncRoles([$request->role]);
+        }
 
         if ($request->password) {
             $teacher->user->update(['password' => Hash::make($request->password)]);

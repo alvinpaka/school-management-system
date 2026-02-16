@@ -39,6 +39,7 @@ const form = useForm({
     employee_id: props.teacher.employee_id,
     phone: props.teacher.phone,
     employment_type: props.teacher.employment_type || 'Full-time',
+    role: props.teacher.user.roles?.[0]?.name || 'teacher', // Add role field
     status: props.teacher.status || 'Active',
     specialization: props.teacher.specialization,
     qualification: props.teacher.qualification,
@@ -55,7 +56,63 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.put(route('teachers.update', props.teacher.id));
+    console.log('Form data before submit:', form.data());
+    console.log('Photo present:', !!form.photo);
+    console.log('Photo file:', form.photo);
+    console.log('Employment type:', form.employment_type);
+    console.log('Role:', form.role);
+    console.log('Status:', form.status);
+
+    if (form.photo) {
+        // Create FormData manually for proper file handling
+        const formData = new FormData();
+
+        // Add all form fields to FormData
+        const formDataObj = form.data();
+        Object.keys(formDataObj).forEach(key => {
+            if (key === 'photo' && form.photo) {
+                formData.append(key, form.photo, form.photo.name);
+            } else {
+                formData.append(key, formDataObj[key] || '');
+            }
+        });
+
+        console.log('FormData entries:');
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+        }
+
+        // Use axios directly for FormData submission
+        import('axios').then(({ default: axios }) => {
+            axios.post(route('teachers.update', props.teacher.id), formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-HTTP-Method-Override': 'PUT'
+                }
+            })
+            .then(response => {
+                console.log('Photo upload successful:', response.data);
+                // Redirect to show page
+                window.location.href = route('teachers.show', props.teacher.id);
+            })
+            .catch(error => {
+                console.log('Photo upload errors:', error.response?.data?.errors || error.message);
+                if (error.response?.data?.errors) {
+                    form.setError(error.response.data.errors);
+                }
+            });
+        });
+    } else {
+        // No photo - use normal Inertia submission
+        form.put(route('teachers.update', props.teacher.id), {
+            onSuccess: () => {
+                console.log('Form submitted successfully without photo');
+            },
+            onError: (errors) => {
+                console.log('Form submission errors without photo:', errors);
+            }
+        });
+    }
 };
 
 // Handle photo upload and preview
@@ -329,6 +386,27 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
+                                <Label for="role" class="flex items-center gap-2">
+                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                    Staff Role
+                                </Label>
+                                <select
+                                    id="role"
+                                    v-model="form.role"
+                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    <option value="teacher">Teacher</option>
+                                    <option value="librarian">Librarian</option>
+                                    <option value="accountant">Accountant</option>
+                                    <option value="receptionist">Receptionist</option>
+                                </select>
+                                <div v-if="form.errors.role" class="flex items-center gap-2 text-red-600 text-sm">
+                                    <AlertCircle class="w-4 h-4" />
+                                    {{ form.errors.role }}
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
                                 <Label for="status" class="flex items-center gap-2">
                                     <UserCircle class="w-4 h-4 text-gray-500" />
                                     Status
@@ -564,6 +642,106 @@ const getCurrentPhoto = () => {
                                 <div v-if="form.errors.joining_date" class="flex items-center gap-2 text-red-600 text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.joining_date }}
+                                </div>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <!-- Emergency Contact -->
+                <Card>
+                    <CardHeader>
+                        <CardTitle class="flex items-center gap-2">
+                            <UserCircle class="w-5 h-5" />
+                            Emergency Contact
+                        </CardTitle>
+                        <CardDescription>
+                            Emergency contact information
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <Label for="emergency_contact_name" class="flex items-center gap-2">
+                                    <User class="w-4 h-4 text-gray-500" />
+                                    Contact Name
+                                </Label>
+                                <Input
+                                    id="emergency_contact_name"
+                                    v-model="form.emergency_contact_name"
+                                    type="text"
+                                    placeholder="Enter contact name"
+                                />
+                                <div v-if="form.errors.emergency_contact_name" class="flex items-center gap-2 text-red-600 text-sm">
+                                    <AlertCircle class="w-4 h-4" />
+                                    {{ form.errors.emergency_contact_name }}
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <Label for="emergency_contact_phone" class="flex items-center gap-2">
+                                    <Phone class="w-4 h-4 text-gray-500" />
+                                    Phone Number
+                                </Label>
+                                <Input
+                                    id="emergency_contact_phone"
+                                    v-model="form.emergency_contact_phone"
+                                    type="tel"
+                                    placeholder="Enter contact phone"
+                                />
+                                <div v-if="form.errors.emergency_contact_phone" class="flex items-center gap-2 text-red-600 text-sm">
+                                    <AlertCircle class="w-4 h-4" />
+                                    {{ form.errors.emergency_contact_phone }}
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <Label for="emergency_contact_relationship" class="flex items-center gap-2">
+                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                    Relationship
+                                </Label>
+                                <select
+                                    id="emergency_contact_relationship"
+                                    v-model="form.emergency_contact_relationship"
+                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    <option value="">Select relationship</option>
+                                    <option value="spouse">Spouse</option>
+                                    <option value="parent">Parent</option>
+                                    <option value="sibling">Sibling</option>
+                                    <option value="relative">Relative</option>
+                                    <option value="friend">Friend</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div v-if="form.errors.emergency_contact_relationship" class="flex items-center gap-2 text-red-600 text-sm">
+                                    <AlertCircle class="w-4 h-4" />
+                                    {{ form.errors.emergency_contact_relationship }}
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <Label for="blood_group" class="flex items-center gap-2">
+                                    <Award class="w-4 h-4 text-gray-500" />
+                                    Blood Group
+                                </Label>
+                                <select
+                                    id="blood_group"
+                                    v-model="form.blood_group"
+                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    <option value="">Select blood group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                                <div v-if="form.errors.blood_group" class="flex items-center gap-2 text-red-600 text-sm">
+                                    <AlertCircle class="w-4 h-4" />
+                                    {{ form.errors.blood_group }}
                                 </div>
                             </div>
                         </div>

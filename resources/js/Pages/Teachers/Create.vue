@@ -37,6 +37,7 @@ const form = useForm({
     employee_id: '',
     phone: '',
     employment_type: 'Full-time',
+    role: 'teacher', // New field for role selection
     status: 'Active',
     specialization: '',
     qualification: '',
@@ -63,7 +64,9 @@ const generateEmployeeID = () => {
 form.employee_id = generateEmployeeID();
 
 const submit = () => {
-    form.post(route('teachers.store'));
+    form.post(route('teachers.store'), {
+        forceFormData: true
+    });
 };
 
 // Handle photo upload and preview
@@ -105,7 +108,7 @@ const regenerateEmployeeID = () => {
 </script>
 
 <template>
-    <Head title="Add Teacher" />
+    <Head title="Add Staff Member" />
 
     <Sidebar>
         <template #header-title>
@@ -117,7 +120,7 @@ const regenerateEmployeeID = () => {
                     </Button>
                 </Link>
                 <Separator orientation="vertical" class="h-6" />
-                <span class="font-semibold">Add New Teacher</span>
+                <span class="font-semibold">Add New Staff Member</span>
             </div>
         </template>
 
@@ -132,7 +135,7 @@ const regenerateEmployeeID = () => {
                                 <AvatarImage 
                                     v-if="photoPreview"
                                     :src="photoPreview" 
-                                    alt="Teacher preview"
+                                    alt="Staff member preview"
                                 />
                                 <AvatarFallback class="text-2xl md:text-3xl font-bold bg-emerald-500 text-white">
                                     {{ getInitials(form.name) }}
@@ -141,7 +144,7 @@ const regenerateEmployeeID = () => {
                             
                             <div class="text-center md:text-left space-y-2 mb-2">
                                 <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-                                    {{ form.name || 'New Teacher' }}
+                                    {{ form.name || 'New Staff Member' }}
                                 </h1>
                                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
                                     <Badge variant="outline" class="gap-1.5">
@@ -168,7 +171,7 @@ const regenerateEmployeeID = () => {
                             Profile Photo
                         </CardTitle>
                         <CardDescription>
-                            Upload a profile photo for the teacher (JPG, PNG - Max 2MB)
+                            Upload a profile photo for staff member (JPG, PNG - Max 2MB)
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -180,7 +183,7 @@ const regenerateEmployeeID = () => {
                                         <AvatarImage 
                                             v-if="photoPreview"
                                             :src="photoPreview" 
-                                            alt="Teacher preview"
+                                            alt="Staff member preview"
                                         />
                                         <AvatarFallback class="text-4xl font-bold bg-emerald-500 text-white">
                                             {{ getInitials(form.name) }}
@@ -250,7 +253,7 @@ const regenerateEmployeeID = () => {
                             Personal Information
                         </CardTitle>
                         <CardDescription>
-                            Enter the teacher's basic personal details
+                            Enter staff member's basic personal details
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -283,7 +286,7 @@ const regenerateEmployeeID = () => {
                                     id="email"
                                     v-model="form.email"
                                     type="email"
-                                    placeholder="teacher@example.com"
+                                    placeholder="staff@example.com"
                                     required
                                     autocomplete="username"
                                 />
@@ -329,6 +332,28 @@ const regenerateEmployeeID = () => {
                                 <div v-if="form.errors.employment_type" class="flex items-center gap-2 text-red-600 text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.employment_type }}
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <Label for="role" class="flex items-center gap-2">
+                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                    Staff Role
+                                </Label>
+                                <select
+                                    id="role"
+                                    v-model="form.role"
+                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    <option value="">Select Staff Role</option>
+                                    <option value="teacher">Teacher</option>
+                                    <option value="librarian">Librarian</option>
+                                    <option value="accountant">Accountant</option>
+                                    <option value="receptionist">Receptionist</option>
+                                </select>
+                                <div v-if="form.errors.role" class="flex items-center gap-2 text-red-600 text-sm">
+                                    <AlertCircle class="w-4 h-4" />
+                                    {{ form.errors.role }}
                                 </div>
                             </div>
 
@@ -418,7 +443,7 @@ const regenerateEmployeeID = () => {
                             Professional Information
                         </CardTitle>
                         <CardDescription>
-                            Set up the teacher's professional details and qualifications
+                            Set up staff member's professional details and qualifications
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -582,7 +607,7 @@ const regenerateEmployeeID = () => {
                             Emergency Contact
                         </CardTitle>
                         <CardDescription>
-                            Emergency contact information for the teacher
+                            Emergency contact information for staff member
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -682,7 +707,7 @@ const regenerateEmployeeID = () => {
                             Security Settings
                         </CardTitle>
                         <CardDescription>
-                            Set up login credentials for the teacher
+                            Set up login credentials for staff member
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -695,7 +720,7 @@ const regenerateEmployeeID = () => {
                                             Password Setup
                                         </h4>
                                         <p class="text-sm text-emerald-700 dark:text-emerald-300">
-                                            Create a secure password for the teacher account. The teacher will use this password along with their email to log in.
+                                            Create a secure password for staff member account. The staff member will use this password along with their email to log in.
                                         </p>
                                     </div>
                                 </div>
@@ -742,7 +767,7 @@ const regenerateEmployeeID = () => {
                                 </Link>
                                 <Button type="submit" :disabled="form.processing" size="lg" class="gap-2">
                                     <Save class="w-4 h-4" />
-                                    {{ form.processing ? 'Creating...' : 'Create Teacher' }}
+                                    {{ form.processing ? 'Creating...' : 'Create Staff Member' }}
                                 </Button>
                             </div>
                         </div>

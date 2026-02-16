@@ -24,6 +24,7 @@ class UpdateTeacherRequest extends FormRequest
             'employee_id' => 'required|string|unique:teachers,employee_id,' . $teacher->id,
             'phone' => 'nullable|string|max:20',
             'employment_type' => 'required|in:Full-time,Part-time,Contract,Temporary,Intern',
+            'role' => 'required|in:teacher,librarian,accountant,receptionist',
             'status' => 'required|in:Active,Inactive,Suspended,On Leave',
             'specialization' => 'nullable|string|max:255',
             'qualification' => 'nullable|string|max:255',

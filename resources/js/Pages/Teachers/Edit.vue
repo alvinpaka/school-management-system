@@ -56,13 +56,6 @@ const form = useForm({
 });
 
 const submit = () => {
-    console.log('Form data before submit:', form.data());
-    console.log('Photo present:', !!form.photo);
-    console.log('Photo file:', form.photo);
-    console.log('Employment type:', form.employment_type);
-    console.log('Role:', form.role);
-    console.log('Status:', form.status);
-
     if (form.photo) {
         // Create FormData manually for proper file handling
         const formData = new FormData();
@@ -77,11 +70,6 @@ const submit = () => {
             }
         });
 
-        console.log('FormData entries:');
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
-        }
-
         // Use axios directly for FormData submission
         import('axios').then(({ default: axios }) => {
             axios.post(route('teachers.update', props.teacher.id), formData, {
@@ -91,12 +79,10 @@ const submit = () => {
                 }
             })
             .then(response => {
-                console.log('Photo upload successful:', response.data);
                 // Redirect to show page
                 window.location.href = route('teachers.show', props.teacher.id);
             })
             .catch(error => {
-                console.log('Photo upload errors:', error.response?.data?.errors || error.message);
                 if (error.response?.data?.errors) {
                     form.setError(error.response.data.errors);
                 }
@@ -104,14 +90,7 @@ const submit = () => {
         });
     } else {
         // No photo - use normal Inertia submission
-        form.put(route('teachers.update', props.teacher.id), {
-            onSuccess: () => {
-                console.log('Form submitted successfully without photo');
-            },
-            onError: (errors) => {
-                console.log('Form submission errors without photo:', errors);
-            }
-        });
+        form.put(route('teachers.update', props.teacher.id));
     }
 };
 

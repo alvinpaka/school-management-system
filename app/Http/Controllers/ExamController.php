@@ -6,15 +6,34 @@ use App\Http\Requests\StoreExamRequest;
 use App\Http\Requests\UpdateExamRequest;
 use App\Models\Exam;
 use App\Models\Subject;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ExamController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $exams = Exam::with('subject')->get();
+        $search = $request->input('search');
+        
+        $query = Exam::with('subject');
+        
+        // Search functionality
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('status', 'like', "%{$search}%")
+                  ->orWhere('exam_date', 'like', "%{$search}%")
+                  ->orWhere('duration', 'like', "%{$search}%")
+                  ->orWhereHas('subject', function($subQuery) use ($search) {
+                      $subQuery->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+        
+        $exams = $query->paginate(10);
         return Inertia::render('Exams/Index', [
-            'exams' => $exams
+            'exams' => $exams,
+            'filters' => ['search' => $search]
         ]);
     }
 

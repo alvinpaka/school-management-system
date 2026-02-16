@@ -22,7 +22,20 @@ class StoreTeacherRequest extends FormRequest
             'password' => 'required|string|min:8',
             'employee_id' => 'required|string|unique:teachers,employee_id',
             'phone' => 'nullable|string|max:20',
+            'employment_type' => 'required|in:Full-time,Part-time,Contract,Temporary,Intern',
+            'status' => 'required|in:Active,Inactive,Suspended,On Leave',
             'specialization' => 'nullable|string|max:255',
+            'qualification' => 'nullable|string|max:255',
+            'experience' => 'nullable|string|max:100',
+            'date_of_birth' => 'nullable|date',
+            'gender' => 'nullable|in:male,female,other',
+            'address' => 'nullable|string|max:500',
+            'joining_date' => 'nullable|date',
+            'emergency_contact_name' => 'nullable|string|max:255',
+            'emergency_contact_phone' => 'nullable|string|max:20',
+            'emergency_contact_relationship' => 'nullable|in:spouse,parent,sibling,relative,friend,other',
+            'blood_group' => 'nullable|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

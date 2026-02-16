@@ -4,7 +4,7 @@ import Sidebar from '@/Components/Sidebar.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
-    Award,
+    Trophy,
     TrendingUp,
     Users,
     BookOpen,
@@ -23,7 +23,10 @@ defineProps({
 
     <Sidebar>
         <template #header-title>
-            Grades Management
+            <div class="flex items-center space-x-3">
+                <Trophy class="w-5 h-5" />
+                <span>Grades</span>
+            </div>
         </template>
 
         <div class="mx-auto max-w-7xl">
@@ -43,7 +46,7 @@ defineProps({
                     <CardContent class="p-6">
                         <div class="flex items-center">
                             <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mr-4">
-                                <Award class="w-6 h-6 text-white" />
+                                <Trophy class="w-6 h-6 text-white" />
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Average Grade</p>
@@ -104,7 +107,7 @@ defineProps({
                 </CardHeader>
                 <CardContent>
                     <div class="text-center py-12">
-                        <Award class="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                        <Trophy class="w-16 h-16 text-gray-400 mx-auto mb-4" />
                         <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Grades Module</h3>
                         <p class="text-gray-500 dark:text-gray-400 mb-4">Comprehensive grade management system</p>
                         <div class="space-y-2 text-left max-w-md mx-auto">

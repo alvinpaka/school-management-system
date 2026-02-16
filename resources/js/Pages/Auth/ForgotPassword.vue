@@ -27,11 +27,18 @@ const submit = () => {
 
     <div class="min-h-screen flex bg-gray-50 dark:bg-gray-900">
         <!-- Left Side - Branding & Info (hidden on mobile) -->
-        <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-700 via-purple-700 to-pink-700 p-16 flex-col justify-between text-white">
-            <div>
+        <div class="hidden lg:flex lg:w-1/2 bg-indigo-700 p-16 flex-col justify-between text-white relative overflow-hidden">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full"></div>
+                <div class="absolute bottom-20 right-20 w-48 h-48 bg-white rounded-full"></div>
+                <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-white rounded-full"></div>
+            </div>
+            
+            <div class="relative z-10">
                 <!-- Logo -->
-                <Link href="/" class="flex items-center space-x-4 mb-16">
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center shadow-2xl">
+                <Link href="/" class="flex items-center space-x-4 mb-16 group">
+                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:bg-white/30">
                         <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
@@ -52,8 +59,8 @@ const submit = () => {
                     </div>
 
                     <div class="space-y-10">
-                        <div class="flex items-start space-x-5">
-                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <div class="flex items-start space-x-5 group">
+                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 transform transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                                 </svg>
@@ -64,8 +71,8 @@ const submit = () => {
                             </div>
                         </div>
 
-                        <div class="flex items-start space-x-5">
-                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <div class="flex items-start space-x-5 group">
+                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 transform transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
@@ -76,8 +83,8 @@ const submit = () => {
                             </div>
                         </div>
 
-                        <div class="flex items-start space-x-5">
-                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <div class="flex items-start space-x-5 group">
+                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 transform transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
@@ -92,16 +99,16 @@ const submit = () => {
             </div>
 
             <!-- Stats -->
-            <div class="grid grid-cols-3 gap-6">
-                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm">
+            <div class="grid grid-cols-3 gap-6 relative z-10">
+                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/20">
                     <div class="text-4xl font-bold">1000+</div>
                     <div class="text-white/80 text-sm mt-1">Schools</div>
                 </div>
-                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm">
+                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/20">
                     <div class="text-4xl font-bold">500k+</div>
                     <div class="text-white/80 text-sm mt-1">Students</div>
                 </div>
-                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm">
+                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/20">
                     <div class="text-4xl font-bold">99%</div>
                     <div class="text-white/80 text-sm mt-1">Satisfaction</div>
                 </div>
@@ -118,13 +125,13 @@ const submit = () => {
             <div class="w-full max-w-md">
                 <!-- Mobile Logo -->
                 <div class="lg:hidden mb-12 text-center">
-                    <Link href="/" class="inline-flex items-center space-x-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-blue-700 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
+                    <Link href="/" class="inline-flex items-center space-x-4 group">
+                        <div class="w-14 h-14 bg-indigo-700 rounded-xl flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:bg-indigo-800">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
-                        <span class="text-3xl font-bold bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent">
+                        <span class="text-3xl font-bold text-indigo-700">
                             EduManage Pro
                         </span>
                     </Link>
@@ -182,7 +189,7 @@ const submit = () => {
                             <!-- Submit Button -->
                             <Button
                                 type="submit"
-                                class="w-full h-12 text-white font-semibold bg-gradient-to-r from-blue-700 to-purple-700 hover:from-blue-800 hover:to-purple-800 shadow-lg transition-all duration-200"
+                                class="w-full h-12 text-white font-semibold bg-indigo-700 hover:bg-indigo-800 shadow-lg transition-all duration-200 hover:shadow-xl transform hover:scale-105"
                                 :disabled="form.processing"
                             >
                                 <svg v-if="form.processing" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
@@ -223,9 +230,65 @@ const submit = () => {
 </template>
 
 <style scoped>
-.bg-clip-text {
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* Custom animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+}
+
+/* Floating background elements */
+.absolute .bg-white {
+    animation: float 6s ease-in-out infinite;
+}
+
+.absolute .bg-white:nth-child(2) {
+    animation-delay: 2s;
+}
+
+.absolute .bg-white:nth-child(3) {
+    animation-delay: 4s;
+}
+
+/* Enhanced transitions */
+* {
+    transition-property: color, background-color, border-color, transform, box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+/* Card hover effects */
+.transform:hover {
+    transform: translateY(-2px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 </style>

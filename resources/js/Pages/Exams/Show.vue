@@ -15,7 +15,7 @@ import {
     ArrowLeft,
     Calendar,
     Clock,
-    Award,
+    Trophy,
     BookOpen,
     User,
     Edit
@@ -74,7 +74,7 @@ const props = defineProps({
                                 </p>
                                 
                                 <div class="flex items-center space-x-2">
-                                    <Award class="w-4 h-4 text-gray-500" />
+                                    <Trophy class="w-4 h-4 text-gray-500" />
                                     <span class="text-sm font-medium">Maximum Marks:</span>
                                 </div>
                                 <p class="ml-6 text-sm text-gray-600 dark:text-gray-400">{{ exam.max_marks }}</p>
@@ -140,7 +140,7 @@ const props = defineProps({
                                 </DropdownMenuItem>
                                 <DropdownMenuItem as-child>
                                     <Link :href="route('exams.grades.enter', exam.id)" class="flex items-center">
-                                        <Award class="w-4 h-4 mr-2" />
+                                        <Trophy class="w-4 h-4 mr-2" />
                                         Enter Grades
                                     </Link>
                                 </DropdownMenuItem>

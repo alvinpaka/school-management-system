@@ -11,7 +11,19 @@ class Teacher extends Model
         'user_id',
         'employee_id',
         'phone',
-        'specialization'
+        'employment_type',
+        'status',
+        'specialization',
+        'qualification',
+        'experience',
+        'date_of_birth',
+        'gender',
+        'address',
+        'joining_date',
+        'emergency_contact_name',
+        'emergency_contact_phone',
+        'emergency_contact_relationship',
+        'blood_group',
     ];
 
     public function user()

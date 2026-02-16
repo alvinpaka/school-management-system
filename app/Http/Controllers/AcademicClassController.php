@@ -11,11 +11,34 @@ use Inertia\Inertia;
 
 class AcademicClassController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $classes = AcademicClass::with('sections')->get();
+        $search = $request->input('search');
+        
+        $query = AcademicClass::with('sections');
+        
+        // Search functionality
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%")
+                  ->orWhereHas('sections', function($subQuery) use ($search) {
+                      $subQuery->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+        
+        // Filter for parents - only show classes of their children
+        if (auth()->user()->hasRole('parent')) {
+            $parentStudents = view()->shared('parentStudents', collect());
+            $classIds = $parentStudents->pluck('academic_class_id')->unique()->toArray();
+            $query->whereIn('id', $classIds);
+        }
+        
+        $classes = $query->paginate(10);
         return Inertia::render('AcademicClasses/Index', [
-            'classes' => $classes
+            'classes' => $classes,
+            'filters' => ['search' => $search]
         ]);
     }
 
@@ -35,6 +58,12 @@ class AcademicClassController extends Controller
         elseif ($user->hasRole('teacher')) {
             // TODO: Get classes assigned to this teacher
             $classes = AcademicClass::with('sections')->get();
+        }
+        // If user is parent, show their children's classes
+        elseif ($user->hasRole('parent')) {
+            $parentStudents = view()->shared('parentStudents', collect());
+            $classIds = $parentStudents->pluck('academic_class_id')->unique()->toArray();
+            $classes = AcademicClass::with('sections')->whereIn('id', $classIds)->get();
         }
         
         return Inertia::render('AcademicClasses/Index', [

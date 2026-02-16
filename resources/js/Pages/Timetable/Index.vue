@@ -8,7 +8,8 @@ import {
     Clock,
     BookOpen,
     Users,
-    MapPin
+    MapPin,
+    CheckCircle
 } from 'lucide-vue-next';
 
 defineProps({
@@ -22,7 +23,10 @@ defineProps({
 
     <Sidebar>
         <template #header-title>
-            Timetable Management
+            <div class="flex items-center space-x-3">
+                <Calendar class="w-5 h-5" />
+                <span>Class Routine</span>
+            </div>
         </template>
 
         <div class="mx-auto max-w-7xl">

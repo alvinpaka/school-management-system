@@ -4,6 +4,7 @@ import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Pagination from '@/components/ui/pagination.vue';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -25,10 +26,14 @@ import {
     AlertCircle,
     User
 } from 'lucide-vue-next';
+import { ref, watch } from 'vue';
 
-const props = defineProps({
-    fees: Object
+const { fees, filters } = defineProps({
+    fees: Object,
+    filters: Object
 });
+
+const searchQuery = ref(filters?.search || '');
 
 const deleteFee = (id) => {
     if (confirm('Are you sure you want to delete this fee record?')) {
@@ -44,6 +49,22 @@ const getStatusClass = (status) => {
         default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
     }
 };
+
+const handlePageChange = (page) => {
+    const params = { page };
+    if (searchQuery.value) {
+        params.search = searchQuery.value;
+    }
+    router.get(route('fees.index'), params, { preserveState: true });
+};
+
+// Watch for search query changes
+watch(searchQuery, (newValue) => {
+    router.get(route('fees.index'), { 
+        search: newValue, 
+        page: 1 
+    }, { preserveState: true });
+}, { debounce: 300 });
 </script>
 
 <template>
@@ -51,7 +72,10 @@ const getStatusClass = (status) => {
 
     <Sidebar>
         <template #header-title>
-            Fees Management
+            <div class="flex items-center space-x-3">
+                <DollarSign class="w-5 h-5" />
+                <span>Fees</span>
+            </div>
         </template>
 
         <div class="mx-auto max-w-7xl">
@@ -83,13 +107,14 @@ const getStatusClass = (status) => {
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
                             <CardTitle>All Fees</CardTitle>
-                            <CardDescription>{{ fees.data?.length || 0 }} fee records</CardDescription>
+                            <CardDescription>{{ fees.total }} fee records</CardDescription>
                         </div>
                         <div class="flex items-center space-x-2">
                             <div class="relative">
                                 <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                 <input
                                     type="text"
+                                    v-model="searchQuery"
                                     placeholder="Search fees..."
                                     class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 />
@@ -128,7 +153,7 @@ const getStatusClass = (status) => {
                                     </td>
                                     <td class="py-3 px-4">
                                         <Badge variant="secondary">
-                                            {{ fee.type }}
+                                            {{ fee.fee_type || fee.type || 'Not specified' }}
                                         </Badge>
                                     </td>
                                     <td class="py-3 px-4">
@@ -183,6 +208,12 @@ const getStatusClass = (status) => {
                             </tbody>
                         </table>
                     </div>
+                    
+                    <!-- Pagination -->
+                    <Pagination 
+                        :data="fees" 
+                        @page-change="handlePageChange"
+                    />
                 </CardContent>
             </Card>
         </div>

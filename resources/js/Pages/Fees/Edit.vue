@@ -1,6 +1,6 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm, Link } from '@inertiajs/vue3';
+import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -26,21 +26,37 @@ const submit = () => {
 <template>
     <Head title="Update Fee Status" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Update Fee Record: {{ fee.student.user.name }} ({{ fee.fee_type }})
-            </h2>
+    <Sidebar>
+        <template #header-title>
+            Update Fee Record
         </template>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="bg-white border border-gray-200 p-6 dark:bg-gray-800 dark:border-gray-700">
-                    <form @submit.prevent="submit" class="max-w-xl">
-                        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                            <strong>Fee Details:</strong> {{ fee.fee_type }} - <span class="font-medium">UGX</span> {{ Number(fee.amount).toLocaleString() }}
-                        </div>
+        <div class="mx-auto max-w-7xl">
+            <!-- Page Header -->
+            <div class="mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Update Fee Record</h2>
+                        <p class="text-gray-600 dark:text-gray-400">{{ fee.student?.user?.name }} ({{ fee.fee_type }})</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <Link :href="route('fees.index')">
+                            <Button variant="outline">
+                                Back to Fees
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Edit Form Card -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Fee Details</CardTitle>
+                    <CardDescription>{{ fee.fee_type }} - <span class="font-medium">UGX</span> {{ Number(fee.amount).toLocaleString() }}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form @submit.prevent="submit" class="max-w-xl">
                         <div class="space-y-4">
                             <div class="space-y-2">
                                 <Label for="status">Status</Label>
@@ -87,15 +103,17 @@ const submit = () => {
                             </div>
                         </div>
 
-                        <div class="mt-6 flex items-center justify-end">
-                            <Link :href="route('fees.index')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 mr-4">Cancel</Link>
+                        <div class="mt-6 flex items-center justify-end space-x-3">
+                            <Link :href="route('fees.index')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900">
+                                Cancel
+                            </Link>
                             <Button type="submit" :disabled="form.processing">
                                 Update Status
                             </Button>
                         </div>
                     </form>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
-    </AuthenticatedLayout>
+    </Sidebar>
 </template>

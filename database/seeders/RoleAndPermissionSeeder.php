@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class RoleAndPermissionSeeder extends Seeder
 {
@@ -13,109 +15,198 @@ class RoleAndPermissionSeeder extends Seeder
     public function run(): void
     {
         // Reset cached roles and permissions
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Create Permissions
+        // ─── Create Permissions ───────────────────────────────────────
         $permissions = [
-            'manage users',
+            // Dashboard
+            'view dashboard',
+
+            // Students
             'manage students',
             'view students',
+            'create students',
+
+            // Teachers
             'manage teachers',
             'view teachers',
+
+            // Parents
+            'manage parents',
+            'view parents',
+            'create parents',
+
+            // Library
+            'manage library',
+            'view library',
+
+            // Fees / Account
+            'manage fees',
+            'view fees',
+
+            // Classes
             'manage classes',
             'view classes',
+
+            // Subjects
             'manage subjects',
             'view subjects',
-            'view dashboard',
-            'view grades',
-            'edit grades',
+
+            // Class Routine / Timetable
+            'view class routine',
+
+            // Attendance
             'mark attendance',
             'view attendance',
-            'manage fees',
-            'view exams',
+
+            // Exams
             'manage exams',
+            'view exams',
+
+            // Grades
+            'edit grades',
+            'view grades',
+
+            // Transport
+            'manage transport',
+            'view transport',
+            'create transport',
+
+            // Notices
+            'manage notices',
+            'view notices',
+            'create notices',
+
+            // Map
+            'view map',
+
+            // Report Cards
+            'manage report cards',
+            'view report cards',
+            'create report cards',
+
+            // Users & System
+            'manage users',
+
+            // Visitors
+            'manage visitors',
         ];
 
         foreach ($permissions as $permission) {
-            \Spatie\Permission\Models\Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission]);
         }
 
-        // Create Roles and Assign Permissions
-        $adminRole = \Spatie\Permission\Models\Role::create(['name' => 'admin']);
-        $adminRole->givePermissionTo(\Spatie\Permission\Models\Permission::all());
+        // ─── ADMIN (Full System Control) ──────────────────────────────
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $adminRole->syncPermissions(Permission::all());
 
-        $teacherRole = \Spatie\Permission\Models\Role::create(['name' => 'teacher']);
-        $teacherRole->givePermissionTo([
+        // ─── TEACHER ─────────────────────────────────────────────────
+        $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
+        $teacherRole->syncPermissions([
             'view dashboard',
             'view students',
+            'view teachers',
+            'view library',
+            'view classes',
+            'view subjects',
+            'view class routine',
             'mark attendance',
             'view attendance',
-            'view subjects',
             'view exams',
             'edit grades',
+            'view grades',
+            'create notices',
+            'view notices',
+            'view map',
+            'view report cards',
+            'create report cards',
         ]);
 
-        $studentRole = \Spatie\Permission\Models\Role::create(['name' => 'student']);
-        $studentRole->givePermissionTo([
+        // ─── STUDENT ─────────────────────────────────────────────────
+        $studentRole = Role::firstOrCreate(['name' => 'student']);
+        $studentRole->syncPermissions([
             'view dashboard',
-            'view attendance',
+            'view students',     // own profile only (enforced in controller)
+            'view teachers',
+            'view library',
+            'view fees',         // own fees only
+            'view classes',
+            'view subjects',
+            'view class routine',
+            'view attendance',   // own attendance only
+            'view exams',        // own results only
+            'view grades',
+            'view transport',
+            'view notices',
+            'view map',
+            'view report cards', // own only
+        ]);
+
+        // ─── PARENT ──────────────────────────────────────────────────
+        $parentRole = Role::firstOrCreate(['name' => 'parent']);
+        $parentRole->syncPermissions([
+            'view dashboard',
+            'view students',     // linked child only
+            'view teachers',
+            'view parents',      // own profile
+            'view library',
+            'view fees',         // child fees
+            'view classes',
+            'view subjects',
+            'view class routine',
+            'view attendance',   // child attendance
             'view exams',
             'view grades',
+            'view transport',
+            'view notices',
+            'view map',
+            'view report cards',
         ]);
 
-        $parentRole = \Spatie\Permission\Models\Role::create(['name' => 'parent']);
-        $parentRole->givePermissionTo([
+        // ─── ACCOUNTANT ──────────────────────────────────────────────
+        $accountantRole = Role::firstOrCreate(['name' => 'accountant']);
+        $accountantRole->syncPermissions([
             'view dashboard',
-            'view attendance',
-            'view grades',
+            'view students',
+            'view teachers',
+            'view parents',
+            'manage fees',
+            'view fees',
+            'view classes',
+            'create transport',  // transport payments
+            'view transport',
+            'create notices',    // finance notices
+            'view notices',
+            'view report cards',
         ]);
 
-        // Create Academic Class and Section
-        $class10 = \App\Models\AcademicClass::create([
-            'name' => 'Grade 10',
-            'code' => 'G10',
+        // ─── LIBRARIAN ───────────────────────────────────────────────
+        $librarianRole = Role::firstOrCreate(['name' => 'librarian']);
+        $librarianRole->syncPermissions([
+            'view dashboard',
+            'view students',
+            'view teachers',
+            'manage library',
+            'view library',
+            'view notices',
         ]);
 
-        $sectionA = \App\Models\Section::create([
-            'academic_class_id' => $class10->id,
-            'name' => 'Section A',
-        ]);
-
-        // Create a root admin user
-        $adminUser = \App\Models\User::factory()->create([
-            'name' => 'School Admin',
-            'email' => 'admin@school.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
-        ]);
-        $adminUser->assignRole($adminRole);
-
-        // Create a demo teacher
-        $teacherUser = \App\Models\User::factory()->create([
-            'name' => 'Demo Teacher',
-            'email' => 'teacher@school.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
-        ]);
-        $teacherUser->assignRole($teacherRole);
-        \App\Models\Teacher::create([
-            'user_id' => $teacherUser->id,
-            'employee_id' => 'TCH001',
-            'phone' => '1234567890',
-            'specialization' => 'Mathematics',
-        ]);
-
-        // Create a demo student
-        $studentUser = \App\Models\User::factory()->create([
-            'name' => 'Demo Student',
-            'email' => 'student@school.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
-        ]);
-        $studentUser->assignRole($studentRole);
-        \App\Models\Student::create([
-            'user_id' => $studentUser->id,
-            'academic_class_id' => $class10->id,
-            'section_id' => $sectionA->id,
-            'admission_number' => 'STD2026001',
-            'date_of_birth' => '2010-05-15',
+        // ─── RECEPTIONIST ────────────────────────────────────────────
+        $receptionistRole = Role::firstOrCreate(['name' => 'receptionist']);
+        $receptionistRole->syncPermissions([
+            'view dashboard',
+            'view students',
+            'create students',   // register new students
+            'view teachers',
+            'view parents',
+            'create parents',    // register parents
+            'view classes',
+            'view class routine',
+            'create transport',  // transport assignments
+            'view transport',
+            'view notices',
+            'view map',
+            'manage visitors',
         ]);
     }
 }

@@ -93,6 +93,16 @@ const deleteFee = () => {
                             <div class="space-y-3">
                                 <div class="flex items-center space-x-2">
                                     <DollarSign class="w-4 h-4 text-gray-500" />
+                                    <span class="text-sm font-medium">Fee Type:</span>
+                                </div>
+                                <p class="ml-6">
+                                    <Badge variant="secondary">
+                                        {{ fee.fee_type || fee.type || 'Not specified' }}
+                                    </Badge>
+                                </p>
+                                
+                                <div class="flex items-center space-x-2">
+                                    <DollarSign class="w-4 h-4 text-gray-500" />
                                     <span class="text-sm font-medium">Amount:</span>
                                 </div>
                                 <p class="ml-6 text-sm text-gray-600 dark:text-gray-400">

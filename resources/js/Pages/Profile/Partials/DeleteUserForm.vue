@@ -72,6 +72,16 @@ const closeModal = () => {
                 </DialogHeader>
                 
                 <div class="space-y-4">
+                    <!-- Hidden username field for accessibility -->
+                    <input 
+                        type="text" 
+                        :value="$page.props.auth.user.email" 
+                        autocomplete="username" 
+                        style="display: none;"
+                        aria-hidden="true"
+                        tabindex="-1"
+                    />
+                    
                     <div class="space-y-2">
                         <Label for="password" class="sr-only">Password</Label>
                         <Input

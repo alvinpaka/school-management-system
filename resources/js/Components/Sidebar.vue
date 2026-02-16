@@ -11,7 +11,16 @@ import {
     DollarSign,
     UserCheck,
     ClipboardList,
-    Edit3
+    Edit3,
+    Search,
+    Users2,
+    Library,
+    Calculator,
+    Bus,
+    Bell,
+    Palette,
+    Map,
+    User as UserIcon
 } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,9 +36,19 @@ const isCollapsed = ref(false);
 const isHovering = ref(false);
 const hoveredItem = ref(null);
 
+// ─── Role checks ──────────────────────────────────────────────
 const isAdmin = computed(() => user.value?.roles?.includes('admin'));
 const isTeacher = computed(() => user.value?.roles?.includes('teacher'));
 const isStudent = computed(() => user.value?.roles?.includes('student'));
+const isParent = computed(() => user.value?.roles?.includes('parent'));
+const isAccountant = computed(() => user.value?.roles?.includes('accountant'));
+const isLibrarian = computed(() => user.value?.roles?.includes('librarian'));
+const isReceptionist = computed(() => user.value?.roles?.includes('receptionist'));
+
+// ─── Permission helper ────────────────────────────────────────
+const can = (permission) => {
+  return user.value?.permissions?.includes(permission);
+};
 
 const menuItems = computed(() => {
   const items = [
@@ -38,104 +57,581 @@ const menuItems = computed(() => {
       href: route('dashboard'),
       icon: Home,
       active: route().current('dashboard')
+    },
+    {
+      name: 'My Profile',
+      href: route('profile.edit'),
+      icon: UserIcon,
+      active: route().current('profile.*')
     }
   ];
 
+  // ── Admin: full access to everything ────────────────────────
   if (isAdmin.value) {
     items.push(
       {
         name: 'Students',
         href: route('students.index'),
         icon: Users,
-        active: route().current('students.*')
+        active: route().current('students.*'),
+        permission: 'create students'
       },
       {
         name: 'Teachers',
         href: route('teachers.index'),
         icon: UserCheck,
-        active: route().current('teachers.*')
+        active: route().current('teachers.*'),
+        permission: 'create teachers'
+      },
+      {
+        name: 'Parents',
+        href: route('parents.index'),
+        icon: Users2,
+        active: route().current('parents.*'),
+        permission: 'create parents'
+      },
+      {
+        name: 'Library',
+        href: route('library.index'),
+        icon: Library,
+        active: route().current('library.*'),
+        permission: 'create library'
+      },
+      {
+        name: 'Account',
+        href: route('fees.index'),
+        icon: Calculator,
+        active: route().current('fees.*'),
+        permission: 'create fees'
       },
       {
         name: 'Classes',
         href: route('classes.index'),
         icon: BookOpen,
-        active: route().current('classes.*')
+        active: route().current('classes.*'),
+        permission: 'create classes'
       },
       {
         name: 'Subjects',
         href: route('subjects.index'),
         icon: Edit3,
-        active: route().current('subjects.*')
+        active: route().current('subjects.*'),
+        permission: 'create subjects'
+      },
+      {
+        name: 'Class Routine',
+        href: route('timetable.index'),
+        icon: Calendar,
+        active: route().current('timetable.*'),
+        permission: 'create class routine'
       },
       {
         name: 'Attendance',
         href: route('attendance.index'),
         icon: ClipboardList,
-        active: route().current('attendance.*')
+        active: route().current('attendance.*'),
+        permission: 'create attendance'
       },
       {
         name: 'Exams',
         href: route('exams.index'),
         icon: FileText,
-        active: route().current('exams.*')
+        active: route().current('exams.*'),
+        permission: 'create exams'
       },
       {
-        name: 'Fees',
+        name: 'Transport',
+        href: route('transport.index'),
+        icon: Bus,
+        active: route().current('transport.*'),
+        permission: 'create transport'
+      },
+      {
+        name: 'Notice',
+        href: route('notice.index'),
+        icon: Bell,
+        active: route().current('notice.*'),
+        permission: 'create notices'
+      },
+      {
+        name: 'Map',
+        href: route('map.index'),
+        icon: Map,
+        active: route().current('map.*'),
+        permission: 'create map'
+      },
+      {
+        name: 'Report Cards',
+        href: route('report-cards.index'),
+        icon: FileText,
+        active: route().current('report-cards.*'),
+        permission: 'create report cards'
+      }
+    );
+  }
+  // ── Receptionist: front desk management ─────────────────────
+  else if (isReceptionist.value) {
+    items.push(
+      {
+        name: 'Students',
+        href: route('students.create'),
+        icon: Users,
+        active: route().current('students.*'),
+        permission: 'create students'
+      },
+      {
+        name: 'Teachers',
+        href: route('teachers.index'),
+        icon: UserCheck,
+        active: route().current('teachers.*'),
+        permission: 'view teachers'
+      },
+      {
+        name: 'Parents',
+        href: route('parents.create'),
+        icon: Users2,
+        active: route().current('parents.*'),
+        permission: 'create parents'
+      },
+      {
+        name: 'Classes',
+        href: route('classes.index'),
+        icon: BookOpen,
+        active: route().current('classes.*'),
+        permission: 'view classes'
+      },
+      {
+        name: 'Class Routine',
+        href: route('timetable.index'),
+        icon: Calendar,
+        active: route().current('timetable.*'),
+        permission: 'view class routine'
+      },
+      {
+        name: 'Transport',
+        href: route('transport.index'),
+        icon: Bus,
+        active: route().current('transport.*'),
+        permission: 'view transport'
+      },
+      {
+        name: 'Notice',
+        href: route('notice.index'),
+        icon: Bell,
+        active: route().current('notice.*'),
+        permission: 'view notices'
+      },
+      {
+        name: 'Map',
+        href: route('map.index'),
+        icon: Map,
+        active: route().current('map.*'),
+        permission: 'view map'
+      }
+    );
+  }
+  // ── Librarian: library-only ─────────────────────────────────
+  else if (isLibrarian.value) {
+    items.push(
+      {
+        name: 'Students',
+        href: route('students.index'),
+        icon: Users,
+        active: route().current('students.*'),
+        permission: 'view students'
+      },
+      {
+        name: 'Teachers',
+        href: route('teachers.index'),
+        icon: UserCheck,
+        active: route().current('teachers.*'),
+        permission: 'view teachers'
+      },
+      {
+        name: 'Library',
+        href: route('library.index'),
+        icon: Library,
+        active: route().current('library.*'),
+        permission: 'view library'
+      },
+      {
+        name: 'Notices',
+        href: route('notice.index'),
+        icon: Bell,
+        active: route().current('notice.*'),
+        permission: 'view notices'
+      }
+    );
+  }
+  // ── Accountant: finance-focused ─────────────────────────────
+  else if (isAccountant.value) {
+    items.push(
+      {
+        name: 'Students',
+        href: route('students.index'),
+        icon: Users,
+        active: route().current('students.*'),
+        permission: 'view students'
+      },
+      {
+        name: 'Teachers',
+        href: route('teachers.index'),
+        icon: UserCheck,
+        active: route().current('teachers.*'),
+        permission: 'view teachers'
+      },
+      {
+        name: 'Parents',
+        href: route('parents.index'),
+        icon: Users2,
+        active: route().current('parents.*'),
+        permission: 'view parents'
+      },
+      {
+        name: 'Account',
         href: route('fees.index'),
-        icon: DollarSign,
-        active: route().current('fees.*')
+        icon: Calculator,
+        active: route().current('fees.*'),
+        permission: 'view fees'
+      },
+      {
+        name: 'Classes',
+        href: route('classes.index'),
+        icon: BookOpen,
+        active: route().current('classes.*'),
+        permission: 'view classes'
+      },
+      {
+        name: 'Transport',
+        href: route('transport.index'),
+        icon: Bus,
+        active: route().current('transport.*'),
+        permission: 'view transport'
+      },
+      {
+        name: 'Notices',
+        href: route('notice.index'),
+        icon: Bell,
+        active: route().current('notice.*'),
+        permission: 'view notices'
+      },
+      {
+        name: 'Report Cards',
+        href: route('report-cards.index'),
+        icon: FileText,
+        active: route().current('report-cards.*'),
+        permission: 'view report cards'
       }
     );
   }
-
-  if (isTeacher.value) {
+  // ── Teacher: academic management ────────────────────────────
+  else if (isTeacher.value) {
     items.push(
       {
-        name: 'My Classes',
+        name: 'Students',
+        href: route('students.index'),
+        icon: Users,
+        active: route().current('students.*'),
+        permission: 'view students'
+      },
+      {
+        name: 'Teachers',
+        href: route('teachers.index'),
+        icon: UserCheck,
+        active: route().current('teachers.*'),
+        permission: 'view teachers'
+      },
+      {
+        name: 'Parents',
+        href: route('parents.index'),
+        icon: Users2,
+        active: route().current('parents.*'),
+        permission: 'view parents'
+      },
+      {
+        name: 'Library',
+        href: route('library.index'),
+        icon: Library,
+        active: route().current('library.*'),
+        permission: 'view library'
+      },
+      {
+        name: 'Classes',
         href: route('classes.index'),
         icon: BookOpen,
-        active: route().current('classes.*')
+        active: route().current('classes.*'),
+        permission: 'view classes'
+      },
+      {
+        name: 'Subjects',
+        href: route('subjects.index'),
+        icon: Edit3,
+        active: route().current('subjects.*'),
+        permission: 'view subjects'
+      },
+      {
+        name: 'Class Routine',
+        href: route('timetable.index'),
+        icon: Calendar,
+        active: route().current('timetable.*'),
+        permission: 'view class routine'
       },
       {
         name: 'Attendance',
         href: route('attendance.index'),
         icon: ClipboardList,
-        active: route().current('attendance.*')
+        active: route().current('attendance.*'),
+        permission: 'create attendance'
       },
       {
         name: 'Exams',
         href: route('exams.index'),
         icon: FileText,
-        active: route().current('exams.*')
-      },
-      {
-        name: 'Grades',
-        href: '#',
-        icon: FileText,
-        active: false
-      }
-    );
-  }
-
-  if (isStudent.value) {
-    items.push(
-      {
-        name: 'My Classes',
-        href: route('classes.index'),
-        icon: BookOpen,
-        active: route().current('classes.*')
+        active: route().current('exams.*'),
+        permission: 'create exams'
       },
       {
         name: 'Grades',
         href: route('grades.index'),
         icon: FileText,
-        active: route().current('grades.*')
+        active: route().current('grades.*'),
+        permission: 'create grades'
       },
       {
-        name: 'Timetable',
+        name: 'Notice',
+        href: route('notice.index'),
+        icon: Bell,
+        active: route().current('notice.*'),
+        permission: 'create notices'
+      },
+      {
+        name: 'Map',
+        href: route('map.index'),
+        icon: Map,
+        active: route().current('map.*'),
+        permission: 'view map'
+      },
+      {
+        name: 'Report Cards',
+        href: route('report-cards.index'),
+        icon: FileText,
+        active: route().current('report-cards.*'),
+        permission: 'create report cards'
+      }
+    );
+  }
+
+  // ── Student: limited personal access ────────────────────────
+  else if (isStudent.value) {
+    items.push(
+      {
+        name: 'Students',
+        href: route('students.index'),
+        icon: Users,
+        active: route().current('students.*'),
+        permission: 'view students'
+      },
+      {
+        name: 'Teachers',
+        href: route('teachers.index'),
+        icon: UserCheck,
+        active: route().current('teachers.*'),
+        permission: 'view teachers'
+      },
+      {
+        name: 'Library',
+        href: route('library.index'),
+        icon: Library,
+        active: route().current('library.*'),
+        permission: 'view library'
+      },
+      {
+        name: 'Account',
+        href: route('fees.index'),
+        icon: Calculator,
+        active: route().current('fees.*'),
+        permission: 'view fees'
+      },
+      {
+        name: 'My Classes',
+        href: route('classes.index'),
+        icon: BookOpen,
+        active: route().current('classes.*'),
+        permission: 'view classes'
+      },
+      {
+        name: 'Subjects',
+        href: route('subjects.index'),
+        icon: Edit3,
+        active: route().current('subjects.*'),
+        permission: 'view subjects'
+      },
+      {
+        name: 'Class Routine',
         href: route('timetable.index'),
         icon: Calendar,
-        active: route().current('timetable.*')
+        active: route().current('timetable.*'),
+        permission: 'view class routine'
+      },
+      {
+        name: 'My Attendance',
+        href: route('attendance.index'),
+        icon: ClipboardList,
+        active: route().current('attendance.*'),
+        permission: 'view attendance'
+      },
+      {
+        name: 'Exams',
+        href: route('exams.index'),
+        icon: FileText,
+        active: route().current('exams.*'),
+        permission: 'view exams'
+      },
+      {
+        name: 'My Results',
+        href: route('grades.index'),
+        icon: FileText,
+        active: route().current('grades.*'),
+        permission: 'view grades'
+      },
+      {
+        name: 'Transport',
+        href: route('transport.index'),
+        icon: Bus,
+        active: route().current('transport.*'),
+        permission: 'view transport'
+      },
+      {
+        name: 'Notices',
+        href: route('notice.index'),
+        icon: Bell,
+        active: route().current('notice.*'),
+        permission: 'view notices'
+      },
+      {
+        name: 'Map',
+        href: route('map.index'),
+        icon: Map,
+        active: route().current('map.*'),
+        permission: 'view map'
+      },
+      {
+        name: 'Report Cards',
+        href: route('report-cards.index'),
+        icon: FileText,
+        active: route().current('report-cards.*'),
+        permission: 'view report cards'
+      }
+    );
+  }
+
+  // ── Parent: monitor child performance ───────────────────────
+  else if (isParent.value) {
+    items.push(
+      {
+        name: 'My Children',
+        href: route('students.index'),
+        icon: Users,
+        active: route().current('students.*'),
+        permission: 'view students'
+      },
+      {
+        name: 'My Children\'s Teachers',
+        href: route('teachers.index'),
+        icon: UserCheck,
+        active: route().current('teachers.*'),
+        permission: 'view teachers'
+      },
+      {
+        name: 'Parents',
+        href: route('parents.index'),
+        icon: Users2,
+        active: route().current('parents.*'),
+        permission: 'view parents'
+      },
+      {
+        name: 'Library',
+        href: route('library.index'),
+        icon: Library,
+        active: route().current('library.*'),
+        permission: 'view library'
+      },
+      {
+        name: 'My Children\'s Fees',
+        href: route('fees.index'),
+        icon: Calculator,
+        active: route().current('fees.*'),
+        permission: 'view fees'
+      },
+      {
+        name: 'My Children\'s Classes',
+        href: route('classes.index'),
+        icon: BookOpen,
+        active: route().current('classes.*'),
+        permission: 'view classes'
+      },
+      {
+        name: 'Subjects',
+        href: route('subjects.index'),
+        icon: Edit3,
+        active: route().current('subjects.*'),
+        permission: 'view subjects'
+      },
+      {
+        name: 'Class Routine',
+        href: route('timetable.index'),
+        icon: Calendar,
+        active: route().current('timetable.*'),
+        permission: 'view class routine'
+      },
+      {
+        name: 'My Children\'s Attendance',
+        href: route('attendance.index'),
+        icon: ClipboardList,
+        active: route().current('attendance.*'),
+        permission: 'view attendance'
+      },
+      {
+        name: 'My Children\'s Exams',
+        href: route('exams.index'),
+        icon: FileText,
+        active: route().current('exams.*'),
+        permission: 'view exams'
+      },
+      {
+        name: 'My Children\'s Grades',
+        href: route('grades.index'),
+        icon: FileText,
+        active: route().current('grades.*'),
+        permission: 'view grades'
+      },
+      {
+        name: 'Transport',
+        href: route('transport.index'),
+        icon: Bus,
+        active: route().current('transport.*'),
+        permission: 'view transport'
+      },
+      {
+        name: 'Notices',
+        href: route('notice.index'),
+        icon: Bell,
+        active: route().current('notice.*'),
+        permission: 'view notices'
+      },
+      {
+        name: 'Map',
+        href: route('map.index'),
+        icon: Map,
+        active: route().current('map.*'),
+        permission: 'view map'
+      },
+      {
+        name: 'My Children\'s Report Cards',
+        href: route('report-cards.index'),
+        icon: FileText,
+        active: route().current('report-cards.*'),
+        permission: 'view report cards'
       }
     );
   }
@@ -273,8 +769,8 @@ const clearHoveredItem = () => {
         </Button>
       </div>
 
-      <!-- Search Section (Admin Only) -->
-      <div v-if="isAdmin && !isCollapsed" class="p-4">
+      <!-- Search Section (Admin & Receptionist) -->
+      <div v-if="(isAdmin || isReceptionist) && !isCollapsed" class="p-4">
         <div class="search-container relative">
           <div class="relative border border-gray-200 dark:border-gray-700 rounded-xl focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 dark:focus-within:ring-blue-800 transition-all duration-200">
             <Input
@@ -315,8 +811,16 @@ const clearHoveredItem = () => {
                 @click="selectStudent(student)"
                 class="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all duration-200 flex items-center space-x-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0"
               >
-                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
-                  <span class="text-white text-sm font-bold">{{ student.user.name.charAt(0).toUpperCase() }}</span>
+                <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 flex-shrink-0 shadow-sm">
+                  <img 
+                    v-if="student.user.photo" 
+                    :src="`/storage/${student.user.photo}`" 
+                    :alt="student.user.name"
+                    class="w-full h-full object-cover"
+                  />
+                  <div v-else class="flex items-center justify-center h-full">
+                    <span class="text-blue-600 text-sm font-bold">{{ student.user.name.charAt(0).toUpperCase() }}</span>
+                  </div>
                 </div>
                 <div class="flex-1 min-w-0">
                   <div class="font-semibold text-gray-900 dark:text-white truncate">{{ student.user.name }}</div>
@@ -337,9 +841,10 @@ const clearHoveredItem = () => {
         </div>
       </div>
 
+      
       <!-- Navigation Menu -->
       <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
-        <template v-for="item in menuItems" :key="item.name">
+        <template v-for="item in menuItems.filter(item => !item.permission || can(item.permission))" :key="item.name">
           <Link
             :href="item.href"
             @mouseenter="() => setHoveredItem(item.name)"
@@ -384,33 +889,6 @@ const clearHoveredItem = () => {
           </Link>
         </template>
       </nav>
-
-      <!-- User Section -->
-      <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-        <div v-if="!isCollapsed" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 cursor-pointer">
-          <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center shadow-sm">
-            <User class="w-5 h-5 text-white" />
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">
-              {{ user?.name || 'User' }}
-            </p>
-            <p class="text-xs text-gray-500 dark:text-gray-400 truncate flex items-center">
-              <span class="w-2 h-2 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>
-              {{ isAdmin ? 'Administrator' : isTeacher ? 'Teacher' : 'Student' }}
-            </p>
-          </div>
-          <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </button>
-        </div>
-        <div v-else class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mx-auto shadow-sm hover:scale-110 transition-transform duration-200 cursor-pointer">
-          <User class="w-5 h-5 text-white" />
-        </div>
-      </div>
     </div>
 
     <!-- Main Content Area -->

@@ -51,6 +51,24 @@ class GradeController extends Controller
             $grades = [];
             $stats = [];
         }
+        // If user is parent, get grades for their children
+        elseif ($user->hasRole('parent')) {
+            $parentStudents = view()->shared('parentStudents', collect());
+            if ($parentStudents->isNotEmpty()) {
+                // TODO: Get actual grades data for parent's children
+                $grades = [];
+                $stats = [];
+                
+                // For now, return placeholder data for each child
+                foreach ($parentStudents as $student) {
+                    $grades[] = [
+                        'student_name' => $student->user->name,
+                        'student_id' => $student->id,
+                        'grades' => $this->getStudentGrades($student)
+                    ];
+                }
+            }
+        }
         
         return Inertia::render('Grades/Index', [
             'grades' => $grades,

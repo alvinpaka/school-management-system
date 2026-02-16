@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { usePage, router } from '@inertiajs/vue3';
 import { 
     Bell,
-    User
+    User as UserIcon
 } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -60,8 +60,16 @@ const userRole = computed(() => {
         <DropdownMenu>
           <DropdownMenuTrigger as-child>
             <Button variant="ghost" size="sm" class="flex items-center space-x-2">
-              <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                <User class="w-4 h-4 text-white" />
+              <div class="w-14 h-14 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600">
+                <img 
+                  v-if="user?.photo" 
+                  :src="`/storage/${user.photo}`" 
+                  :alt="user?.name"
+                  class="w-full h-full object-cover"
+                />
+                <div v-else class="flex items-center justify-center h-full">
+                  <UserIcon class="w-4 h-4 text-gray-400" />
+                </div>
               </div>
               <div class="hidden sm:block text-left">
                 <div class="text-sm font-medium text-gray-900 dark:text-white">

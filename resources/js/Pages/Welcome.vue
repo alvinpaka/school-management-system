@@ -82,37 +82,37 @@ const features = [
         icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
         title: "Student Management",
         description: "Centralized student profiles, document storage, enrollment tracking, and seamless parent communication.",
-        color: "bg-gradient-to-br from-blue-500 to-blue-700"
+        color: "bg-blue-600"
     },
     {
         icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
         title: "Attendance & Grades",
         description: "Real-time attendance tracking, smart grade management, automated GPA calculations, and instant report generation.",
-        color: "bg-gradient-to-br from-green-500 to-green-700"
+        color: "bg-green-600"
     },
     {
         icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
         title: "Finance & Billing",
         description: "Automated fee collection, payment tracking, professional invoicing, and comprehensive financial reporting.",
-        color: "bg-gradient-to-br from-purple-500 to-purple-700"
+        color: "bg-purple-600"
     },
     {
         icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
         title: "Smart Scheduling",
         description: "Intelligent timetable management, automated class scheduling, and conflict-free calendar planning.",
-        color: "bg-gradient-to-br from-orange-500 to-orange-700"
+        color: "bg-orange-600"
     },
     {
         icon: "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9",
         title: "Communication Hub",
         description: "Instant messaging, announcements, email integration, and multi-channel parent-teacher communication.",
-        color: "bg-gradient-to-br from-pink-500 to-pink-700"
+        color: "bg-pink-600"
     },
     {
         icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
         title: "Reports & Analytics",
         description: "Powerful insights, customizable reports, data visualization, and performance tracking dashboards.",
-        color: "bg-gradient-to-br from-indigo-500 to-indigo-700"
+        color: "bg-indigo-600"
     }
 ];
 
@@ -155,14 +155,14 @@ onMounted(() => {
 <template>
 <Head title="EduManage Pro - Transform Your School Management" />
 
-<div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-950 dark:to-blue-950 text-foreground relative overflow-hidden transition-colors duration-300">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950 text-foreground relative overflow-hidden transition-colors duration-300">
     
     <!-- Animated Background Particles -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden">
         <div 
             v-for="particle in particles" 
             :key="particle.id"
-            class="absolute rounded-full bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 blur-sm"
+            class="absolute rounded-full bg-blue-400 dark:bg-blue-600 blur-sm"
             :style="{
                 left: particle.x + 'px',
                 top: particle.y + 'px',
@@ -173,8 +173,12 @@ onMounted(() => {
         />
     </div>
     
-    <!-- Gradient mesh overlay -->
-    <div class="fixed inset-0 pointer-events-none bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10" />
+    <!-- Geometric overlay -->
+    <div class="fixed inset-0 pointer-events-none opacity-5">
+        <div class="absolute top-10 left-10 w-32 h-32 bg-blue-500 rounded-full"></div>
+        <div class="absolute bottom-20 right-20 w-48 h-48 bg-purple-500 rounded-full"></div>
+        <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-pink-500 rounded-full"></div>
+    </div>
     
     <div class="relative z-10">
 
@@ -189,13 +193,13 @@ onMounted(() => {
     >
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3 group cursor-pointer">
-                <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all duration-300 group-hover:scale-110">
+                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all duration-300 group-hover:scale-110">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                    <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">
                         EduManage Pro
                     </h1>
                     <p class="text-xs text-blue-600 dark:text-blue-400 font-medium">School Management Platform</p>
@@ -212,7 +216,7 @@ onMounted(() => {
 
                 <Button
                     v-if="$page.props.auth.user"
-                    class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300"
+                    class="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300"
                     as-child
                 >
                     <Link :href="route('dashboard')">
@@ -227,7 +231,7 @@ onMounted(() => {
                         </Link>
                     </Button>
 
-                    <Button v-if="canRegister" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300" as-child>
+                    <Button v-if="canRegister" class="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300" as-child>
                         <Link :href="route('register')">
                             Start Free Trial
                         </Link>
@@ -260,7 +264,7 @@ onMounted(() => {
                 <div class="pt-4 border-t border-gray-200 dark:border-gray-800 space-y-3">
                     <Button
                         v-if="$page.props.auth.user"
-                        class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white"
                         as-child
                     >
                         <Link :href="route('dashboard')">Dashboard</Link>
@@ -269,7 +273,7 @@ onMounted(() => {
                         <Button variant="outline" class="w-full" as-child>
                             <Link :href="route('login')">Log in</Link>
                         </Button>
-                        <Button v-if="canRegister" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white" as-child>
+                        <Button v-if="canRegister" class="w-full bg-blue-600 hover:bg-blue-700 text-white" as-child>
                             <Link :href="route('register')">Start Free Trial</Link>
                         </Button>
                     </template>
@@ -284,9 +288,9 @@ onMounted(() => {
             
             <!-- Animated Hero Badge -->
             <div class="mb-8 flex justify-center animate-fade-in-up">
-                <div class="inline-flex items-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border border-blue-200 dark:border-blue-800 px-5 py-2.5 rounded-full shadow-lg shadow-blue-500/10">
+                <div class="inline-flex items-center bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 px-5 py-2.5 rounded-full shadow-lg shadow-blue-500/10">
                     <div class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse mr-3" />
-                    <span class="text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">
                         Trusted by 500+ schools worldwide
                     </span>
                 </div>
@@ -294,10 +298,10 @@ onMounted(() => {
 
             <div class="text-center max-w-5xl mx-auto">
                 <h2 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 animate-fade-in-up animation-delay-100">
-                    <span class="block bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-4">
+                    <span class="block text-gray-900 dark:text-white mb-4">
                         Transform Your
                     </span>
-                    <span class="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    <span class="block text-blue-600 dark:text-blue-400">
                         School Management
                     </span>
                 </h2>
@@ -310,7 +314,7 @@ onMounted(() => {
                     <Button
                         v-if="!$page.props.auth.user"
                         size="lg"
-                        class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-lg px-8 py-6 shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300"
+                        class="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6 shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300"
                         as-child
                     >
                         <Link :href="route('register')">
@@ -339,19 +343,19 @@ onMounted(() => {
                 <!-- Stats Section with improved design -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto animate-fade-in-up animation-delay-400">
                     <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                        <div class="text-5xl md:text-6xl mb-3 font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        <div class="text-5xl md:text-6xl mb-3 font-bold text-blue-600">
                             500+
                         </div>
                         <div class="text-gray-600 dark:text-gray-400 font-medium">Schools Trust Us</div>
                     </div>
                     <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                        <div class="text-5xl md:text-6xl mb-3 font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                        <div class="text-5xl md:text-6xl mb-3 font-bold text-green-600">
                             50K+
                         </div>
                         <div class="text-gray-600 dark:text-gray-400 font-medium">Active Students</div>
                     </div>
                     <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                        <div class="text-5xl md:text-6xl mb-3 font-bold bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
+                        <div class="text-5xl md:text-6xl mb-3 font-bold text-orange-600">
                             99.9%
                         </div>
                         <div class="text-gray-600 dark:text-gray-400 font-medium">Uptime SLA</div>
@@ -368,7 +372,7 @@ onMounted(() => {
                 <div class="inline-flex items-center bg-blue-100 dark:bg-blue-950 px-4 py-2 rounded-full mb-6">
                     <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">Features</span>
                 </div>
-                <h3 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-200 bg-clip-text text-transparent">
+                <h3 class="text-4xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
                     Everything Your School Needs
                 </h3>
                 <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -380,9 +384,9 @@ onMounted(() => {
                 <div 
                     v-for="(feature, index) in features" 
                     :key="index"
-                    class="group relative bg-gradient-to-br from-white to-gray-50 dark:from-slate-900 dark:to-slate-800 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2"
+                    class="group relative bg-white dark:bg-slate-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2"
                 >
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div class="absolute inset-0 bg-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     
                     <div class="relative">
                         <div :class="[feature.color, 'w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300']">
@@ -411,7 +415,7 @@ onMounted(() => {
                 <div class="inline-flex items-center bg-purple-100 dark:bg-purple-950 px-4 py-2 rounded-full mb-6">
                     <span class="text-sm font-semibold text-purple-600 dark:text-purple-400">Pricing</span>
                 </div>
-                <h3 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-purple-900 dark:from-white dark:to-purple-200 bg-clip-text text-transparent">
+                <h3 class="text-4xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
                     Simple, Transparent Pricing
                 </h3>
                 <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
@@ -429,7 +433,7 @@ onMounted(() => {
                     
                     <div class="mb-8">
                         <div class="flex items-baseline">
-                            <span class="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Free</span>
+                            <span class="text-5xl font-bold text-blue-600">Free</span>
                         </div>
                         <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Forever free</p>
                     </div>
@@ -467,9 +471,9 @@ onMounted(() => {
                 </div>
 
                 <!-- Professional Plan -->
-                <div class="group relative bg-gradient-to-br from-blue-600 to-purple-600 p-8 rounded-3xl shadow-2xl shadow-blue-500/30 transform scale-105 hover:scale-110 transition-all duration-500">
+                <div class="group relative bg-blue-600 p-8 rounded-3xl shadow-2xl shadow-blue-500/30 transform scale-105 hover:scale-110 transition-all duration-500">
                     <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <div class="bg-gradient-to-r from-orange-500 to-pink-500 px-4 py-1.5 rounded-full shadow-lg">
+                        <div class="bg-orange-500 px-4 py-1.5 rounded-full shadow-lg">
                             <span class="text-white font-bold text-sm">Most Popular</span>
                         </div>
                     </div>
@@ -534,7 +538,7 @@ onMounted(() => {
                     
                     <div class="mb-8">
                         <div class="flex items-baseline">
-                            <span class="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">$99</span>
+                            <span class="text-5xl font-bold text-purple-600">$99</span>
                             <span class="text-gray-600 dark:text-gray-400 ml-2">/month</span>
                         </div>
                         <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Billed monthly</p>
@@ -588,7 +592,7 @@ onMounted(() => {
                 <div class="inline-flex items-center bg-green-100 dark:bg-green-950 px-4 py-2 rounded-full mb-6">
                     <span class="text-sm font-semibold text-green-600 dark:text-green-400">Testimonials</span>
                 </div>
-                <h3 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-green-900 dark:from-white dark:to-green-200 bg-clip-text text-transparent">
+                <h3 class="text-4xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
                     Loved by Educators
                 </h3>
                 <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
@@ -664,8 +668,8 @@ onMounted(() => {
 
     <!-- ================= CTA SECTION ================= -->
     <section class="py-20 md:py-32 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20" />
+        <div class="absolute inset-0 bg-blue-600" />
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20" />
         
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             <h3 class="text-4xl md:text-6xl font-bold text-white mb-6">
@@ -679,7 +683,7 @@ onMounted(() => {
                 <Button
                     v-if="!$page.props.auth.user && canRegister"
                     size="lg"
-                    class="bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-6 shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300"
+                    class="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6 shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300"
                     as-child
                 >
                     <Link :href="route('register')">
@@ -711,7 +715,7 @@ onMounted(() => {
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>

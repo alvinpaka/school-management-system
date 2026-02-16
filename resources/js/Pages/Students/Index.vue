@@ -1,11 +1,12 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Pagination from '@/components/ui/pagination.vue';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -23,13 +24,12 @@ import {
     GraduationCap
 } from 'lucide-vue-next';
 
-const props = defineProps({
-    students: Array,
+const { students, filters } = defineProps({
+    students: Object,
     filters: Object
 });
 
-const page = usePage();
-const searchQuery = ref(page.props.filters?.search || '');
+const searchQuery = ref(filters?.search || '');
 
 const deleteStudent = (id) => {
     if (confirm('Are you sure you want to delete this student?')) {
@@ -37,14 +37,21 @@ const deleteStudent = (id) => {
     }
 };
 
-const performSearch = () => {
-    router.get(route('students.index'), { search: searchQuery.value }, { preserveState: true });
+const handlePageChange = (page) => {
+    const params = { page };
+    if (searchQuery.value) {
+        params.search = searchQuery.value;
+    }
+    router.get(route('students.index'), params, { preserveState: true });
 };
 
-const clearSearch = () => {
-    searchQuery.value = '';
-    router.get(route('students.index'), {}, { preserveState: true });
-};
+// Watch for search query changes
+watch(searchQuery, (newValue) => {
+    router.get(route('students.index'), { 
+        search: newValue, 
+        page: 1 
+    }, { preserveState: true });
+}, { debounce: 300 });
 </script>
 
 <template>
@@ -52,7 +59,10 @@ const clearSearch = () => {
 
     <Sidebar>
         <template #header-title>
-            Students Management
+            <div class="flex items-center space-x-3">
+                <GraduationCap class="w-5 h-5" />
+                <span>Students</span>
+            </div>
         </template>
 
         <div class="mx-auto max-w-7xl">
@@ -84,27 +94,17 @@ const clearSearch = () => {
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
                             <CardTitle>All Students</CardTitle>
-                            <CardDescription>{{ students.length }} total students</CardDescription>
+                            <CardDescription>{{ students.total }} total students</CardDescription>
                         </div>
                         <div class="flex items-center space-x-2">
                             <div class="relative">
                                 <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                 <input
                                     v-model="searchQuery"
-                                    @keyup.enter="performSearch"
                                     type="text"
                                     placeholder="Search students..."
                                     class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 />
-                                <button
-                                    v-if="searchQuery"
-                                    @click="clearSearch"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                >
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
                             </div>
                             <Button variant="outline" size="sm">
                                 <Filter class="w-4 h-4" />
@@ -125,14 +125,22 @@ const clearSearch = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="student in students" :key="student.id" class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                <tr v-for="student in students.data" :key="student.id" class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                     <td class="py-3 px-4">
                                         <span class="font-mono text-sm text-gray-600 dark:text-gray-400">{{ student.admission_number }}</span>
                                     </td>
                                     <td class="py-3 px-4">
                                         <div class="flex items-center">
-                                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3">
-                                                <span class="text-white text-sm font-medium">{{ student.user.name.charAt(0).toUpperCase() }}</span>
+                                            <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 mr-3">
+                                                <img 
+                                                    v-if="student.user.photo" 
+                                                    :src="`/storage/${student.user.photo}`" 
+                                                    :alt="student.user.name"
+                                                    class="w-full h-full object-cover"
+                                                />
+                                                <div v-else class="flex items-center justify-center h-full">
+                                                    <span class="text-blue-500 text-sm font-medium">{{ student.user.name.charAt(0).toUpperCase() }}</span>
+                                                </div>
                                             </div>
                                             <div>
                                                 <div class="font-medium text-gray-900 dark:text-white">{{ student.user.name }}</div>
@@ -185,6 +193,12 @@ const clearSearch = () => {
                             </tbody>
                         </table>
                     </div>
+                    
+                    <!-- Pagination -->
+                    <Pagination 
+                        :data="students" 
+                        @page-change="handlePageChange"
+                    />
                 </CardContent>
             </Card>
         </div>

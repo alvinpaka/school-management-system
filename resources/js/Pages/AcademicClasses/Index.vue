@@ -1,9 +1,11 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
+import { ref, watch } from 'vue';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Pagination from '@/components/ui/pagination.vue';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -22,15 +24,34 @@ import {
     Calendar
 } from 'lucide-vue-next';
 
-defineProps({
-    classes: Array
+const { classes, filters } = defineProps({
+    classes: Object,
+    filters: Object
 });
+
+const searchQuery = ref(filters?.search || '');
 
 const deleteClass = (id) => {
     if (confirm('Are you sure you want to delete this class? Sections will also be removed.')) {
         router.delete(route('classes.destroy', id));
     }
 };
+
+const handlePageChange = (page) => {
+    const params = { page };
+    if (searchQuery.value) {
+        params.search = searchQuery.value;
+    }
+    router.get(route('classes.index'), params, { preserveState: true });
+};
+
+// Watch for search query changes
+watch(searchQuery, (newValue) => {
+    router.get(route('classes.index'), { 
+        search: newValue, 
+        page: 1 
+    }, { preserveState: true });
+}, { debounce: 300 });
 </script>
 
 <template>
@@ -38,7 +59,10 @@ const deleteClass = (id) => {
 
     <Sidebar>
         <template #header-title>
-            Classes Management
+            <div class="flex items-center space-x-3">
+                <Calendar class="w-5 h-5" />
+                <span>Classes</span>
+            </div>
         </template>
 
         <div class="mx-auto max-w-7xl">
@@ -70,13 +94,14 @@ const deleteClass = (id) => {
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
                             <CardTitle>All Classes</CardTitle>
-                            <CardDescription>{{ classes.length }} total classes</CardDescription>
+                            <CardDescription>{{ classes.total }} total classes</CardDescription>
                         </div>
                         <div class="flex items-center space-x-2">
                             <div class="relative">
                                 <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                 <input
                                     type="text"
+                                    v-model="searchQuery"
                                     placeholder="Search classes..."
                                     class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 />
@@ -100,7 +125,7 @@ const deleteClass = (id) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="classItem in classes" :key="classItem.id" class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                <tr v-for="classItem in classes.data" :key="classItem.id" class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                     <td class="py-3 px-4">
                                         <div class="flex items-center">
                                             <div class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center mr-3">
@@ -165,6 +190,12 @@ const deleteClass = (id) => {
                             </tbody>
                         </table>
                     </div>
+                    
+                    <!-- Pagination -->
+                    <Pagination 
+                        :data="classes" 
+                        @page-change="handlePageChange"
+                    />
                 </CardContent>
             </Card>
         </div>

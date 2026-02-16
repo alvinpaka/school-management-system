@@ -72,7 +72,10 @@ const submit = () => {
 
     <Sidebar>
         <template #header-title>
-            Attendance Management
+            <div class="flex items-center space-x-3">
+                <CheckCircle class="w-5 h-5" />
+                <span>Attendance</span>
+            </div>
         </template>
 
         <div class="mx-auto max-w-7xl">

@@ -46,6 +46,24 @@ class TimetableController extends Controller
             $classes = [];
             $timetable = [];
         }
+        // If user is parent, get their children's classes and timetable
+        elseif ($user->hasRole('parent')) {
+            $parentStudents = view()->shared('parentStudents', collect());
+            if ($parentStudents->isNotEmpty()) {
+                $classes = $parentStudents->pluck('academicClass')->unique()->values()->all();
+                // TODO: Get actual timetable data for parent's children
+                $timetable = [];
+                
+                // For now, return placeholder timetable for each child
+                foreach ($parentStudents as $student) {
+                    $timetable[] = [
+                        'student_name' => $student->user->name,
+                        'student_id' => $student->id,
+                        'timetable' => $this->getStudentTimetable($student)
+                    ];
+                }
+            }
+        }
         
         return Inertia::render('Timetable/Index', [
             'timetable' => $timetable,

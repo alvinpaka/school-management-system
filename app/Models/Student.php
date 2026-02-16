@@ -8,10 +8,25 @@ class Student extends Model
 {
     protected $fillable = [
         'user_id',
+        'parent_user_id',
         'academic_class_id',
         'section_id',
         'admission_number',
-        'date_of_birth'
+        'roll_number',
+        'date_of_birth',
+        'phone',
+        'address',
+        'gender',
+        'admission_date',
+        'parent_name',
+        'parent_phone',
+        'parent_email',
+        'emergency_contact',
+        'blood_group',
+        'medical_conditions',
+        'previous_school',
+        'transfer_certificate',
+        'status'
     ];
 
     public function user()
@@ -27,5 +42,15 @@ class Student extends Model
     public function section()
     {
         return $this->belongsTo(Section::class);
+    }
+
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
+    }
+
+    public function parentUser()
+    {
+        return $this->belongsTo(ParentUser::class);
     }
 }

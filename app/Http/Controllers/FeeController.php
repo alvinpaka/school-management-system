@@ -6,15 +6,41 @@ use App\Models\Fee;
 use App\Models\Student;
 use App\Http\Requests\StoreFeeRequest;
 use App\Http\Requests\UpdateFeeRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class FeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $fees = Fee::with('student.user')->latest()->paginate(10);
+        $search = $request->input('search');
+        
+        $query = Fee::with('student.user')->latest();
+        
+        // Search functionality
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('fee_type', 'like', "%{$search}%")
+                  ->orWhere('status', 'like', "%{$search}%")
+                  ->orWhere('amount', 'like', "%{$search}%")
+                  ->orWhereHas('student.user', function($subQuery) use ($search) {
+                      $subQuery->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+        
+        // Filter for parents - only show fees for their children
+        if (auth()->user()->hasRole('parent')) {
+            $parentStudentIds = view()->shared('parentStudentIds', []);
+            if (!empty($parentStudentIds)) {
+                $query->whereIn('student_id', $parentStudentIds);
+            }
+        }
+        
+        $fees = $query->paginate(10);
         return Inertia::render('Fees/Index', [
-            'fees' => $fees
+            'fees' => $fees,
+            'filters' => ['search' => $search]
         ]);
     }
 
@@ -34,6 +60,14 @@ class FeeController extends Controller
 
     public function show(Fee $fee)
     {
+        // Check if parent is trying to access their child's fee
+        if (auth()->user()->hasRole('parent')) {
+            $parentStudentIds = view()->shared('parentStudentIds', []);
+            if (!empty($parentStudentIds) && !in_array($fee->student_id, $parentStudentIds)) {
+                abort(403, 'You are not authorized to view this fee record.');
+            }
+        }
+        
         $fee->load('student.user');
         return Inertia::render('Fees/Show', [
             'fee' => $fee

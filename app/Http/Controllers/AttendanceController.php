@@ -14,22 +14,49 @@ class AttendanceController extends Controller
 {
     public function index(Request $request)
     {
-        $classes = AcademicClass::with('sections')->get();
+        $query = AcademicClass::with('sections');
+        
+        // Filter for parents - only show classes of their children
+        if (auth()->user()->hasRole('parent')) {
+            $parentStudents = view()->shared('parentStudents', collect());
+            $classIds = $parentStudents->pluck('academic_class_id')->unique()->toArray();
+            $query->whereIn('id', $classIds);
+        }
+        
+        $classes = $query->get();
         
         $attendance = [];
         if ($request->has(['academic_class_id', 'section_id', 'date'])) {
-            $attendance = Attendance::where('academic_class_id', $request->academic_class_id)
+            $attendanceQuery = Attendance::where('academic_class_id', $request->academic_class_id)
                 ->where('section_id', $request->section_id)
                 ->where('date', $request->date)
-                ->with('student.user')
-                ->get();
+                ->with('student.user');
+                
+            // Filter for parents - only show attendance for their children
+            if (auth()->user()->hasRole('parent')) {
+                $parentStudentIds = view()->shared('parentStudentIds', []);
+                if (!empty($parentStudentIds)) {
+                    $attendanceQuery->whereIn('student_id', $parentStudentIds);
+                }
+            }
+                
+            $attendance = $attendanceQuery->get();
                 
             if ($attendance->isEmpty()) {
                 // Pre-populate with students from that class/section
-                $students = Student::where('academic_class_id', $request->academic_class_id)
+                $studentsQuery = Student::where('academic_class_id', $request->academic_class_id)
                     ->where('section_id', $request->section_id)
-                    ->with('user')
-                    ->get();
+                    ->with('user');
+                    
+                // Filter for parents - only show their children
+                if (auth()->user()->hasRole('parent')) {
+                    $parentStudentIds = view()->shared('parentStudentIds', []);
+                    if (!empty($parentStudentIds)) {
+                        $studentsQuery->whereIn('id', $parentStudentIds);
+                    }
+                }
+                    
+                $students = $studentsQuery->get();
                     
                 $attendance = $students->map(function ($student) use ($request) {
                     return [

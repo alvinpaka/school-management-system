@@ -186,176 +186,127 @@ const getInitials = (name) => {
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl space-y-6">
-            <!-- Welcome Header -->
-            <Card class="overflow-hidden border-0">
-                <div class="h-24"></div>
-                <CardContent class="relative pt-0 pb-6 -mt-12">
-                    <div class="flex flex-col md:flex-row md:items-end md:justify-between">
-                        <div class="flex items-center space-x-4">
-                            <Avatar class="w-20 h-20 border-2 border-gray-200 dark:border-gray-700">
+        <div class="mx-auto max-w-7xl space-y-8 animate-fade-in-up">
+            <!-- Professional Header Section -->
+            <div class="relative overflow-hidden bg-card shadow-sm rounded-3xl lg:rounded-[3rem] border border-border p-6 lg:p-12">
+                    <div class="flex flex-col md:flex-row items-center md:items-end gap-6 lg:gap-8">
+                        <div class="w-20 h-20 lg:w-24 lg:h-24 bg-muted rounded-2xl lg:rounded-[2.5rem] flex items-center justify-center border border-border shadow-inner overflow-hidden">
+                            <Avatar class="w-full h-full rounded-none">
                                 <AvatarImage 
                                     v-if="$page.props.auth.user.photo"
                                     :src="`/storage/${$page.props.auth.user.photo}`" 
                                     :alt="$page.props.auth.user.name"
+                                    class="object-cover"
                                 />
-                                <AvatarFallback class="text-2xl font-bold bg-teal-500 text-white">
+                                <AvatarFallback class="text-xl lg:text-2xl font-black bg-primary text-primary-foreground">
                                     {{ getInitials($page.props.auth.user.name) }}
                                 </AvatarFallback>
                             </Avatar>
-                            <div class="mt-4">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                    Welcome back, {{ $page.props.auth.user.name }}
-                                    <PhoneCall class="w-6 h-6 text-teal-500" />
-                                </h1>
-                                <p class="text-base text-gray-600 dark:text-gray-400">
-                                    Front desk operations and visitor management
-                                </p>
-                            </div>
                         </div>
-                        <div class="mt-4 md:mt-0 mb-2">
-                            <div class="text-sm text-gray-600 dark:text-gray-400">
-                                {{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+                        
+                        <div class="text-center md:text-left space-y-2 lg:space-y-4">
+                            <div class="flex items-center justify-center md:justify-start gap-2">
+                                <Badge class="bg-primary/10 text-primary border-0 font-black uppercase text-[9px] tracking-widest px-3 lg:px-4 py-1 h-7">
+                                    Front Desk Command
+                                </Badge>
+                                <span class="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Active Operations</span>
                             </div>
+                            <h1 class="text-3xl lg:text-5xl font-black text-foreground tracking-tighter leading-tight">
+                                Welcome, {{ receptionist?.name || $page.props.auth.user.name }}
+                            </h1>
+                            <p class="text-muted-foreground font-bold text-xs lg:text-sm uppercase tracking-wide">
+                                {{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+                            </p>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
 
-            <!-- Today's Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Operational Matrix -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6">
                 <!-- New Admissions -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-blue-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                                <UserPlus class="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                                Today
-                            </Badge>
+                <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm group lg:hover:border-blue-500/30 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/10 flex items-center justify-center text-blue-600 font-bold shadow-inner transition-transform lg:group-hover:scale-110">
+                            <UserPlus class="w-6 h-6" />
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">New Admissions</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ todayStats.newAdmissions }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-blue-600 dark:text-blue-400 font-medium">Students registered</span>
-                        </p>
-                    </CardContent>
-                </Card>
+                        <Badge class="bg-blue-500 text-white border-0 font-black text-[9px] uppercase tracking-widest">Today</Badge>
+                    </div>
+                    <p class="text-xs font-black text-muted-foreground/80 uppercase tracking-widest mb-1">New Admissions</p>
+                    <h3 class="text-3xl font-black text-foreground tracking-tighter leading-none">{{ todayStats.newAdmissions }}</h3>
+                </div>
 
                 <!-- Visitors -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-emerald-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl">
-                                <DoorOpen class="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                                <TrendingUp class="w-3 h-3 mr-1" />
-                                +2
-                            </Badge>
+                <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm group lg:hover:border-emerald-500/30 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/10 flex items-center justify-center text-emerald-600 font-bold shadow-inner transition-transform lg:group-hover:scale-110">
+                            <DoorOpen class="w-6 h-6" />
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Visitors Today</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ todayStats.visitors }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-emerald-600 dark:text-emerald-400 font-medium">2 currently in</span>
-                        </p>
-                    </CardContent>
-                </Card>
+                        <Badge class="bg-muted border-0 text-muted-foreground font-black text-[9px] uppercase tracking-widest">+2 Active</Badge>
+                    </div>
+                    <p class="text-xs font-black text-muted-foreground/80 uppercase tracking-widest mb-1">Total Visitors</p>
+                    <h3 class="text-3xl font-black text-foreground tracking-tighter leading-none">{{ todayStats.visitors }}</h3>
+                </div>
 
                 <!-- Appointments -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-purple-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                                <CalendarDays class="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
-                                Scheduled
-                            </Badge>
+                <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm group lg:hover:border-purple-500/30 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-900/10 flex items-center justify-center text-purple-600 font-bold shadow-inner transition-transform lg:group-hover:scale-110">
+                            <CalendarDays class="w-6 h-6" />
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Appointments</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ todayStats.appointments }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-purple-600 dark:text-purple-400 font-medium">Next at 2:00 PM</span>
-                        </p>
-                    </CardContent>
-                </Card>
+                        <Badge class="bg-purple-500 text-white border-0 font-black text-[9px] uppercase tracking-widest">Scheduled</Badge>
+                    </div>
+                    <p class="text-xs font-black text-muted-foreground/80 uppercase tracking-widest mb-1">Appointments</p>
+                    <h3 class="text-3xl font-black text-foreground tracking-tighter leading-none">{{ todayStats.appointments }}</h3>
+                </div>
 
                 <!-- Phone Calls -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-orange-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
-                                <Phone class="w-6 h-6 text-orange-600 dark:text-orange-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">
-                                Handled
-                            </Badge>
+                <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm group lg:hover:border-orange-500/30 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-900/10 flex items-center justify-center text-orange-600 font-bold shadow-inner transition-transform lg:group-hover:scale-110">
+                            <Phone class="w-6 h-6" />
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Phone Calls</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ todayStats.phoneCalls }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-orange-600 dark:text-orange-400 font-medium">Avg 6 min each</span>
-                        </p>
-                    </CardContent>
-                </Card>
+                        <Badge class="bg-muted border-0 text-muted-foreground font-black text-[9px] uppercase tracking-widest">Logs</Badge>
+                    </div>
+                    <p class="text-xs font-black text-muted-foreground/80 uppercase tracking-widest mb-1">Phone Calls</p>
+                    <h3 class="text-3xl font-black text-foreground tracking-tighter leading-none">{{ todayStats.phoneCalls }}</h3>
+                </div>
 
                 <!-- Check-ins -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-teal-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-teal-100 dark:bg-teal-900/30 rounded-xl">
-                                <ClipboardList class="w-6 h-6 text-teal-600 dark:text-teal-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400">
-                                Active
-                            </Badge>
+                <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm group lg:hover:border-teal-500/30 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-900/10 flex items-center justify-center text-teal-600 font-bold shadow-inner transition-transform lg:group-hover:scale-110">
+                            <ClipboardList class="w-6 h-6" />
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Check-ins</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ todayStats.checkIns }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-teal-600 dark:text-teal-400 font-medium">Students arrived</span>
-                        </p>
-                    </CardContent>
-                </Card>
+                        <Badge class="bg-teal-500 text-white border-0 font-black text-[9px] uppercase tracking-widest">Completed</Badge>
+                    </div>
+                    <p class="text-xs font-black text-muted-foreground/80 uppercase tracking-widest mb-1">Total Check-ins</p>
+                    <h3 class="text-3xl font-black text-foreground tracking-tighter leading-none">{{ todayStats.checkIns }}</h3>
+                </div>
             </div>
 
-            <!-- Quick Actions -->
-            <Card>
-                <CardHeader>
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <CardTitle class="flex items-center gap-2">
-                                <Zap class="w-5 h-5 text-teal-500" />
-                                Quick Actions
-                            </CardTitle>
-                            <CardDescription>
-                                Front desk operations and visitor management
-                            </CardDescription>
-                        </div>
-                    </div>
+            <!-- Operational Intelligence Tools -->
+            <Card class="bg-card shadow-sm border-border rounded-3xl lg:rounded-[3rem] overflow-hidden">
+                <CardHeader class="p-6 lg:p-8 border-b border-border bg-muted/50">
+                    <CardTitle class="text-2xl font-black tracking-tighter flex items-center gap-3">
+                        <Zap class="w-6 h-6 text-primary" />
+                        Strategic Operational Terminal
+                    </CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <CardContent class="p-6 lg:p-8">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
                         <Link
                             v-for="action in quickActions"
                             :key="action.title"
                             :href="action.href"
-                            class="group relative overflow-hidden rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300"
+                            class="group relative p-6 rounded-[2rem] bg-muted border border-border transition-all duration-300 lg:hover:border-primary lg:hover:shadow-lg"
                         >
-                            <div class="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300" :class="action.color"></div>
-                            <div class="relative p-4 flex flex-col items-center text-center space-y-3">
-                                <div class="p-3 rounded-xl bg-gray-100 dark:bg-gray-800 group-hover:bg-white/20 transition-colors duration-300">
-                                    <component :is="action.icon" class="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors duration-300" />
+                            <div class="flex flex-col items-center text-center space-y-4">
+                                <div class="w-14 h-14 rounded-2xl bg-card border border-border flex items-center justify-center shadow-inner lg:group-hover:bg-primary lg:group-hover:text-primary-foreground lg:group-hover:border-primary transition-all">
+                                    <component :is="action.icon" class="w-7 h-7" />
                                 </div>
                                 <div>
-                                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-white transition-colors duration-300">
-                                        {{ action.title }}
-                                    </h3>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-white/80 transition-colors duration-300 mt-1">
-                                        {{ action.description }}
-                                    </p>
+                                    <h3 class="text-xs font-black text-foreground uppercase tracking-widest leading-none mb-1">{{ action.title }}</h3>
+                                    <p class="text-[9px] font-bold text-muted-foreground uppercase tracking-widest opacity-60 line-clamp-1">{{ action.description }}</p>
                                 </div>
                             </div>
                         </Link>
@@ -363,67 +314,49 @@ const getInitials = (name) => {
                 </CardContent>
             </Card>
 
-            <!-- Main Content Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Visitor Log -->
-                <div class="lg:col-span-2 space-y-6">
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <CardTitle class="flex items-center gap-2">
-                                        <DoorOpen class="w-5 h-5" />
-                                        Today's Visitors
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Recent visitor check-ins and check-outs
-                                    </CardDescription>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <Button variant="ghost" size="sm">
-                                        <Search class="w-4 h-4" />
+            <!-- Main Intelligence Hub -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Visitor Log & Communication -->
+                <div class="lg:col-span-2 space-y-6 lg:space-y-8">
+                    <Card class="bg-card shadow-sm border-border rounded-3xl lg:rounded-[3rem] overflow-hidden">
+                        <CardHeader class="p-6 lg:p-8 border-b border-border">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <CardTitle class="text-2xl font-black tracking-tighter flex items-center gap-3">
+                                    <DoorOpen class="w-6 h-6 text-primary" />
+                                    Active Visitor Registry
+                                </CardTitle>
+                                <div class="flex gap-2">
+                                    <Button variant="ghost" size="sm" class="rounded-xl font-black text-[10px] uppercase tracking-widest text-muted-foreground border border-border">
+                                        <Search class="w-4 h-4 mr-2" /> Find
                                     </Button>
-                                    <Button variant="ghost" size="sm">
-                                        <Plus class="w-4 h-4 mr-1" />
-                                        New
+                                    <Button variant="ghost" size="sm" class="rounded-xl font-black text-[10px] uppercase tracking-widest text-muted-foreground border border-border">
+                                        <Plus class="w-4 h-4 mr-2" /> New Entry
                                     </Button>
                                 </div>
                             </div>
                         </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="(visitor, index) in recentVisitors"
-                                    :key="index"
-                                    class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200"
-                                >
-                                    <Avatar class="w-12 h-12">
-                                        <AvatarFallback class="bg-gradient-to-br from-teal-500 to-cyan-600 text-white font-bold">
+                        <CardContent class="p-4 lg:p-8">
+                            <div class="space-y-4">
+                                <div v-for="(visitor, index) in recentVisitors" :key="index" class="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 p-4 lg:p-5 rounded-3xl lg:rounded-[2.5rem] bg-muted/50 border border-border group transition-all lg:hover:bg-card lg:hover:shadow-md">
+                                    <Avatar class="w-14 h-14 border-2 border-border lg:group-hover:scale-110 transition-transform">
+                                        <AvatarFallback class="bg-primary/10 text-primary font-black text-base">
                                             {{ getInitials(visitor.name) }}
                                         </AvatarFallback>
                                     </Avatar>
                                     <div class="flex-1 min-w-0">
-                                        <div class="flex items-center justify-between mb-1">
-                                            <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ visitor.name }}</h4>
-                                            <Badge 
-                                                :class="[
-                                                    visitor.status === 'completed' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 
-                                                    'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
-                                                ]"
-                                            >
-                                                {{ visitor.status === 'completed' ? 'Completed' : 'In Progress' }}
+                                        <div class="flex items-center justify-between mb-2">
+                                            <h4 class="text-lg font-black text-foreground tracking-tighter truncate">{{ visitor.name }}</h4>
+                                            <Badge :class="[
+                                                'font-black text-[10px] uppercase h-6 px-3 border-0',
+                                                visitor.status === 'completed' ? 'bg-emerald-50 text-emerald-600' : 'bg-orange-50 text-orange-600'
+                                            ]">
+                                                {{ visitor.status === 'completed' ? 'Cleared' : 'In Session' }}
                                             </Badge>
                                         </div>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ visitor.purpose }}</p>
-                                        <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                                            <span class="flex items-center gap-1">
-                                                <Clock class="w-3 h-3" />
-                                                {{ visitor.timeIn }} - {{ visitor.timeOut }}
-                                            </span>
-                                            <span class="flex items-center gap-1">
-                                                <UserCheck class="w-3 h-3" />
-                                                Met: {{ visitor.personMet }}
-                                            </span>
+                                        <p class="text-sm font-bold text-muted-foreground uppercase tracking-wide truncate mb-2">{{ visitor.purpose }}</p>
+                                        <div class="flex flex-wrap items-center gap-6 text-[10px] font-black uppercase text-muted-foreground/80 opacity-80">
+                                            <span class="flex items-center gap-1.5"><Clock class="w-3.5 h-3.5 text-teal-400" /> {{ visitor.timeIn }} - {{ visitor.timeOut }}</span>
+                                            <span class="flex items-center gap-1.5"><UserCheck class="w-3.5 h-3.5 text-indigo-400" /> Met: {{ visitor.personMet }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -431,34 +364,27 @@ const getInitials = (name) => {
                         </CardContent>
                     </Card>
 
-                    <!-- Recent Calls -->
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="flex items-center gap-2">
-                                <Phone class="w-5 h-5" />
-                                Recent Calls
+                    <!-- Phone log Tracking -->
+                    <Card class="bg-card shadow-sm border-border rounded-3xl lg:rounded-[3rem] overflow-hidden">
+                        <CardHeader class="p-6 lg:p-8 border-b border-border bg-muted/50">
+                            <CardTitle class="text-xl font-black tracking-tighter flex items-center gap-3 text-foreground/80">
+                                <PhoneCall class="w-5 h-5 flex-shrink-0" />
+                                Communication Intelligence
                             </CardTitle>
-                            <CardDescription>
-                                Today's phone call log
-                            </CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="(call, index) in recentCalls"
-                                    :key="index"
-                                    class="flex items-center justify-between p-3 rounded-lg border border-gray-100 dark:border-gray-800"
-                                >
-                                    <div class="flex items-center gap-3">
-                                        <div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-                                            <Phone class="w-4 h-4 text-orange-600 dark:text-orange-400" />
+                        <CardContent class="p-6 lg:p-8">
+                            <div class="space-y-4">
+                                <div v-for="(call, index) in recentCalls" :key="index" class="flex items-center justify-between p-4 rounded-[2rem] border border-border group transition-all hover:bg-muted/50">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-900/10 flex items-center justify-center text-orange-600 shrink-0 group-hover:scale-110 transition-transform">
+                                            <Phone class="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ call.name }}</h4>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ call.time }} • {{ call.duration }}</p>
+                                            <h4 class="text-sm font-black text-foreground tracking-tight">{{ call.name }}</h4>
+                                            <p class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{{ call.time }} • {{ call.duration }}</p>
                                         </div>
                                     </div>
-                                    <Badge variant="outline" class="border-emerald-300 text-emerald-700 dark:border-emerald-700 dark:text-emerald-400">
+                                    <Badge variant="outline" class="font-black text-[9px] h-5 border-emerald-200 text-emerald-700 uppercase">
                                         {{ call.status }}
                                     </Badge>
                                 </div>
@@ -467,99 +393,81 @@ const getInitials = (name) => {
                     </Card>
                 </div>
 
-                <!-- Sidebar -->
-                <div class="space-y-6">
-                    <!-- Upcoming Appointments -->
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <CardTitle class="flex items-center gap-2">
-                                    <CalendarDays class="w-5 h-5" />
-                                    Appointments
-                                    <Badge variant="secondary" class="ml-1">{{ upcomingAppointments.length }}</Badge>
-                                </CardTitle>
-                            </div>
+                <!-- Strategic Insights Sidebar -->
+                <div class="space-y-8">
+                    <!-- Scheduled Appointments -->
+                    <Card class="bg-card shadow-sm border-border rounded-3xl lg:rounded-[3rem] overflow-hidden">
+                        <CardHeader class="p-6 lg:p-8 border-b border-border">
+                            <CardTitle class="text-xl font-black tracking-tighter flex items-center gap-3">
+                                <CalendarDays class="w-6 h-6 text-purple-500" />
+                                Priority Meetings
+                                <Badge class="bg-purple-500 text-white border-0 font-black text-[10px]">{{ upcomingAppointments.length }}</Badge>
+                            </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="(appointment, index) in upcomingAppointments"
-                                    :key="index"
-                                    class="p-3 rounded-lg border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/10"
-                                >
-                                    <div class="flex items-start justify-between mb-2">
+                        <CardContent class="p-6 lg:p-8">
+                            <div class="space-y-4">
+                                <div v-for="(appointment, index) in upcomingAppointments" :key="index" class="p-5 rounded-[2rem] bg-purple-50/50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-900/20 group hover:border-purple-500 transition-all">
+                                    <div class="flex items-start justify-between mb-4">
                                         <div>
-                                            <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ appointment.title }}</h4>
-                                            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">{{ appointment.location }}</p>
+                                            <h4 class="text-base font-black text-foreground tracking-tight leading-none mb-1">{{ appointment.title }}</h4>
+                                            <p class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{{ appointment.location }}</p>
                                         </div>
-                                        <Badge variant="outline" class="border-purple-300 text-purple-700 dark:border-purple-700 dark:text-purple-400 text-xs">
+                                        <Badge variant="outline" class="font-black text-[8px] h-5 border-purple-200 text-purple-700 uppercase">
                                             {{ appointment.type }}
                                         </Badge>
                                     </div>
-                                    <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mt-2">
-                                        <span class="flex items-center gap-1">
-                                            <Clock class="w-3 h-3" />
-                                            {{ appointment.time }}
-                                        </span>
-                                        <span class="flex items-center gap-1">
-                                            <Users class="w-3 h-3" />
-                                            {{ appointment.attendees }} people
-                                        </span>
+                                    <div class="flex items-center gap-4 text-[10px] font-black uppercase text-muted-foreground/80">
+                                        <span class="flex items-center gap-1.5 font-black text-purple-600"><Clock class="w-3 h-3" /> {{ appointment.time }}</span>
+                                        <span class="flex items-center gap-1.5"><Users class="w-3 h-3" /> {{ appointment.attendees }} PAX</span>
                                     </div>
                                 </div>
+                                <Button variant="outline" class="w-full h-12 rounded-2xl border-border font-black text-[10px] uppercase tracking-widest hover:bg-teal-600 hover:text-white hover:border-teal-600 transition-all">
+                                    <Plus class="w-4 h-4 mr-2" /> Book Intelligence
+                                </Button>
                             </div>
-                            <Button variant="outline" class="w-full mt-3" size="sm">
-                                <Plus class="w-4 h-4 mr-2" />
-                                New Appointment
-                            </Button>
                         </CardContent>
                     </Card>
 
-                    <!-- Quick Summary -->
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="flex items-center gap-2">
+                    <!-- Operational Analytics -->
+                    <Card class="bg-card shadow-sm border-border rounded-3xl lg:rounded-[3rem] overflow-hidden">
+                        <CardHeader class="p-6 lg:p-8 border-b border-border">
+                            <CardTitle class="text-xl font-black tracking-tighter flex items-center gap-3 text-foreground/80">
                                 <BarChart3 class="w-5 h-5" />
-                                Today's Summary
+                                Institutional Pulse
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Total Visitors</span>
-                                    <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ todayStats.visitors }}</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">New Admissions</span>
-                                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">{{ todayStats.newAdmissions }}</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Phone Calls</span>
-                                    <span class="text-sm font-semibold text-orange-600 dark:text-orange-400">{{ todayStats.phoneCalls }}</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Check-ins</span>
-                                    <span class="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{{ todayStats.checkIns }}</span>
+                        <CardContent class="p-6 lg:p-8">
+                            <div class="space-y-6">
+                                <div v-for="(val, label) in {
+                                    'Total Logins': todayStats.checkIns,
+                                    'Admission Rate': todayStats.newAdmissions + ' Today',
+                                    'Visitor Density': todayStats.visitors,
+                                    'System Uptime': '99.9%'
+                                }" :key="label" class="flex flex-col sm:flex-row sm:items-center justify-between py-1 group gap-1">
+                                    <span class="text-[11px] font-black text-muted-foreground uppercase tracking-widest lg:group-hover:text-primary transition-colors">{{ label }}</span>
+                                    <span class="text-sm font-black text-foreground tracking-tight">{{ val }}</span>
                                 </div>
                             </div>
                         </CardContent>
                     </Card>
 
-                    <!-- Quick Communication -->
-                    <Card class="bg-teal-500 border-0 text-white">
-                        <CardContent class="p-6 text-center">
-                            <MessageSquare class="w-12 h-12 mx-auto mb-3 opacity-90" />
-                            <h3 class="font-semibold mb-2">Announcement</h3>
-                            <p class="text-sm text-teal-100 mb-4">Broadcast messages to staff or parents</p>
-                            <Button variant="secondary" size="sm" class="w-full">
-                                <MessageSquare class="w-4 h-4 mr-2" />
-                                Send Message
+                    <!-- Strategic Broadcasting -->
+                    <div class="bg-primary rounded-3xl lg:rounded-[3rem] p-8 lg:p-10 text-primary-foreground shadow-2xl relative overflow-hidden group">
+                        <div class="relative z-10 text-center space-y-6">
+                            <div class="w-16 h-16 lg:w-20 lg:h-20 bg-white/10 rounded-2xl lg:rounded-[2rem] flex items-center justify-center mx-auto border border-white/20 lg:group-hover:scale-110 transition-transform">
+                                <MessageSquare class="w-8 h-8 lg:w-10 lg:h-10 text-primary-foreground/80" />
+                            </div>
+                            <div>
+                                <h3 class="text-xl lg:text-2xl font-black tracking-tighter leading-none mb-3">Announcement</h3>
+                                <p class="text-primary-foreground/60 text-xs font-bold uppercase tracking-wide leading-relaxed px-2">
+                                    Broadcast high-priority directives to institutional stakeholders immediately.
+                                </p>
+                            </div>
+                            <Button class="w-full bg-background text-primary hover:bg-background/90 font-black rounded-2xl h-12 text-[10px] uppercase tracking-widest border-0 shadow-lg">
+                                <MessageSquare class="w-4 h-4 mr-2" /> Dispatch Signal
                             </Button>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

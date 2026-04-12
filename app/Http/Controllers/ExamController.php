@@ -5,32 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreExamRequest;
 use App\Http\Requests\UpdateExamRequest;
 use App\Models\Exam;
-use App\Models\Subject;
+use App\Services\ExamService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ExamController extends Controller
 {
+    protected ExamService $examService;
+
+    public function __construct(ExamService $examService)
+    {
+        $this->examService = $examService;
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $exams = $this->examService->getExamsList($search);
         
-        $query = Exam::with('subject');
-        
-        // Search functionality
-        if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('status', 'like', "%{$search}%")
-                  ->orWhere('exam_date', 'like', "%{$search}%")
-                  ->orWhere('duration', 'like', "%{$search}%")
-                  ->orWhereHas('subject', function($subQuery) use ($search) {
-                      $subQuery->where('name', 'like', "%{$search}%");
-                  });
-            });
-        }
-        
-        $exams = $query->paginate(10);
         return Inertia::render('Exams/Index', [
             'exams' => $exams,
             'filters' => ['search' => $search]
@@ -39,7 +31,12 @@ class ExamController extends Controller
 
     public function create()
     {
-        $subjects = Subject::all();
+        // Only admins and teachers can create exams
+        if (!auth()->user()->hasRole(['admin', 'teacher'])) {
+            abort(403, 'You are not authorized to create exams.');
+        }
+        
+        $subjects = $this->examService->getSubjectsForSelect();
         return Inertia::render('Exams/Create', [
             'subjects' => $subjects
         ]);
@@ -48,34 +45,54 @@ class ExamController extends Controller
     public function show(Exam $exam)
     {
         return Inertia::render('Exams/Show', [
-            'exam' => $exam->load('subject')
+            'exam' => $this->examService->getExamDetail($exam)
         ]);
     }
 
     public function store(StoreExamRequest $request)
     {
-        Exam::create($request->validated());
+        // Only admins and teachers can create exams
+        if (!auth()->user()->hasRole(['admin', 'teacher'])) {
+            abort(403, 'You are not authorized to create exams.');
+        }
+        
+        $this->examService->createExam($request->validated());
         return redirect()->route('exams.index')->with('success', 'Exam scheduled successfully.');
     }
 
     public function edit(Exam $exam)
     {
-        $subjects = Subject::all();
+        // Only admins and teachers can edit exams
+        if (!auth()->user()->hasRole(['admin', 'teacher'])) {
+            abort(403, 'You are not authorized to edit exams.');
+        }
+        
+        $subjects = $this->examService->getSubjectsForSelect();
         return Inertia::render('Exams/Edit', [
-            'exam' => $exam,
+            'exam' => $this->examService->getExamDetail($exam),
             'subjects' => $subjects
         ]);
     }
 
     public function update(UpdateExamRequest $request, Exam $exam)
     {
-        $exam->update($request->validated());
+        // Only admins and teachers can update exams
+        if (!auth()->user()->hasRole(['admin', 'teacher'])) {
+            abort(403, 'You are not authorized to update exams.');
+        }
+        
+        $this->examService->updateExam($exam, $request->validated());
         return redirect()->route('exams.index')->with('success', 'Exam updated successfully.');
     }
 
     public function destroy(Exam $exam)
     {
-        $exam->delete();
+        // Only admins and teachers can delete exams
+        if (!auth()->user()->hasRole(['admin', 'teacher'])) {
+            abort(403, 'You are not authorized to delete exams.');
+        }
+        
+        $this->examService->deleteExam($exam);
         return redirect()->route('exams.index')->with('success', 'Exam deleted successfully.');
     }
 }

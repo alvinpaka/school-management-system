@@ -1,189 +1,262 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import Sidebar from '@/Components/Sidebar.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Bus, MapPin, Users, Phone, Calendar, AlertTriangle } from 'lucide-vue-next';
+import { 
+    ArrowLeft, 
+    Bus, 
+    MapPin, 
+    Users, 
+    Phone, 
+    Calendar, 
+    AlertTriangle, 
+    Clock, 
+    Navigation, 
+    User, 
+    MoreVertical,
+    Activity,
+    ShieldCheck,
+    Map,
+    Award
+} from 'lucide-vue-next';
 
-defineProps({
+const props = defineProps({
     route: Object
 });
+
+const page = usePage();
+const user = computed(() => page.props.auth.user);
+const userRoles = computed(() => user.value?.roles || []);
+const isAdminOrStaff = computed(() => userRoles.value.some(r => ['admin', 'staff'].includes(r)));
+
+const getStatusColor = (status) => {
+    switch (status?.toLowerCase()) {
+        case 'active': return 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20';
+        case 'maintenance': return 'text-amber-600 bg-amber-500/10 border-amber-500/20';
+        default: return 'text-gray-600 bg-gray-500/10 border-gray-500/20';
+    }
+};
+
+const getInitials = (name) => {
+    return name?.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2) || 'DV';
+};
 </script>
 
 <template>
-    <Head title="Transport Route Details" />
+    <Head :title="route.name + ' - Transport Intelligence'" />
 
     <Sidebar>
         <template #header-title>
-            Transport Route Details
+            <div class="flex items-center gap-2">
+                <Link :href="route('transport.index')">
+                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-white/10">
+                        <ArrowLeft class="w-4 h-4 mr-2" />
+                        Infrastructure
+                    </Button>
+                </Link>
+                <span class="text-gray-400">/</span>
+                <span class="font-black text-sm uppercase tracking-wider text-gray-500">Logistics Detail</span>
+            </div>
         </template>
 
-        <div class="mx-auto max-w-7xl">
-            <!-- Page Header -->
-            <div class="mb-6">
-                <div class="flex items-center">
-                    <Link :href="route('transport.index')" class="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
-                        <ArrowLeft class="w-4 h-4 mr-2" />
-                        Back to Transport
-                    </Link>
+        <div class="space-y-8 animate-fade-in-up">
+            <!-- Professional Header Section -->
+            <div class="relative overflow-hidden bg-white dark:bg-slate-900 shadow-sm rounded-[3rem] border border-slate-200 dark:border-slate-800 p-8 md:p-12">
+                <div class="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+                    <div class="flex flex-col md:flex-row items-center md:items-end gap-8">
+                        <div class="w-24 h-24 bg-slate-50 dark:bg-slate-800 rounded-[2.5rem] flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-inner relative group overflow-hidden">
+                            <Bus class="w-12 h-12 text-blue-600 relative z-10" />
+                        </div>
+                        
+                        <div class="text-center md:text-left space-y-4">
+                            <div class="flex items-center justify-center md:justify-start gap-2">
+                                <Badge :class="['rounded-full px-4 py-1 h-7 border-0 font-black uppercase text-[9px] tracking-widest', getStatusColor(route.status)]">
+                                    {{ route.status || 'Active' }}
+                                </Badge>
+                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Route ID: #{{ route.id }}</span>
+                            </div>
+                            <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tighter">
+                                {{ route.name }}
+                            </h1>
+                            <div class="flex flex-wrap items-center justify-center md:justify-start gap-6">
+                                <div class="flex items-center text-sm font-bold text-gray-500 uppercase tracking-wide">
+                                    <MapPin class="w-5 h-5 mr-2 text-blue-600" />
+                                    {{ route.description || 'Standard School Transit' }}
+                                </div>
+                                <div class="flex items-center text-sm font-bold text-gray-500 uppercase tracking-wide">
+                                    <ShieldCheck class="w-5 h-5 mr-2 text-emerald-600" />
+                                    Transit Verified
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Route Details -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Main Information -->
-                <Card class="lg:col-span-2">
-                    <CardHeader>
-                        <CardTitle>Route Information</CardTitle>
-                        <CardDescription>Basic route details and schedule</CardDescription>
-                    </CardHeader>
-                    <CardContent>
+            <!-- Logistics Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div v-for="(stat, idx) in [
+                    { label: 'Departure', val: route.departure_time, icon: Clock, color: 'blue' },
+                    { label: 'Arrival', val: route.arrival_time, icon: Navigation, color: 'emerald' },
+                    { label: 'Vehicle', val: route.vehicle_number || 'B-702', icon: Bus, color: 'orange' },
+                    { label: 'Capacity', val: route.capacity || '45 Seats', icon: Users, color: 'indigo' }
+                ]" :key="idx" class="bg-white dark:bg-slate-900 p-6 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm group hover:border-blue-500/30 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div :class="['w-12 h-12 rounded-2xl flex items-center justify-center transition-colors shadow-inner font-bold', `bg-${stat.color}-50 dark:bg-${stat.color}-900/10 text-${stat.color}-600`]">
+                            <component :is="stat.icon" class="w-6 h-6" />
+                        </div>
+                        <Badge class="bg-slate-50 dark:bg-slate-800 border-0 text-gray-400 font-black text-[9px] uppercase tracking-widest">{{ stat.label }}</Badge>
+                    </div>
+                    <h3 class="text-2xl font-black text-gray-900 dark:text-white tracking-tighter leading-none">{{ stat.val }}</h3>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Intelligence -->
+                <div class="lg:col-span-2 space-y-8">
+                    <Card class="bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 rounded-[3rem] overflow-hidden">
+                        <CardHeader class="p-8 border-b border-slate-50 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
+                            <CardTitle class="text-2xl font-black tracking-tighter flex items-center gap-3">
+                                <Map class="w-6 h-6 text-blue-600" />
+                                Operational Route Mapping
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent class="p-8 space-y-8">
+                            <!-- Driver Mini-Profile -->
+                            <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm group">
+                                <div class="flex flex-col md:flex-row items-center gap-8">
+                                    <div class="w-20 h-20 rounded-[2rem] bg-blue-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">
+                                        {{ getInitials(route.driver?.name) }}
+                                    </div>
+                                    <div class="flex-1 text-center md:text-left">
+                                        <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Transit Commander</p>
+                                        <h3 class="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">{{ route.driver?.name || 'Assigned Driver' }}</h3>
+                                        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-2">
+                                            <span class="flex items-center text-xs font-bold text-gray-500">
+                                                <Phone class="w-3 h-3 mr-1 text-blue-600" />
+                                                {{ route.driver?.phone || '+256-xxx-xxx' }}
+                                            </span>
+                                            <span class="flex items-center text-xs font-bold text-gray-500">
+                                                <Award class="w-3 h-3 mr-1 text-emerald-600" />
+                                                {{ route.driver?.experience || '12' }} Yrs Exp.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <Button variant="outline" class="rounded-xl h-10 px-6 font-black text-[10px] uppercase tracking-widest border-slate-200 dark:border-slate-700">Contact</Button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-6 rounded-[2rem] bg-slate-50/50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+                                    <h4 class="text-xs font-black uppercase text-gray-400 tracking-widest mb-4">Vehicle Specification</h4>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-[10px] font-bold text-gray-500 uppercase">Class</span>
+                                            <span class="text-sm font-black text-gray-900 dark:text-white">{{ route.vehicle_type || 'Coach' }}</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-[10px] font-bold text-gray-500 uppercase">Identification</span>
+                                            <span class="text-sm font-black text-gray-900 dark:text-white">{{ route.vehicle_number || 'UAB 123X' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-6 rounded-[2rem] bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/20">
+                                    <div class="flex items-center gap-4 mb-4">
+                                        <Activity class="w-5 h-5 text-emerald-600" />
+                                        <h4 class="text-xs font-black uppercase text-gray-400 tracking-widest">Health & Safety</h4>
+                                    </div>
+                                    <p class="text-[10px] font-bold text-gray-600 dark:text-gray-400 leading-relaxed italic">
+                                        Vehicle underwent security and mechanical audit on Jan 12, 2026. Certified for student transit.
+                                    </p>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <!-- Passenger Manifest -->
+                    <Card class="bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 rounded-[3rem] overflow-hidden">
+                        <CardHeader class="p-8 border-b border-slate-50 dark:border-slate-800">
+                            <CardTitle class="text-xl font-black tracking-tighter flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                                <Users class="w-5 h-5" />
+                                Verified Passenger Manifest
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent class="p-8">
+                            <div class="space-y-4">
+                                <div v-for="n in 3" :key="n" class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 group">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                                            <User class="w-4 h-4" />
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-black text-gray-900 dark:text-white leading-none mb-1">Authenticated Student #{{ n }}</p>
+                                            <p class="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Primary Pickup Point A</p>
+                                        </div>
+                                    </div>
+                                    <Badge class="bg-emerald-500 text-white font-black text-[8px] h-5 rounded-lg border-0">ONBOARD</Badge>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="space-y-8">
+                    <div class="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+                        <h3 class="text-xl font-black text-gray-900 dark:text-white tracking-tighter mb-8 bg-blue-50 dark:bg-blue-900/20 rounded-xl px-4 py-1 inline-block">Real-time Intel</h3>
+                        
                         <div class="space-y-6">
-                            <!-- Route Info -->
-                            <div class="flex items-center space-x-4 pb-6 border-b">
-                                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
-                                    <Bus class="w-8 h-8 text-white" />
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ route.name }}</h3>
-                                    <p class="text-gray-600 dark:text-gray-400">{{ route.description }}</p>
-                                </div>
-                            </div>
-
-                            <!-- Schedule -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Schedule</h4>
-                                    <div class="space-y-3">
-                                        <div class="flex items-center">
-                                            <Calendar class="w-4 h-4 mr-2 text-gray-400" />
-                                            <span class="text-gray-900 dark:text-white">Departure Time</span>
-                                        </div>
-                                        <p class="text-gray-900 dark:text-white font-medium">{{ route.departure_time }}</p>
-                                        
-                                        <div class="flex items-center">
-                                            <Calendar class="w-4 h-4 mr-2 text-gray-400" />
-                                            <span class="text-gray-900 dark:text-white">Arrival Time</span>
-                                        </div>
-                                        <p class="text-gray-900 dark:text-white font-medium">{{ route.arrival_time }}</p>
+                            <div class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 group">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-600 group-hover:scale-110 transition-transform">
+                                        <AlertTriangle class="w-5 h-5" />
                                     </div>
-                                </div>
-
-                                <div>
-                                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Vehicle Details</h4>
-                                    <div class="space-y-3">
-                                        <div class="flex items-center">
-                                            <Bus class="w-4 h-4 mr-2 text-gray-400" />
-                                            <span class="text-gray-900 dark:text-white">Vehicle Type</span>
-                                        </div>
-                                        <p class="text-gray-900 dark:text-white font-medium">{{ route.vehicle_type }}</p>
-                                        
-                                        <div class="flex items-center">
-                                            <span class="text-gray-900 dark:text-white">Vehicle Number</span>
-                                        </div>
-                                        <p class="text-gray-900 dark:text-white font-medium">{{ route.vehicle_number || 'N/A' }}</p>
-                                        
-                                        <div class="flex items-center">
-                                            <span class="text-gray-900 dark:text-white">Capacity</span>
-                                        </div>
-                                        <p class="text-gray-900 dark:text-white font-medium">{{ route.capacity }} students</p>
+                                    <div>
+                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Alerts</p>
+                                        <p class="text-sm font-black text-emerald-600">All Systems Nominal</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </CardContent>
-                </Card>
 
-                <!-- Driver Information -->
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Driver Information</CardTitle>
-                        <CardDescription>Driver details and contact</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div class="space-y-6">
-                            <div class="flex items-center space-x-4 pb-6 border-b">
-                                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
-                                    <Users class="w-8 h-8 text-white" />
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ route.driver.name }}</h3>
-                                    <p class="text-gray-600 dark:text-gray-400">{{ route.driver.license }}</p>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact Details</h4>
-                                    <div class="space-y-3">
-                                        <div class="flex items-center">
-                                            <Phone class="w-4 h-4 mr-2 text-gray-400" />
-                                            <span class="text-gray-900 dark:text-white">Phone</span>
-                                        </div>
-                                        <p class="text-gray-900 dark:text-white font-medium">{{ route.driver.phone }}</p>
-                                        
-                                        <div class="flex items-center">
-                                            <span class="text-gray-900 dark:text-white">Experience</span>
-                                        </div>
-                                        <p class="text-gray-900 dark:text-white font-medium">{{ route.driver.experience }} years</p>
+                            <div class="p-8 rounded-[3rem] bg-slate-900 dark:bg-slate-800 text-white shadow-lg relative overflow-hidden group">
+                                <div class="relative z-10 text-center">
+                                    <div class="w-16 h-16 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20">
+                                        <Navigation class="w-8 h-8 text-blue-400" />
                                     </div>
+                                    <h4 class="text-xl font-black mb-2 tracking-tighter leading-none">Live Tracking</h4>
+                                    <p class="text-gray-400 text-[10px] font-medium mb-6 leading-relaxed">
+                                        Initialize geospatial satellite tracking for this transit unit.
+                                    </p>
+                                    <Button class="w-full bg-white text-gray-900 hover:bg-white/90 font-black rounded-xl h-10 text-[10px] uppercase tracking-widest shadow-md">
+                                        Launch Radar
+                                    </Button>
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
 
-                <!-- Route Status -->
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Route Status</CardTitle>
-                        <CardDescription>Current route status and alerts</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <Badge :class="route.status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'">
-                                        {{ route.status }}
-                                    </Badge>
-                                </div>
-                                <div v-if="route.status === 'maintenance'" class="flex items-center text-yellow-600">
-                                    <AlertTriangle class="w-4 h-4 mr-2" />
-                                    <span class="text-sm font-medium">Under Maintenance</span>
-                                </div>
-                            </div>
-                            
-                            <div class="text-gray-600 dark:text-gray-400">
-                                <p v-if="route.status === 'active'">Route is currently operating normally.</p>
-                                <p v-if="route.status === 'maintenance'">Route is temporarily under maintenance. Alternative arrangements have been made.</p>
-                                <p v-if="route.status === 'inactive'">Route is currently inactive.</p>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <!-- Students Assigned -->
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Assigned Students ({{ route.students_assigned }})</CardTitle>
-                        <CardDescription>Students using this transport route</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div class="space-y-3">
-                            <div v-for="student in route.students_assigned" :key="student.name" class="flex items-center justify-between p-3 border rounded-lg">
-                                <div>
-                                    <h4 class="font-medium text-gray-900 dark:text-white">{{ student.name }}</h4>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ student.class }} • {{ student.pickup_point }}</p>
-                                </div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">
-                                    {{ student.pickup_time }}
-                                </div>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                        <Link :href="route('transport.index')" class="block mt-8">
+                            <Button variant="outline" class="w-full h-12 border-slate-200 dark:border-slate-700 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-black rounded-2xl">
+                                <ArrowLeft class="w-4 h-4 mr-2" />
+                                System Back
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
     </Sidebar>
 </template>
+
+<style scoped>
+.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>

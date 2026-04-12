@@ -4,6 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { User, Mail, Lock, Eye, EyeOff, ArrowLeft, ArrowRight, ShieldCheck, Zap, BarChart3, GraduationCap, CheckCircle2 } from 'lucide-vue-next';
 import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
@@ -23,21 +24,17 @@ const passwordStrength = computed(() => {
     if (!password) return { score: 0, label: '', color: '' };
     
     let score = 0;
-    
-    // Length check
     if (password.length >= 8) score++;
     if (password.length >= 12) score++;
-    
-    // Character variety checks
     if (/[a-z]/.test(password)) score++;
     if (/[A-Z]/.test(password)) score++;
     if (/[0-9]/.test(password)) score++;
     if (/[^a-zA-Z0-9]/.test(password)) score++;
     
-    if (score <= 2) return { score, label: 'Weak', color: 'bg-red-500' };
-    if (score <= 4) return { score, label: 'Fair', color: 'bg-yellow-500' };
-    if (score <= 5) return { score, label: 'Good', color: 'bg-blue-500' };
-    return { score, label: 'Strong', color: 'bg-green-500' };
+    if (score <= 2) return { score, label: 'Weak', color: 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.4)]' };
+    if (score <= 4) return { score, label: 'Fair', color: 'bg-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.4)]' };
+    if (score <= 5) return { score, label: 'Good', color: 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.4)]' };
+    return { score, label: 'Extremely Strong', color: 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.4)]' };
 });
 
 const submit = () => {
@@ -48,195 +45,150 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Create Account - EduManage Pro" />
+    <Head title="Register - EduManage Pro" />
 
-    <div class="min-h-screen flex bg-gray-50 dark:bg-gray-900">
-        <!-- Left Side - Branding & Info (hidden on mobile) -->
-        <div class="hidden lg:flex lg:w-1/2 bg-purple-700 p-16 flex-col justify-between text-white relative overflow-hidden">
-            <!-- Background Pattern -->
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full"></div>
-                <div class="absolute bottom-20 right-20 w-48 h-48 bg-white rounded-full"></div>
-                <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-white rounded-full"></div>
-            </div>
+    <div class="min-h-screen flex bg-mesh dark:bg-slate-950 transition-colors duration-500">
+        <!-- Left Side - Branding (hidden on mobile) -->
+        <div class="hidden lg:flex lg:w-[45%] p-16 flex-col justify-between relative overflow-hidden">
+            <!-- Decorative Orbs -->
+            <div class="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-emerald-600/10 blur-[100px] rounded-full animate-float" />
+            <div class="absolute -bottom-[10%] right-[10%] w-[50%] h-[50%] bg-indigo-600/10 blur-[100px] rounded-full animate-float" style="animation-delay: 2s" />
             
             <div class="relative z-10">
                 <!-- Logo -->
-                <Link href="/" class="flex items-center space-x-4 mb-16 group">
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center shadow-2xl transform transition-all duration-300 group-hover:scale-110 group-hover:bg-white/30">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
+                <Link href="/" class="flex items-center space-x-4 mb-20 group">
+                    <div class="w-14 h-14 bg-gradient-to-br from-indigo-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-indigo-500/20 transform transition-all duration-500 group-hover:scale-110">
+                        <GraduationCap class="w-8 h-8 text-white" />
                     </div>
                     <div>
-                        <h1 class="text-4xl font-bold">EduManage Pro</h1>
-                        <p class="text-xl text-white/80">School Management Platform</p>
+                        <h1 class="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-emerald-600 dark:from-indigo-400 dark:to-emerald-400">
+                            EduManage Pro
+                        </h1>
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">The Gold Standard</p>
                     </div>
                 </Link>
 
-                <!-- Welcome & Features -->
-                <div class="space-y-12">
-                    <div>
-                        <h2 class="text-5xl font-bold mb-6">Join Us Today!</h2>
-                        <p class="text-xl text-white/80 leading-relaxed">
-                            Start your 30-day free trial and transform your school management experience.
+                <!-- Onboarding Content -->
+                <div class="space-y-16 max-w-lg">
+                    <div class="animate-fade-in-up">
+                        <h2 class="text-6xl font-black text-gray-900 dark:text-white mb-6 tracking-tighter leading-tight">
+                            Start Your <br/> Legacy.
+                        </h2>
+                        <p class="text-xl text-gray-500 dark:text-gray-400 font-medium leading-relaxed">
+                            Join over 500+ institutions worldwide and experience the most advanced school management system ever built.
                         </p>
                     </div>
 
-                    <div class="space-y-10">
-                        <div class="flex items-start space-x-5 group">
-                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 transform transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                    <div class="space-y-8 animate-fade-in-up" style="animation-delay: 0.1s">
+                        <div class="flex items-start space-x-6 group">
+                            <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950">
+                                <CheckCircle2 class="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                             </div>
                             <div>
-                                <h3 class="text-xl font-semibold mb-2">Free Trial</h3>
-                                <p class="text-white/80">30 days free, no credit card required</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">Instant Activation</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">30-day free trial. No credit card required.</p>
                             </div>
                         </div>
 
-                        <div class="flex items-start space-x-5 group">
-                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 transform transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
+                        <div class="flex items-start space-x-6 group">
+                            <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950">
+                                <Zap class="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                             </div>
                             <div>
-                                <h3 class="text-xl font-semibold mb-2">Quick Setup</h3>
-                                <p class="text-white/80">Get started in minutes with our intuitive onboarding</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-5 group">
-                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0 transform transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
-                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold mb-2">24/7 Support</h3>
-                                <p class="text-white/80">Dedicated support team always ready to help</p>
+                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">Auto-Configuration</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Smart setup tailored to your school type.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Stats -->
-            <div class="grid grid-cols-3 gap-6 relative z-10">
-                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/20">
-                    <div class="text-4xl font-bold">1000+</div>
-                    <div class="text-white/80 text-sm mt-1">Schools</div>
-                </div>
-                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/20">
-                    <div class="text-4xl font-bold">500k+</div>
-                    <div class="text-white/80 text-sm mt-1">Students</div>
-                </div>
-                <div class="text-center p-6 rounded-xl bg-white/10 backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/20">
-                    <div class="text-4xl font-bold">99%</div>
-                    <div class="text-white/80 text-sm mt-1">Satisfaction</div>
+            <!-- Social Proof -->
+            <div class="glass p-8 rounded-[2rem] border-white/20 animate-fade-in-up" style="animation-delay: 0.2s">
+                <div class="flex items-center space-x-4">
+                    <div class="flex -space-x-3">
+                        <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-white bg-gray-200 dark:border-slate-900" />
+                    </div>
+                    <p class="text-xs font-bold text-gray-500 dark:text-gray-400">
+                        Join <span class="text-indigo-600 dark:text-indigo-400 text-sm font-black">1.2M+ users</span> already elevating education.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Right Side - Register Form -->
-        <div class="w-full lg:w-1/2 flex items-center justify-center p-8 relative">
-            <!-- Dark Mode Toggle -->
-            <div class="absolute top-8 right-8">
-                <DarkModeToggle variant="outline" />
+        <!-- Right Side - Registration Form -->
+        <div class="w-full lg:w-[55%] flex items-center justify-center p-6 md:p-12 relative">
+            <div class="absolute top-8 right-8 z-20">
+                <DarkModeToggle variant="ghost" class="glass rounded-xl h-12 w-12" />
             </div>
-            
-            <div class="w-full max-w-md">
+
+            <div class="w-full max-w-lg animate-scale-up">
                 <!-- Mobile Logo -->
                 <div class="lg:hidden mb-12 text-center">
                     <Link href="/" class="inline-flex items-center space-x-4 group">
-                        <div class="w-14 h-14 bg-purple-700 rounded-xl flex items-center justify-center shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:bg-purple-800">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                            </svg>
+                        <div class="w-14 h-14 bg-gradient-to-br from-indigo-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl transform transition-all duration-300 group-hover:scale-110">
+                            <GraduationCap class="w-8 h-8 text-white" />
                         </div>
-                        <span class="text-3xl font-bold text-purple-700">
+                        <span class="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-emerald-600">
                             EduManage Pro
                         </span>
                     </Link>
                 </div>
 
-                <Card class="border-0 shadow-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
-                    <CardHeader class="space-y-2 pb-8">
-                        <CardTitle class="text-3xl font-bold text-center text-gray-900 dark:text-white">Create Account</CardTitle>
-                        <CardDescription class="text-center text-base text-gray-600 dark:text-gray-300">
-                            Start your 30-day free trial today
-                        </CardDescription>
-                    </CardHeader>
+                <div class="glass-card p-10 md:p-14 rounded-[3rem] border-white/20 relative">
+                    <div class="relative z-10">
+                        <div class="mb-10 text-center lg:text-left">
+                            <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-3 tracking-tighter">Register</h3>
+                            <p class="text-gray-500 dark:text-gray-400 font-medium">Create your institutional legacy.</p>
+                        </div>
 
-                    <CardContent class="space-y-8">
-                        <form @submit.prevent="submit" class="space-y-7">
-                            <!-- Name Field -->
-                            <div class="space-y-3">
-                                <Label for="name">Full Name</Label>
-                                <div class="relative">
-                                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                        </svg>
+                        <form @submit.prevent="submit" class="space-y-6">
+                            <!-- Full Name -->
+                            <div class="space-y-2">
+                                <Label for="name" class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Full Name</Label>
+                                <div class="relative group">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                                        <User class="w-5 h-5" />
                                     </div>
                                     <Input
                                         id="name"
-                                        type="text"
                                         v-model="form.name"
-                                        placeholder="John Doe"
+                                        placeholder="Principal Name / Admin Name"
                                         required
                                         autofocus
-                                        autocomplete="name"
-                                        class="pl-11 h-12 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
-                                        :class="{ 'border-red-500 dark:border-red-500 focus-visible:ring-red-500': form.errors.name }"
+                                        class="h-14 pl-12 glass bg-white/50 dark:bg-slate-900/50 rounded-2xl border-white/10 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                                        :class="{ 'border-red-500/50': form.errors.name }"
                                     />
                                 </div>
-                                <p v-if="form.errors.name" class="text-sm text-red-600 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    {{ form.errors.name }}
-                                </p>
+                                <p v-if="form.errors.name" class="text-xs text-red-500 font-bold ml-1">{{ form.errors.name }}</p>
                             </div>
 
-                            <!-- Email Field -->
-                            <div class="space-y-3">
-                                <Label for="email">Email Address</Label>
-                                <div class="relative">
-                                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                                        </svg>
+                            <!-- Email Address -->
+                            <div class="space-y-2">
+                                <Label for="email" class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Email Address</Label>
+                                <div class="relative group">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                                        <Mail class="w-5 h-5" />
                                     </div>
                                     <Input
                                         id="email"
                                         type="email"
                                         v-model="form.email"
-                                        placeholder="name@school.com"
+                                        placeholder="admin@school-domain.com"
                                         required
-                                        autocomplete="username"
-                                        class="pl-11 h-12 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
-                                        :class="{ 'border-red-500 dark:border-red-500 focus-visible:ring-red-500': form.errors.email }"
+                                        class="h-14 pl-12 glass bg-white/50 dark:bg-slate-900/50 rounded-2xl border-white/10 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                                        :class="{ 'border-red-500/50': form.errors.email }"
                                     />
                                 </div>
-                                <p v-if="form.errors.email" class="text-sm text-red-600 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    {{ form.errors.email }}
-                                </p>
+                                <p v-if="form.errors.email" class="text-xs text-red-500 font-bold ml-1">{{ form.errors.email }}</p>
                             </div>
 
-                            <!-- Password Field -->
-                            <div class="space-y-3">
-                                <Label for="password">Password</Label>
-                                <div class="relative">
-                                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                        </svg>
+                            <!-- Password -->
+                            <div class="space-y-2">
+                                <Label for="password" class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Secure Password</Label>
+                                <div class="relative group">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                                        <Lock class="w-5 h-5" />
                                     </div>
                                     <Input
                                         id="password"
@@ -244,132 +196,86 @@ const submit = () => {
                                         v-model="form.password"
                                         placeholder="Create a strong password"
                                         required
-                                        autocomplete="new-password"
-                                        class="pl-11 pr-11 h-12 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
-                                        :class="{ 'border-red-500 dark:border-red-500 focus-visible:ring-red-500': form.errors.password }"
+                                        class="h-14 pl-12 pr-12 glass bg-white/50 dark:bg-slate-900/50 rounded-2xl border-white/10 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
+                                        :class="{ 'border-red-500/50': form.errors.password }"
                                     />
-                                    <button type="button" @click="showPassword = !showPassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700">
-                                        <svg v-if="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                        <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                                        </svg>
+                                    <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 transition-colors">
+                                        <Eye v-if="!showPassword" class="w-5 h-5" />
+                                        <EyeOff v-else class="w-5 h-5" />
                                     </button>
                                 </div>
                                 
-                                <!-- Password Strength Indicator -->
-                                <div v-if="form.password" class="space-y-2">
-                                    <div class="flex gap-1">
+                                <!-- Visual Password Strength -->
+                                <div v-if="form.password" class="px-1 pt-1 space-y-2 animate-fade-in">
+                                    <div class="flex gap-1.5">
                                         <div 
                                             v-for="i in 6" 
                                             :key="i"
-                                            class="h-1.5 flex-1 rounded-full transition-all duration-300"
-                                            :class="i <= passwordStrength.score ? passwordStrength.color : 'bg-gray-200'"
-                                        />
+                                            class="h-1.5 flex-1 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden"
+                                        >
+                                            <div 
+                                                class="h-full transition-all duration-500"
+                                                :class="[i <= passwordStrength.score ? passwordStrength.color : 'w-0']"
+                                            />
+                                        </div>
                                     </div>
-                                    <p class="text-xs font-medium" :class="{
-                                        'text-red-600': passwordStrength.label === 'Weak',
-                                        'text-yellow-600': passwordStrength.label === 'Fair',
-                                        'text-blue-600': passwordStrength.label === 'Good',
-                                        'text-green-600': passwordStrength.label === 'Strong'
-                                    }">
-                                        Password strength: {{ passwordStrength.label }}
-                                    </p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-[10px] font-black uppercase tracking-wider" :class="passwordStrength.score > 2 ? 'text-indigo-600 dark:text-indigo-400' : 'text-red-500'">
+                                            Strength: {{ passwordStrength.label }}
+                                        </span>
+                                    </div>
                                 </div>
-                                
-                                <p v-if="form.errors.password" class="text-sm text-red-600 dark:text-red-600 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    {{ form.errors.password }}
-                                </p>
+                                <p v-if="form.errors.password" class="text-xs text-red-500 font-bold ml-1">{{ form.errors.password }}</p>
                             </div>
 
-                            <!-- Confirm Password Field -->
-                            <div class="space-y-3">
-                                <Label for="password_confirmation">Confirm Password</Label>
-                                <div class="relative">
-                                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
+                            <!-- Password Confirmation -->
+                            <div class="space-y-2">
+                                <Label for="password_confirmation" class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Confirm Password</Label>
+                                <div class="relative group">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-violet-600 transition-colors">
+                                        <ShieldCheck class="w-5 h-5" />
                                     </div>
                                     <Input
                                         id="password_confirmation"
                                         :type="showConfirmPassword ? 'text' : 'password'"
                                         v-model="form.password_confirmation"
-                                        placeholder="Re-enter your password"
+                                        placeholder="Repeat your password"
                                         required
-                                        autocomplete="new-password"
-                                        class="pl-11 pr-11 h-12 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
-                                        :class="{ 'border-red-500 dark:border-red-500 focus-visible:ring-red-500': form.errors.password_confirmation }"
+                                        class="h-14 pl-12 pr-12 glass bg-white/50 dark:bg-slate-900/50 rounded-2xl border-white/10 focus:ring-2 focus:ring-violet-500/20 transition-all font-medium"
+                                        :class="{ 'border-red-500/50': form.errors.password_confirmation }"
                                     />
-                                    <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700">
-                                        <svg v-if="!showConfirmPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                        <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                                        </svg>
+                                    <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-violet-600 transition-colors">
+                                        <Eye v-if="!showConfirmPassword" class="w-5 h-5" />
+                                        <EyeOff v-else class="w-5 h-5" />
                                     </button>
                                 </div>
-                                <p v-if="form.errors.password_confirmation" class="text-sm text-red-600 dark:text-red-600 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    {{ form.errors.password_confirmation }}
-                                </p>
                             </div>
 
-                            <!-- Submit Button -->
                             <Button
                                 type="submit"
-                                class="w-full h-12 text-white font-semibold bg-purple-700 hover:bg-purple-800 shadow-lg transition-all duration-200 hover:shadow-xl transform hover:scale-105"
+                                class="w-full h-14 mt-4 text-white font-black text-lg bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-700 hover:to-emerald-700 shadow-xl shadow-indigo-500/20 rounded-2xl transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-3"
                                 :disabled="form.processing"
                             >
-                                <svg v-if="form.processing" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                {{ form.processing ? 'Creating account...' : 'Create Account' }}
+                                <span v-if="!form.processing">Create Academy Profile</span>
+                                <div v-else class="flex items-center gap-2">
+                                    <div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    <span>Building Database...</span>
+                                </div>
+                                <ArrowRight v-if="!form.processing" class="w-5 h-5" />
                             </Button>
                         </form>
+                    </div>
+                </div>
 
-                        <!-- Divider -->
-                        <div class="relative">
-                            <div class="absolute inset-0 flex items-center">
-                                <div class="w-full border-t border-gray-200"></div>
-                            </div>
-                            <div class="relative flex justify-center text-sm">
-                                <span class="px-4 bg-white text-gray-500 dark:bg-gray-800 dark:text-gray-400">
-                                    Already have an account?
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Sign In Link -->
-                        <div class="text-center">
-                            <Link 
-                                :href="route('login')" 
-                                class="inline-flex items-center gap-2 text-base font-semibold group"
-                            >
-                                Sign in instead
-                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </Link>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <!-- Back to Homepage -->
-                <div class="mt-8 text-center">
-                    <Link href="/" class="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 inline-flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        Back to homepage
+                <!-- Footer Actions -->
+                <div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 px-4 pb-8">
+                    <p class="text-sm font-bold text-gray-500 dark:text-gray-400">
+                        Already registered?
+                        <Link :href="route('login')" class="text-indigo-600 dark:text-indigo-400 hover:underline ml-1 font-black">Sign in here</Link>
+                    </p>
+                    <Link href="/" class="text-sm font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 flex items-center gap-2">
+                        <ArrowLeft class="w-4 h-4" />
+                        Back to site
                     </Link>
                 </div>
             </div>
@@ -378,67 +284,8 @@ const submit = () => {
 </template>
 
 <style scoped>
-/* Custom animations */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-@keyframes pulse-slow {
-    0%, 100% {
-        opacity: 0.1;
-    }
-    50% {
-        opacity: 0.2;
-    }
-}
-
-/* Floating background elements */
-.absolute .bg-white {
-    animation: float 6s ease-in-out infinite;
-}
-
-.absolute .bg-white:nth-child(2) {
-    animation-delay: 2s;
-}
-
-.absolute .bg-white:nth-child(3) {
-    animation-delay: 4s;
-}
-
-/* Enhanced transitions */
-* {
-    transition-property: color, background-color, border-color, transform, box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-}
-
-/* Card hover effects */
-.transform:hover {
-    transform: translateY(-2px);
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
+/* Scoped effects */
+.shadow-glow {
+    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));
 }
 </style>
-                            
-                            

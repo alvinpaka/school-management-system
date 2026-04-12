@@ -26,49 +26,53 @@ class AttendanceController extends Controller
         $classes = $query->get();
         
         $attendance = [];
-        if ($request->has(['academic_class_id', 'section_id', 'date'])) {
-            $attendanceQuery = Attendance::where('academic_class_id', $request->academic_class_id)
-                ->where('section_id', $request->section_id)
-                ->where('date', $request->date)
-                ->with('student.user');
+        
+        if (auth()->user()->hasRole(['admin', 'teacher'])) {
+            if ($request->has(['academic_class_id', 'section_id', 'date'])) {
+                $attendanceQuery = Attendance::where('academic_class_id', $request->academic_class_id)
+                    ->where('section_id', $request->section_id)
+                    ->where('date', $request->date)
+                    ->with('student.user');
+                    
+                $attendance = $attendanceQuery->get();
+                    
+                if ($attendance->isEmpty()) {
+                    // Pre-populate with students from that class/section
+                    $studentsQuery = Student::where('academic_class_id', $request->academic_class_id)
+                        ->where('section_id', $request->section_id)
+                        ->with('user');
+                        
+                    $students = $studentsQuery->get();
+                        
+                    $attendance = $students->map(function ($student) use ($request) {
+                        return [
+                            'student_id' => $student->id,
+                            'student' => $student,
+                            'status' => 'present',
+                            'remarks' => '',
+                        ];
+                    });
+                }
+            }
+        } else {
+            // Students and Parents: Fetch their direct attendance history
+            $attendanceQuery = Attendance::with('student.user')
+                ->orderBy('date', 'desc')
+                ->take(30); // Last 30 attendance records
                 
-            // Filter for parents - only show attendance for their children
             if (auth()->user()->hasRole('parent')) {
                 $parentStudentIds = view()->shared('parentStudentIds', []);
                 if (!empty($parentStudentIds)) {
                     $attendanceQuery->whereIn('student_id', $parentStudentIds);
                 }
-            }
-                
-            $attendance = $attendanceQuery->get();
-                
-            if ($attendance->isEmpty()) {
-                // Pre-populate with students from that class/section
-                $studentsQuery = Student::where('academic_class_id', $request->academic_class_id)
-                    ->where('section_id', $request->section_id)
-                    ->with('user');
-                    
-                // Filter for parents - only show their children
-                if (auth()->user()->hasRole('parent')) {
-                    $parentStudentIds = view()->shared('parentStudentIds', []);
-                    if (!empty($parentStudentIds)) {
-                        $studentsQuery->whereIn('id', $parentStudentIds);
-                    }
+            } elseif (auth()->user()->hasRole('student')) {
+                if (auth()->user()->student) {
+                    $attendanceQuery->where('student_id', auth()->user()->student->id);
                 }
-                    
-                $students = $studentsQuery->get();
-                    
-                $attendance = $students->map(function ($student) use ($request) {
-                    return [
-                        'student_id' => $student->id,
-                        'student' => $student,
-                        'status' => 'present',
-                        'remarks' => '',
-                    ];
-                });
             }
+            
+            $attendance = $attendanceQuery->get();
         }
-
         return Inertia::render('Attendance/Index', [
             'classes' => $classes,
             'attendanceData' => $attendance,

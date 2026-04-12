@@ -13,7 +13,7 @@ use Inertia\Inertia;
 
 class ReportCardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $query = AcademicClass::with(['students.user']);
         
@@ -32,8 +32,42 @@ class ReportCardController extends Controller
         
         $classes = $query->get();
         
+        // Student fetching logic
+        $selectedClass = $request->input('class', 'S1');
+        $searchQuery = $request->input('search');
+
+        $studentQuery = Student::with(['user', 'academicClass', 'section']);
+        
+        if ($selectedClass) {
+            // Front-end passes explicit string names like 'S1', 'S2', etc.
+            $studentQuery->whereHas('academicClass', function($q) use ($selectedClass) {
+                $q->where('name', $selectedClass); 
+            });
+        }
+
+        if ($searchQuery) {
+            $studentQuery->where(function ($q) use ($searchQuery) {
+                $q->where('admission_number', 'like', "%{$searchQuery}%")
+                  ->orWhereHas('user', function ($uq) use ($searchQuery) {
+                      $uq->where('name', 'like', "%{$searchQuery}%");
+                  });
+            });
+        }
+        
+        // Enforce parent restriction for exact dependents
+        if (auth()->user()->hasRole('parent')) {
+            $parentStudentIds = view()->shared('parentStudentIds', []);
+            if (!empty($parentStudentIds)) {
+                $studentQuery->whereIn('id', $parentStudentIds);
+            }
+        }
+        
+        $students = $studentQuery->paginate(12)->withQueryString();
+
         return Inertia::render('ReportCards/Index', [
-            'classes' => $classes
+            'classes' => $classes,
+            'students' => $students,
+            'filters' => $request->only(['search', 'class'])
         ]);
     }
 
@@ -51,7 +85,7 @@ class ReportCardController extends Controller
             ->findOrFail($studentId);
 
         $grades = Grade::where('student_id', $studentId)
-            ->with('exam')
+            ->with(['exam', 'subject'])
             ->get()
             ->groupBy('exam_id');
 
@@ -148,7 +182,7 @@ class ReportCardController extends Controller
         foreach ($students as $student) {
             $grades = Grade::where('student_id', $student->id)
                 ->where('exam_id', $examId)
-                ->with('exam')
+                ->with(['exam', 'subject'])
                 ->get();
 
             $reports[] = [

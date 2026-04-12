@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ChevronRight, ArrowRight, Star, Quote, CheckCircle2, PlayCircle } from 'lucide-vue-next';
 import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 import { useTheme } from '@/composables/useTheme';
 
@@ -155,29 +156,13 @@ onMounted(() => {
 <template>
 <Head title="EduManage Pro - Transform Your School Management" />
 
-<div class="min-h-screen bg-slate-50 dark:bg-slate-950 text-foreground relative overflow-hidden transition-colors duration-300">
+<div class="min-h-screen bg-mesh dark:bg-slate-950 text-foreground relative transition-colors duration-300">
     
-    <!-- Animated Background Particles -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden">
-        <div 
-            v-for="particle in particles" 
-            :key="particle.id"
-            class="absolute rounded-full bg-blue-400 dark:bg-blue-600 blur-sm"
-            :style="{
-                left: particle.x + 'px',
-                top: particle.y + 'px',
-                width: particle.size + 'px',
-                height: particle.size + 'px',
-                opacity: particle.opacity
-            }"
-        />
-    </div>
-    
-    <!-- Geometric overlay -->
-    <div class="fixed inset-0 pointer-events-none opacity-5">
-        <div class="absolute top-10 left-10 w-32 h-32 bg-blue-500 rounded-full"></div>
-        <div class="absolute bottom-20 right-20 w-48 h-48 bg-purple-500 rounded-full"></div>
-        <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-pink-500 rounded-full"></div>
+    <!-- Hero Background Orbs -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-500/10 dark:bg-indigo-600/5 blur-[120px] rounded-full animate-float" />
+        <div class="absolute top-[20%] -right-[10%] w-[35%] h-[35%] bg-violet-500/10 dark:bg-violet-600/5 blur-[120px] rounded-full animate-float" style="animation-delay: 2s" />
+        <div class="absolute -bottom-[10%] left-[20%] w-[30%] h-[30%] bg-emerald-500/10 dark:bg-emerald-600/5 blur-[120px] rounded-full animate-float" style="animation-delay: 4s" />
     </div>
     
     <div class="relative z-10">
@@ -185,55 +170,55 @@ onMounted(() => {
     <!-- ================= NAVBAR ================= -->
     <header
         :class="[
-            'fixed w-full z-50 transition-all duration-500',
+            'fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 transition-all duration-500 rounded-2xl',
             isScrolled 
-                ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 shadow-lg shadow-blue-500/5' 
-                : 'bg-transparent border-b border-transparent'
+                ? 'glass shadow-2xl shadow-indigo-500/10' 
+                : 'bg-transparent border-b border-white/5'
         ]"
     >
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="px-6 py-4 flex justify-between items-center text">
             <div class="flex items-center space-x-3 group cursor-pointer">
-                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all duration-300 group-hover:scale-110">
+                <div class="w-11 h-11 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all duration-300 group-hover:scale-110">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
                         EduManage Pro
                     </h1>
-                    <p class="text-xs text-blue-600 dark:text-blue-400 font-medium">School Management Platform</p>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">Evolution in Education</p>
                 </div>
             </div>
 
             <!-- Desktop Navigation -->
             <nav v-if="canLogin" class="hidden lg:flex items-center space-x-8">
-                <a href="#features" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">Features</a>
-                <a href="#pricing" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">Pricing</a>
-                <a href="#testimonials" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">Testimonials</a>
+                <a href="#features" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Features</a>
+                <a href="#pricing" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Pricing</a>
+                <a href="#testimonials" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Testimonials</a>
+
+                <div class="h-6 w-px bg-gray-200 dark:bg-gray-800"></div>
 
                 <DarkModeToggle variant="ghost" />
 
-                <Button
-                    v-if="$page.props.auth.user"
-                    class="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300"
-                    as-child
-                >
-                    <Link :href="route('dashboard')">
-                        Dashboard
-                    </Link>
-                </Button>
-
-                <template v-else>
-                    <Button variant="ghost" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400" as-child>
-                        <Link :href="route('login')">
-                            Log in
+                <template v-if="$page.props.auth.user">
+                    <Button
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 rounded-xl"
+                        as-child
+                    >
+                        <Link :href="route('dashboard')">
+                            Go to Dashboard
                         </Link>
                     </Button>
+                </template>
 
-                    <Button v-if="canRegister" class="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300" as-child>
+                <template v-else>
+                    <Link :href="route('login')" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">
+                        Sign In
+                    </Link>
+                    <Button class="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-300 rounded-xl" as-child>
                         <Link :href="route('register')">
-                            Start Free Trial
+                            Get Started
                         </Link>
                     </Button>
                 </template>
@@ -283,42 +268,42 @@ onMounted(() => {
     </header>
 
     <!-- ================= HERO ================= -->
-    <section class="pt-32 md:pt-40 pb-20 md:pb-32 relative">
+    <section class="pt-48 md:pt-60 pb-24 md:pb-40 relative">
         <div class="max-w-7xl mx-auto px-6">
             
             <!-- Animated Hero Badge -->
-            <div class="mb-8 flex justify-center animate-fade-in-up">
-                <div class="inline-flex items-center bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 px-5 py-2.5 rounded-full shadow-lg shadow-blue-500/10">
-                    <div class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse mr-3" />
-                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">
-                        Trusted by 500+ schools worldwide
+            <div class="mb-10 flex justify-center animate-fade-in-up">
+                <div class="inline-flex items-center glass px-6 py-2.5 rounded-full shadow-2xl shadow-indigo-500/10 border-white/20">
+                    <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse-glow mr-3" />
+                    <span class="text-sm font-bold text-gray-700 dark:text-gray-200">
+                        The future of school management is here
                     </span>
                 </div>
             </div>
 
             <div class="text-center max-w-5xl mx-auto">
-                <h2 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8 animate-fade-in-up animation-delay-100">
-                    <span class="block text-gray-900 dark:text-white mb-4">
-                        Transform Your
+                <h2 class="text-6xl md:text-8xl lg:text-9xl font-black leading-tight mb-8 animate-fade-in-up">
+                    <span class="block text-gray-900 dark:text-white mb-2 tracking-tighter">
+                        Empower Your
                     </span>
-                    <span class="block text-blue-600 dark:text-blue-400">
-                        School Management
+                    <span class="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 animate-gradient pb-4 tracking-tighter">
+                        Academic World
                     </span>
                 </h2>
 
-                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in-up animation-delay-200">
-                    Streamline administration, boost academic performance, and enhance communication with our all-in-one SaaS platform.
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-14 leading-relaxed font-medium animate-fade-in-up" style="animation-delay: 0.1s">
+                    Streamline operations, inspire excellence, and connect your entire school community with the most advanced management ecosystem.
                 </p>
 
-                <div class="flex justify-center gap-4 flex-wrap mb-16 animate-fade-in-up animation-delay-300">
+                <div class="flex justify-center gap-6 flex-wrap mb-20 animate-fade-in-up" style="animation-delay: 0.2s">
                     <Button
                         v-if="!$page.props.auth.user"
                         size="lg"
-                        class="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6 shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-lg px-10 py-7 shadow-[0_20px_50px_rgba(79,70,229,0.3)] hover:shadow-[0_20px_50px_rgba(79,70,229,0.5)] hover:scale-105 transition-all duration-300 rounded-2xl font-bold"
                         as-child
                     >
                         <Link :href="route('register')">
-                            Start 30-Day Free Trial
+                            Start Free Journey
                             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
@@ -326,20 +311,19 @@ onMounted(() => {
                     </Button>
 
                     <Button 
-                        variant="outline" 
+                        variant="ghost" 
                         size="lg" 
-                        class="text-lg px-8 py-6 border-2 hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950 transition-all duration-300" 
+                        class="glass text-lg px-10 py-7 border-white/20 hover:bg-white/20 transition-all duration-300 rounded-2xl font-bold dark:text-white" 
                         as-child
                     >
                         <a href="#features">
-                            Explore Features
+                            See Innovation
                             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                             </svg>
                         </a>
                     </Button>
                 </div>
-                
                 <!-- Stats Section with improved design -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto animate-fade-in-up animation-delay-400">
                     <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
@@ -366,42 +350,43 @@ onMounted(() => {
     </section>
 
     <!-- ================= FEATURES ================= -->
-    <section id="features" class="py-20 md:py-32 relative bg-white dark:bg-slate-900/50">
+    <section id="features" class="py-32 md:py-48 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <div class="inline-flex items-center bg-blue-100 dark:bg-blue-950 px-4 py-2 rounded-full mb-6">
-                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">Features</span>
+            <div class="text-center mb-24">
+                <div class="inline-flex items-center glass px-6 py-2 rounded-full mb-8">
+                    <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Innovation Hub</span>
                 </div>
-                <h3 class="text-4xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
-                    Everything Your School Needs
+                <h3 class="text-5xl md:text-7xl font-black mb-8 text-gray-900 dark:text-white tracking-tighter">
+                    Built for the Modern School
                 </h3>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                    Powerful tools designed to simplify management and improve outcomes
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
+                    Designed with precision to solve the most complex challenges in education management.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <div 
                     v-for="(feature, index) in features" 
                     :key="index"
-                    class="group relative bg-white dark:bg-slate-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2"
+                    class="glass-card p-10 rounded-[2.5rem] group"
                 >
-                    <div class="absolute inset-0 bg-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div :class="[feature.color, 'w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-2xl group-hover:scale-110 transition-transform duration-500 shadow-indigo-500/20']">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="feature.icon" />
+                        </svg>
+                    </div>
                     
-                    <div class="relative">
-                        <div :class="[feature.color, 'w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300']">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="feature.icon" />
-                            </svg>
-                        </div>
-                        
-                        <h4 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-                            {{ feature.title }}
-                        </h4>
-                        
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                            {{ feature.description }}
-                        </p>
+                    <h4 class="text-2xl font-black mb-4 text-gray-900 dark:text-white tracking-tight">
+                        {{ feature.title }}
+                    </h4>
+                    
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
+                        {{ feature.description }}
+                    </p>
+
+                    <div class="mt-8 flex items-center text-indigo-600 dark:text-indigo-400 font-bold group-hover:translate-x-2 transition-transform duration-300 cursor-pointer">
+                        Learn more
+                        <ChevronRight class="w-5 h-5 ml-1" />
                     </div>
                 </div>
             </div>
@@ -409,176 +394,117 @@ onMounted(() => {
     </section>
 
     <!-- ================= PRICING ================= -->
-    <section id="pricing" class="py-20 md:py-32 relative">
+    <section id="pricing" class="py-32 md:py-48 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <div class="inline-flex items-center bg-purple-100 dark:bg-purple-950 px-4 py-2 rounded-full mb-6">
-                    <span class="text-sm font-semibold text-purple-600 dark:text-purple-400">Pricing</span>
+            <div class="text-center mb-24">
+                <div class="inline-flex items-center glass px-6 py-2 rounded-full mb-8">
+                    <span class="text-sm font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest">Pricing</span>
                 </div>
-                <h3 class="text-4xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
-                    Simple, Transparent Pricing
+                <h3 class="text-5xl md:text-7xl font-black mb-8 text-gray-900 dark:text-white tracking-tighter">
+                    Plans that Scale with You
                 </h3>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
-                    Choose the plan that fits your institution perfectly
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium">
+                    Transparent, flexible, and built for institutions of all sizes.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
                 <!-- Starter Plan -->
-                <div class="group relative bg-white dark:bg-slate-900 p-8 rounded-3xl border-2 border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                    <div class="mb-6">
-                        <h4 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Starter</h4>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Perfect for small schools</p>
-                    </div>
-                    
+                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col group border-white/10">
                     <div class="mb-8">
-                        <div class="flex items-baseline">
-                            <span class="text-5xl font-bold text-blue-600">Free</span>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Forever free</p>
+                        <h4 class="text-2xl font-black mb-2 text-gray-900 dark:text-white">Starter</h4>
+                        <p class="text-gray-500 dark:text-gray-400 font-medium">For small private schools</p>
                     </div>
                     
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">Up to 100 Students</span>
+                    <div class="mb-10">
+                        <div class="flex items-baseline">
+                            <span class="text-6xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">Free</span>
+                        </div>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-3 font-medium tracking-wide">Forever independent</p>
+                    </div>
+                    
+                    <ul class="space-y-5 mb-12 flex-1">
+                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-medium">
+                            <CheckCircle2 class="w-6 h-6 text-emerald-500 mr-3 flex-shrink-0" />
+                            Up to 50 Students
                         </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">Basic Attendance Tracking</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">Email Support</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">Mobile App Access</span>
+                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-medium opacity-60">
+                            <CheckCircle2 class="w-6 h-6 text-gray-400 mr-3 flex-shrink-0" />
+                            Basic Features
                         </li>
                     </ul>
                     
-                    <Button variant="outline" class="w-full border-2 hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950 transition-colors">
-                        Get Started
+                    <Button variant="ghost" class="w-full h-14 rounded-2xl border-2 border-indigo-600/20 hover:border-indigo-600 hover:bg-transparent text-indigo-600 dark:text-indigo-400 font-bold">
+                        Start Now
                     </Button>
                 </div>
 
                 <!-- Professional Plan -->
-                <div class="group relative bg-blue-600 p-8 rounded-3xl shadow-2xl shadow-blue-500/30 transform scale-105 hover:scale-110 transition-all duration-500">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <div class="bg-orange-500 px-4 py-1.5 rounded-full shadow-lg">
-                            <span class="text-white font-bold text-sm">Most Popular</span>
-                        </div>
+                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col relative scale-105 shadow-[0_30px_60px_-15px_rgba(79,70,229,0.3)] border-indigo-500/30">
+                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 px-6 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-full shadow-lg">
+                        <span class="text-white font-black text-xs uppercase tracking-widest">Most Popular</span>
                     </div>
                     
-                    <div class="mb-6">
-                        <h4 class="text-2xl font-bold mb-2 text-white">Professional</h4>
-                        <p class="text-blue-100 text-sm">For growing institutions</p>
+                    <div class="mb-8 pt-4">
+                        <h4 class="text-2xl font-black mb-2 text-gray-900 dark:text-white">Professional</h4>
+                        <p class="text-gray-500 dark:text-gray-400 font-medium">Scaling fast institutions</p>
                     </div>
                     
-                    <div class="mb-8">
+                    <div class="mb-10">
                         <div class="flex items-baseline">
-                            <span class="text-5xl font-bold text-white">$49</span>
-                            <span class="text-blue-100 ml-2">/month</span>
+                            <span class="text-6xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">$49</span>
+                            <span class="text-gray-500 dark:text-gray-400 font-bold ml-2">/mo</span>
                         </div>
-                        <p class="text-blue-100 text-sm mt-2">Billed monthly</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-3 font-medium tracking-wide">Billed annually</p>
                     </div>
                     
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-300 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-white">Up to 500 Students</span>
+                    <ul class="space-y-5 mb-12 flex-1">
+                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-bold">
+                            <CheckCircle2 class="w-6 h-6 text-indigo-500 mr-3 flex-shrink-0 shadow-glow" />
+                            Up to 500 Students
                         </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-300 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-white">All Advanced Features</span>
+                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-bold">
+                            <CheckCircle2 class="w-6 h-6 text-indigo-500 mr-3 flex-shrink-0 shadow-glow" />
+                            All Core Features
                         </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-300 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-white">Priority Support</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-300 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-white">Custom Branding</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-300 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-white">API Access</span>
+                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-bold">
+                            <CheckCircle2 class="w-6 h-6 text-indigo-500 mr-3 flex-shrink-0 shadow-glow" />
+                            Cloud Synchronization
                         </li>
                     </ul>
                     
-                    <Button class="w-full bg-white text-purple-600 hover:bg-gray-100 font-bold shadow-lg hover:shadow-xl transition-all">
-                        Get Started
+                    <Button class="w-full h-14 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-black rounded-2xl shadow-xl shadow-indigo-500/20">
+                        Select Plan
                     </Button>
                 </div>
 
                 <!-- Enterprise Plan -->
-                <div class="group relative bg-white dark:bg-slate-900 p-8 rounded-3xl border-2 border-gray-200 dark:border-gray-800 hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                    <div class="mb-6">
-                        <h4 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Enterprise</h4>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">For large institutions</p>
-                    </div>
-                    
+                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col border-white/10">
                     <div class="mb-8">
-                        <div class="flex items-baseline">
-                            <span class="text-5xl font-bold text-purple-600">$99</span>
-                            <span class="text-gray-600 dark:text-gray-400 ml-2">/month</span>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Billed monthly</p>
+                        <h4 class="text-2xl font-black mb-2 text-gray-900 dark:text-white">Enterprise</h4>
+                        <p class="text-gray-500 dark:text-gray-400 font-medium">Large scale campuses</p>
                     </div>
                     
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">Unlimited Students</span>
+                    <div class="mb-10">
+                        <div class="flex items-baseline text-6xl font-black text-gray-900 dark:text-white tracking-tighter">
+                            Custom
+                        </div>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-3 font-medium tracking-wide">Tailored to your needs</p>
+                    </div>
+                    
+                    <ul class="space-y-5 mb-12 flex-1">
+                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-medium">
+                            <CheckCircle2 class="w-6 h-6 text-gray-900 dark:text-white mr-3 flex-shrink-0" />
+                            Unlimited Students
                         </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">Custom Features</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">24/7 Dedicated Support</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">On-premise Deployment</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="text-gray-700 dark:text-gray-300">SLA Guarantee</span>
+                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-medium">
+                            <CheckCircle2 class="w-6 h-6 text-gray-900 dark:text-white mr-3 flex-shrink-0" />
+                            24h Dedicated Support
                         </li>
                     </ul>
                     
-                    <Button variant="outline" class="w-full border-2 hover:border-purple-600 hover:bg-purple-50 dark:hover:bg-purple-950 transition-colors">
-                        Contact Sales
+                    <Button variant="outline" class="w-full h-14 rounded-2xl border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 text-gray-900 dark:text-white font-black">
+                        Contact Us
                     </Button>
                 </div>
             </div>
@@ -586,42 +512,38 @@ onMounted(() => {
     </section>
 
     <!-- ================= TESTIMONIALS ================= -->
-    <section id="testimonials" class="py-20 md:py-32 relative bg-white dark:bg-slate-900/50">
+    <section id="testimonials" class="py-32 md:py-48 relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20">
-                <div class="inline-flex items-center bg-green-100 dark:bg-green-950 px-4 py-2 rounded-full mb-6">
-                    <span class="text-sm font-semibold text-green-600 dark:text-green-400">Testimonials</span>
+                <div class="inline-flex items-center glass px-6 py-2 rounded-full mb-8">
+                    <span class="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Global Trust</span>
                 </div>
-                <h3 class="text-4xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
-                    Loved by Educators
+                <h3 class="text-5xl md:text-7xl font-black mb-8 text-gray-900 dark:text-white tracking-tighter">
+                    Loved by Education Leaders
                 </h3>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
-                    See what school leaders are saying about EduManage Pro
-                </p>
             </div>
 
-            <div class="max-w-4xl mx-auto relative">
-                <div class="bg-gradient-to-br from-white to-gray-50 dark:from-slate-900 dark:to-slate-800 p-12 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-2xl">
-                    <div class="text-center">
-                        <div class="text-6xl mb-6">{{ testimonials[activeTestimonial].image }}</div>
+            <div class="max-w-5xl mx-auto relative group">
+                <div class="glass-card p-12 md:p-20 rounded-[3rem] text-center border-white/20">
+                    <Quote class="w-16 h-16 text-indigo-500/20 absolute top-10 left-10" />
+                    <div class="relative z-10">
+                        <div class="text-7xl mb-10 animate-scale-up">{{ testimonials[activeTestimonial].image }}</div>
                         
-                        <div class="flex justify-center mb-6">
-                            <div class="flex space-x-1">
-                                <svg v-for="i in 5" :key="i" class="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                </svg>
+                        <div class="flex justify-center mb-10">
+                            <div class="flex space-x-1.5">
+                                <Star v-for="i in 5" :key="i" class="w-6 h-6 text-yellow-400 fill-yellow-400" />
                             </div>
                         </div>
                         
-                        <blockquote class="text-2xl md:text-3xl font-medium text-gray-900 dark:text-white mb-8 leading-relaxed">
+                        <blockquote class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-10 leading-[1.1] tracking-tighter">
                             "{{ testimonials[activeTestimonial].quote }}"
                         </blockquote>
                         
                         <div>
-                            <div class="font-bold text-xl text-gray-900 dark:text-white">
+                            <div class="font-black text-2xl text-indigo-600 dark:text-indigo-400">
                                 {{ testimonials[activeTestimonial].name }}
                             </div>
-                            <div class="text-gray-600 dark:text-gray-400">
+                            <div class="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest text-sm mt-1">
                                 {{ testimonials[activeTestimonial].role }}
                             </div>
                         </div>
@@ -629,37 +551,14 @@ onMounted(() => {
                 </div>
                 
                 <!-- Navigation Buttons -->
-                <div class="flex justify-center mt-8 space-x-4">
-                    <button 
-                        @click="prevTestimonial"
-                        class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 flex items-center justify-center transition-all duration-300 hover:shadow-lg"
-                    >
-                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
+                <div class="absolute top-1/2 -translate-y-1/2 -left-6 md:-left-12">
+                    <button @click="prevTestimonial" class="p-6 rounded-2xl glass hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 shadow-xl border-white/30 group">
+                        <ChevronRight class="w-6 h-6 rotate-180 text-gray-900 dark:text-white" />
                     </button>
-                    
-                    <div class="flex items-center space-x-2">
-                        <button 
-                            v-for="(_, index) in testimonials" 
-                            :key="index"
-                            @click="activeTestimonial = index"
-                            :class="[
-                                'w-3 h-3 rounded-full transition-all duration-300',
-                                activeTestimonial === index 
-                                    ? 'bg-blue-600 w-8' 
-                                    : 'bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600'
-                            ]"
-                        />
-                    </div>
-                    
-                    <button 
-                        @click="nextTestimonial"
-                        class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 flex items-center justify-center transition-all duration-300 hover:shadow-lg"
-                    >
-                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
+                </div>
+                <div class="absolute top-1/2 -translate-y-1/2 -right-6 md:-right-12">
+                    <button @click="nextTestimonial" class="p-6 rounded-2xl glass hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 shadow-xl border-white/30 group">
+                        <ChevronRight class="w-6 h-6 text-gray-900 dark:text-white" />
                     </button>
                 </div>
             </div>
@@ -667,45 +566,45 @@ onMounted(() => {
     </section>
 
     <!-- ================= CTA SECTION ================= -->
-    <section class="py-20 md:py-32 relative overflow-hidden">
-        <div class="absolute inset-0 bg-blue-600" />
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20" />
-        
-        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <h3 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                Ready to Transform Your School?
-            </h3>
-            <p class="text-xl md:text-2xl text-blue-100 mb-12 leading-relaxed">
-                Join 500+ schools already using EduManage Pro to streamline operations and improve student outcomes.
-            </p>
-            
-            <div class="flex justify-center gap-4 flex-wrap">
-                <Button
-                    v-if="!$page.props.auth.user && canRegister"
-                    size="lg"
-                    class="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6 shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300"
-                    as-child
-                >
-                    <Link :href="route('register')">
-                        Start Your Free Trial
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                    </Link>
-                </Button>
+    <section class="py-32 md:py-48 px-6 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative rounded-[4rem] overflow-hidden bg-indigo-600 px-10 py-24 md:p-32 text-center group">
+                <!-- Animated Background for CTA -->
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-800 transition-all duration-700 group-hover:scale-110" />
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSJub25lIi8+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==')] opacity-30" />
                 
-                <Button 
-                    variant="outline" 
-                    size="lg" 
-                    class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-purple-600 text-lg px-8 py-6 transition-all duration-300"
-                >
-                    Schedule a Demo
-                </Button>
+                <div class="relative z-10 max-w-4xl mx-auto">
+                    <h3 class="text-5xl md:text-8xl font-black text-white mb-10 tracking-tighter leading-none">
+                        Ready for the <br/> Transformation?
+                    </h3>
+                    <p class="text-xl md:text-2xl text-indigo-100 mb-14 font-medium leading-relaxed">
+                        Join 500+ forward-thinking schools that have already redefined their administrative legacy.
+                    </p>
+                    
+                    <div class="flex justify-center gap-6 flex-wrap">
+                        <Button
+                            v-if="!$page.props.auth.user"
+                            size="lg"
+                            class="bg-white text-indigo-600 hover:bg-gray-100 text-xl px-12 py-8 shadow-2xl rounded-2xl font-black flex items-center gap-3 transition-all duration-300 hover:scale-105"
+                            as-child
+                        >
+                            <Link :href="route('register')">
+                                Get Started Free
+                                <ArrowRight class="w-6 h-6" />
+                            </Link>
+                        </Button>
+                        
+                        <Button 
+                            variant="ghost" 
+                            size="lg" 
+                            class="border-2 border-white/30 text-white hover:bg-white/10 text-xl px-12 py-8 rounded-2xl font-black flex items-center gap-3 transition-all duration-300 backdrop-blur-sm"
+                        >
+                            <PlayCircle class="w-6 h-6" />
+                            Book a Demo
+                        </Button>
+                    </div>
+                </div>
             </div>
-            
-            <p class="text-blue-100 mt-8 text-sm">
-                No credit card required • 30-day free trial • Cancel anytime
-            </p>
         </div>
     </section>
 

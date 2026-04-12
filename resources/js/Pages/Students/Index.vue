@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Pagination from '@/components/ui/pagination.vue';
+import { Input } from '@/components/ui/input';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,7 +22,11 @@ import {
     Filter,
     Download,
     Eye,
-    GraduationCap
+    GraduationCap,
+    MoreHorizontal,
+    FileSpreadsheet,
+    UserPlus,
+    Users
 } from 'lucide-vue-next';
 
 const { students, filters } = defineProps({
@@ -52,155 +57,177 @@ watch(searchQuery, (newValue) => {
         page: 1 
     }, { preserveState: true });
 }, { debounce: 300 });
+
+const getInitials = (name) => {
+    return name?.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2) || 'ST';
+};
 </script>
 
 <template>
-    <Head title="Students" />
+    <Head title="Students | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
-            <div class="flex items-center space-x-3">
-                <GraduationCap class="w-5 h-5" />
-                <span>Students</span>
+            <div class="flex items-center gap-2">
+                <div class="p-2 bg-indigo-600/10 rounded-lg">
+                    <Users class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                </div>
+                <span class="font-black text-sm uppercase tracking-wider text-gray-500">Student Directory</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl">
-            <!-- Page Header -->
-            <div class="mb-6">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Students</h2>
-                        <p class="text-gray-600 dark:text-gray-400">Manage all students in the system</p>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <Button variant="outline" size="sm">
-                            <Download class="w-4 h-4 mr-2" />
-                            Export
+        <div class="space-y-8 animate-fade-in-up">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 class="text-4xl font-black text-gray-900 dark:text-white tracking-tighter mb-2">Students</h1>
+                    <p class="text-lg text-gray-500 dark:text-gray-400 font-medium tracking-tight">
+                        Manage and monitor your institution's <span class="text-indigo-600 dark:text-indigo-400 font-bold">{{ students.total }}</span> scholars.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <Button variant="outline" class="glass h-12 rounded-2xl border-white/10 font-bold px-6">
+                        <FileSpreadsheet class="w-4 h-4 mr-2 text-emerald-500" />
+                        Export Data
+                    </Button>
+                    <Link :href="route('students.create')">
+                        <Button class="h-12 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black px-8 shadow-xl shadow-indigo-500/20">
+                            <UserPlus class="w-4 h-4 mr-2" />
+                            Enroll Student
                         </Button>
-                        <Link :href="route('students.create')">
-                            <Button>
-                                <Plus class="w-4 h-4 mr-2" />
-                                Add Student
-                            </Button>
-                        </Link>
-                    </div>
+                    </Link>
                 </div>
             </div>
 
-            <!-- Students Card -->
-            <Card>
-                <CardHeader>
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div>
-                            <CardTitle>All Students</CardTitle>
-                            <CardDescription>{{ students.total }} total students</CardDescription>
+            <!-- Filters & Data Table Card -->
+            <div class="glass-card rounded-[2.5rem] border-white/20 overflow-hidden">
+                <!-- Search & Filters Header -->
+                <div class="p-8 border-b border-white/5 bg-white/30 dark:bg-slate-900/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="relative w-full max-w-md group">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                            <Search class="w-5 h-5" />
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <div class="relative">
-                                <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                                <input
-                                    v-model="searchQuery"
-                                    type="text"
-                                    placeholder="Search students..."
-                                    class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
-                            </div>
-                            <Button variant="outline" size="sm">
-                                <Filter class="w-4 h-4" />
-                            </Button>
+                        <Input 
+                            v-model="searchQuery"
+                            placeholder="Find students by name, email or admission number..." 
+                            class="h-14 pl-12 glass bg-white/50 dark:bg-slate-900/50 rounded-[1.25rem] border-white/10 focus:ring-2 focus:ring-indigo-500/20 text-base font-medium"
+                        />
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Button variant="outline" class="glass h-14 w-14 rounded-[1.25rem] border-white/10 p-0">
+                            <Filter class="w-5 h-5 text-gray-500" />
+                        </Button>
+                        <div class="h-8 w-[1px] bg-white/10 mx-2 hidden md:block"></div>
+                        <div class="text-sm font-bold text-gray-400">
+                            Showing {{ students.from }}-{{ students.to }} of {{ students.total }}
                         </div>
                     </div>
-                </CardHeader>
-                <CardContent>
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
-                                    <th class="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Admission #</th>
-                                    <th class="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Name</th>
-                                    <th class="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Class</th>
-                                    <th class="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Status</th>
-                                    <th class="text-right py-3 px-4 font-medium text-gray-700 dark:text-gray-300">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="student in students.data" :key="student.id" class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                    <td class="py-3 px-4">
-                                        <span class="font-mono text-sm text-gray-600 dark:text-gray-400">{{ student.admission_number }}</span>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex items-center">
-                                            <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 mr-3">
+                </div>
+
+                <!-- Premium Table -->
+                <div class="overflow-x-auto overflow-y-hidden custom-scrollbar">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 border-b border-white/5">
+                                <th class="text-left py-6 px-8 whitespace-nowrap">Identity</th>
+                                <th class="text-left py-6 px-8 whitespace-nowrap">Academic Class</th>
+                                <th class="text-left py-6 px-8 whitespace-nowrap">Admission Info</th>
+                                <th class="text-left py-6 px-8 whitespace-nowrap">Status</th>
+                                <th class="text-right py-6 px-8 whitespace-nowrap">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5">
+                            <tr v-for="student in students.data" :key="student.id" class="group hover:bg-indigo-600/[0.02] transition-colors duration-300">
+                                <td class="py-6 px-8">
+                                    <div class="flex items-center gap-4">
+                                        <div class="relative">
+                                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-800 dark:to-slate-900 overflow-hidden border-2 border-white/20 shadow-lg group-hover:scale-110 transition-transform duration-500">
                                                 <img 
                                                     v-if="student.user.photo" 
                                                     :src="`/storage/${student.user.photo}`" 
                                                     :alt="student.user.name"
                                                     class="w-full h-full object-cover"
                                                 />
-                                                <div v-else class="flex items-center justify-center h-full">
-                                                    <span class="text-blue-500 text-sm font-medium">{{ student.user.name.charAt(0).toUpperCase() }}</span>
+                                                <div v-else class="h-full w-full flex items-center justify-center text-indigo-600 font-black text-xl">
+                                                    {{ getInitials(student.user.name) }}
                                                 </div>
                                             </div>
-                                            <div>
-                                                <div class="font-medium text-gray-900 dark:text-white">{{ student.user.name }}</div>
-                                                <div class="text-sm text-gray-500 dark:text-gray-400">{{ student.user.email }}</div>
-                                            </div>
+                                            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white dark:border-slate-950 rounded-full shadow-lg"></div>
                                         </div>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <Badge variant="secondary">
-                                            {{ student.academic_class.name }} - {{ student.section.name }}
-                                        </Badge>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <Badge class="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                                            Active
-                                        </Badge>
-                                    </td>
-                                    <td class="py-3 px-4">
-                                        <div class="flex items-center justify-end">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger as-child>
-                                                    <Button variant="ghost" size="sm">
-                                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                                                        </svg>
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end">
-                                                    <DropdownMenuItem as-child>
-                                                        <Link :href="route('students.show', student.id)" class="flex items-center">
-                                                            <Eye class="w-4 h-4 mr-2" />
-                                                            View Details
-                                                        </Link>
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem as-child>
-                                                        <Link :href="route('students.edit', student.id)" class="flex items-center">
-                                                            <Edit class="w-4 h-4 mr-2" />
-                                                            Edit Student
-                                                        </Link>
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem @click="deleteStudent(student.id)" class="flex items-center text-red-600">
-                                                        <Trash2 class="w-4 h-4 mr-2" />
-                                                        Delete Student
-                                                    </DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
+                                        <div class="min-w-0">
+                                            <p class="font-black text-gray-900 dark:text-white truncate tracking-tight text-lg mb-0.5">{{ student.user.name }}</p>
+                                            <p class="text-xs font-bold text-gray-400 truncate">{{ student.user.email }}</p>
                                         </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- Pagination -->
+                                    </div>
+                                </td>
+                                <td class="py-6 px-8">
+                                    <div class="flex flex-col gap-1.5">
+                                        <Badge class="w-fit bg-indigo-500/10 text-indigo-600 border-0 font-black text-[10px]">{{ student.academic_class.name }}</Badge>
+                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">{{ student.section.name }} Section</p>
+                                    </div>
+                                </td>
+                                <td class="py-6 px-8">
+                                    <div class="flex flex-col">
+                                        <p class="font-mono text-sm font-bold text-gray-700 dark:text-blue-400 tracking-tighter">#{{ student.admission_number }}</p>
+                                        <p class="text-[11px] font-bold text-gray-400">Enrolled 2024</p>
+                                    </div>
+                                </td>
+                                <td class="py-6 px-8">
+                                    <Badge class="bg-emerald-500/10 text-emerald-600 border-0 font-black px-4 py-1 rounded-full text-[10px]">ACTIVE</Badge>
+                                </td>
+                                <td class="py-6 px-8 text-right">
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger as-child>
+                                            <Button variant="ghost" class="h-10 w-10 p-0 glass hover:bg-white/10 rounded-xl border-white/10">
+                                                <MoreHorizontal class="w-5 h-5 text-gray-400" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end" class="glass-card border-white/20 rounded-2xl p-2 w-48 shadow-2xl">
+                                            <DropdownMenuItem as-child>
+                                                <Link :href="route('students.show', student.id)" class="flex items-center p-3 rounded-xl cursor-pointer hover:bg-indigo-600/10 hover:text-indigo-600 font-bold transition-all">
+                                                    <Eye class="w-4 h-4 mr-3" />
+                                                    View Profile
+                                                </Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem as-child>
+                                                <Link :href="route('students.edit', student.id)" class="flex items-center p-3 rounded-xl cursor-pointer hover:bg-amber-600/10 hover:text-amber-600 font-bold transition-all">
+                                                    <Edit class="w-4 h-4 mr-3" />
+                                                    Edit Record
+                                                </Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem @click="deleteStudent(student.id)" class="flex items-center p-3 rounded-xl cursor-pointer hover:bg-red-600/10 text-red-500 font-bold transition-all">
+                                                <Trash2 class="w-4 h-4 mr-3" />
+                                                Archive Student
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Premium Pagination Footer -->
+                <div class="p-8 border-t border-white/5 bg-gray-50/5 dark:bg-slate-900/20">
                     <Pagination 
                         :data="students" 
                         @page-change="handlePageChange"
                     />
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </div>
     </Sidebar>
 </template>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 10px;
+}
+</style>

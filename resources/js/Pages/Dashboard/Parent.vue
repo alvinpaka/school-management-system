@@ -34,7 +34,9 @@ import {
     Baby,
     CreditCard,
     CalendarDays,
-    Award
+    Award,
+    MoreVertical,
+    PieChart
 } from 'lucide-vue-next';
 
 defineProps({
@@ -44,457 +46,314 @@ defineProps({
 
 const quickActions = [
     {
-        title: 'My Children',
-        description: 'View profiles',
+        title: 'Children Profiles',
+        description: 'Academic overview',
         icon: Baby,
-        color: 'from-purple-500 to-purple-600',
+        gradient: 'from-purple-500 to-indigo-600',
+        glow: 'shadow-purple-500/20',
         href: route('students.index')
     },
     {
-        title: 'Pay Fees',
-        description: 'Make payment',
-        icon: DollarSign,
-        color: 'from-emerald-500 to-emerald-600',
+        title: 'Fee Management',
+        description: 'Payments & invoices',
+        icon: CreditCard,
+        gradient: 'from-emerald-500 to-teal-600',
+        glow: 'shadow-emerald-500/20',
         href: route('fees.index')
     },
     {
-        title: 'View Results',
-        description: 'Check grades',
+        title: 'Report Cards',
+        description: 'Examination results',
         icon: FileText,
-        color: 'from-blue-500 to-blue-600',
+        gradient: 'from-blue-500 to-cyan-600',
+        glow: 'shadow-blue-500/20',
         href: route('exams.index')
     },
     {
-        title: 'Attendance',
-        description: 'View records',
+        title: 'Daily Attendance',
+        description: 'Presence registry',
         icon: CheckCircle,
-        color: 'from-orange-500 to-orange-600',
+        gradient: 'from-orange-500 to-amber-600',
+        glow: 'shadow-orange-500/20',
         href: route('attendance.index')
-    },
-    {
-        title: 'Calendar',
-        description: 'School events',
-        icon: Calendar,
-        color: 'from-pink-500 to-pink-600',
-        href: '#'
-    },
-    {
-        title: 'Contact',
-        description: 'Message school',
-        icon: MessageCircle,
-        color: 'from-teal-500 to-teal-600',
-        href: '#'
     }
 ];
 
 const recentActivities = [
     {
-        title: 'Fee Payment Made',
-        description: 'UGX 200,000 paid successfully',
+        title: 'Fee Payment Successful',
+        description: 'UGX 200,000 processed for Term 1',
         time: '2 hours ago',
         icon: DollarSign,
-        color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400'
+        color: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50'
     },
     {
-        title: 'Parent-Teacher Meeting',
-        description: 'Scheduled for tomorrow at 2:00 PM',
+        title: 'Meeting Scheduled',
+        description: 'Parent-Teacher conference for tomorrow',
         time: '1 day ago',
         icon: Calendar,
-        color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-    },
-    {
-        title: 'Exam Result Published',
-        description: 'Midterm results now available',
-        time: '2 days ago',
-        icon: FileText,
-        color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400'
-    },
-    {
-        title: 'Report Card Generated',
-        description: 'Term 1 report card ready',
-        time: '3 days ago',
-        icon: Award,
-        color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400'
+        color: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50'
     }
 ];
 
 const upcomingEvents = [
-    { title: 'Parent-Teacher Conference', date: 'Feb 20, 2026', time: '2:00 PM', type: 'meeting' },
-    { title: 'Sports Day', date: 'Mar 1, 2026', time: '9:00 AM', type: 'event' },
-    { title: 'Fee Payment Deadline', date: 'Mar 5, 2026', time: 'All Day', type: 'deadline' }
+    { title: 'Academic Conference', date: 'Feb 20, 2026', time: '02:00 PM', type: 'Meeting', color: 'text-indigo-600 bg-indigo-50' },
+    { title: 'Annual Sports Day', date: 'Mar 01, 2026', time: '09:00 AM', type: 'Event', color: 'text-emerald-600 bg-emerald-50' }
 ];
 
 const getInitials = (name) => {
-    if (!name) return 'ST';
-    return name
-        .split(' ')
-        .map(word => word[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2);
+    return name?.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2) || 'PR';
 };
 </script>
 
 <template>
-    <Head title="Parent Dashboard" />
+    <Head title="Parent Dashboard | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
-            <div class="flex items-center space-x-3">
-                <Heart class="w-5 h-5" />
-                <span class="font-semibold">Parent Portal</span>
+            <div class="flex items-center gap-2">
+                <div class="p-2 bg-primary/10 rounded-lg">
+                    <Heart class="w-4 h-4 text-primary" />
+                </div>
+                <span class="font-black text-sm uppercase tracking-wider text-muted-foreground">Family Portal</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl space-y-6">
-            <!-- Welcome Header -->
-            <Card class="overflow-hidden border-0">
-                <div class="h-24"></div>
-                <CardContent class="relative pt-0 pb-6 -mt-12">
-                    <div class="flex flex-col md:flex-row md:items-end md:justify-between">
-                        <div class="flex items-center space-x-4">
-                            <Avatar class="w-20 h-20 border-2 border-gray-200 dark:border-gray-700">
-                                <AvatarImage 
-                                    v-if="$page.props.auth.user.photo"
-                                    :src="`/storage/${$page.props.auth.user.photo}`" 
-                                    :alt="$page.props.auth.user.name"
-                                />
-                                <AvatarFallback class="text-2xl font-bold bg-purple-500 text-white">
-                                    {{ getInitials($page.props.auth.user.name) }}
-                                </AvatarFallback>
-                            </Avatar>
-                            <div class="mt-4">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                    Welcome back, {{ $page.props.auth.user.name }}
-                                    <Heart class="w-6 h-6 text-pink-500" />
+        <div class="space-y-8 animate-fade-in-up">
+            <!-- Dramatic Welcome Header -->
+            <div class="relative overflow-hidden bg-card shadow-sm rounded-3xl lg:rounded-[2.5rem] border border-border p-6 lg:p-12">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 lg:gap-8">
+                        <div class="flex flex-col md:flex-row items-center gap-6">
+                            <div class="relative group">
+                                <Avatar class="w-20 h-20 lg:w-24 lg:h-24 border-2 border-border rounded-2xl lg:rounded-3xl relative">
+                                    <AvatarImage 
+                                        v-if="$page.props.auth.user.photo"
+                                        :src="`/storage/${$page.props.auth.user.photo}`" 
+                                        :alt="$page.props.auth.user.name"
+                                        class="object-cover"
+                                    />
+                                    <AvatarFallback class="text-xl lg:text-3xl font-black bg-purple-600 text-white rounded-2xl lg:rounded-3xl uppercase">
+                                        {{ getInitials($page.props.auth.user.name) }}
+                                    </AvatarFallback>
+                                </Avatar>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <h1 class="text-3xl lg:text-5xl font-black text-foreground mb-1 lg:mb-2 tracking-tighter leading-tight">
+                                    Hello, {{ $page.props.auth.user.name.split(' ')[0] }}! <span class="animate-bounce inline-block">👋</span>
                                 </h1>
-                                <p class="text-base text-gray-600 dark:text-gray-400">
-                                    Stay connected with your children's education
+                                <p class="text-base lg:text-lg text-muted-foreground font-medium">
+                                    Stay engaged with your children's <span class="text-primary font-black">academic journey</span> today.
                                 </p>
                             </div>
                         </div>
-                        <div class="mt-4 md:mt-0 mb-2">
-                            <div class="text-sm text-gray-600 dark:text-gray-400">
-                                {{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+                    
+                        <div class="flex flex-col items-start md:items-end">
+                            <div class="bg-muted px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-border text-left md:text-right">
+                                <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Parental Insights</p>
+                                <p class="text-sm lg:text-base font-bold text-foreground">
+                                    {{ new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) }}
+                                </p>
                             </div>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
 
-            <!-- Stats Overview -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Total Children -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-purple-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                                <Baby class="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            <!-- Stats & Children Overview -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Main Content (8 cols) -->
+                <div class="lg:col-span-8 space-y-8">
+                    
+                    <!-- Premium Stats Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
+                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer lg:hover:border-primary/30 transition-all duration-300">
+                             <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                    <Baby class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-primary/10 text-primary border-0 font-black">{{ children?.length || 0 }} TOTAL</Badge>
                             </div>
-                            <Badge variant="secondary" class="bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
-                                Enrolled
-                            </Badge>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">My Children</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">Enrolled</h3>
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">My Children</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ children?.length || 0 }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-purple-600 dark:text-purple-400 font-medium">Active students</span>
-                        </p>
-                    </CardContent>
-                </Card>
 
-                <!-- Fees Paid -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-emerald-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl">
-                                <CheckCircle class="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer lg:hover:border-emerald-500/30 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                                    <DollarSign class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 border-0 font-black">75% PAID</Badge>
                             </div>
-                            <Badge variant="secondary" class="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                                Paid
-                            </Badge>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Total Fees</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">UGX 550K</h3>
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Fees Paid</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">UGX 550K</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-emerald-600 dark:text-emerald-400 font-medium">This term</span>
-                        </p>
-                    </CardContent>
-                </Card>
 
-                <!-- Pending Fees -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-orange-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
-                                <AlertCircle class="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer lg:hover:border-primary/30 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                    <TrendingUp class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-primary/10 text-primary border-0 font-black">EXCELLENT</Badge>
                             </div>
-                            <Badge variant="secondary" class="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">
-                                Due
-                            </Badge>
-                        </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Pending Fees</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">UGX 200K</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-orange-600 dark:text-orange-400 font-medium">Due Mar 5</span>
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <!-- Average Attendance -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-blue-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                                <TrendingUp class="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                                Excellent
-                            </Badge>
-                        </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Avg Attendance</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">93.5%</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-blue-600 dark:text-blue-400 font-medium">This term</span>
-                        </p>
-                    </CardContent>
-                </Card>
-            </div>
-
-            <!-- Quick Actions -->
-            <Card>
-                <CardHeader>
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <CardTitle class="flex items-center gap-2">
-                                <Zap class="w-5 h-5 text-purple-500" />
-                                Quick Actions
-                            </CardTitle>
-                            <CardDescription>
-                                Essential parent portal features
-                            </CardDescription>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Avg Attendance</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">93.5%</h3>
                         </div>
                     </div>
-                </CardHeader>
-                <CardContent>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                        <Link
-                            v-for="action in quickActions"
-                            :key="action.title"
-                            :href="action.href"
-                            class="group relative overflow-hidden rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300"
-                        >
-                            <div class="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300" :class="action.color"></div>
-                            <div class="relative p-4 flex flex-col items-center text-center space-y-3">
-                                <div class="p-3 rounded-xl bg-gray-100 dark:bg-gray-800 group-hover:bg-white/20 transition-colors duration-300">
-                                    <component :is="action.icon" class="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors duration-300" />
-                                </div>
-                                <div>
-                                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-white transition-colors duration-300">
-                                        {{ action.title }}
-                                    </h3>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-white/80 transition-colors duration-300 mt-1">
-                                        {{ action.description }}
-                                    </p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                </CardContent>
-            </Card>
 
-            <!-- Main Content Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- My Children & Activities -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- My Children -->
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <CardTitle class="flex items-center gap-2">
-                                        <Baby class="w-5 h-5" />
-                                        My Children
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Academic progress overview
-                                    </CardDescription>
-                                </div>
-                                <Button variant="ghost" size="sm">
-                                    View All
-                                    <ChevronRight class="w-4 h-4 ml-1" />
-                                </Button>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="(child, index) in children"
-                                    :key="index"
-                                    class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-purple-200 dark:hover:border-purple-800 transition-all duration-200"
-                                >
-                                    <Avatar class="w-16 h-16">
+                    <!-- Children Intelligence -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between px-2">
+                            <h2 class="text-xl font-black text-primary tracking-tight uppercase px-4 py-1 bg-primary/10 rounded-lg inline-block">My Children</h2>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                            <div 
+                                v-for="(child, index) in children" 
+                                :key="index"
+                                class="bg-card p-6 rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm lg:hover:border-primary/30 group transition-all duration-500"
+                            >
+                                <div class="flex items-center gap-4 lg:gap-5 mb-6">
+                                    <Avatar class="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl lg:rounded-3xl border-2 border-border">
                                         <AvatarImage 
                                             v-if="child.user?.photo"
                                             :src="`/storage/${child.user.photo}`" 
                                             :alt="child.user?.name"
                                         />
-                                        <AvatarFallback class="text-xl font-bold bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+                                        <AvatarFallback class="text-xl lg:text-2xl font-black bg-indigo-600 text-white rounded-2xl lg:rounded-3xl uppercase">
                                             {{ getInitials(child.user?.name) }}
                                         </AvatarFallback>
                                     </Avatar>
-                                    <div class="flex-1 min-w-0">
-                                        <div class="flex items-center justify-between mb-2">
-                                            <h4 class="text-base font-semibold text-gray-900 dark:text-white">
-                                                {{ child.user?.name || 'Student' }}
-                                            </h4>
-                                            <Badge :class="child.status === 'active' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'">
-                                                {{ child.status === 'active' ? 'Active' : 'Inactive' }}
-                                            </Badge>
-                                        </div>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                                            {{ child.academic_class?.name || 'No Class' }} - {{ child.section?.name || 'No Section' }}
-                                        </p>
-                                        <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                                            <span class="flex items-center gap-1">
-                                                <GraduationCap class="w-3 h-3" />
-                                                {{ child.admission_number }}
-                                            </span>
-                                            <span class="flex items-center gap-1">
-                                                <Trophy class="w-3 h-3 text-yellow-500" />
-                                                Grade: A-
-                                            </span>
-                                            <span class="flex items-center gap-1">
-                                                <CheckCircle class="w-3 h-3 text-emerald-500" />
-                                                95% Attendance
-                                            </span>
-                                        </div>
+                                    <div>
+                                        <h4 class="text-xl font-black text-foreground tracking-tighter">{{ child.user?.name || 'Student' }}</h4>
+                                        <Badge class="bg-primary/10 text-primary border-0 font-black mt-1">{{ child.academic_class?.name || 'Class 10A' }}</Badge>
                                     </div>
-                                    <Button variant="outline" size="sm">
-                                        <Eye class="w-4 h-4" />
-                                    </Button>
                                 </div>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between p-3 rounded-2xl bg-muted border border-border">
+                                        <span class="text-xs font-black text-muted-foreground/80 uppercase tracking-widest">Attendance</span>
+                                        <span class="text-xs font-black text-emerald-500">95.2%</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 rounded-2xl bg-muted border border-border">
+                                        <span class="text-xs font-black text-muted-foreground/80 uppercase tracking-widest">Academic Rank</span>
+                                        <span class="text-xs font-black text-primary">Top 10%</span>
+                                    </div>
+                                </div>
+                                <Button variant="outline" class="w-full mt-6 rounded-2xl font-black text-primary hover:bg-primary/10 border-primary/20">
+                                    Full Student Profile
+                                </Button>
                             </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
 
-                    <!-- Recent Activities -->
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="flex items-center gap-2">
-                                <Activity class="w-5 h-5" />
-                                Recent Activities
-                            </CardTitle>
-                            <CardDescription>
-                                Your recent parent portal activities
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="activity in recentActivities"
-                                    :key="activity.title"
-                                    class="flex items-start gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
-                                >
-                                    <div :class="[activity.color, 'p-2.5 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-200']">
-                                        <component :is="activity.icon" class="w-5 h-5" />
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ activity.title }}</h4>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ activity.description }}</p>
-                                        <div class="flex items-center gap-2 mt-2">
-                                            <Clock class="w-3 h-3 text-gray-400" />
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ activity.time }}</p>
-                                        </div>
-                                    </div>
+                    <!-- Quick Command Tools -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <Link 
+                            v-for="action in quickActions" 
+                            :key="action.title" 
+                            :href="action.href"
+                            class="bg-card p-4 rounded-3xl border border-border lg:hover:border-primary/30 shadow-sm group transition-all duration-500"
+                        >
+                            <div class="flex items-center gap-4 lg:gap-5 relative z-10">
+                                <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-muted flex items-center justify-center text-muted-foreground transition-all duration-500 lg:group-hover:bg-primary lg:group-hover:text-white lg:group-hover:shadow-lg lg:group-hover:shadow-primary/20">
+                                    <component :is="action.icon" class="w-7 h-7 lg:w-8 lg:h-8" />
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-base lg:text-lg font-black text-foreground tracking-tight">{{ action.title }}</h4>
+                                    <p class="text-xs lg:text-sm text-muted-foreground font-medium">{{ action.description }}</p>
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
+                        </Link>
+                    </div>
                 </div>
 
-                <!-- Sidebar -->
-                <div class="space-y-6">
-                    <!-- Upcoming Events -->
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="flex items-center gap-2">
+                <!-- Right Sidebar (4 cols) -->
+                <div class="lg:col-span-4 space-y-6 lg:space-y-8">
+                    
+                    <!-- Events Intelligence -->
+                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm p-6 lg:p-8">
+                        <div class="flex items-center justify-between mb-8">
+                            <h3 class="text-2xl font-black text-foreground tracking-tighter">Timeline</h3>
+                            <div class="w-10 h-10 rounded-xl bg-muted flex items-center justify-center text-primary">
                                 <CalendarDays class="w-5 h-5" />
-                                Upcoming Events
-                                <Badge variant="secondary" class="ml-1">{{ upcomingEvents.length }}</Badge>
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="event in upcomingEvents"
-                                    :key="event.title"
-                                    class="p-3 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50"
-                                >
-                                    <div class="flex items-start justify-between mb-2">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ event.title }}</h4>
-                                        <Badge variant="outline" class="text-xs">{{ event.type }}</Badge>
-                                    </div>
-                                    <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                                        <Calendar class="w-3 h-3" />
-                                        {{ event.date }} at {{ event.time }}
-                                    </div>
-                                </div>
                             </div>
-                        </CardContent>
-                    </Card>
-
-                    <!-- Payment Summary -->
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="flex items-center gap-2">
-                                <CreditCard class="w-5 h-5" />
-                                Payment Summary
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Total Fees</span>
-                                    <span class="text-sm font-semibold text-gray-900 dark:text-white">UGX 750K</span>
+                        </div>
+                    <div class="space-y-6">
+                        <div v-for="event in upcomingEvents" :key="event.title" class="relative pl-6 border-l-2 border-dashed border-primary/20">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-card border-2 border-primary"></div>
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span :class="['px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest', event.color]">
+                                        {{ event.type }}
+                                    </span>
+                                    <span class="text-[10px] font-black text-muted-foreground/80">{{ event.date }}</span>
                                 </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Amount Paid</span>
-                                    <span class="text-sm font-semibold text-emerald-600 dark:text-emerald-400">UGX 550K</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Balance</span>
-                                    <span class="text-sm font-semibold text-orange-600 dark:text-orange-400">UGX 200K</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Due Date</span>
-                                    <span class="text-sm font-semibold text-red-600 dark:text-red-400">Mar 5, 2026</span>
-                                </div>
+                                <h4 class="text-sm font-black text-foreground mb-2 leading-tight">{{ event.title }}</h4>
                             </div>
-                            <Button class="w-full mt-4" size="sm">
-                                <DollarSign class="w-4 h-4 mr-2" />
-                                Make Payment
-                            </Button>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
+                    <Button variant="outline" class="w-full mt-6 rounded-2xl border-border font-black h-12 text-muted-foreground hover:text-primary">
+                        View All Events
+                    </Button>
+                </div>
 
-                    <!-- Quick Contact -->
-                    <Card class="bg-purple-500 border-0 text-white">
-                        <CardContent class="p-6 text-center">
-                            <MessageCircle class="w-12 h-12 mx-auto mb-3 opacity-90" />
-                            <h3 class="font-semibold mb-2">Need Help?</h3>
-                            <p class="text-sm text-purple-100 mb-4">Contact the school administration or your child's teacher</p>
-                            <Button variant="secondary" size="sm" class="w-full">
-                                <Phone class="w-4 h-4 mr-2" />
-                                Contact School
+                <!-- Payment Summary -->
+                <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm p-6 lg:p-8 overflow-hidden relative">
+                    <h3 class="text-xl font-black text-foreground tracking-tighter mb-8 flex items-center gap-2">
+                        <CreditCard class="w-5 h-5 text-emerald-500" />
+                        Fee Intelligence
+                    </h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="text-[10px] font-black text-muted-foreground/80 uppercase tracking-widest mb-1">Total Due</p>
+                                <p class="text-2xl font-black text-foreground tracking-tighter">UGX 750K</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-1">Paid</p>
+                                <p class="text-lg font-black text-emerald-600 tracking-tighter">UGX 550K</p>
+                            </div>
+                        </div>
+                        <div class="h-3 bg-muted rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-500 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <Button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl h-12 shadow-md">
+                        Clear Outstanding : UGX 200K
+                    </Button>
+                </div>
+
+                    <!-- Communication Channel -->
+                    <div class="rounded-3xl lg:rounded-[2.5rem] bg-primary p-6 lg:p-8 text-primary-foreground shadow-xl lg:shadow-primary/20 relative overflow-hidden group text-center">
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20">
+                                <MessageCircle class="w-8 h-8 text-white" />
+                            </div>
+                            <h4 class="text-xl font-black mb-2 tracking-tighter">Support Hub</h4>
+                            <p class="text-primary-foreground/80 text-xs font-medium mb-6 leading-relaxed">
+                                Direct line to school admin and academic mentors.
+                            </p>
+                            <Button class="w-full bg-background text-primary hover:bg-background/90 font-black rounded-2xl h-11 shadow-md border-0">
+                                Start Inquiry
                             </Button>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </Sidebar>
 </template>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.2);
+}
+</style>

@@ -20,7 +20,7 @@
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #4a5568; /* Solid fallback for DomPDF */
             color: white;
             padding: 15px;
             text-align: center;
@@ -273,7 +273,11 @@
         <!-- Student Information -->
         <div class="student-info">
             <div class="student-photo">
-                [PHOTO]
+                @if($student->user->photo && file_exists(public_path('storage/' . $student->user->photo)))
+                    <img src="{{ public_path('storage/' . $student->user->photo) }}" style="width: 100%; height: 100%; object-fit: cover;" alt="Photo">
+                @else
+                    <span style="font-size: 24px; font-weight: bold; color: #aaa;">{{ substr($student->user->name ?? 'S', 0, 1) }}</span>
+                @endif
             </div>
             <div class="student-details">
                 <div class="detail-item">
@@ -333,16 +337,16 @@
                                     <td>{{ $sno++ }}</td>
                                     <td>{{ is_object($grade->subject) ? $grade->subject->name : ($grade->subject ?? 'N/A') }}</td>
                                     <td>{{ is_object($grade->exam) ? $grade->exam->name : ($grade->exam ?? 'N/A') }}</td>
-                                    <td>{{ $grade->marks ?? 'N/A' }}</td>
+                                    <td>{{ $grade->marks_obtained ?? 'N/A' }}</td>
                                     <td>
-                                        @if ($grade->grade >= 80)
-                                            <span class="grade-excellent">{{ $grade->grade }}</span>
-                                        @elseif ($grade->grade >= 60)
-                                            <span class="grade-good">{{ $grade->grade }}</span>
-                                        @elseif ($grade->grade >= 40)
-                                            <span class="grade-average">{{ $grade->grade }}</span>
+                                        @if ($grade->marks_obtained >= 80)
+                                            <span class="grade-excellent">A</span>
+                                        @elseif ($grade->marks_obtained >= 60)
+                                            <span class="grade-good">B</span>
+                                        @elseif ($grade->marks_obtained >= 40)
+                                            <span class="grade-average">C</span>
                                         @else
-                                            <span class="grade-poor">{{ $grade->grade }}</span>
+                                            <span class="grade-poor">F</span>
                                         @endif
                                     </td>
                                     <td>{{ $grade->remarks ?? 'N/A' }}</td>
@@ -363,11 +367,21 @@
                 <tr>
                     <td>
                         <span class="stats-label">TOTAL MARKS</span>
-                        <span class="stats-value">{{ $grades->flatten()->sum('marks') ?? 0 }}</span>
+                        <span class="stats-value">{{ $grades->flatten()->sum('marks_obtained') ?? 0 }}</span>
                     </td>
                     <td>
                         <span class="stats-label">AVERAGE GRADE</span>
-                        <span class="stats-value">{{ $grades->flatten()->avg('grade') ? number_format($grades->flatten()->avg('grade'), 1) : 'N/A' }}</span>
+                        <?php 
+                            $avg = $grades->flatten()->avg('marks_obtained'); 
+                            $letter = 'N/A';
+                            if ($avg !== null) {
+                                if ($avg >= 80) $letter = 'A';
+                                elseif ($avg >= 60) $letter = 'B';
+                                elseif ($avg >= 40) $letter = 'C';
+                                else $letter = 'F';
+                            }
+                        ?>
+                        <span class="stats-value">{{ $letter }}</span>
                     </td>
                     <td>
                         <span class="stats-label">POSITION</span>

@@ -5,44 +5,31 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
 use App\Models\Teacher;
-use App\Models\User;
+use App\Services\TeacherService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class TeacherController extends Controller
 {
+    protected TeacherService $teacherService;
+
+    public function __construct(TeacherService $teacherService)
+    {
+        $this->teacherService = $teacherService;
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');
-        
-        $query = Teacher::with('user');
-        
-        // Search functionality
-        if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('employee_id', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%")
-                  ->orWhere('specialization', 'like', "%{$search}%")
-                  ->orWhereHas('user', function($subQuery) use ($search) {
-                      $subQuery->where('name', 'like', "%{$search}%")
-                               ->orWhere('email', 'like', "%{$search}%");
-                  });
-            });
-        }
+        $classIds = null;
         
         // Filter for parents - only show teachers of their children
         if (auth()->user()->hasRole('parent')) {
             $parentStudents = view()->shared('parentStudents', collect());
             $classIds = $parentStudents->pluck('academic_class_id')->unique()->toArray();
-            
-            // Get teachers assigned to classes of parent's children
-            $query->whereHas('classes', function ($q) use ($classIds) {
-                $q->whereIn('academic_classes.id', $classIds);
-            });
         }
         
-        $teachers = $query->paginate(10);
+        $teachers = $this->teacherService->getTeachersList($search, $classIds);
         
         return Inertia::render('Teachers/Index', [
             'teachers' => $teachers,
@@ -57,57 +44,32 @@ class TeacherController extends Controller
 
     public function show(Teacher $teacher)
     {
-        $teacher->load(['user', 'classes.students']);
-        
-        // Calculate total students from all classes
-        $totalStudents = 0;
-        foreach ($teacher->classes as $class) {
-            $totalStudents += $class->students->count();
+        // Check if parent is trying to access teacher - only allow if teacher teaches their children
+        if (auth()->user()->hasRole('parent')) {
+            $parentStudents = view()->shared('parentStudents', collect());
+            $classIds = $parentStudents->pluck('academic_class_id')->unique()->toArray();
+            
+            // Check if this teacher teaches any of the parent's children's classes
+            $teacherClassIds = $teacher->classes->pluck('id')->toArray();
+            if (empty(array_intersect($teacherClassIds, $classIds))) {
+                abort(403, 'You are not authorized to view this teacher\'s record.');
+            }
         }
         
-        $teacher->total_students = $totalStudents;
-        
         return Inertia::render('Teachers/Show', [
-            'teacher' => $teacher
+            'teacher' => $this->teacherService->getTeacherDetail($teacher)
         ]);
     }
 
     public function store(StoreTeacherRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        $user->assignRole($request->role);
-
-        // Handle photo upload
-        $photoPath = null;
+        $data = $request->validated();
+        
         if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $photoPath = $photo->store('photos', 'public');
-            $user->update(['photo' => $photoPath]);
+            $data['photo'] = $request->file('photo');
         }
-
-        $teacher = Teacher::create([
-            'user_id' => $user->id,
-            'employee_id' => $request->employee_id,
-            'phone' => $request->phone,
-            'employment_type' => $request->employment_type,
-            'status' => $request->status,
-            'specialization' => $request->specialization,
-            'qualification' => $request->qualification,
-            'experience' => $request->experience,
-            'date_of_birth' => $request->date_of_birth,
-            'gender' => $request->gender,
-            'address' => $request->address,
-            'joining_date' => $request->joining_date,
-            'emergency_contact_name' => $request->emergency_contact_name,
-            'emergency_contact_phone' => $request->emergency_contact_phone,
-            'emergency_contact_relationship' => $request->emergency_contact_relationship,
-            'blood_group' => $request->blood_group,
-        ]);
+        
+        $teacher = $this->teacherService->createTeacher($data);
 
         return redirect()->route('teachers.show', $teacher->id)->with('success', 'Teacher created successfully.');
     }
@@ -115,64 +77,26 @@ class TeacherController extends Controller
     public function edit(Teacher $teacher)
     {
         return Inertia::render('Teachers/Edit', [
-            'teacher' => $teacher->load('user')
+            'teacher' => $this->teacherService->getTeacherForEdit($teacher)
         ]);
     }
 
     public function update(UpdateTeacherRequest $request, Teacher $teacher)
     {
-        // Debug: Log all request data
-        \Log::info('Update request data:', [
-            'all' => $request->all(),
-            'hasFile' => $request->hasFile('photo'),
-            'files' => $request->allFiles(),
-        ]);
-
-        $teacher->user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
-
-        // Update role if changed
-        if ($request->role) {
-            $teacher->user->syncRoles([$request->role]);
-        }
-
-        if ($request->password) {
-            $teacher->user->update(['password' => Hash::make($request->password)]);
-        }
-
-        // Handle photo upload
+        $data = $request->validated();
+        
         if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $photoPath = $photo->store('photos', 'public');
-            $teacher->user->update(['photo' => $photoPath]);
+            $data['photo'] = $request->file('photo');
         }
-
-        $teacher->update([
-            'employee_id' => $request->employee_id,
-            'phone' => $request->phone,
-            'employment_type' => $request->employment_type,
-            'status' => $request->status,
-            'specialization' => $request->specialization,
-            'qualification' => $request->qualification,
-            'experience' => $request->experience,
-            'date_of_birth' => $request->date_of_birth,
-            'gender' => $request->gender,
-            'address' => $request->address,
-            'joining_date' => $request->joining_date,
-            'emergency_contact_name' => $request->emergency_contact_name,
-            'emergency_contact_phone' => $request->emergency_contact_phone,
-            'emergency_contact_relationship' => $request->emergency_contact_relationship,
-            'blood_group' => $request->blood_group,
-        ]);
+        
+        $this->teacherService->updateTeacher($teacher, $data);
 
         return redirect()->route('teachers.show', $teacher->id)->with('success', 'Teacher updated successfully.');
     }
 
     public function destroy(Teacher $teacher)
     {
-        $teacher->user->delete(); // Cascades to teacher
+        $this->teacherService->deleteTeacher($teacher);
         return redirect()->route('teachers.index')->with('success', 'Teacher deleted successfully.');
     }
 }

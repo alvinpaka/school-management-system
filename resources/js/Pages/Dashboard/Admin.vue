@@ -33,7 +33,9 @@ import {
     PieChart,
     Baby,
     HeartHandshake,
-    Zap
+    Zap,
+    TrendingDown,
+    MoreVertical
 } from 'lucide-vue-next';
 
 defineProps({
@@ -43,511 +45,338 @@ defineProps({
 
 const quickActions = [
     {
-        title: 'Add Student',
-        description: 'Enroll new student',
+        title: 'Enroll Student',
+        description: 'New admission registry',
         icon: Users,
-        color: 'from-blue-500 to-blue-600',
+        gradient: 'from-blue-500 to-indigo-600',
+        glow: 'shadow-blue-500/20',
         href: route('students.create')
     },
     {
-        title: 'Add Teacher',
-        description: 'Hire new teacher',
+        title: 'Recruit Teacher',
+        description: 'Faculty management',
         icon: UserCheck,
-        color: 'from-emerald-500 to-emerald-600',
+        gradient: 'from-emerald-500 to-teal-600',
+        glow: 'shadow-emerald-500/20',
         href: route('teachers.create')
     },
     {
-        title: 'View Students',
-        description: 'Browse all students',
-        icon: GraduationCap,
-        color: 'from-purple-500 to-purple-600',
-        href: route('students.index')
-    },
-    {
-        title: 'View Teachers',
-        description: 'Browse all teachers',
-        icon: UserCheck,
-        color: 'from-teal-500 to-teal-600',
-        href: route('teachers.index')
-    },
-    {
         title: 'Fee Collection',
-        description: 'Manage payments',
+        description: 'Financial accounting',
         icon: DollarSign,
-        color: 'from-orange-500 to-orange-600',
+        gradient: 'from-orange-500 to-amber-600',
+        glow: 'shadow-orange-500/20',
         href: route('fees.index')
     },
     {
-        title: 'Exams',
-        description: 'View exam results',
+        title: 'Academic Exams',
+        description: 'Grading & results',
         icon: FileText,
-        color: 'from-pink-500 to-pink-600',
+        gradient: 'from-violet-500 to-purple-600',
+        glow: 'shadow-violet-500/20',
         href: route('exams.index')
     }
 ];
 
-// Mock upcoming events (replace with actual data)
 const upcomingEvents = [
     {
-        title: 'Parent-Teacher Conference',
+        title: 'Parent-Teacher Summit',
         date: 'Feb 20, 2026',
         time: '2:00 PM',
-        type: 'Meeting',
-        color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
+        type: 'Conference',
+        icon: HeartHandshake,
+        color: 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50'
     },
     {
-        title: 'Mid-Term Exams Begin',
+        title: 'Mid-Term Examinations',
         date: 'Feb 25, 2026',
         time: '8:00 AM',
-        type: 'Exam',
-        color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-    },
-    {
-        title: 'Sports Day Event',
-        date: 'Mar 1, 2026',
-        time: '9:00 AM',
-        type: 'Event',
-        color: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+        type: 'Academic',
+        icon: Award,
+        color: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/50'
     }
 ];
-
-// Mock notifications (replace with actual data)
-const notifications = [
-    {
-        title: 'New admission request',
-        description: '5 new students pending approval',
-        icon: Users,
-        time: '10 min ago',
-        unread: true
-    },
-    {
-        title: 'Fee payment received',
-        description: 'UGX 500,000 from John Doe',
-        icon: DollarSign,
-        time: '1 hour ago',
-        unread: true
-    },
-    {
-        title: 'System backup completed',
-        description: 'Daily backup successful',
-        icon: CheckCircle,
-        time: '2 hours ago',
-        unread: false
-    }
-];
-
-// Helper function to resolve icon components
-const getIconComponent = (iconName) => {
-    const icons = {
-        Users,
-        DollarSign,
-        Calendar,
-        FileText,
-        GraduationCap,
-        UserCheck,
-        Bell,
-        Clock,
-        CheckCircle
-    };
-    return icons[iconName] || Users;
-};
 
 const getInitials = (name) => {
-    return name
-        .split(' ')
-        .map(word => word[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2);
+    return name?.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2) || 'AD';
+};
+
+const getIconComponent = (iconName) => {
+    const icons = { Users, DollarSign, Calendar, FileText, GraduationCap, UserCheck, Bell, Clock, CheckCircle };
+    return icons[iconName] || Activity;
 };
 </script>
 
 <template>
-    <Head title="Admin Dashboard" />
+    <Head title="Admin Dashboard | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
-            <div class="flex items-center space-x-3">
-                <Home class="w-5 h-5" />
-                <span class="font-semibold">Dashboard</span>
+            <div class="flex items-center gap-2">
+                <div class="p-2 bg-primary/10 rounded-lg">
+                    <Home class="w-4 h-4 text-primary" />
+                </div>
+                <span class="font-black text-sm uppercase tracking-wider text-muted-foreground">Overview</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl space-y-6">
-            <!-- Welcome Header -->
-            <Card class="overflow-hidden border-0">
-                <div class="h-20"></div>
-                <CardContent class="relative pt-0 pb-6 -mt-12">
-                    <div class="flex flex-col md:flex-row md:items-end md:justify-between">
-                        <div class="flex items-center space-x-4">
-                            <Avatar class="w-20 h-20 border-2 border-gray-200 dark:border-gray-700">
+        <div class="space-y-8 animate-fade-in-up">
+            <!-- Dramatic Welcome Header -->
+            <div class="relative overflow-hidden bg-card shadow-sm rounded-3xl lg:rounded-[2.5rem] border border-border p-6 lg:p-12">
+                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        <div class="relative group">
+                            <Avatar class="w-16 h-16 lg:w-24 lg:h-24 border-2 border-border rounded-2xl lg:rounded-3xl relative">
                                 <AvatarImage 
                                     v-if="$page.props.auth.user.photo"
                                     :src="`/storage/${$page.props.auth.user.photo}`" 
                                     :alt="$page.props.auth.user.name"
+                                    class="object-cover"
                                 />
-                                <AvatarFallback class="text-2xl font-bold bg-indigo-500 text-white">
+                                <AvatarFallback class="text-xl lg:text-3xl font-black bg-indigo-600 text-white rounded-2xl lg:rounded-3xl uppercase">
                                     {{ getInitials($page.props.auth.user.name) }}
                                 </AvatarFallback>
                             </Avatar>
-                            <div class="mt-4">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                    Welcome back, {{ $page.props.auth.user.name }}
-                                    <Sparkles class="w-6 h-6 text-yellow-500" />
-                                </h1>
-                                <p class="text-base text-gray-600 dark:text-gray-400">
-                                    Here's what's happening in your school today
-                                </p>
-                            </div>
                         </div>
-                        <div class="mt-4 md:mt-0 mb-2">
-                            <div class="text-sm text-gray-600 dark:text-gray-400">
-                                {{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
-                            </div>
+                        <div>
+                            <h1 class="text-3xl lg:text-5xl font-black text-foreground mb-1 lg:mb-2 tracking-tighter leading-tight">
+                                Welcome, {{ $page.props.auth.user.name.split(' ')[0] }}! <span class="animate-pulse">👋</span>
+                            </h1>
+                            <p class="text-base lg:text-lg text-muted-foreground font-medium">
+                                The management engine is running at <span class="text-emerald-500 font-black">99.9% peak efficiency</span>.
+                            </p>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
-
-            <!-- Stats Overview -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Total Students -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-blue-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                                <GraduationCap class="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                                <TrendingUp class="w-3 h-3 mr-1" />
-                                +12%
-                            </Badge>
+                    
+                    <div class="flex flex-col items-start md:items-end">
+                        <div class="bg-muted px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-border text-left md:text-right">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Current Session</p>
+                            <p class="text-sm lg:text-base font-bold text-foreground">
+                                {{ new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) }}
+                            </p>
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Total Students</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ stats.students_count }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-blue-600 dark:text-blue-400 font-medium">+23</span> this month
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <!-- Total Teachers -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-emerald-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl">
-                                <UserCheck class="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                                <TrendingUp class="w-3 h-3 mr-1" />
-                                +5%
-                            </Badge>
-                        </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Total Teachers</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ stats.teachers_count }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-emerald-600 dark:text-emerald-400 font-medium">+2</span> this month
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <!-- Total Classes -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-purple-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                                <BookOpen class="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
-                                Stable
-                            </Badge>
-                        </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Total Classes</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ stats.classes_count }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-purple-600 dark:text-purple-400 font-medium">{{ stats.classes_count }}</span> active
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <!-- Revenue -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-orange-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
-                                <DollarSign class="w-6 h-6 text-orange-600 dark:text-orange-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">
-                                Today
-                            </Badge>
-                        </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Revenue</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">UGX 0</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-orange-600 dark:text-orange-400 font-medium">UGX 12.5M</span> this month
-                        </p>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </div>
 
-            <!-- Quick Actions -->
-            <Card>
-                <CardHeader>
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <CardTitle class="flex items-center gap-2">
-                                <Zap class="w-5 h-5 text-yellow-500" />
-                                Quick Actions
-                            </CardTitle>
-                            <CardDescription>
-                                Frequently used features for faster access
-                            </CardDescription>
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Main Content (8 cols) -->
+                <div class="lg:col-span-8 space-y-8">
+                    
+                    <!-- Premium Stats Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+                        <!-- Students -->
+                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer hover:border-primary/30 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                                    <GraduationCap class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 border-0 font-black">
+                                    <TrendingUp class="w-3 h-3 mr-1" />
+                                    +12%
+                                </Badge>
+                            </div>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Total Students</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">{{ stats.students_count || 0 }}</h3>
+                        </div>
+
+                        <!-- Faculty -->
+                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer hover:border-emerald-500/30 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+                                    <UserCheck class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 border-0 font-black">
+                                    <TrendingUp class="w-3 h-3 mr-1" />
+                                    +5.2%
+                                </Badge>
+                            </div>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Expert Faculty</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">{{ stats.teachers_count || 0 }}</h3>
+                        </div>
+
+                        <!-- Finance (Revenue) -->
+                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer hover:border-rose-500/30 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-500/10 flex items-center justify-center text-rose-600 group-hover:bg-rose-600 group-hover:text-white transition-colors duration-300">
+                                    <DollarSign class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-rose-50 dark:bg-rose-500/10 text-rose-600 border-0 font-black">
+                                    <TrendingDown class="w-3 h-3 mr-1" />
+                                    -2.1%
+                                </Badge>
+                            </div>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Revenue Flow</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">12.5M</h3>
                         </div>
                     </div>
-                </CardHeader>
-                <CardContent>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                        <Link
-                            v-for="action in quickActions"
-                            :key="action.title"
-                            :href="action.href"
-                            class="group relative overflow-hidden rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300"
-                        >
-                            <div class="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300" :class="action.color"></div>
-                            <div class="relative p-4 flex flex-col items-center text-center space-y-3">
-                                <div class="p-3 rounded-xl bg-gray-100 dark:bg-gray-800 group-hover:bg-white/20 transition-colors duration-300">
-                                    <component :is="action.icon" class="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors duration-300" />
+
+                    <!-- Quick Command Center -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between px-2">
+                            <h2 class="text-xl font-black text-foreground tracking-tight uppercase px-2 py-1 bg-muted rounded-lg inline-block">Command Center</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Link 
+                                v-for="action in quickActions" 
+                                :key="action.title" 
+                                :href="action.href"
+                                class="bg-card p-4 rounded-3xl border border-border hover:border-primary/30 shadow-sm group transition-all duration-500"
+                            >
+                                <div class="flex items-center gap-5 relative z-10">
+                                    <div class="w-16 h-16 rounded-2xl bg-muted flex items-center justify-center text-muted-foreground transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:shadow-lg group-hover:shadow-primary/20">
+                                        <component :is="action.icon" class="w-8 h-8" />
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-lg font-black text-foreground tracking-tight">{{ action.title }}</h4>
+                                        <p class="text-sm text-muted-foreground font-medium">{{ action.description }}</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:translate-x-0 translate-x-4">
+                                        <ChevronRight class="w-5 h-5 text-muted-foreground" />
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-white transition-colors duration-300">
-                                        {{ action.title }}
-                                    </h3>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-white/80 transition-colors duration-300 mt-1">
-                                        {{ action.description }}
-                                    </p>
-                                </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        </div>
                     </div>
-                </CardContent>
-            </Card>
 
-            <!-- Main Content Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Recent Activities -->
-                <div class="lg:col-span-2 space-y-6">
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <CardTitle class="flex items-center gap-2">
-                                        <Activity class="w-5 h-5" />
-                                        Recent Activities
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Latest system activities and updates
-                                    </CardDescription>
-                                </div>
-                                <Button variant="ghost" size="sm">
-                                    View All
-                                    <ChevronRight class="w-4 h-4 ml-1" />
-                                </Button>
+                    <!-- Activity Intelligence -->
+                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm overflow-hidden">
+                        <div class="p-6 lg:p-8 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h3 class="text-2xl font-black text-foreground tracking-tighter">Live Activity</h3>
+                                <p class="text-sm text-muted-foreground font-medium">Real-time system event monitor</p>
                             </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="activity in recentActivities"
-                                    :key="activity.title"
-                                    class="flex items-start gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
-                                >
-                                    <div :class="[activity.color, 'p-2.5 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-200']">
-                                        <component :is="getIconComponent(activity.icon)" class="w-5 h-5" />
+                            <Button variant="outline" class="rounded-xl border-border px-4 font-bold text-muted-foreground hover:text-primary w-full sm:w-auto">
+                                History
+                            </Button>
+                        </div>
+                        <div class="p-4 space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar">
+                            <div 
+                                v-for="(activity, idx) in recentActivities" 
+                                :key="idx"
+                                class="flex items-center gap-4 p-4 rounded-2xl hover:bg-muted transition-all group"
+                            >
+                                <div :class="[activity.color, 'w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform']">
+                                    <component :is="getIconComponent(activity.icon)" class="w-6 h-6" />
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h4 class="text-sm font-black text-foreground truncate">{{ activity.title }}</h4>
+                                        <span class="text-[10px] font-black uppercase text-muted-foreground/80 tracking-wider">{{ activity.time }}</span>
                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ activity.title }}</h4>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ activity.description }}</p>
-                                        <div class="flex items-center gap-2 mt-2">
-                                            <Clock class="w-3 h-3 text-gray-400" />
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ activity.time }}</p>
-                                        </div>
-                                    </div>
+                                    <p class="text-xs text-muted-foreground font-medium line-clamp-1">{{ activity.description }}</p>
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
-
-                    <!-- Upcoming Events -->
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <CardTitle class="flex items-center gap-2">
-                                        <CalendarDays class="w-5 h-5" />
-                                        Upcoming Events
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Important dates and schedules
-                                    </CardDescription>
-                                </div>
-                                <Button variant="ghost" size="sm">
-                                    <Plus class="w-4 h-4 mr-1" />
-                                    Add Event
-                                </Button>
+                            <div v-if="!recentActivities.length" class="p-12 text-center">
+                                <Activity class="w-12 h-12 text-muted-foreground/40 mx-auto mb-4" />
+                                <p class="text-muted-foreground font-medium tracking-tight">System is idling quietly...</p>
                             </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="event in upcomingEvents"
-                                    :key="event.title"
-                                    class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-200"
-                                >
-                                    <div class="flex-shrink-0 text-center">
-                                        <div class="text-2xl font-bold text-gray-900 dark:text-white">{{ event.date.split(' ')[1].replace(',', '') }}</div>
-                                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ event.date.split(' ')[0] }}</div>
-                                    </div>
-                                    <Separator orientation="vertical" class="h-12" />
-                                    <div class="flex-1 min-w-0">
-                                        <div class="flex items-center gap-2 mb-1">
-                                            <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ event.title }}</h4>
-                                            <Badge :class="event.color" variant="secondary">{{ event.type }}</Badge>
-                                        </div>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                                            <Clock class="w-3 h-3" />
-                                            {{ event.time }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Sidebar -->
-                <div class="space-y-6">
-                    <!-- Notifications -->
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <CardTitle class="flex items-center gap-2">
-                                    <Bell class="w-5 h-5" />
-                                    Notifications
-                                    <Badge variant="destructive" class="ml-1">2</Badge>
-                                </CardTitle>
+                <!-- Right Sidebar (4 cols) -->
+                <div class="lg:col-span-4 space-y-8">
+                    
+                    <!-- Events Intelligence -->
+                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm p-6 lg:p-8">
+                        <div class="flex items-center justify-between mb-8">
+                            <h3 class="text-2xl font-black text-foreground tracking-tighter">Schedule</h3>
+                            <div class="w-10 h-10 rounded-xl bg-muted flex items-center justify-center text-primary cursor-pointer hover:bg-primary hover:text-white hover:scale-110 transition-all">
+                                <Plus class="w-5 h-5" />
                             </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="notification in notifications"
-                                    :key="notification.title"
-                                    :class="[
-                                        'p-3 rounded-lg transition-all duration-200 cursor-pointer',
-                                        notification.unread 
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800' 
-                                            : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'
-                                    ]"
-                                >
-                                    <div class="flex items-start gap-3">
-                                        <div class="p-2 bg-white dark:bg-gray-800 rounded-lg">
-                                            <component :is="notification.icon" class="w-4 h-4 text-gray-700 dark:text-gray-300" />
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex items-center gap-2 mb-1">
-                                                <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ notification.title }}</h4>
-                                                <div v-if="notification.unread" class="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                                            </div>
-                                            <p class="text-xs text-gray-600 dark:text-gray-400">{{ notification.description }}</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ notification.time }}</p>
-                                        </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div v-for="event in upcomingEvents" :key="event.title" class="relative pl-6 border-l-2 border-dashed border-border">
+                                <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-card border-2 border-primary"></div>
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span :class="['px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest', event.color]">
+                                            {{ event.type }}
+                                        </span>
+                                        <span class="text-[10px] font-black text-muted-foreground/80">{{ event.date }}</span>
+                                    </div>
+                                    <h4 class="text-sm font-black text-foreground mb-2 leading-tight">{{ event.title }}</h4>
+                                    <div class="flex items-center gap-2 text-muted-foreground/80">
+                                        <Clock class="w-3 h-3" />
+                                        <span class="text-[11px] font-bold">{{ event.time }}</span>
                                     </div>
                                 </div>
                             </div>
-                            <Button variant="ghost" class="w-full mt-3" size="sm">
-                                View All Notifications
-                            </Button>
-                        </CardContent>
-                    </Card>
+                        </div>
+                        <Button variant="outline" class="w-full mt-6 rounded-2xl border-border font-black h-12 text-muted-foreground hover:text-primary">
+                            Full Calendar
+                        </Button>
+                    </div>
 
-                    <!-- System Status -->
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="flex items-center gap-2">
-                                <Activity class="w-5 h-5" />
-                                System Status
-                            </CardTitle>
-                            <CardDescription>
-                                Current system health
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
+                    <!-- System Pulse -->
+                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm p-6 lg:p-8 relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-black text-foreground tracking-tighter mb-6 flex items-center gap-2">
+                                <Activity class="w-5 h-5 text-emerald-500" />
+                                System Pulse
+                            </h3>
                             <div class="space-y-4">
-                                <div class="flex items-center justify-between p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/20">
+                                <div class="p-4 rounded-2xl bg-muted border border-border flex items-center justify-between group cursor-pointer hover:bg-card transition-all">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Database</span>
+                                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-glow"></div>
+                                        <span class="text-sm font-bold text-foreground/80">Database Cluster</span>
                                     </div>
-                                    <Badge variant="secondary" class="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                                        <CheckCircle class="w-3 h-3 mr-1" />
-                                        Online
-                                    </Badge>
+                                    <Badge class="bg-emerald-50 dark:bg-emerald-500/10 text-emerald-500 border-0 font-black">ACTIVE</Badge>
                                 </div>
-                                
-                                <div class="flex items-center justify-between p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/20">
+                                <div class="p-4 rounded-2xl bg-muted border border-border flex items-center justify-between group cursor-pointer hover:bg-card transition-all">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">API Server</span>
+                                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-glow"></div>
+                                        <span class="text-sm font-bold text-foreground/80">Auth Engine</span>
                                     </div>
-                                    <Badge variant="secondary" class="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                                        <CheckCircle class="w-3 h-3 mr-1" />
-                                        Online
-                                    </Badge>
+                                    <Badge class="bg-emerald-50 dark:bg-emerald-500/10 text-emerald-500 border-0 font-black">ACTIVE</Badge>
                                 </div>
-                                
-                                <div class="flex items-center justify-between p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20">
+                                <div class="p-4 rounded-2xl bg-muted border border-border flex items-center justify-between group cursor-pointer hover:bg-card transition-all">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
-                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Storage</span>
+                                        <div class="w-2 h-2 rounded-full bg-amber-500"></div>
+                                        <span class="text-sm font-bold text-foreground/80">Object Storage</span>
                                     </div>
-                                    <Badge variant="secondary" class="bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
-                                        <AlertCircle class="w-3 h-3 mr-1" />
-                                        75% Full
-                                    </Badge>
+                                    <Badge class="bg-amber-50 dark:bg-amber-500/10 text-amber-500 border-0 font-black">75% CAP</Badge>
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
 
-                    <!-- Quick Stats -->
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="flex items-center gap-2">
-                                <BarChart3 class="w-5 h-5" />
-                                Today's Summary
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Present Students</span>
-                                    <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ stats.students_count - 15 }}/{{ stats.students_count }}</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Active Teachers</span>
-                                    <span class="text-sm font-semibold text-gray-900 dark:text-white">{{ stats.teachers_count }}/{{ stats.teachers_count }}</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Ongoing Classes</span>
-                                    <span class="text-sm font-semibold text-gray-900 dark:text-white">8/{{ stats.classes_count }}</span>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <!-- Pro Support Card -->
+                    <div class="rounded-3xl lg:rounded-[2.5rem] bg-primary p-6 lg:p-8 text-primary-foreground shadow-xl shadow-primary/20 relative overflow-hidden group">
+                        <div class="relative z-10">
+                            <h4 class="text-xl font-black mb-2 flex items-center gap-2">
+                                <Sparkles class="w-5 h-5" />
+                                Priority Concierge
+                            </h4>
+                            <p class="text-primary-foreground/80 text-sm font-medium mb-6 leading-relaxed">
+                                Get instant expert assistance from our premium 24/7 dedicated support team.
+                            </p>
+                            <Button class="w-full bg-background text-primary hover:bg-background/90 font-black rounded-2xl h-11 shadow-md border-0">
+                                Connect Now
+                            </Button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </Sidebar>
 </template>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.2);
+}
+</style>

@@ -32,7 +32,8 @@ import {
     Zap,
     CalendarDays,
     Activity,
-    MessageSquare
+    MessageSquare,
+    MoreVertical
 } from 'lucide-vue-next';
 
 defineProps({
@@ -43,45 +44,35 @@ defineProps({
 const quickActions = [
     {
         title: 'Take Attendance',
-        description: 'Mark attendance',
+        description: 'Class presence registry',
         icon: ClipboardList,
-        color: 'from-emerald-500 to-emerald-600',
+        gradient: 'from-emerald-500 to-teal-600',
+        glow: 'shadow-emerald-500/20',
         href: route('attendance.index')
     },
     {
-        title: 'My Classes',
-        description: 'View classes',
-        icon: BookOpen,
-        color: 'from-blue-500 to-blue-600',
-        href: route('classes.index')
-    },
-    {
         title: 'Grade Exams',
-        description: 'Enter grades',
+        description: 'Performance assessment',
         icon: FileText,
-        color: 'from-purple-500 to-purple-600',
+        gradient: 'from-blue-500 to-indigo-600',
+        glow: 'shadow-blue-500/20',
         href: route('exams.index')
     },
     {
         title: 'Assignments',
-        description: 'Give homework',
+        description: 'Knowledge milestones',
         icon: Award,
-        color: 'from-orange-500 to-orange-600',
+        gradient: 'from-orange-500 to-amber-600',
+        glow: 'shadow-orange-500/20',
         href: '#'
     },
     {
-        title: 'Schedule',
-        description: 'View timetable',
+        title: 'My Schedule',
+        description: 'Academic timeline',
         icon: Calendar,
-        color: 'from-pink-500 to-pink-600',
+        gradient: 'from-violet-500 to-purple-600',
+        glow: 'shadow-violet-500/20',
         href: '#'
-    },
-    {
-        title: 'Students',
-        description: 'View students',
-        icon: Users,
-        color: 'from-teal-500 to-teal-600',
-        href: route('students.index')
     }
 ];
 
@@ -91,28 +82,14 @@ const recentActivities = [
         description: 'Class 10A - Mathematics',
         time: '2 hours ago',
         icon: ClipboardList,
-        color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400'
+        color: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50'
     },
     {
         title: 'Exam Graded',
         description: 'Midterm exams - 45 students',
         time: '5 hours ago',
         icon: FileText,
-        color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-    },
-    {
-        title: 'Assignment Posted',
-        description: 'Science project - Class 9B',
-        time: '1 day ago',
-        icon: Award,
-        color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400'
-    },
-    {
-        title: 'Class Completed',
-        description: 'Physics - Class 10B',
-        time: '2 days ago',
-        icon: BookOpen,
-        color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400'
+        color: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50'
     }
 ];
 
@@ -120,7 +97,7 @@ const upcomingClasses = [
     {
         subject: 'Mathematics',
         class: 'Class 10A',
-        time: '8:00 AM - 9:00 AM',
+        time: '08:00 AM - 09:00 AM',
         room: 'Room 201',
         students: 45,
         status: 'upcoming'
@@ -128,412 +105,281 @@ const upcomingClasses = [
     {
         subject: 'Physics',
         class: 'Class 10B',
-        time: '9:30 AM - 10:30 AM',
+        time: '09:30 AM - 10:30 AM',
         room: 'Room 205',
         students: 42,
-        status: 'upcoming'
-    },
-    {
-        subject: 'Chemistry',
-        class: 'Class 9A',
-        time: '11:00 AM - 12:00 PM',
-        room: 'Lab 301',
-        students: 38,
         status: 'upcoming'
     }
 ];
 
 const pendingTasks = [
-    { title: 'Grade Math Assignments', count: 15, priority: 'high' },
-    { title: 'Review Lab Reports', count: 8, priority: 'medium' },
-    { title: 'Prepare Lesson Plans', count: 3, priority: 'low' }
+    { title: 'Grade Math Assignments', count: 15, priority: 'high', color: 'text-rose-600 bg-rose-50 border-rose-100' },
+    { title: 'Review Lab Reports', count: 8, priority: 'medium', color: 'text-amber-600 bg-amber-50 border-amber-100' }
 ];
 
 const getInitials = (name) => {
-    return name
-        .split(' ')
-        .map(word => word[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2);
+    return name?.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2) || 'TR';
 };
 </script>
 
 <template>
-    <Head title="Teacher Dashboard" />
+    <Head title="Teacher Dashboard | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
-            <div class="flex items-center space-x-3">
-                <GraduationCap class="w-5 h-5" />
-                <span class="font-semibold">Teacher Dashboard</span>
+            <div class="flex items-center gap-2">
+                <div class="p-2 bg-primary/10 rounded-lg">
+                    <GraduationCap class="w-4 h-4 text-primary" />
+                </div>
+                <span class="font-black text-sm uppercase tracking-wider text-muted-foreground/80">Academic Hub</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl space-y-6">
-            <!-- Welcome Header -->
-            <Card class="overflow-hidden border-0">
-                <div class="h-24"></div>
-                <CardContent class="relative pt-0 pb-6 -mt-12">
-                    <div class="flex flex-col md:flex-row md:items-end md:justify-between">
-                        <div class="flex items-center space-x-4">
-                            <Avatar class="w-20 h-20 border-2 border-gray-200 dark:border-gray-700">
+        <div class="space-y-8 animate-fade-in-up">
+            <!-- Dramatic Welcome Header -->
+            <div class="relative overflow-hidden bg-card rounded-3xl lg:rounded-[2.5rem] border border-border p-6 lg:p-12 shadow-sm">
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 blur-[80px] rounded-full animate-float"></div>
+                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/5 blur-[80px] rounded-full animate-float" style="animation-delay: 2s"></div>
+                
+                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 lg:gap-8">
+                    <div class="flex items-center gap-4 lg:gap-6">
+                        <div class="relative group">
+                            <Avatar class="w-20 h-20 lg:w-24 lg:h-24 border-2 border-border rounded-3xl relative">
                                 <AvatarImage 
                                     v-if="$page.props.auth.user.photo"
                                     :src="`/storage/${$page.props.auth.user.photo}`" 
                                     :alt="$page.props.auth.user.name"
+                                    class="object-cover"
                                 />
-                                <AvatarFallback class="text-2xl font-bold bg-emerald-500 text-white">
+                                <AvatarFallback class="text-2xl lg:text-3xl font-black bg-primary text-primary-foreground rounded-3xl uppercase">
                                     {{ getInitials($page.props.auth.user.name) }}
                                 </AvatarFallback>
                             </Avatar>
-                            <div class="mt-4">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                    Welcome back, {{ $page.props.auth.user.name }}
-                                    <BookMarked class="w-6 h-6 text-emerald-500" />
-                                </h1>
-                                <p class="text-base text-gray-600 dark:text-gray-400">
-                                    Ready to inspire young minds today
-                                </p>
-                            </div>
                         </div>
-                        <div class="mt-4 md:mt-0 mb-2">
-                            <div class="text-sm text-gray-600 dark:text-gray-400">
-                                {{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
-                            </div>
+                        <div>
+                            <h1 class="text-3xl lg:text-5xl font-black text-foreground mb-2 tracking-tighter">
+                                Morning, Professor {{ $page.props.auth.user.name.split(' ')[0] }}! <span class="animate-pulse">✨</span>
+                            </h1>
+                            <p class="text-base lg:text-lg text-muted-foreground font-medium">
+                                Your next lecture on <span class="text-primary font-black">Mathematics</span> begins in 15 minutes.
+                            </p>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
-
-            <!-- Stats Overview -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- My Classes -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-emerald-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl">
-                                <BookOpen class="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                                Active
-                            </Badge>
+                    
+                    <div class="flex flex-col items-start md:items-end">
+                        <div class="bg-muted px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-border text-left md:text-right">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Academic Calendar</p>
+                            <p class="font-bold text-foreground">
+                                {{ new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) }}
+                            </p>
                         </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">My Classes</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ stats?.classes || 8 }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-emerald-600 dark:text-emerald-400 font-medium">{{ upcomingClasses.length }}</span> classes today
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <!-- Total Students -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-blue-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
-                                <Users class="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                                Total
-                            </Badge>
-                        </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">My Students</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ stats?.students || 156 }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-blue-600 dark:text-blue-400 font-medium">Across all classes</span>
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <!-- Today's Classes -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-purple-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                                <Calendar class="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
-                                Today
-                            </Badge>
-                        </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Today's Classes</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ upcomingClasses.length }}</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-purple-600 dark:text-purple-400 font-medium">Next at 8:00 AM</span>
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <!-- Pending Tasks -->
-                <Card class="hover:shadow-lg transition-all duration-200 border-orange-500">
-                    <CardContent class="p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl">
-                                <Target class="w-6 h-6 text-orange-600 dark:text-orange-400" />
-                            </div>
-                            <Badge variant="secondary" class="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">
-                                Pending
-                            </Badge>
-                        </div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Pending Tasks</p>
-                        <p class="text-3xl font-bold text-gray-900 dark:text-white">26</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            <span class="text-orange-600 dark:text-orange-400 font-medium">15</span> high priority
-                        </p>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </div>
 
-            <!-- Quick Actions -->
-            <Card>
-                <CardHeader>
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <CardTitle class="flex items-center gap-2">
-                                <Zap class="w-5 h-5 text-emerald-500" />
-                                Quick Actions
-                            </CardTitle>
-                            <CardDescription>
-                                Essential teaching tools for quick access
-                            </CardDescription>
+            <!-- Stats & Quick Actions -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Main Content (8 cols) -->
+                <div class="lg:col-span-8 space-y-8">
+                    
+                    <!-- Premium Stats Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+                        <div class="bg-card p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer hover:border-primary/30 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                    <BookOpen class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-primary/10 text-primary border-0 font-black">ACTIVE</Badge>
+                            </div>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">My Classes</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">{{ stats?.classes || 8 }}</h3>
+                        </div>
+
+                        <div class="bg-card p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer hover:border-primary/30 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                    <Users class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-primary/10 text-primary border-0 font-black">TOTAL</Badge>
+                            </div>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Students</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">{{ stats?.students || 156 }}</h3>
+                        </div>
+
+                        <div class="bg-card p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer hover:border-primary/30 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                    <Target class="w-7 h-7" />
+                                </div>
+                                <Badge class="bg-rose-500/10 text-rose-600 border-0 font-black">26 PENDING</Badge>
+                            </div>
+                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Tasks</p>
+                            <h3 class="text-4xl font-black text-foreground tracking-tighter">15</h3>
                         </div>
                     </div>
-                </CardHeader>
-                <CardContent>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                        <Link
-                            v-for="action in quickActions"
-                            :key="action.title"
-                            :href="action.href"
-                            class="group relative overflow-hidden rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-transparent transition-all duration-300"
-                        >
-                            <div class="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300" :class="action.color"></div>
-                            <div class="relative p-4 flex flex-col items-center text-center space-y-3">
-                                <div class="p-3 rounded-xl bg-gray-100 dark:bg-gray-800 group-hover:bg-white/20 transition-colors duration-300">
-                                    <component :is="action.icon" class="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors duration-300" />
+
+                    <!-- Today's Schedule -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between px-2">
+                            <h2 class="text-xl font-black text-primary tracking-tight uppercase px-4 py-1 bg-primary/10 rounded-lg inline-block">Lecture Schedule</h2>
+                            <Button variant="ghost" class="font-bold text-primary hover:bg-primary/10 rounded-xl">Full Timetable</Button>
+                        </div>
+                        <div class="space-y-4">
+                            <div 
+                                v-for="classItem in upcomingClasses" 
+                                :key="classItem.subject"
+                                class="bg-card p-5 lg:p-6 rounded-3xl border border-border lg:hover:border-primary/30 group transition-all duration-500 shadow-sm"
+                            >
+                                <div class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6">
+                                    <div class="flex-shrink-0 w-24 md:text-center flex md:block items-center gap-2">
+                                        <div class="text-2xl lg:text-3xl font-black text-foreground">{{ classItem.time.split(':')[0] }}</div>
+                                        <div class="text-[10px] font-black uppercase text-muted-foreground/80 tracking-widest">{{ classItem.time.split(' ')[1] }}</div>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex flex-wrap items-center gap-3 mb-2">
+                                            <h4 class="text-lg lg:text-xl font-black text-foreground tracking-tight">{{ classItem.subject }}</h4>
+                                            <Badge class="bg-primary/10 text-primary border-0 font-black">{{ classItem.class }}</Badge>
+                                        </div>
+                                        <div class="flex flex-wrap items-center gap-4 text-xs lg:text-sm text-muted-foreground font-medium">
+                                            <div class="flex items-center gap-1.5">
+                                                <Home class="w-4 h-4 text-primary" />
+                                                {{ classItem.room }}
+                                            </div>
+                                            <div class="flex items-center gap-1.5">
+                                                <Users class="w-4 h-4 text-primary" />
+                                                {{ classItem.students }} Students Registered
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <Button class="bg-primary hover:bg-primary/90 text-primary-foreground font-black rounded-2xl h-11 lg:h-12 px-6 lg:px-8 shadow-lg shadow-primary/20 lg:group-hover:scale-105 transition-all w-full md:w-auto">
+                                        Initialize Class
+                                    </Button>
                                 </div>
-                                <div>
-                                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-white transition-colors duration-300">
-                                        {{ action.title }}
-                                    </h3>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-white/80 transition-colors duration-300 mt-1">
-                                        {{ action.description }}
-                                    </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Command Tools -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Link 
+                            v-for="action in quickActions" 
+                            :key="action.title" 
+                            :href="action.href"
+                            class="bg-card p-4 rounded-3xl border border-border lg:hover:border-primary/30 group transition-all duration-500 overflow-hidden relative shadow-sm"
+                        >
+                            <div :class="['absolute top-0 right-0 w-32 h-32 bg-gradient-to-br opacity-5 blur-[40px] rounded-full -mr-16 -mt-16 transition-all duration-500 group-hover:scale-150', action.gradient]"></div>
+                            <div class="flex items-center gap-5 relative z-10">
+                                <div :class="['w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center text-white shadow-xl transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110', action.gradient]">
+                                    <component :is="action.icon" class="w-8 h-8" />
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-lg font-black text-foreground tracking-tight">{{ action.title }}</h4>
+                                    <p class="text-sm text-muted-foreground font-medium">{{ action.description }}</p>
                                 </div>
                             </div>
                         </Link>
                     </div>
-                </CardContent>
-            </Card>
-
-            <!-- Main Content Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Today's Schedule & Activities -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- Today's Schedule -->
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <CardTitle class="flex items-center gap-2">
-                                        <CalendarDays class="w-5 h-5" />
-                                        Today's Schedule
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Your upcoming classes today
-                                    </CardDescription>
-                                </div>
-                                <Button variant="ghost" size="sm">
-                                    View All
-                                    <ChevronRight class="w-4 h-4 ml-1" />
-                                </Button>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="classItem in upcomingClasses"
-                                    :key="classItem.subject"
-                                    class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 transition-all duration-200"
-                                >
-                                    <div class="flex-shrink-0 text-center">
-                                        <div class="text-xl font-bold text-gray-900 dark:text-white">{{ classItem.time.split(' - ')[0].split(':')[0] }}</div>
-                                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ classItem.time.split(' - ')[0].split(' ')[1] }}</div>
-                                    </div>
-                                    <Separator orientation="vertical" class="h-12" />
-                                    <div class="flex-1 min-w-0">
-                                        <div class="flex items-center gap-2 mb-1">
-                                            <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ classItem.subject }}</h4>
-                                            <Badge variant="secondary" class="text-xs">{{ classItem.class }}</Badge>
-                                        </div>
-                                        <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                                            <span class="flex items-center gap-1">
-                                                <Clock class="w-3 h-3" />
-                                                {{ classItem.time }}
-                                            </span>
-                                            <span class="flex items-center gap-1">
-                                                <Home class="w-3 h-3" />
-                                                {{ classItem.room }}
-                                            </span>
-                                            <span class="flex items-center gap-1">
-                                                <Users class="w-3 h-3" />
-                                                {{ classItem.students }} students
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <Button size="sm" variant="outline">
-                                        Start Class
-                                    </Button>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <!-- Recent Activities -->
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <CardTitle class="flex items-center gap-2">
-                                        <Activity class="w-5 h-5" />
-                                        Recent Activities
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Your latest teaching activities
-                                    </CardDescription>
-                                </div>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="activity in recentActivities"
-                                    :key="activity.title"
-                                    class="flex items-start gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200 group"
-                                >
-                                    <div :class="[activity.color, 'p-2.5 rounded-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-200']">
-                                        <component :is="activity.icon" class="w-5 h-5" />
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ activity.title }}</h4>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ activity.description }}</p>
-                                        <div class="flex items-center gap-2 mt-2">
-                                            <Clock class="w-3 h-3 text-gray-400" />
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ activity.time }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
                 </div>
 
-                <!-- Sidebar -->
-                <div class="space-y-6">
-                    <!-- Pending Tasks -->
-                    <Card>
-                        <CardHeader>
-                            <div class="flex items-center justify-between">
-                                <CardTitle class="flex items-center gap-2">
-                                    <Target class="w-5 h-5" />
-                                    Pending Tasks
-                                    <Badge variant="destructive" class="ml-1">{{ pendingTasks.length }}</Badge>
-                                </CardTitle>
+                <!-- Right Sidebar (4 cols) -->
+                <div class="lg:col-span-4 space-y-6 lg:space-y-8">
+                    
+                    <!-- Pending Intelligence -->
+                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border p-6 lg:p-8 shadow-sm">
+                        <div class="flex items-center justify-between mb-8">
+                            <h3 class="text-2xl font-black text-foreground tracking-tighter">Academic Tasks</h3>
+                            <div class="w-10 h-10 rounded-xl bg-muted flex items-center justify-center text-primary">
+                                <Target class="w-5 h-5" />
                             </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div
-                                    v-for="task in pendingTasks"
-                                    :key="task.title"
-                                    :class="[
-                                        'p-3 rounded-lg border transition-all duration-200 cursor-pointer',
-                                        task.priority === 'high' ? 'border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10' :
-                                        task.priority === 'medium' ? 'border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/10' :
-                                        'border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/10'
-                                    ]"
-                                >
-                                    <div class="flex items-start justify-between mb-2">
-                                        <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ task.title }}</h4>
-                                        <Badge 
-                                            variant="outline" 
-                                            :class="[
-                                                task.priority === 'high' ? 'border-red-300 text-red-700 dark:border-red-700 dark:text-red-400' :
-                                                task.priority === 'medium' ? 'border-orange-300 text-orange-700 dark:border-orange-700 dark:text-orange-400' :
-                                                'border-blue-300 text-blue-700 dark:border-blue-700 dark:text-blue-400'
-                                            ]"
-                                        >
-                                            {{ task.count }} items
-                                        </Badge>
-                                    </div>
-                                    <Badge 
-                                        variant="secondary" 
-                                        class="text-xs"
-                                        :class="[
-                                            task.priority === 'high' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                                            task.priority === 'medium' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
-                                            'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
-                                        ]"
-                                    >
-                                        {{ task.priority }} priority
-                                    </Badge>
+                        </div>
+                        <div class="space-y-4">
+                            <div v-for="task in pendingTasks" :key="task.title" :class="['p-4 rounded-2xl border transition-all lg:hover:scale-[1.02]', task.color]">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="text-sm font-black tracking-tight">{{ task.title }}</h4>
+                                    <Badge class="bg-white/50 border-0 font-black text-foreground">{{ task.count }}</Badge>
                                 </div>
+                                <div class="text-[10px] font-black uppercase tracking-widest opacity-60">{{ task.priority }} PRIORITY</div>
                             </div>
-                            <Button variant="outline" class="w-full mt-3" size="sm">
-                                <Plus class="w-4 h-4 mr-2" />
-                                Add Task
-                            </Button>
-                        </CardContent>
-                    </Card>
+                        </div>
+                        <Button variant="ghost" class="w-full mt-6 rounded-2xl border-dashed border-border text-muted-foreground font-bold h-12">
+                            <Plus class="w-4 h-4 mr-2" />
+                            New Task
+                        </Button>
+                    </div>
 
-                    <!-- Performance Summary -->
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="flex items-center gap-2">
-                                <BarChart3 class="w-5 h-5" />
-                                Performance
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Attendance Rate</span>
-                                    <span class="text-sm font-semibold text-emerald-600 dark:text-emerald-400">95.5%</span>
+                    <!-- Insights & Performance -->
+                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border p-6 lg:p-8 shadow-sm">
+                        <h3 class="text-xl font-black text-foreground tracking-tighter mb-6 flex items-center gap-2">
+                            <BarChart3 class="w-5 h-5 text-primary" />
+                            Performance Insights
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-xs font-black text-muted-foreground/80 uppercase">Attendance Analytics</span>
+                                    <span class="text-xs font-black text-emerald-500">95.5%</span>
                                 </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Avg. Grade</span>
-                                    <span class="text-sm font-semibold text-blue-600 dark:text-blue-400">B+</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Completed Tasks</span>
-                                    <span class="text-sm font-semibold text-purple-600 dark:text-purple-400">142/168</span>
-                                </div>
-                                <Separator />
-                                <div class="flex items-center justify-between py-2">
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Student Rating</span>
-                                    <span class="text-sm font-semibold text-orange-600 dark:text-orange-400">4.8/5.0</span>
+                                <div class="h-2 bg-muted rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500 rounded-full" style="width: 95.5%"></div>
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-xs font-black text-muted-foreground/80 uppercase">Avg. Academic Score</span>
+                                    <span class="text-xs font-black text-primary">B+ (84%)</span>
+                                </div>
+                                <div class="h-2 bg-muted rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary rounded-full" style="width: 84%"></div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mt-8">
+                                <div class="p-4 bg-primary/5 rounded-2xl text-center border border-border">
+                                    <p class="text-[10px] font-black uppercase text-primary mb-1">Peer Rating</p>
+                                    <p class="text-xl font-black text-foreground">4.8/5.0</p>
+                                </div>
+                                <div class="p-4 bg-emerald-500/5 rounded-2xl text-center border border-border">
+                                    <p class="text-[10px] font-black uppercase text-emerald-500 mb-1">Efficiency</p>
+                                    <p class="text-xl font-black text-foreground">92%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!-- Quick Message -->
-                    <Card class="bg-emerald-500 border-0 text-white">
-                        <CardContent class="p-6 text-center">
-                            <MessageSquare class="w-12 h-12 mx-auto mb-3 opacity-90" />
-                            <h3 class="font-semibold mb-2">Message Students</h3>
-                            <p class="text-sm text-emerald-100 mb-4">Send announcements or updates to your classes</p>
-                            <Button variant="secondary" size="sm" class="w-full">
-                                <MessageSquare class="w-4 h-4 mr-2" />
-                                Send Message
+                    <!-- Communication Channel -->
+                    <div class="rounded-3xl lg:rounded-[2.5rem] bg-primary p-8 text-primary-foreground shadow-xl shadow-primary/20 relative overflow-hidden group">
+                        <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 blur-[40px] rounded-full lg:group-hover:scale-150 transition-transform"></div>
+                        <div class="relative z-10">
+                            <h4 class="text-xl font-black mb-2 flex items-center gap-2">
+                                <MessageSquare class="w-5 h-5 text-primary-foreground/80" />
+                                Student Portal
+                            </h4>
+                            <p class="text-primary-foreground/80 text-sm font-medium mb-6 leading-relaxed">
+                                Broadcast announcements or start direct mentorship sessions with your students.
+                            </p>
+                            <Button class="w-full bg-background text-primary hover:bg-background/90 font-black rounded-2xl h-11 border-0">
+                                Launch Messaging
                             </Button>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </Sidebar>
 </template>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.2);
+}
+</style>

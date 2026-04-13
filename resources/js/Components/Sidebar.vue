@@ -43,6 +43,7 @@ const isSearching = ref(false);
 const isCollapsed = ref(false);
 const isMobileOpen = ref(false);
 const hoveredItem = ref(null);
+const isScrolled = ref(false);
 
 // ─── Declarative Menu Schema ──────────────────────────────────
 const MENU_SCHEMA = [
@@ -55,6 +56,7 @@ const MENU_SCHEMA = [
   {
     name: 'Students',
     parentName: 'Children Profiles',
+    studentName: 'My Children',
     href: 'students.index',
     icon: Users,
     roles: ['admin', 'teacher', 'accountant', 'librarian', 'receptionist', 'parent'],
@@ -244,198 +246,198 @@ const selectStudent = (student) => {
   showSearchResults.value = false;
   router.visit(route('students.show', student.id));
 };
+
+const handleScroll = () => {
+    isScrolled.value = window.scrollY > 20;
+};
+
+// Add scroll listener
+import { onMounted, onUnmounted } from 'vue';
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+});
+onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <template>
-  <div class="flex h-screen bg-background text-foreground transition-colors duration-500 overflow-hidden font-sans relative">
-    <!-- Mobile Backdrop -->
-    <div 
-      v-if="isMobileOpen" 
-      @click="isMobileOpen = false"
-      class="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
-    ></div>
+<div class="min-h-screen bg-warm-bg dark:bg-dark-bg text-warm-text dark:text-dark-text relative transition-colors duration-300 font-serif">
+    <!-- Background Orbs -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="hero-orb-1 absolute -top-[15%] -left-[10%] w-[50%] h-[50%] blur-[100px] animate-float" />
+        <div class="hero-orb-2 absolute top-[30%] -right-[5%] w-[40%] h-[40%] blur-[100px] animate-float" style="animation-delay: 3s" />
+        <div class="hero-orb-3 absolute -bottom-[10%] left-[15%] w-[35%] h-[35%] blur-[100px] animate-float" style="animation-delay: 6s" />
+    </div>
 
-    <!-- Sidebar -->
-    <aside 
-      :class="[
-        'bg-card transition-all duration-500 ease-in-out border-r border-border fixed lg:relative z-50 flex flex-col shadow-sm h-full',
-        isCollapsed ? 'lg:w-24' : 'lg:w-72',
-        isMobileOpen ? 'translate-x-0 w-72' : '-translate-x-full lg:translate-x-0 w-0 lg:w-auto'
-      ]"
-    >
-      <!-- Logo Section -->
-      <div class="p-6 mb-2">
-        <div class="flex items-center justify-between">
-            <Link href="/" class="flex items-center gap-3 group">
-                <div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 transform transition-all duration-500 group-hover:scale-105">
-                    <GraduationCap class="w-7 h-7 text-primary-foreground" />
-                </div>
-                <div v-if="!isCollapsed" class="animate-fade-in whitespace-nowrap">
-                    <h1 class="text-xl font-black text-foreground tracking-tighter">EduManage <span class="text-primary">Pro</span></h1>
-                    <p class="text-[9px] uppercase tracking-[0.2em] font-bold text-muted-foreground/80">Institution OS</p>
-                </div>
-            </Link>
-            <Button 
-                @click="toggleSidebar"
-                variant="ghost" 
-                size="icon" 
-                class="ml-2 h-8 w-8 rounded-xl opacity-0 group-hover:opacity-100 lg:opacity-100 transition-opacity hover:bg-accent hover:text-accent-foreground hidden lg:flex"
-            >
-                <ChevronLeft :class="['w-4 h-4 transition-transform duration-500', isCollapsed ? 'rotate-180' : '']" />
-            </Button>
-            <!-- Mobile Close Button -->
-            <Button 
-                @click="isMobileOpen = false"
-                variant="ghost" 
-                size="icon" 
-                class="lg:hidden h-8 w-8 rounded-xl"
-            >
-                <ChevronLeft class="w-4 h-4" />
-            </Button>
-        </div>
-      </div>
+    <!-- Savanna Texture Overlay -->
+    <div class="savanna-texture fixed inset-0 pointer-events-none z-0 opacity-30" />
 
-      <!-- Search Box (Conditional) -->
-      <div v-if="!isCollapsed" class="px-6 mb-6 animate-fade-in">
-        <div class="relative group">
-            <div class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors">
-                <Search class="w-4 h-4" />
+    <!-- Main Layout -->
+    <div class="flex h-screen relative z-10 font-sans">
+        <!-- Mobile Backdrop -->
+        <div 
+            v-if="isMobileOpen" 
+            @click="isMobileOpen = false"
+            class="fixed inset-0 bg-warm-text/60 dark:bg-dark-text/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
+        ></div>
+
+        <!-- Sidebar -->
+        <aside 
+            :class="[
+                'bg-warm-bg/95 dark:bg-dark-bg/95 backdrop-blur-sm transition-all duration-500 ease-in-out border-r border-warm-border dark:border-dark-border fixed lg:relative z-50 flex flex-col shadow-xl h-full',
+                isCollapsed ? 'lg:w-24' : 'lg:w-72',
+                isMobileOpen ? 'translate-x-0 w-72' : '-translate-x-full lg:translate-x-0 w-0 lg:w-auto'
+            ]"
+        >
+            <!-- Logo Section -->
+            <div class="p-6 mb-2">
+                <div class="flex items-center justify-between">
+                    <Link href="/" class="flex items-center gap-3 group">
+                        <div class="w-12 h-12 bg-terracotta rounded-2xl flex items-center justify-center shadow-lg shadow-terracotta/30 transform transition-all duration-500 group-hover:scale-105">
+                            <GraduationCap class="w-7 h-7 text-white" />
+                        </div>
+                        <div v-if="!isCollapsed" class="animate-fade-in whitespace-nowrap">
+                            <h1 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter">EduManage <span class="text-terracotta">Pro</span></h1>
+                            <p class="text-[9px] uppercase tracking-[0.2em] font-bold text-terracotta/60">Nairobi · Kenya</p>
+                        </div>
+                    </Link>
+                    <button 
+                        @click="toggleSidebar"
+                        class="ml-2 h-8 w-8 rounded-xl opacity-0 group-hover:opacity-100 lg:opacity-100 transition-all hover:bg-terracotta/10 hidden lg:flex items-center justify-center"
+                    >
+                        <ChevronLeft :class="['w-4 h-4 text-warm-muted dark:text-dark-muted transition-transform duration-500', isCollapsed ? 'rotate-180' : '']" />
+                    </button>
+                    <!-- Mobile Close Button -->
+                    <button 
+                        @click="isMobileOpen = false"
+                        class="lg:hidden h-8 w-8 rounded-xl hover:bg-terracotta/10 flex items-center justify-center"
+                    >
+                        <ChevronLeft class="w-4 h-4 text-warm-muted dark:text-dark-muted" />
+                    </button>
+                </div>
             </div>
-            <Input 
-                v-model="searchQuery"
-                @input="searchStudents"
-                placeholder="Search students..." 
-                class="h-11 pl-10 bg-muted/50 border-border rounded-xl text-sm focus:ring-2 focus:ring-primary/20"
-            />
-            
-            <!-- Search Results Mini-Flyout -->
-            <div v-if="showSearchResults && searchResults.length" class="absolute top-12 left-0 right-0 bg-popover text-popover-foreground rounded-2xl border border-border p-2 shadow-2xl z-50 animate-scale-up">
-                <div v-for="student in searchResults.slice(0, 5)" :key="student.id" @click="selectStudent(student)" class="flex items-center gap-3 p-2 hover:bg-accent hover:text-accent-foreground rounded-xl cursor-pointer transition-all">
-                    <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-xs uppercase">{{ student.user.name.charAt(0) }}</div>
-                    <div class="min-w-0">
-                        <p class="text-xs font-bold truncate text-foreground">{{ student.user.name }}</p>
-                        <p class="text-[10px] text-muted-foreground truncate">{{ student.admission_number }}</p>
+
+            <!-- Search Box (Conditional) -->
+            <div v-if="!isCollapsed" class="px-6 mb-6 animate-fade-in">
+                <div class="relative group">
+                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-warm-muted/60 dark:text-dark-muted/60 group-focus-within:text-terracotta transition-colors">
+                        <Search class="w-4 h-4" />
+                    </div>
+                    <input 
+                        v-model="searchQuery"
+                        @input="searchStudents"
+                        placeholder="Search students..." 
+                        class="w-full h-11 pl-10 bg-white/50 dark:bg-dark-bg/50 border border-terracotta/20 rounded-xl text-sm text-warm-text dark:text-dark-text placeholder:text-warm-muted/50 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-all"
+                    />
+                    
+                    <!-- Search Results -->
+                    <div v-if="showSearchResults && searchResults.length" class="absolute top-12 left-0 right-0 bg-white dark:bg-dark-bg rounded-2xl border border-terracotta/20 p-2 shadow-2xl z-50 animate-scale-up">
+                        <div v-for="student in searchResults.slice(0, 5)" :key="student.id" @click="selectStudent(student)" class="flex items-center gap-3 p-2 hover:bg-terracotta/5 rounded-xl cursor-pointer transition-all">
+                            <div class="w-8 h-8 rounded-lg bg-terracotta/10 flex items-center justify-center text-terracotta font-bold text-xs uppercase">{{ student.user.name.charAt(0) }}</div>
+                            <div class="min-w-0">
+                                <p class="text-xs font-bold truncate text-warm-text dark:text-dark-text">{{ student.user.name }}</p>
+                                <p class="text-[10px] text-warm-muted/70 dark:text-dark-muted/70 truncate">{{ student.admission_number }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-      </div>
 
-      <!-- Nav Items -->
-      <nav class="flex-1 px-4 space-y-1.5 overflow-y-auto custom-scrollbar pb-10">
-        <template v-for="(item, idx) in menuItems" :key="idx">
-          <!-- Separator / Label -->
-          <div v-if="item.type === 'separator'" class="px-4 pt-6 pb-2">
-            <p v-if="!isCollapsed || isMobileOpen" class="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 animate-fade-in">{{ item.name }}</p>
-            <div v-else class="h-[1px] bg-border mx-2" />
-          </div>
+            <!-- Nav Items -->
+            <nav class="flex-1 px-4 space-y-1.5 overflow-y-auto pb-10 custom-scrollbar">
+                <template v-for="(item, idx) in menuItems" :key="idx">
+                    <!-- Separator / Label -->
+                    <div v-if="item.type === 'separator'" class="px-4 pt-6 pb-2">
+                        <p v-if="!isCollapsed || isMobileOpen" class="text-[10px] font-black uppercase tracking-[0.2em] text-terracotta/60 animate-fade-in">{{ item.name }}</p>
+                        <div v-else class="h-px bg-terracotta/20 mx-2" />
+                    </div>
 
-          <!-- Link Item -->
-          <Link
-            v-else
-            :href="route(item.href)"
-            @mouseenter="hoveredItem = item.name"
-            @mouseleave="hoveredItem = null"
-            @click="isMobileOpen = false"
-            :class="[
-                'group flex items-center px-4 py-3.5 rounded-2xl transition-all duration-300 relative overflow-hidden',
-                item.active 
-                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20' 
-                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-                isCollapsed && !isMobileOpen ? 'justify-center px-0' : ''
-            ]"
-          >
-            <component 
-                :is="item.icon" 
-                :class="[
-                    'w-5 h-5 transition-all duration-300 relative z-10',
-                    item.active ? 'scale-110' : 'group-hover:scale-110',
-                    isCollapsed && !isMobileOpen ? '' : 'mr-4'
-                ]" 
-            />
-            <span v-if="!isCollapsed || isMobileOpen" class="text-sm font-bold tracking-tight relative z-10">{{ item.name }}</span>
-            
-            <!-- Tooltip for Collapsed -->
-            <div v-if="isCollapsed && !isMobileOpen && hoveredItem === item.name" class="absolute left-full ml-4 px-3 py-2 bg-popover text-popover-foreground border border-border rounded-xl text-xs font-black shadow-2xl animate-fade-in-right z-50 whitespace-nowrap">
-                {{ item.name }}
-            </div>
-          </Link>
-        </template>
-      </nav>
+                    <!-- Link Item -->
+                    <Link
+                        v-else
+                        :href="route(item.href)"
+                        @mouseenter="hoveredItem = item.name"
+                        @mouseleave="hoveredItem = null"
+                        @click="isMobileOpen = false"
+                        :class="[
+                            'group flex items-center px-4 py-3.5 rounded-2xl transition-all duration-300 relative overflow-hidden',
+                            item.active 
+                                ? 'bg-terracotta text-white shadow-lg shadow-terracotta/30' 
+                                : 'text-warm-muted dark:text-dark-muted hover:bg-terracotta/10 hover:text-terracotta',
+                            isCollapsed && !isMobileOpen ? 'justify-center px-0' : ''
+                        ]"
+                    >
+                        <component 
+                            :is="item.icon" 
+                            :class="[
+                                'w-5 h-5 transition-all duration-300 relative z-10',
+                                item.active ? 'scale-110' : 'group-hover:scale-110',
+                                isCollapsed && !isMobileOpen ? '' : 'mr-4'
+                            ]" 
+                        />
+                        <span v-if="!isCollapsed || isMobileOpen" class="text-sm font-bold tracking-tight relative z-10">{{ item.name }}</span>
+                        
+                        <!-- Tooltip for Collapsed -->
+                        <div v-if="isCollapsed && !isMobileOpen && hoveredItem === item.name" class="absolute left-full ml-4 px-3 py-2 bg-white dark:bg-dark-bg border border-terracotta/20 rounded-xl text-xs font-black shadow-2xl animate-fade-in-right z-50 whitespace-nowrap">
+                            {{ item.name }}
+                        </div>
+                    </Link>
+                </template>
+            </nav>
 
-      <!-- Bottom Profile Section -->
-      <div class="p-4 border-t border-border">
-        <div 
-            :class="[
-                'rounded-2xl p-4 transition-all duration-300',
-                isCollapsed && !isMobileOpen ? 'items-center p-2' : 'bg-muted/50'
-            ]"
-        >
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-black shadow-md">
-                    {{ user.name.charAt(0) }}
-                </div>
-                <div v-if="!isCollapsed || isMobileOpen" class="flex-1 min-w-0 animate-fade-in">
-                    <p class="text-xs font-black text-foreground truncate">{{ user.name }}</p>
-                    <p class="text-[10px] font-bold text-primary uppercase tracking-wider truncate">{{ userRoles[0] }}</p>
-                </div>
-                <Link 
-                    v-if="!isCollapsed || isMobileOpen" 
-                    :href="route('logout')" 
-                    method="post" 
-                    as="button" 
-                    class="p-2 hover:bg-destructive shadow-sm hover:text-destructive-foreground rounded-lg text-muted-foreground transition-all"
+            <!-- Bottom Profile Section -->
+            <div class="p-4 border-t border-terracotta/20">
+                <div 
+                    :class="[
+                        'rounded-2xl p-4 transition-all duration-300',
+                        isCollapsed && !isMobileOpen ? 'items-center p-2' : 'bg-terracotta/5'
+                    ]"
                 >
-                    <LogOut class="w-4 h-4" />
-                </Link>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-terracotta flex items-center justify-center text-white font-black shadow-md">
+                            {{ user.name.charAt(0) }}
+                        </div>
+                        <div v-if="!isCollapsed || isMobileOpen" class="flex-1 min-w-0 animate-fade-in">
+                            <p class="text-xs font-black text-warm-text dark:text-dark-text truncate">{{ user.name }}</p>
+                            <p class="text-[10px] font-bold text-terracotta uppercase tracking-wider truncate">{{ userRoles[0] }}</p>
+                        </div>
+                        <Link 
+                            v-if="!isCollapsed || isMobileOpen" 
+                            :href="route('logout')" 
+                            method="post" 
+                            as="button" 
+                            class="p-2 hover:bg-destructive/10 hover:text-destructive rounded-lg text-warm-muted/70 transition-all"
+                        >
+                            <LogOut class="w-4 h-4" />
+                        </Link>
+                    </div>
+                </div>
             </div>
-        </div>
-      </div>
-    </aside>
+        </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col min-w-0 relative h-screen bg-background transition-colors duration-500">
-        <!-- Floating Header -->
-        <Header 
-            @toggle-mobile-menu="toggleMobileMenu"
-            class="z-20 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-        >
-            <template #header-title>
-                <slot name="header-title" />
-            </template>
-        </Header>
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col min-w-0 relative h-screen overflow-hidden">
+            <!-- Floating Header -->
+            <Header 
+                @toggle-mobile-menu="toggleMobileMenu"
+                :class="[
+                    'transition-all duration-500 z-20',
+                    isScrolled ? 'glass-warm shadow-xl shadow-terracotta/10' : 'bg-transparent'
+                ]"
+            >
+                <template #header-title>
+                    <slot name="header-title" />
+                </template>
+            </Header>
 
-        <!-- Content Area -->
-        <div class="flex-1 overflow-y-auto px-4 lg:px-6 py-4 lg:py-8 custom-scrollbar relative z-10">
-            <div class="relative z-10 max-w-[1600px] mx-auto animate-fade-in-up">
-                <slot />
+            <!-- Content Area -->
+            <div class="flex-1 overflow-y-auto px-4 lg:px-6 py-4 lg:py-8 custom-scrollbar relative z-10">
+                <div class="relative z-10 max-w-[1600px] mx-auto animate-fade-in-up">
+                    <slot />
+                </div>
             </div>
-        </div>
-    </main>
-  </div>
+        </main>
+    </div>
+</div>
 </template>
-
-<style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-  width: 5px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(215, 241, 99, 0.1);
-  border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.2);
-}
-
-@keyframes fade-in-right {
-    from { opacity: 0; transform: translateX(-10px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-.animate-fade-in-right {
-    animation: fade-in-right 0.3s ease-out;
-}
-</style>

@@ -23,13 +23,10 @@ class GradeController extends Controller
         $user = $request->user();
         $grades = [];
         $stats = [];
-        
+
+        // Students should not access grades module (view only via report cards)
         if ($user->hasRole('student')) {
-            $student = $user->student;
-            if ($student) {
-                $grades = $this->gradeService->getStudentGrades($student);
-                $stats = $this->gradeService->getStudentStats($student);
-            }
+            abort(403, 'You are not authorized to access grades.');
         } elseif ($user->hasRole('parent')) {
             $parentStudents = view()->shared('parentStudents', collect());
             if ($parentStudents->isNotEmpty()) {

@@ -37,16 +37,19 @@ class StudentController extends Controller
     {
         $search = request('search');
         $studentIds = null;
-        
+
         // Filter for parents - only show their children
         if (auth()->user()->hasRole('parent')) {
             $studentIds = view()->shared('parentStudentIds', []);
         }
-        
+
         $students = $this->studentService->getStudentsList($search, $studentIds);
-        
+        $formOptions = $this->studentService->getFormOptions();
+
         return Inertia::render('Students/Index', [
             'students' => $students,
+            'classes' => $formOptions['classes'],
+            'sections' => $formOptions['sections'],
             'filters' => ['search' => $search]
         ]);
     }

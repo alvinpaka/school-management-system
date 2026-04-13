@@ -22,9 +22,11 @@ class ExamController extends Controller
     {
         $search = $request->input('search');
         $exams = $this->examService->getExamsList($search);
-        
+        $subjects = $this->examService->getSubjectsForSelect();
+
         return Inertia::render('Exams/Index', [
             'exams' => $exams,
+            'subjects' => $subjects,
             'filters' => ['search' => $search]
         ]);
     }

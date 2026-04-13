@@ -29,64 +29,77 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Edit Subject" />
+    <Head title="Edit Subject | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Link :href="route('subjects.index')">
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
                         <ArrowLeft class="w-4 h-4 mr-2" />
                         Back to Subjects
                     </Button>
                 </Link>
-                <span class="text-gray-400">|</span>
-                <span>Edit Subject</span>
+                <span class="text-warm-muted dark:text-dark-muted">|</span>
+                <span class="font-semibold text-warm-text dark:text-dark-text">Edit Subject</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl">
+        <div class="mx-auto max-w-7xl space-y-6 animate-fade-in-up">
+            <!-- Page Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Edit Subject</h1>
+                    <p class="text-warm-muted dark:text-dark-muted font-medium">
+                        Update subject details and type
+                    </p>
+                </div>
+            </div>
+
             <!-- Form Card -->
-            <Card>
-                <CardHeader>
-                    <CardTitle>Edit Subject Information</CardTitle>
-                    <CardDescription>
+            <div class="card-warm">
+                <div class="p-6 border-b border-terracotta/20">
+                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Edit Subject Information</h3>
+                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
                         Update the subject details and type.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
+                    </p>
+                </div>
+                <div class="p-6">
                     <form @submit.prevent="submit" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Basic Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Basic Information</h3>
+                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                    <BookOpen class="w-5 h-5 text-terracotta" />
+                                    Basic Information
+                                </h3>
                                 
-                                <div>
-                                    <Label for="name">Subject Name</Label>
+                                <div class="space-y-2">
+                                    <Label for="name" class="text-warm-text dark:text-dark-text">Subject Name</Label>
                                     <Input
                                         id="name"
                                         v-model="form.name"
                                         type="text"
-                                        class="mt-1 block w-full"
+                                        class="mt-1 block w-full border-terracotta/20 focus:ring-terracotta/30"
                                         required
                                         autofocus
                                     />
-                                    <div v-if="form.errors.name" class="text-red-600 text-sm mt-1">
+                                    <div v-if="form.errors.name" class="text-destructive text-sm mt-1">
                                         {{ form.errors.name }}
                                     </div>
                                 </div>
 
-                                <div>
-                                    <Label for="code">Subject Code</Label>
+                                <div class="space-y-2">
+                                    <Label for="code" class="text-warm-text dark:text-dark-text">Subject Code</Label>
                                     <Input
                                         id="code"
                                         v-model="form.code"
                                         type="text"
-                                        class="mt-1 block w-full"
+                                        class="mt-1 block w-full border-terracotta/20 focus:ring-terracotta/30"
                                         required
                                         placeholder="e.g., MATH, PHYS, CHEM"
                                     />
-                                    <div v-if="form.errors.code" class="text-red-600 text-sm mt-1">
+                                    <div v-if="form.errors.code" class="text-destructive text-sm mt-1">
                                         {{ form.errors.code }}
                                     </div>
                                 </div>
@@ -94,14 +107,17 @@ const submit = () => {
 
                             <!-- Subject Type -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Subject Type</h3>
+                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                    <Tag class="w-5 h-5 text-terracotta" />
+                                    Subject Type
+                                </h3>
                                 
-                                <div>
-                                    <Label for="type">Type</Label>
+                                <div class="space-y-2">
+                                    <Label for="type" class="text-warm-text dark:text-dark-text">Type</Label>
                                     <select
                                         id="type"
                                         v-model="form.type"
-                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
                                         required
                                     >
                                         <option value="">Select a type</option>
@@ -109,13 +125,13 @@ const submit = () => {
                                         <option value="practical">Practical</option>
                                         <option value="elective">Elective</option>
                                     </select>
-                                    <div v-if="form.errors.type" class="text-red-600 text-sm mt-1">
+                                    <div v-if="form.errors.type" class="text-destructive text-sm mt-1">
                                         {{ form.errors.type }}
                                     </div>
                                 </div>
 
-                                <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                                <div class="mt-4 p-4 bg-terracotta/5 border border-terracotta/20 rounded-lg">
+                                    <p class="text-sm text-warm-muted dark:text-dark-muted">
                                         <span v-if="form.type === 'theory'">
                                             Theory subjects focus on conceptual learning and theoretical knowledge.
                                         </span>
@@ -134,20 +150,20 @@ const submit = () => {
                         </div>
 
                         <!-- Form Actions -->
-                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-terracotta/20">
                             <Link :href="route('subjects.index')">
-                                <Button variant="outline" type="button">
+                                <Button variant="outline" type="button" class="border-terracotta/20">
                                     Cancel
                                 </Button>
                             </Link>
-                            <Button type="submit" :disabled="form.processing">
+                            <Button type="submit" :disabled="form.processing" class="accent-terracotta text-white">
                                 <Save class="w-4 h-4 mr-2" />
                                 {{ form.processing ? 'Updating...' : 'Update Subject' }}
                             </Button>
                         </div>
                     </form>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </div>
     </Sidebar>
 </template>

@@ -1,11 +1,8 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ChevronRight, ArrowRight, Star, Quote, CheckCircle2, PlayCircle } from 'lucide-vue-next';
-import DarkModeToggle from '@/Components/DarkModeToggle.vue';
+import { ChevronRight, ArrowRight, Star, Quote, CheckCircle2, PlayCircle, ChevronLeft } from 'lucide-vue-next';
 import { useTheme } from '@/composables/useTheme';
 
 defineProps({
@@ -16,11 +13,9 @@ defineProps({
 });
 
 const isScrolled = ref(false);
-const particles = ref([]);
 const activeTestimonial = ref(0);
 const mobileMenuOpen = ref(false);
 
-// Initialize theme
 const { updateDocumentClass } = useTheme();
 if (typeof document !== 'undefined') {
     updateDocumentClass();
@@ -30,50 +25,26 @@ const handleScroll = () => {
     isScrolled.value = window.scrollY > 20;
 };
 
-const createParticle = () => {
-    return {
-        id: Math.random(),
-        x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1920),
-        y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1080),
-        size: Math.random() * 4 + 2,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
-        opacity: Math.random() * 0.4 + 0.2
-    };
-};
-
-const animateParticles = () => {
-    particles.value = particles.value.map(particle => {
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
-        
-        if (particle.x < 0 || particle.x > window.innerWidth) particle.speedX *= -1;
-        if (particle.y < 0 || particle.y > window.innerHeight) particle.speedY *= -1;
-        
-        return particle;
-    });
-};
-
 const testimonials = [
     {
-        name: "Sarah Johnson",
-        role: "Principal, Riverside Academy",
-        image: "👩‍💼",
-        quote: "EduManage Pro transformed how we run our school. We've saved 20+ hours per week on administrative tasks.",
+        name: "Amara Odhiambo",
+        role: "Principal, Nairobi International School",
+        initials: "AO",
+        quote: "EduManage Pro transformed how we run our school. We've saved 20+ hours per week on administrative tasks across all three campuses.",
         rating: 5
     },
     {
-        name: "Michael Chen",
-        role: "Director, Tech Valley School",
-        image: "👨‍💼",
-        quote: "The attendance and grading features are incredible. Parents love the real-time updates!",
+        name: "David Kimani",
+        role: "Director, Rift Valley Academy",
+        initials: "DK",
+        quote: "The attendance and grading features are exceptional. Parents across Nairobi love the real-time updates on their children's progress.",
         rating: 5
     },
     {
-        name: "Emily Rodriguez",
-        role: "Administrator, Green Hills Academy",
-        image: "👩‍🏫",
-        quote: "Best investment we've made. The ROI was evident within the first month of implementation.",
+        name: "Fatuma Wanjiru",
+        role: "Head of Administration, Mombasa Academy",
+        initials: "FW",
+        quote: "Best investment we've made for our institution. The ROI was clearly visible within the first term of implementation.",
         rating: 5
     }
 ];
@@ -82,38 +53,38 @@ const features = [
     {
         icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
         title: "Student Management",
-        description: "Centralized student profiles, document storage, enrollment tracking, and seamless parent communication.",
-        color: "bg-blue-600"
+        description: "Centralized student profiles, document storage, enrollment tracking, and seamless parent communication built for Kenyan schools.",
+        accent: "terracotta"
     },
     {
         icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
         title: "Attendance & Grades",
-        description: "Real-time attendance tracking, smart grade management, automated GPA calculations, and instant report generation.",
-        color: "bg-green-600"
+        description: "Real-time tracking, smart grade management, automated GPA calculations, and KNEC-aligned report generation.",
+        accent: "forest"
     },
     {
         icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
         title: "Finance & Billing",
-        description: "Automated fee collection, payment tracking, professional invoicing, and comprehensive financial reporting.",
-        color: "bg-purple-600"
+        description: "Automated fee collection, M-Pesa integration, payment tracking, professional invoicing, and financial reporting.",
+        accent: "amber"
     },
     {
         icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
         title: "Smart Scheduling",
-        description: "Intelligent timetable management, automated class scheduling, and conflict-free calendar planning.",
-        color: "bg-orange-600"
+        description: "Intelligent timetable management, automated class scheduling, and conflict-free calendar planning for all terms.",
+        accent: "terracotta"
     },
     {
         icon: "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9",
         title: "Communication Hub",
-        description: "Instant messaging, announcements, email integration, and multi-channel parent-teacher communication.",
-        color: "bg-pink-600"
+        description: "Instant messaging, SMS alerts, school-wide announcements, and multi-channel parent-teacher communication.",
+        accent: "forest"
     },
     {
         icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
         title: "Reports & Analytics",
-        description: "Powerful insights, customizable reports, data visualization, and performance tracking dashboards.",
-        color: "bg-indigo-600"
+        description: "Powerful insights, customizable reports, data visualization, and term-end performance tracking dashboards.",
+        accent: "amber"
     }
 ];
 
@@ -125,112 +96,76 @@ const prevTestimonial = () => {
     activeTestimonial.value = activeTestimonial.value === 0 ? testimonials.length - 1 : activeTestimonial.value - 1;
 };
 
+let testimonialInterval = null;
+
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
-    
-    // Initialize particles
-    for (let i = 0; i < 30; i++) {
-        particles.value.push(createParticle());
-    }
-    
-    let animationId;
-    const animate = () => {
-        animateParticles();
-        animationId = requestAnimationFrame(animate);
-    };
-    animate();
-    
-    // Auto-rotate testimonials
-    const testimonialInterval = setInterval(() => {
-        nextTestimonial();
-    }, 5000);
-    
-    onUnmounted(() => {
-        cancelAnimationFrame(animationId);
-        clearInterval(testimonialInterval);
-        window.removeEventListener('scroll', handleScroll);
-    });
+    testimonialInterval = setInterval(nextTestimonial, 5000);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll);
+    clearInterval(testimonialInterval);
 });
 </script>
 
 <template>
-<Head title="EduManage Pro - Transform Your School Management" />
+<Head title="EduManage Pro — School Management for Kenyan Schools" />
 
-<div class="min-h-screen bg-mesh dark:bg-slate-950 text-foreground relative transition-colors duration-300">
-    
-    <!-- Hero Background Orbs -->
+<div class="min-h-screen bg-[#FAF7F2] dark:bg-[#0F0D0A] text-[#1A1612] dark:text-[#F5F0E8] relative transition-colors duration-300 font-['Georgia',_serif]">
+    <!-- Background Orbs -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-500/10 dark:bg-indigo-600/5 blur-[120px] rounded-full animate-float" />
-        <div class="absolute top-[20%] -right-[10%] w-[35%] h-[35%] bg-violet-500/10 dark:bg-violet-600/5 blur-[120px] rounded-full animate-float" style="animation-delay: 2s" />
-        <div class="absolute -bottom-[10%] left-[20%] w-[30%] h-[30%] bg-emerald-500/10 dark:bg-emerald-600/5 blur-[120px] rounded-full animate-float" style="animation-delay: 4s" />
+        <div class="hero-orb-1 absolute -top-[15%] -left-[10%] w-[50%] h-[50%] blur-[100px] animate-float" />
+        <div class="hero-orb-2 absolute top-[30%] -right-[5%] w-[40%] h-[40%] blur-[100px] animate-float" style="animation-delay: 3s" />
+        <div class="hero-orb-3 absolute -bottom-[10%] left-[15%] w-[35%] h-[35%] blur-[100px] animate-float" style="animation-delay: 6s" />
     </div>
-    
-    <div class="relative z-10">
 
-    <!-- ================= NAVBAR ================= -->
-    <header
-        :class="[
-            'fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 transition-all duration-500 rounded-2xl',
-            isScrolled 
-                ? 'glass shadow-2xl shadow-indigo-500/10' 
-                : 'bg-transparent border-b border-white/5'
-        ]"
-    >
-        <div class="px-6 py-4 flex justify-between items-center text">
-            <div class="flex items-center space-x-3 group cursor-pointer">
-                <div class="w-11 h-11 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all duration-300 group-hover:scale-110">
-                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="savanna-texture fixed inset-0 pointer-events-none z-0 opacity-50" />
+
+    <div class="relative z-10 font-body">
+
+    <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+    <header :class="[
+        'fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 transition-all duration-500 rounded-2xl',
+        isScrolled ? 'glass-warm shadow-xl shadow-[#C4622D]/10' : 'bg-transparent'
+    ]">
+        <div class="px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer group">
+                <div class="w-11 h-11 accent-terracotta rounded-xl flex items-center justify-center shadow-md shadow-[#C4622D]/30 group-hover:shadow-[#C4622D]/50 transition-all duration-300 group-hover:scale-105">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
-                        EduManage Pro
-                    </h1>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">Evolution in Education</p>
+                    <h1 class="font-display text-lg font-bold text-[#1A1612] dark:text-[#F5F0E8] leading-none">EduManage Pro</h1>
+                    <p class="text-[9px] uppercase tracking-[0.2em] text-terracotta font-body font-semibold mt-0.5">Kenya · Education Management</p>
                 </div>
             </div>
 
-            <!-- Desktop Navigation -->
+            <!-- Desktop Nav -->
             <nav v-if="canLogin" class="hidden lg:flex items-center space-x-8">
-                <a href="#features" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Features</a>
-                <a href="#pricing" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Pricing</a>
-                <a href="#testimonials" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Testimonials</a>
-
-                <div class="h-6 w-px bg-gray-200 dark:bg-gray-800"></div>
-
-                <DarkModeToggle variant="ghost" />
+                <a href="#features" class="nav-link text-sm font-medium text-[#4A3728] dark:text-[#C8B89A] hover:text-[#C4622D] dark:hover:text-[#E07A45] transition-colors">Features</a>
+                <a href="#pricing" class="nav-link text-sm font-medium text-[#4A3728] dark:text-[#C8B89A] hover:text-[#C4622D] dark:hover:text-[#E07A45] transition-colors">Pricing</a>
+                <a href="#testimonials" class="nav-link text-sm font-medium text-[#4A3728] dark:text-[#C8B89A] hover:text-[#C4622D] dark:hover:text-[#E07A45] transition-colors">Testimonials</a>
+                <div class="w-px h-5 bg-[#C4622D]/20"></div>
 
                 <template v-if="$page.props.auth.user">
-                    <Button
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 rounded-xl"
-                        as-child
-                    >
-                        <Link :href="route('dashboard')">
-                            Go to Dashboard
-                        </Link>
+                    <Button class="accent-terracotta text-white border-0 shadow-lg shadow-[#C4622D]/25 hover:shadow-[#C4622D]/40 hover:opacity-90 rounded-xl transition-all" as-child>
+                        <Link :href="route('dashboard')">Dashboard</Link>
                     </Button>
                 </template>
-
                 <template v-else>
-                    <Link :href="route('login')" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">
-                        Sign In
-                    </Link>
-                    <Button class="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-300 rounded-xl" as-child>
-                        <Link :href="route('register')">
-                            Get Started
-                        </Link>
+                    <Link :href="route('login')" class="text-sm font-medium text-[#4A3728] dark:text-[#C8B89A] hover:text-[#C4622D] transition-colors">Sign In</Link>
+                    <Button class="accent-terracotta text-white border-0 shadow-lg shadow-[#C4622D]/25 hover:shadow-[#C4622D]/40 hover:opacity-90 rounded-xl transition-all font-semibold px-5" as-child>
+                        <Link :href="route('register')">Get Started</Link>
                     </Button>
                 </template>
             </nav>
 
-            <!-- Mobile Menu Button -->
-            <button 
-                v-if="canLogin"
-                @click="mobileMenuOpen = !mobileMenuOpen"
-                class="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Mobile Toggle -->
+            <button v-if="canLogin" @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 rounded-lg hover:bg-[#C4622D]/10 transition-colors">
+                <svg class="w-5 h-5 text-[#1A1612] dark:text-[#F5F0E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -238,28 +173,23 @@ onMounted(() => {
         </div>
 
         <!-- Mobile Menu -->
-        <div 
-            v-if="mobileMenuOpen && canLogin"
-            class="lg:hidden border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl"
-        >
-            <div class="px-6 py-4 space-y-4">
-                <a href="#features" class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">Features</a>
-                <a href="#pricing" class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">Pricing</a>
-                <a href="#testimonials" class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium">Testimonials</a>
-                <div class="pt-4 border-t border-gray-200 dark:border-gray-800 space-y-3">
-                    <Button
-                        v-if="$page.props.auth.user"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                        as-child
-                    >
-                        <Link :href="route('dashboard')">Dashboard</Link>
-                    </Button>
-                    <template v-else>
-                        <Button variant="outline" class="w-full" as-child>
-                            <Link :href="route('login')">Log in</Link>
+        <div v-if="mobileMenuOpen && canLogin" class="lg:hidden mobile-menu-enter border-t border-warm card-warm rounded-b-2xl">
+            <div class="px-6 py-5 space-y-4">
+                <a href="#features" @click="mobileMenuOpen=false" class="block text-sm font-medium text-[#4A3728] dark:text-[#C8B89A]">Features</a>
+                <a href="#pricing" @click="mobileMenuOpen=false" class="block text-sm font-medium text-[#4A3728] dark:text-[#C8B89A]">Pricing</a>
+                <a href="#testimonials" @click="mobileMenuOpen=false" class="block text-sm font-medium text-[#4A3728] dark:text-[#C8B89A]">Testimonials</a>
+                <div class="pt-4 border-t border-warm space-y-3">
+                    <template v-if="$page.props.auth.user">
+                        <Button class="w-full accent-terracotta text-white border-0 rounded-xl" as-child>
+                            <Link :href="route('dashboard')">Dashboard</Link>
                         </Button>
-                        <Button v-if="canRegister" class="w-full bg-blue-600 hover:bg-blue-700 text-white" as-child>
-                            <Link :href="route('register')">Start Free Trial</Link>
+                    </template>
+                    <template v-else>
+                        <Button variant="outline" class="w-full rounded-xl border-[#C4622D]/30 text-[#C4622D]" as-child>
+                            <Link :href="route('login')">Sign In</Link>
+                        </Button>
+                        <Button v-if="canRegister" class="w-full accent-terracotta text-white border-0 rounded-xl" as-child>
+                            <Link :href="route('register')">Get Started Free</Link>
                         </Button>
                     </template>
                 </div>
@@ -267,420 +197,419 @@ onMounted(() => {
         </div>
     </header>
 
-    <!-- ================= HERO ================= -->
-    <section class="pt-48 md:pt-60 pb-24 md:pb-40 relative">
+    <!-- ═══════════════════ HERO ═══════════════════ -->
+    <section class="pt-48 md:pt-64 pb-24 md:pb-40 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
-            
-            <!-- Animated Hero Badge -->
-            <div class="mb-10 flex justify-center animate-fade-in-up">
-                <div class="inline-flex items-center glass px-6 py-2.5 rounded-full shadow-2xl shadow-indigo-500/10 border-white/20">
-                    <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse-glow mr-3" />
-                    <span class="text-sm font-bold text-gray-700 dark:text-gray-200">
-                        The future of school management is here
+
+            <!-- Kicker Badge -->
+            <div class="flex justify-center mb-10 animate-in">
+                <div class="hero-badge inline-flex items-center gap-3 px-6 py-2.5 rounded-full">
+                    <span class="w-2 h-2 rounded-full bg-[#2D5A3D] dark:bg-[#5AAA72] animate-pulse"></span>
+                    <span class="font-body text-sm font-semibold text-[#4A3728] dark:text-[#C8B89A] tracking-wide">
+                        Trusted by 500+ schools across East Africa
                     </span>
                 </div>
             </div>
 
+            <!-- Hero Headline -->
             <div class="text-center max-w-5xl mx-auto">
-                <h2 class="text-6xl md:text-8xl lg:text-9xl font-black leading-tight mb-8 animate-fade-in-up">
-                    <span class="block text-gray-900 dark:text-white mb-2 tracking-tighter">
-                        Empower Your
-                    </span>
-                    <span class="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 animate-gradient pb-4 tracking-tighter">
-                        Academic World
+                <div class="mb-4 animate-in delay-100">
+                    <span class="font-body text-xs uppercase tracking-[0.3em] font-semibold text-terracotta">Nairobi, Kenya · Est. 2019</span>
+                </div>
+
+                <h2 class="font-display font-black leading-[1.05] tracking-tight mb-8 animate-in delay-100">
+                    <span class="block text-5xl md:text-7xl lg:text-8xl text-[#1A1612] dark:text-[#F5F0E8]">Where Academic</span>
+                    <span class="block text-5xl md:text-7xl lg:text-8xl mt-1" style="background: linear-gradient(135deg, #C4622D 0%, #B5860A 50%, #2D5A3D 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                        Excellence Begins
                     </span>
                 </h2>
 
-                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-14 leading-relaxed font-medium animate-fade-in-up" style="animation-delay: 0.1s">
-                    Streamline operations, inspire excellence, and connect your entire school community with the most advanced management ecosystem.
+                <!-- Decorative rule -->
+                <div class="flex items-center justify-center gap-4 mb-10 animate-in delay-200">
+                    <div class="h-px w-24 bg-gradient-to-r from-transparent to-[#C4622D]/50"></div>
+                    <svg class="w-5 h-5 text-[#C4622D]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L9.09 8.26L2 9.27L7 14.14L5.82 21.02L12 17.77L18.18 21.02L17 14.14L22 9.27L14.91 8.26L12 2Z"/>
+                    </svg>
+                    <div class="h-px w-24 bg-gradient-to-l from-transparent to-[#C4622D]/50"></div>
+                </div>
+
+                <p class="font-body text-lg md:text-xl text-[#5A4030] dark:text-[#A89070] max-w-3xl mx-auto mb-14 leading-relaxed animate-in delay-200">
+                    Streamline every aspect of school management — from student enrollment to fee collection — with a platform built for the modern Kenyan institution.
                 </p>
 
-                <div class="flex justify-center gap-6 flex-wrap mb-20 animate-fade-in-up" style="animation-delay: 0.2s">
-                    <Button
+                <!-- CTAs -->
+                <div class="flex justify-center gap-5 flex-wrap mb-20 animate-in delay-300">
+                    <button
                         v-if="!$page.props.auth.user"
-                        size="lg"
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-lg px-10 py-7 shadow-[0_20px_50px_rgba(79,70,229,0.3)] hover:shadow-[0_20px_50px_rgba(79,70,229,0.5)] hover:scale-105 transition-all duration-300 rounded-2xl font-bold"
-                        as-child
+                        class="group inline-flex items-center gap-3 accent-terracotta text-white text-base font-semibold px-9 py-4 rounded-2xl shadow-xl shadow-[#C4622D]/30 hover:shadow-[#C4622D]/50 hover:scale-105 transition-all duration-300 font-body"
+                        @click="$inertia ? $inertia.visit(route('register')) : null"
                     >
-                        <Link :href="route('register')">
-                            Start Free Journey
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
+                        <Link :href="route('register')" class="flex items-center gap-2">
+                            Begin Your Journey
+                            <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                    </Button>
+                    </button>
 
-                    <Button 
-                        variant="ghost" 
-                        size="lg" 
-                        class="glass text-lg px-10 py-7 border-white/20 hover:bg-white/20 transition-all duration-300 rounded-2xl font-bold dark:text-white" 
-                        as-child
+                    <a
+                        href="#features"
+                        class="inline-flex items-center gap-3 text-base font-semibold px-9 py-4 rounded-2xl border border-[#C4622D]/30 text-[#C4622D] dark:text-[#E07A45] hover:bg-[#C4622D]/8 transition-all duration-300 font-body"
                     >
-                        <a href="#features">
-                            See Innovation
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                            </svg>
-                        </a>
-                    </Button>
+                        <PlayCircle class="w-5 h-5" />
+                        Explore Features
+                    </a>
                 </div>
-                <!-- Stats Section with improved design -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto animate-fade-in-up animation-delay-400">
-                    <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                        <div class="text-5xl md:text-6xl mb-3 font-bold text-blue-600">
-                            500+
-                        </div>
-                        <div class="text-gray-600 dark:text-gray-400 font-medium">Schools Trust Us</div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-3xl mx-auto animate-in delay-300">
+                    <div class="card-warm rounded-2xl p-8 hover:-translate-y-1 transition-transform duration-300 group">
+                        <div class="stat-number text-5xl font-bold text-terracotta mb-2">500+</div>
+                        <div class="font-body text-sm text-[#5A4030] dark:text-[#A89070] font-medium uppercase tracking-wider">Schools</div>
                     </div>
-                    <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                        <div class="text-5xl md:text-6xl mb-3 font-bold text-green-600">
-                            50K+
-                        </div>
-                        <div class="text-gray-600 dark:text-gray-400 font-medium">Active Students</div>
+                    <div class="card-warm rounded-2xl p-8 hover:-translate-y-1 transition-transform duration-300">
+                        <div class="stat-number text-5xl font-bold text-forest dark:text-[#5AAA72] mb-2">50K+</div>
+                        <div class="font-body text-sm text-[#5A4030] dark:text-[#A89070] font-medium uppercase tracking-wider">Students</div>
                     </div>
-                    <div class="group bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                        <div class="text-5xl md:text-6xl mb-3 font-bold text-orange-600">
-                            99.9%
-                        </div>
-                        <div class="text-gray-600 dark:text-gray-400 font-medium">Uptime SLA</div>
+                    <div class="card-warm rounded-2xl p-8 hover:-translate-y-1 transition-transform duration-300">
+                        <div class="stat-number text-5xl font-bold text-amber mb-2">99.9%</div>
+                        <div class="font-body text-sm text-[#5A4030] dark:text-[#A89070] font-medium uppercase tracking-wider">Uptime SLA</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ================= FEATURES ================= -->
-    <section id="features" class="py-32 md:py-48 relative overflow-hidden">
+    <!-- ═══════════════════ FEATURES ═══════════════════ -->
+    <section id="features" class="py-32 md:py-44 relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-24">
-                <div class="inline-flex items-center glass px-6 py-2 rounded-full mb-8">
-                    <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Innovation Hub</span>
-                </div>
-                <h3 class="text-5xl md:text-7xl font-black mb-8 text-gray-900 dark:text-white tracking-tighter">
-                    Built for the Modern School
+            <div class="text-center mb-20">
+                <p class="font-body text-xs uppercase tracking-[0.3em] font-semibold text-terracotta mb-6">Our Platform</p>
+                <h3 class="font-display text-5xl md:text-6xl font-black text-[#1A1612] dark:text-[#F5F0E8] mb-6 leading-tight">
+                    Built for the<br/>Modern School
                 </h3>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
-                    Designed with precision to solve the most complex challenges in education management.
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <div class="h-px w-16 bg-[#C4622D]/30"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-[#C4622D]"></div>
+                    <div class="h-px w-16 bg-[#C4622D]/30"></div>
+                </div>
+                <p class="font-body text-[#5A4030] dark:text-[#A89070] max-w-xl mx-auto text-lg leading-relaxed">
+                    Precision tools designed to solve the most complex challenges in Kenyan education management.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div 
-                    v-for="(feature, index) in features" 
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    v-for="(feature, index) in features"
                     :key="index"
-                    class="glass-card p-10 rounded-[2.5rem] group"
+                    class="card-warm rounded-3xl p-9 feature-card group cursor-default"
                 >
-                    <div :class="[feature.color, 'w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-2xl group-hover:scale-110 transition-transform duration-500 shadow-indigo-500/20']">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div :class="['accent-' + feature.accent, 'w-16 h-16 rounded-2xl flex items-center justify-center mb-7 shadow-lg group-hover:scale-110 transition-transform duration-400']">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="feature.icon" />
                         </svg>
                     </div>
-                    
-                    <h4 class="text-2xl font-black mb-4 text-gray-900 dark:text-white tracking-tight">
+
+                    <h4 class="font-display text-xl font-bold mb-3 text-[#1A1612] dark:text-[#F5F0E8]">
                         {{ feature.title }}
                     </h4>
-                    
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
+
+                    <p class="font-body text-[#5A4030] dark:text-[#A89070] leading-relaxed text-sm">
                         {{ feature.description }}
                     </p>
 
-                    <div class="mt-8 flex items-center text-indigo-600 dark:text-indigo-400 font-bold group-hover:translate-x-2 transition-transform duration-300 cursor-pointer">
-                        Learn more
-                        <ChevronRight class="w-5 h-5 ml-1" />
+                    <div :class="['mt-7 flex items-center text-sm font-semibold font-body group-hover:gap-2 transition-all', 'text-' + feature.accent]">
+                        <span>Learn more</span>
+                        <ChevronRight class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ================= PRICING ================= -->
-    <section id="pricing" class="py-32 md:py-48 relative overflow-hidden">
+    <!-- ═══════════════════ PRICING ═══════════════════ -->
+    <section id="pricing" class="py-32 md:py-44 relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-24">
-                <div class="inline-flex items-center glass px-6 py-2 rounded-full mb-8">
-                    <span class="text-sm font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest">Pricing</span>
-                </div>
-                <h3 class="text-5xl md:text-7xl font-black mb-8 text-gray-900 dark:text-white tracking-tighter">
-                    Plans that Scale with You
+            <div class="text-center mb-20">
+                <p class="font-body text-xs uppercase tracking-[0.3em] font-semibold text-amber mb-6">Investment</p>
+                <h3 class="font-display text-5xl md:text-6xl font-black text-[#1A1612] dark:text-[#F5F0E8] mb-6 leading-tight">
+                    Plans that Scale<br/>with Your Institution
                 </h3>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-medium">
-                    Transparent, flexible, and built for institutions of all sizes.
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <div class="h-px w-16 bg-[#B5860A]/30"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-[#B5860A]"></div>
+                    <div class="h-px w-16 bg-[#B5860A]/30"></div>
+                </div>
+                <p class="font-body text-[#5A4030] dark:text-[#A89070] max-w-xl mx-auto text-lg">
+                    Transparent and flexible, designed for institutions of every size across Kenya.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-                <!-- Starter Plan -->
-                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col group border-white/10">
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
+
+                <!-- Starter -->
+                <div class="card-warm rounded-3xl p-9 flex flex-col">
+                    <div class="mb-7">
+                        <p class="font-body text-xs uppercase tracking-[0.2em] text-[#5A4030] dark:text-[#A89070] font-semibold mb-2">Starter</p>
+                        <h4 class="font-display text-2xl font-bold text-[#1A1612] dark:text-[#F5F0E8]">For growing schools</h4>
+                    </div>
                     <div class="mb-8">
-                        <h4 class="text-2xl font-black mb-2 text-gray-900 dark:text-white">Starter</h4>
-                        <p class="text-gray-500 dark:text-gray-400 font-medium">For small private schools</p>
-                    </div>
-                    
-                    <div class="mb-10">
-                        <div class="flex items-baseline">
-                            <span class="text-6xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">Free</span>
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-display text-6xl font-black text-terracotta">Free</span>
                         </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-3 font-medium tracking-wide">Forever independent</p>
+                        <p class="font-body text-sm text-[#5A4030] dark:text-[#A89070] mt-2">Forever, no credit card required</p>
                     </div>
-                    
-                    <ul class="space-y-5 mb-12 flex-1">
-                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-medium">
-                            <CheckCircle2 class="w-6 h-6 text-emerald-500 mr-3 flex-shrink-0" />
+                    <ul class="space-y-4 mb-10 flex-1">
+                        <li class="flex items-center gap-3 font-body text-sm text-[#3A2A1A] dark:text-[#C8B89A]">
+                            <CheckCircle2 class="w-5 h-5 text-[#2D5A3D] dark:text-[#5AAA72] flex-shrink-0" />
                             Up to 50 Students
                         </li>
-                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-medium opacity-60">
-                            <CheckCircle2 class="w-6 h-6 text-gray-400 mr-3 flex-shrink-0" />
-                            Basic Features
+                        <li class="flex items-center gap-3 font-body text-sm text-[#3A2A1A]/50 dark:text-[#C8B89A]/50">
+                            <CheckCircle2 class="w-5 h-5 text-[#888] flex-shrink-0" />
+                            Basic Features Only
                         </li>
                     </ul>
-                    
-                    <Button variant="ghost" class="w-full h-14 rounded-2xl border-2 border-indigo-600/20 hover:border-indigo-600 hover:bg-transparent text-indigo-600 dark:text-indigo-400 font-bold">
+                    <button class="w-full py-3.5 rounded-xl border border-[#C4622D]/30 text-[#C4622D] font-body font-semibold text-sm hover:bg-[#C4622D]/8 transition-colors">
                         Start Now
-                    </Button>
+                    </button>
                 </div>
 
-                <!-- Professional Plan -->
-                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col relative scale-105 shadow-[0_30px_60px_-15px_rgba(79,70,229,0.3)] border-indigo-500/30">
-                    <div class="absolute -top-5 left-1/2 -translate-x-1/2 px-6 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-full shadow-lg">
-                        <span class="text-white font-black text-xs uppercase tracking-widest">Most Popular</span>
-                    </div>
-                    
-                    <div class="mb-8 pt-4">
-                        <h4 class="text-2xl font-black mb-2 text-gray-900 dark:text-white">Professional</h4>
-                        <p class="text-gray-500 dark:text-gray-400 font-medium">Scaling fast institutions</p>
-                    </div>
-                    
-                    <div class="mb-10">
-                        <div class="flex items-baseline">
-                            <span class="text-6xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">$49</span>
-                            <span class="text-gray-500 dark:text-gray-400 font-bold ml-2">/mo</span>
+                <!-- Professional (Featured) -->
+                <div class="relative rounded-3xl p-9 flex flex-col" style="background: linear-gradient(160deg, #2A1A0E 0%, #1A2E1F 100%); border: 1px solid rgba(196,98,45,0.4);">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                        <div class="accent-terracotta text-white text-[10px] font-body font-bold uppercase tracking-[0.2em] px-5 py-1.5 rounded-full shadow-md">
+                            Most Popular
                         </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-3 font-medium tracking-wide">Billed annually</p>
                     </div>
-                    
-                    <ul class="space-y-5 mb-12 flex-1">
-                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-bold">
-                            <CheckCircle2 class="w-6 h-6 text-indigo-500 mr-3 flex-shrink-0 shadow-glow" />
-                            Up to 500 Students
-                        </li>
-                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-bold">
-                            <CheckCircle2 class="w-6 h-6 text-indigo-500 mr-3 flex-shrink-0 shadow-glow" />
-                            All Core Features
-                        </li>
-                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-bold">
-                            <CheckCircle2 class="w-6 h-6 text-indigo-500 mr-3 flex-shrink-0 shadow-glow" />
-                            Cloud Synchronization
-                        </li>
-                    </ul>
-                    
-                    <Button class="w-full h-14 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-black rounded-2xl shadow-xl shadow-indigo-500/20">
-                        Select Plan
-                    </Button>
-                </div>
-
-                <!-- Enterprise Plan -->
-                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col border-white/10">
+                    <div class="mb-7 pt-3">
+                        <p class="font-body text-xs uppercase tracking-[0.2em] text-[#C8B89A]/60 font-semibold mb-2">Professional</p>
+                        <h4 class="font-display text-2xl font-bold text-white">For scaling institutions</h4>
+                    </div>
                     <div class="mb-8">
-                        <h4 class="text-2xl font-black mb-2 text-gray-900 dark:text-white">Enterprise</h4>
-                        <p class="text-gray-500 dark:text-gray-400 font-medium">Large scale campuses</p>
-                    </div>
-                    
-                    <div class="mb-10">
-                        <div class="flex items-baseline text-6xl font-black text-gray-900 dark:text-white tracking-tighter">
-                            Custom
+                        <div class="flex items-baseline gap-1">
+                            <span class="font-body text-xl font-medium text-[#C8B89A]/70">KES</span>
+                            <span class="font-display text-6xl font-black text-[#E07A45]">5,800</span>
                         </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-3 font-medium tracking-wide">Tailored to your needs</p>
+                        <p class="font-body text-sm text-[#C8B89A]/60 mt-2">Per month, billed annually</p>
                     </div>
-                    
-                    <ul class="space-y-5 mb-12 flex-1">
-                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-medium">
-                            <CheckCircle2 class="w-6 h-6 text-gray-900 dark:text-white mr-3 flex-shrink-0" />
-                            Unlimited Students
+                    <ul class="space-y-4 mb-10 flex-1">
+                        <li class="flex items-center gap-3 font-body text-sm text-[#F0E0C8]">
+                            <CheckCircle2 class="w-5 h-5 text-[#E07A45] flex-shrink-0" /> Up to 500 Students
                         </li>
-                        <li class="flex items-center text-gray-700 dark:text-gray-300 font-medium">
-                            <CheckCircle2 class="w-6 h-6 text-gray-900 dark:text-white mr-3 flex-shrink-0" />
-                            24h Dedicated Support
+                        <li class="flex items-center gap-3 font-body text-sm text-[#F0E0C8]">
+                            <CheckCircle2 class="w-5 h-5 text-[#E07A45] flex-shrink-0" /> All Core Features
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-sm text-[#F0E0C8]">
+                            <CheckCircle2 class="w-5 h-5 text-[#E07A45] flex-shrink-0" /> M-Pesa Integration
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-sm text-[#F0E0C8]">
+                            <CheckCircle2 class="w-5 h-5 text-[#E07A45] flex-shrink-0" /> Priority Support
                         </li>
                     </ul>
-                    
-                    <Button variant="outline" class="w-full h-14 rounded-2xl border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 text-gray-900 dark:text-white font-black">
-                        Contact Us
-                    </Button>
+                    <button class="w-full py-3.5 rounded-xl accent-terracotta text-white font-body font-bold text-sm shadow-lg shadow-[#C4622D]/30 hover:opacity-90 transition-opacity">
+                        Select Plan
+                    </button>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="card-warm rounded-3xl p-9 flex flex-col">
+                    <div class="mb-7">
+                        <p class="font-body text-xs uppercase tracking-[0.2em] text-[#5A4030] dark:text-[#A89070] font-semibold mb-2">Enterprise</p>
+                        <h4 class="font-display text-2xl font-bold text-[#1A1612] dark:text-[#F5F0E8]">For large campuses</h4>
+                    </div>
+                    <div class="mb-8">
+                        <span class="font-display text-5xl font-black text-[#1A1612] dark:text-[#F5F0E8]">Custom</span>
+                        <p class="font-body text-sm text-[#5A4030] dark:text-[#A89070] mt-2">Tailored to your institution's needs</p>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-1">
+                        <li class="flex items-center gap-3 font-body text-sm text-[#3A2A1A] dark:text-[#C8B89A]">
+                            <CheckCircle2 class="w-5 h-5 text-[#2D5A3D] dark:text-[#5AAA72] flex-shrink-0" /> Unlimited Students
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-sm text-[#3A2A1A] dark:text-[#C8B89A]">
+                            <CheckCircle2 class="w-5 h-5 text-[#2D5A3D] dark:text-[#5AAA72] flex-shrink-0" /> Dedicated Support 24/7
+                        </li>
+                        <li class="flex items-center gap-3 font-body text-sm text-[#3A2A1A] dark:text-[#C8B89A]">
+                            <CheckCircle2 class="w-5 h-5 text-[#2D5A3D] dark:text-[#5AAA72] flex-shrink-0" /> Multi-Campus Management
+                        </li>
+                    </ul>
+                    <button class="w-full py-3.5 rounded-xl border border-[#2D5A3D]/30 dark:border-[#5AAA72]/30 text-[#2D5A3D] dark:text-[#5AAA72] font-body font-semibold text-sm hover:bg-[#2D5A3D]/5 transition-colors">
+                        Contact Sales
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ================= TESTIMONIALS ================= -->
-    <section id="testimonials" class="py-32 md:py-48 relative">
+    <!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
+    <section id="testimonials" class="py-32 md:py-44 relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20">
-                <div class="inline-flex items-center glass px-6 py-2 rounded-full mb-8">
-                    <span class="text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Global Trust</span>
-                </div>
-                <h3 class="text-5xl md:text-7xl font-black mb-8 text-gray-900 dark:text-white tracking-tighter">
-                    Loved by Education Leaders
+                <p class="font-body text-xs uppercase tracking-[0.3em] font-semibold text-forest dark:text-[#5AAA72] mb-6">Voices from the Field</p>
+                <h3 class="font-display text-5xl md:text-6xl font-black text-[#1A1612] dark:text-[#F5F0E8] mb-4 leading-tight">
+                    Trusted by Education<br/>Leaders Across Kenya
                 </h3>
             </div>
 
-            <div class="max-w-5xl mx-auto relative group">
-                <div class="glass-card p-12 md:p-20 rounded-[3rem] text-center border-white/20">
-                    <Quote class="w-16 h-16 text-indigo-500/20 absolute top-10 left-10" />
+            <div class="max-w-4xl mx-auto relative">
+                <div class="card-warm rounded-[2.5rem] p-12 md:p-16 text-center relative overflow-hidden">
+                    <!-- Decorative quote mark -->
+                    <div class="absolute top-8 left-10 font-display text-9xl text-[#C4622D]/8 leading-none select-none">"</div>
+
                     <div class="relative z-10">
-                        <div class="text-7xl mb-10 animate-scale-up">{{ testimonials[activeTestimonial].image }}</div>
-                        
-                        <div class="flex justify-center mb-10">
-                            <div class="flex space-x-1.5">
-                                <Star v-for="i in 5" :key="i" class="w-6 h-6 text-yellow-400 fill-yellow-400" />
-                            </div>
+                        <!-- Stars -->
+                        <div class="flex justify-center gap-1 mb-8">
+                            <Star v-for="i in 5" :key="i" class="w-5 h-5 fill-[#B5860A] text-[#B5860A]" />
                         </div>
-                        
-                        <blockquote class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-10 leading-[1.1] tracking-tighter">
+
+                        <!-- Quote -->
+                        <blockquote class="font-display text-2xl md:text-3xl font-bold text-[#1A1612] dark:text-[#F5F0E8] mb-10 leading-snug">
                             "{{ testimonials[activeTestimonial].quote }}"
                         </blockquote>
-                        
-                        <div>
-                            <div class="font-black text-2xl text-indigo-600 dark:text-indigo-400">
-                                {{ testimonials[activeTestimonial].name }}
+
+                        <!-- Author -->
+                        <div class="flex items-center justify-center gap-4">
+                            <div class="testimonial-avatar w-12 h-12 rounded-full flex items-center justify-center text-white font-body font-bold text-sm shadow-lg">
+                                {{ testimonials[activeTestimonial].initials }}
                             </div>
-                            <div class="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest text-sm mt-1">
-                                {{ testimonials[activeTestimonial].role }}
+                            <div class="text-left">
+                                <div class="font-display font-bold text-[#C4622D] dark:text-[#E07A45] text-lg leading-none mb-1">
+                                    {{ testimonials[activeTestimonial].name }}
+                                </div>
+                                <div class="font-body text-xs uppercase tracking-[0.15em] text-[#5A4030] dark:text-[#A89070]">
+                                    {{ testimonials[activeTestimonial].role }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Navigation Buttons -->
-                <div class="absolute top-1/2 -translate-y-1/2 -left-6 md:-left-12">
-                    <button @click="prevTestimonial" class="p-6 rounded-2xl glass hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 shadow-xl border-white/30 group">
-                        <ChevronRight class="w-6 h-6 rotate-180 text-gray-900 dark:text-white" />
-                    </button>
-                </div>
-                <div class="absolute top-1/2 -translate-y-1/2 -right-6 md:-right-12">
-                    <button @click="nextTestimonial" class="p-6 rounded-2xl glass hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 shadow-xl border-white/30 group">
-                        <ChevronRight class="w-6 h-6 text-gray-900 dark:text-white" />
-                    </button>
+
+                <!-- Nav buttons -->
+                <button @click="prevTestimonial" class="absolute top-1/2 -translate-y-1/2 -left-6 md:-left-7 card-warm p-4 rounded-2xl hover:shadow-md hover:border-[#C4622D]/30 transition-all border border-warm shadow-sm">
+                    <ChevronLeft class="w-5 h-5 text-[#1A1612] dark:text-[#F5F0E8]" />
+                </button>
+                <button @click="nextTestimonial" class="absolute top-1/2 -translate-y-1/2 -right-6 md:-right-7 card-warm p-4 rounded-2xl hover:shadow-md hover:border-[#C4622D]/30 transition-all border border-warm shadow-sm">
+                    <ChevronRight class="w-5 h-5 text-[#1A1612] dark:text-[#F5F0E8]" />
+                </button>
+
+                <!-- Dot indicators -->
+                <div class="flex justify-center gap-2 mt-8">
+                    <button
+                        v-for="(_, i) in testimonials"
+                        :key="i"
+                        @click="activeTestimonial = i"
+                        :class="['w-2 h-2 rounded-full transition-all duration-300', i === activeTestimonial ? 'bg-[#C4622D] w-6' : 'bg-[#C4622D]/25']"
+                    />
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ================= CTA SECTION ================= -->
-    <section class="py-32 md:py-48 px-6 relative overflow-hidden">
+    <!-- ═══════════════════ CTA ═══════════════════ -->
+    <section class="py-24 md:py-36 px-6 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="relative rounded-[4rem] overflow-hidden bg-indigo-600 px-10 py-24 md:p-32 text-center group">
-                <!-- Animated Background for CTA -->
-                <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-800 transition-all duration-700 group-hover:scale-110" />
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSJub25lIi8+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==')] opacity-30" />
-                
-                <div class="relative z-10 max-w-4xl mx-auto">
-                    <h3 class="text-5xl md:text-8xl font-black text-white mb-10 tracking-tighter leading-none">
-                        Ready for the <br/> Transformation?
+            <div class="cta-section cta-pattern relative rounded-[3rem] overflow-hidden px-10 py-24 md:p-28 text-center">
+                <!-- Decorative glow orbs inside CTA -->
+                <div class="absolute top-0 left-1/4 w-64 h-64 rounded-full blur-[80px] opacity-20" style="background: #C4622D;" />
+                <div class="absolute bottom-0 right-1/4 w-48 h-48 rounded-full blur-[60px] opacity-15" style="background: #B5860A;" />
+
+                <!-- Kenyan flag stripe accent -->
+                <div class="absolute top-0 left-0 right-0 h-1 flex">
+                    <div class="flex-1 bg-[#C4622D]"></div>
+                    <div class="flex-1 bg-white/20"></div>
+                    <div class="flex-1 bg-[#2D5A3D]"></div>
+                    <div class="flex-1 bg-white/20"></div>
+                    <div class="flex-1 bg-[#1A1612]"></div>
+                </div>
+
+                <div class="relative z-10 max-w-3xl mx-auto">
+                    <p class="font-body text-xs uppercase tracking-[0.3em] font-semibold text-[#E07A45] mb-6">Begin Today</p>
+                    <h3 class="font-display text-5xl md:text-7xl font-black text-white mb-8 leading-none">
+                        Ready for the<br/>Transformation?
                     </h3>
-                    <p class="text-xl md:text-2xl text-indigo-100 mb-14 font-medium leading-relaxed">
-                        Join 500+ forward-thinking schools that have already redefined their administrative legacy.
+                    <p class="font-body text-lg text-white/60 mb-12 leading-relaxed">
+                        Join 500+ forward-thinking schools that have already elevated their institutions with EduManage Pro.
                     </p>
-                    
-                    <div class="flex justify-center gap-6 flex-wrap">
-                        <Button
-                            v-if="!$page.props.auth.user"
-                            size="lg"
-                            class="bg-white text-indigo-600 hover:bg-gray-100 text-xl px-12 py-8 shadow-2xl rounded-2xl font-black flex items-center gap-3 transition-all duration-300 hover:scale-105"
-                            as-child
-                        >
-                            <Link :href="route('register')">
-                                Get Started Free
-                                <ArrowRight class="w-6 h-6" />
-                            </Link>
-                        </Button>
-                        
-                        <Button 
-                            variant="ghost" 
-                            size="lg" 
-                            class="border-2 border-white/30 text-white hover:bg-white/10 text-xl px-12 py-8 rounded-2xl font-black flex items-center gap-3 transition-all duration-300 backdrop-blur-sm"
-                        >
-                            <PlayCircle class="w-6 h-6" />
+                    <div class="flex justify-center gap-5 flex-wrap">
+                        <template v-if="!$page.props.auth.user">
+                            <Button
+                                size="lg"
+                                class="accent-terracotta border-0 text-white font-body font-bold text-base px-10 py-6 rounded-2xl shadow-xl shadow-[#C4622D]/40 hover:shadow-[#C4622D]/60 hover:scale-105 transition-all duration-300"
+                                as-child
+                            >
+                                <Link :href="route('register')" class="flex items-center gap-2">
+                                    Get Started Free
+                                    <ArrowRight class="w-5 h-5" />
+                                </Link>
+                            </Button>
+                        </template>
+                        <button class="inline-flex items-center gap-2 border border-white/20 text-white/80 font-body font-semibold text-base px-10 py-4 rounded-2xl hover:bg-white/10 transition-all">
+                            <PlayCircle class="w-5 h-5" />
                             Book a Demo
-                        </Button>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="bg-gray-900 dark:bg-slate-950 text-gray-300 py-16 border-t border-gray-800">
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="bg-[#100D08] dark:bg-[#0A0806] text-[#8A7060] border-t border-[#2A1E14] py-16">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
                 <div>
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 accent-terracotta rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
                         <div>
-                            <span class="font-bold text-xl text-white">EduManage Pro</span>
-                            <p class="text-xs text-blue-400">School Management Platform</p>
+                            <div class="font-display text-lg font-bold text-[#F5EEE0]">EduManage Pro</div>
+                            <div class="font-body text-[10px] text-[#C4622D] uppercase tracking-widest font-semibold">Nairobi, Kenya</div>
                         </div>
                     </div>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        The modern school management platform trusted by educators worldwide.
+                    <p class="font-body text-sm leading-relaxed">
+                        The trusted school management platform built for East Africa's finest institutions.
                     </p>
                 </div>
-                
+
                 <div>
-                    <h4 class="font-semibold mb-4 text-lg text-white">Product</h4>
+                    <h4 class="font-body font-semibold text-[#F5EEE0] text-sm mb-5 uppercase tracking-widest">Platform</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#features" class="text-gray-400 hover:text-blue-400 transition-colors">Features</a></li>
-                        <li><a href="#pricing" class="text-gray-400 hover:text-blue-400 transition-colors">Pricing</a></li>
-                        <li><a href="#testimonials" class="text-gray-400 hover:text-blue-400 transition-colors">Testimonials</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Integrations</a></li>
+                        <li><a href="#features" class="hover:text-[#E07A45] transition-colors">Features</a></li>
+                        <li><a href="#pricing" class="hover:text-[#E07A45] transition-colors">Pricing</a></li>
+                        <li><a href="#testimonials" class="hover:text-[#E07A45] transition-colors">Testimonials</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">Integrations</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
-                    <h4 class="font-semibold mb-4 text-lg text-white">Company</h4>
+                    <h4 class="font-body font-semibold text-[#F5EEE0] text-sm mb-5 uppercase tracking-widest">Company</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Blog</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Careers</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Press Kit</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">Press Kit</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
-                    <h4 class="font-semibold mb-4 text-lg text-white">Support</h4>
+                    <h4 class="font-body font-semibold text-[#F5EEE0] text-sm mb-5 uppercase tracking-widest">Support</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Help Center</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Contact Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">System Status</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">Help Centre</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">System Status</a></li>
+                        <li><a href="#" class="hover:text-[#E07A45] transition-colors">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
-            
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-sm text-gray-400 mb-4 md:mb-0">
-                    &copy; 2024 EduManage Pro. All rights reserved.
+
+            <div class="border-t border-[#2A1E14] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-body text-sm">
+                    &copy; 2025 EduManage Pro. All rights reserved. · Nairobi, Kenya 🇰🇪
                 </p>
-                
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                    </a>
+                <div class="flex items-center gap-2 font-body text-xs text-[#5A4030]">
+                    <div class="w-1.5 h-1.5 rounded-full bg-[#2D5A3D]"></div>
+                    <span>All systems operational</span>
                 </div>
             </div>
         </div>

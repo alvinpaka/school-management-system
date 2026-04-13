@@ -38,177 +38,173 @@ const selectedCategory = ref('all');
 </script>
 
 <template>
-    <Head title="School Map" />
+    <Head title="School Map | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <MapPin class="w-5 h-5" />
-                <span>Map</span>
+                <MapPin class="w-5 h-5 text-terracotta" />
+                <span class="font-semibold text-warm-text dark:text-dark-text">Map</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl">
+        <div class="mx-auto max-w-7xl space-y-6 animate-fade-in-up">
             <!-- Page Header -->
-            <div class="mb-6">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">School Map & Directory</h2>
-                        <p class="text-gray-600 dark:text-gray-400">Interactive map of school facilities and locations</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <Button>
-                            <Search class="w-4 h-4 mr-2" />
-                            Search Location
-                        </Button>
-                        <Button variant="outline">
-                            <Filter class="w-4 h-4 mr-2" />
-                            Filter
-                        </Button>
-                    </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">School Map & Directory</h1>
+                    <p class="text-warm-muted dark:text-dark-muted font-medium">Interactive map of school facilities and locations</p>
+                </div>
+                <div class="flex gap-2">
+                    <Button class="accent-terracotta text-white">
+                        <Search class="w-4 h-4 mr-2" />
+                        Search Location
+                    </Button>
+                    <Button variant="outline" class="border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                        <Filter class="w-4 h-4 mr-2" />
+                        Filter
+                    </Button>
                 </div>
             </div>
 
             <!-- School Information -->
-            <Card class="mb-6">
-                <CardHeader>
-                    <CardTitle>School Information</CardTitle>
-                    <CardDescription>Basic school details and contact information</CardDescription>
-                </CardHeader>
-                <CardContent>
+            <div class="card-warm">
+                <div class="p-6 border-b border-terracotta/20">
+                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">School Information</h3>
+                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Basic school details and contact information</p>
+                </div>
+                <div class="p-6">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="space-y-4">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h3>
+                            <h4 class="text-base font-black text-warm-text dark:text-dark-text mb-4">Contact Information</h4>
                             <div class="space-y-3">
-                                <div class="flex items-center">
-                                    <Building class="w-5 h-5 mr-3 text-gray-400" />
+                                <div class="flex items-start">
+                                    <Building class="w-5 h-5 mr-3 text-terracotta mt-0.5" />
                                     <div>
-                                        <h4 class="font-medium text-gray-900 dark:text-white">{{ schoolInfo.name }}</h4>
-                                        <p class="text-gray-600 dark:text-gray-400">{{ schoolInfo.address }}</p>
+                                        <h4 class="font-medium text-warm-text dark:text-dark-text">{{ schoolInfo.name }}</h4>
+                                        <p class="text-warm-muted dark:text-dark-muted">{{ schoolInfo.address }}</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center">
-                                    <Phone class="w-4 h-4 mr-2 text-gray-400" />
-                                    <span class="text-gray-900 dark:text-white">{{ schoolInfo.phone }}</span>
+                                    <Phone class="w-4 h-4 mr-2 text-terracotta" />
+                                    <span class="text-warm-text dark:text-dark-text">{{ schoolInfo.phone }}</span>
                                 </div>
                                 <div class="flex items-center">
-                                    <Mail class="w-4 h-4 mr-2 text-gray-400" />
-                                    <a :href="`https://maps.google.com/?q=${schoolInfo.website}`" target="_blank" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                    <Mail class="w-4 h-4 mr-2 text-terracotta" />
+                                    <a :href="`https://maps.google.com/?q=${schoolInfo.website}`" target="_blank" class="text-terracotta hover:text-terracotta/80">
                                         {{ schoolInfo.website }}
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Map</h3>
-                            <div class="h-96 bg-gray-200 dark:bg-gray-800 rounded-lg">
-                                <!-- Map placeholder -->
+                            <h4 class="text-base font-black text-warm-text dark:text-dark-text mb-4">Map</h4>
+                            <div class="h-96 bg-terracotta/5 border border-terracotta/20 rounded-xl flex items-center justify-center">
+                                <div class="text-center">
+                                    <MapPin class="w-12 h-12 text-terracotta/30 mx-auto mb-2" />
+                                    <p class="text-warm-muted dark:text-dark-muted">Interactive Map Preview</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
-            <!-- Facilities -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <Card v-for="facility in facilities" :key="facility.id">
-                    <CardHeader>
-                        <CardTitle>{{ facility.name }}</CardTitle>
-                        <CardDescription>{{ facility.description }}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4">
-                                <Building class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900 dark:text-white">{{ facility.name }}</h4>
-                                <Badge :class="facility.type === 'academic' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'">
-                                    {{ facility.type }}
-                                </Badge>
-                            </div>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400">{{ facility.description }}</p>
-                    </CardContent>
-                </Card>
+                </div>
             </div>
 
-            <!-- Transport Routes -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Transport Routes</h3>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <Card v-for="route in transportRoutes" :key="route.id">
-                        <CardHeader>
-                            <CardTitle>{{ route.name }}</CardTitle>
-                            <CardDescription>Route details and schedule</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <MapPin class="w-4 h-4 mr-2 text-gray-400" />
-                                        <div>
-                                            <h4 class="font-medium text-gray-900 dark:text-white">{{ route.name }}</h4>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ route.description }}</p>
-                                        </div>
-                                    </div>
-                                    <Badge :class="route.status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'">
-                                        {{ route.status }}
+            <!-- Facilities -->
+            <div>
+                <h2 class="text-xl font-black text-warm-text dark:text-dark-text mb-4">Facilities</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div v-for="facility in facilities" :key="facility.id" class="card-warm">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-terracotta/10 rounded-xl flex items-center justify-center mr-4">
+                                    <Building class="w-6 h-6 text-terracotta" />
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-warm-text dark:text-dark-text">{{ facility.name }}</h4>
+                                    <Badge :class="facility.type === 'academic' ? 'bg-terracotta/10 text-terracotta border-0' : 'bg-forest/10 text-forest border-0'">
+                                        {{ facility.type }}
                                     </Badge>
                                 </div>
                             </div>
+                            <p class="text-warm-muted dark:text-dark-muted">{{ facility.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="border-t pt-4">
-                                <h4 class="font-medium text-gray-900 dark:text-white mb-3">Schedule</h4>
+            <!-- Transport Routes -->
+            <div>
+                <h2 class="text-xl font-black text-warm-text dark:text-dark-text mb-4">Transport Routes</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div v-for="route in transportRoutes" :key="route.id" class="card-warm">
+                        <div class="p-6 border-b border-terracotta/20">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">{{ route.name }}</h3>
+                                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Route details and schedule</p>
+                                </div>
+                                <Badge :class="route.status === 'active' ? 'bg-forest/10 text-forest border-0' : 'bg-amber/10 text-amber border-0'">
+                                    {{ route.status }}
+                                </Badge>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center">
+                                <Bus class="w-4 h-4 mr-2 text-terracotta" />
+                                <p class="text-sm text-warm-muted dark:text-dark-muted">{{ route.description }}</p>
+                            </div>
+
+                            <div class="border-t border-terracotta/20 pt-4">
+                                <h4 class="font-black text-warm-text dark:text-dark-text mb-3">Schedule</h4>
                                 <div class="space-y-2">
-                                    <div v-for="stop in route.stops" :key="stop.name" class="flex items-center text-sm">
-                                        <span class="font-medium">{{ stop.time }} - {{ stop.name }}</span>
-                                        <span class="text-gray-500">({{ stop.students }} students)</span>
+                                    <div v-for="stop in route.stops" :key="stop.name" class="flex items-center justify-between text-sm">
+                                        <div class="flex items-center">
+                                            <MapPin class="w-3 h-3 mr-2 text-terracotta" />
+                                            <span class="font-medium text-warm-text dark:text-dark-text">{{ stop.time }}</span>
+                                            <span class="text-warm-muted dark:text-dark-muted ml-2">{{ stop.name }}</span>
+                                        </div>
+                                        <span class="text-xs text-warm-muted dark:text-dark-muted">{{ stop.students }} students</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex justify-end mt-4">
-                                <Button variant="outline" size="sm">
+                            <div class="flex justify-end pt-2">
+                                <Button variant="outline" size="sm" class="border-terracotta/20 text-terracotta hover:bg-terracotta/10">
                                     View Route Details
                                 </Button>
                             </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Emergency Services -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Emergency Services</h3>
+            <div>
+                <h2 class="text-xl font-black text-warm-text dark:text-dark-text mb-4">Emergency Services</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <Card v-for="service in emergencyServices" :key="service.name">
-                        <CardHeader>
-                            <CardTitle>{{ service.name }}</CardTitle>
-                            <CardDescription>Emergency contact information</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mr-4">
-                                            <AlertTriangle class="w-6 h-6 text-white" />
-                                        </div>
-                                        <div>
-                                            <h4 class="font-medium text-gray-900 dark:text-white">{{ service.name }}</h4>
-                                            <p class="text-gray-600 dark:text-gray-400">{{ service.address }}</p>
-                                        </div>
+                    <div v-for="service in emergencyServices" :key="service.name" class="card-warm">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-destructive/10 rounded-xl flex items-center justify-center mr-4">
+                                        <AlertTriangle class="w-6 h-6 text-destructive" />
                                     </div>
-                                    <div class="flex items-center">
-                                        <Phone class="w-4 h-4 mr-2 text-gray-400" />
-                                        <span class="text-gray-900 dark:text-white">{{ service.phone }}</span>
+                                    <div>
+                                        <h4 class="font-black text-warm-text dark:text-dark-text">{{ service.name }}</h4>
+                                        <p class="text-sm text-warm-muted dark:text-dark-muted">{{ service.address }}</p>
                                     </div>
                                 </div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">
-                                    Distance: {{ service.distance }} miles
+                                <div class="flex items-center">
+                                    <Phone class="w-4 h-4 mr-1 text-terracotta" />
+                                    <span class="text-sm font-medium text-warm-text dark:text-dark-text">{{ service.phone }}</span>
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
+                            <div class="text-sm text-warm-muted dark:text-dark-muted">
+                                Distance: {{ service.distance }} km
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

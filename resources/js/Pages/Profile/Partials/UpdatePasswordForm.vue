@@ -35,14 +35,8 @@ const updatePassword = () => {
 
 <template>
     <section>
-        <Card>
-            <CardHeader>
-                <CardTitle>Update Password</CardTitle>
-                <CardDescription>
-                    Ensure your account is using a long, random password to stay secure.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
+        <div class="card-warm">
+            <div class="p-6">
                 <form @submit.prevent="updatePassword" class="space-y-6">
                     <!-- Hidden username field for accessibility -->
                     <input 
@@ -55,51 +49,54 @@ const updatePassword = () => {
                     />
                     
                     <div class="space-y-2">
-                        <Label for="current_password">Current Password</Label>
+                        <Label for="current_password" class="text-warm-text dark:text-dark-text">Current Password</Label>
                         <Input
                             id="current_password"
                             ref="currentPasswordInput"
                             v-model="form.current_password"
                             type="password"
                             autocomplete="current-password"
-                            :class="{ 'border-red-500': form.errors.current_password }"
+                            class="border-terracotta/20 focus:ring-terracotta/30"
+                            :class="{ 'border-destructive focus:ring-destructive/30': form.errors.current_password }"
                         />
-                        <p v-if="form.errors.current_password" class="text-sm text-red-600 dark:text-red-400">
+                        <p v-if="form.errors.current_password" class="text-sm text-destructive">
                             {{ form.errors.current_password }}
                         </p>
                     </div>
 
                     <div class="space-y-2">
-                        <Label for="password">New Password</Label>
+                        <Label for="password" class="text-warm-text dark:text-dark-text">New Password</Label>
                         <Input
                             id="password"
                             ref="passwordInput"
                             v-model="form.password"
                             type="password"
                             autocomplete="new-password"
-                            :class="{ 'border-red-500': form.errors.password }"
+                            class="border-terracotta/20 focus:ring-terracotta/30"
+                            :class="{ 'border-destructive focus:ring-destructive/30': form.errors.password }"
                         />
-                        <p v-if="form.errors.password" class="text-sm text-red-600 dark:text-red-400">
+                        <p v-if="form.errors.password" class="text-sm text-destructive">
                             {{ form.errors.password }}
                         </p>
                     </div>
 
                     <div class="space-y-2">
-                        <Label for="password_confirmation">Confirm Password</Label>
+                        <Label for="password_confirmation" class="text-warm-text dark:text-dark-text">Confirm Password</Label>
                         <Input
                             id="password_confirmation"
                             v-model="form.password_confirmation"
                             type="password"
                             autocomplete="new-password"
-                            :class="{ 'border-red-500': form.errors.password_confirmation }"
+                            class="border-terracotta/20 focus:ring-terracotta/30"
+                            :class="{ 'border-destructive focus:ring-destructive/30': form.errors.password_confirmation }"
                         />
-                        <p v-if="form.errors.password_confirmation" class="text-sm text-red-600 dark:text-red-400">
+                        <p v-if="form.errors.password_confirmation" class="text-sm text-destructive">
                             {{ form.errors.password_confirmation }}
                         </p>
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <Button type="submit" :disabled="form.processing">
+                        <Button type="submit" :disabled="form.processing" class="accent-terracotta text-white">
                             Save
                         </Button>
 
@@ -107,18 +104,19 @@ const updatePassword = () => {
                             enter-active-class="transition ease-in-out"
                             enter-from-class="opacity-0"
                             leave-active-class="transition ease-in-out"
+                            leave-from-class="opacity-0"
                             leave-to-class="opacity-0"
                         >
                             <p
                                 v-if="form.recentlySuccessful"
-                                class="text-sm text-gray-600 dark:text-gray-400"
+                                class="text-sm text-forest"
                             >
                                 Saved.
                             </p>
                         </Transition>
                     </div>
                 </form>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     </section>
 </template>

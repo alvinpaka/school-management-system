@@ -19,118 +19,108 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Grades Management" />
+    <Head title="Grades Management | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <Trophy class="w-5 h-5" />
-                <span>Grades</span>
+                <Trophy class="w-5 h-5 text-terracotta" />
+                <span class="font-semibold text-warm-text dark:text-dark-text">Grades</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl">
+        <div class="mx-auto max-w-7xl space-y-6 animate-fade-in-up">
             <!-- Page Header -->
-            <div class="mb-6">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Grades Overview</h2>
-                        <p class="text-gray-600 dark:text-gray-400">View and manage student grades</p>
-                    </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Grades Overview</h1>
+                    <p class="text-warm-muted dark:text-dark-muted font-medium">View and manage student grades</p>
                 </div>
             </div>
 
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <Card>
-                    <CardContent class="p-6">
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mr-4">
-                                <Trophy class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Average Grade</p>
-                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats?.average_grade || 'N/A' }}</p>
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="card-warm p-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-forest/10 rounded-xl flex items-center justify-center mr-4">
+                            <Trophy class="w-6 h-6 text-forest" />
                         </div>
-                    </CardContent>
-                </Card>
+                        <div>
+                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Average Grade</p>
+                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats?.average_grade || 'N/A' }}</p>
+                        </div>
+                    </div>
+                </div>
 
-                <Card>
-                    <CardContent class="p-6">
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4">
-                                <TrendingUp class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Pass Rate</p>
-                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats?.pass_rate || 'N/A' }}%</p>
-                            </div>
+                <div class="card-warm p-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-terracotta/10 rounded-xl flex items-center justify-center mr-4">
+                            <TrendingUp class="w-6 h-6 text-terracotta" />
                         </div>
-                    </CardContent>
-                </Card>
+                        <div>
+                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Pass Rate</p>
+                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats?.pass_rate || 'N/A' }}%</p>
+                        </div>
+                    </div>
+                </div>
 
-                <Card>
-                    <CardContent class="p-6">
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mr-4">
-                                <Users class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Students</p>
-                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats?.total_students || 0 }}</p>
-                            </div>
+                <div class="card-warm p-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-amber/10 rounded-xl flex items-center justify-center mr-4">
+                            <Users class="w-6 h-6 text-amber" />
                         </div>
-                    </CardContent>
-                </Card>
+                        <div>
+                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Total Students</p>
+                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats?.total_students || 0 }}</p>
+                        </div>
+                    </div>
+                </div>
 
-                <Card>
-                    <CardContent class="p-6">
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mr-4">
-                                <BookOpen class="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Exams</p>
-                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats?.total_exams || 0 }}</p>
-                            </div>
+                <div class="card-warm p-6">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-terracotta/10 rounded-xl flex items-center justify-center mr-4">
+                            <BookOpen class="w-6 h-6 text-terracotta" />
                         </div>
-                    </CardContent>
-                </Card>
+                        <div>
+                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Total Exams</p>
+                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats?.total_exams || 0 }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Recent Grades -->
-            <Card>
-                <CardHeader>
-                    <CardTitle>Recent Grades</CardTitle>
-                    <CardDescription>Latest grade entries across all classes</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div class="text-center py-12">
-                        <Trophy class="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Grades Module</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mb-4">Comprehensive grade management system</p>
-                        <div class="space-y-2 text-left max-w-md mx-auto">
-                            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                <CheckCircle class="w-4 h-4 mr-2 text-green-500" />
-                                Grade entry and management
-                            </div>
-                            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                <CheckCircle class="w-4 h-4 mr-2 text-green-500" />
-                                Performance analytics
-                            </div>
-                            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                <CheckCircle class="w-4 h-4 mr-2 text-green-500" />
-                                Grade reports and transcripts
-                            </div>
-                            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                <CheckCircle class="w-4 h-4 mr-2 text-green-500" />
-                                Class performance tracking
-                            </div>
+            <div class="card-warm">
+                <div class="p-6 border-b border-terracotta/20">
+                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Recent Grades</h3>
+                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Latest grade entries across all classes</p>
+                </div>
+                <div class="p-12 text-center">
+                    <div class="w-20 h-20 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                        <Trophy class="w-10 h-10 text-terracotta/30" />
+                    </div>
+                    <h3 class="text-xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">Grades Module</h3>
+                    <p class="text-warm-muted dark:text-dark-muted mb-6">Comprehensive grade management system</p>
+                    <div class="space-y-3 text-left max-w-md mx-auto">
+                        <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                            <CheckCircle class="w-4 h-4 mr-3 text-forest" />
+                            Grade entry and management
+                        </div>
+                        <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                            <CheckCircle class="w-4 h-4 mr-3 text-forest" />
+                            Performance analytics
+                        </div>
+                        <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                            <CheckCircle class="w-4 h-4 mr-3 text-forest" />
+                            Grade reports and transcripts
+                        </div>
+                        <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                            <CheckCircle class="w-4 h-4 mr-3 text-forest" />
+                            Class performance tracking
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </div>
     </Sidebar>
 </template>

@@ -1,7 +1,7 @@
 # EduManage Pro - School Management System
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Laravel-10.x-red" alt="Laravel Version">
+  <img src="https://img.shields.io/badge/Laravel-13.x-red" alt="Laravel Version">
   <img src="https://img.shields.io/badge/Vue.js-3.x-green" alt="Vue Version">
   <img src="https://img.shields.io/badge/TailwindCSS-3.x-blue" alt="TailwindCSS Version">
   <img src="https://img.shields.io/badge/PHP-8.x-purple" alt="PHP Version">
@@ -15,13 +15,15 @@
 ## 📋 Table of Contents
 
 - [Features](#-features)
+- [UI/UX Highlights](#-uiux-highlights)
 - [Installation](#-installation)
 - [Configuration](#-configuration)
 - [User Roles & Permissions](#-user-roles--permissions)
 - [System Architecture](#-system-architecture)
-- [API Documentation](#-api-documentation)
+- [Routes & Inertia.js Architecture](#-routes--inertiajs-architecture)
 - [Deployment](#-deployment)
 - [Contributing](#-contributing)
+- [Changelog](#-changelog)
 - [License](#-license)
 
 ## ✨ Features
@@ -51,10 +53,34 @@
 
 ### 🎨 User Experience
 - Modern, responsive UI with Tailwind CSS
-- Dark mode support
 - Mobile-friendly design
 - Real-time notifications
 - Intuitive navigation
+
+## 🎨 UI/UX Highlights
+
+### Premium Design System
+- **Warm Color Palette**: Custom terracotta, forest green, and amber accent colors
+- **Glass Morphism**: Subtle backdrop blur effects and transparency
+- **Custom Border Radius**: Premium rounded corners (2rem, 3rem) for modern aesthetics
+- **Enhanced Shadows**: Multi-layered shadows with color accents (shadow-terracotta/30, shadow-forest/30)
+
+### Component Architecture
+- **shadcn/ui Integration**: Modern accessible UI components (Button, Card, Dialog, Dropdown, etc.)
+- **Lucide Icons**: Consistent, scalable iconography throughout the application
+- **Custom Pagination**: Smart pagination with ellipsis handling and responsive design
+- **Card-Based Layouts**: Warm-themed cards with hover effects and transitions
+
+### Animations & Interactions
+- **Page Transitions**: Fade-in-up animations for smooth page loads
+- **Hover Effects**: Scale transforms and color transitions on interactive elements
+- **Loading States**: Disabled states and processing indicators on forms
+- **Custom Scrollbar**: Styled scrollbars matching the warm color theme
+
+### Responsive Design
+- **Mobile-First**: Optimized for all screen sizes
+- **Sidebar Navigation**: Collapsible navigation with role-based menu items
+- **Touch-Friendly**: Large tap targets and gesture-friendly interfaces
 
 ## 🚀 Installation
 
@@ -67,7 +93,7 @@
 
 ### Step 1: Clone Repository
 ```bash
-git clone https://github.com/your-username/school-management-system.git
+git clone https://github.com/alvinpaka/school-management-system.git
 cd school-management-system
 ```
 
@@ -206,7 +232,7 @@ chown -R www-data:www-data storage bootstrap/cache
 ## 🏗️ System Architecture
 
 ### Technology Stack
-- **Backend**: Laravel 10.x (PHP 8.x)
+- **Backend**: Laravel 13.x (PHP 8.x)
 - **Frontend**: Vue 3.x + Inertia.js
 - **Styling**: TailwindCSS 3.x
 - **Database**: MySQL 8.0 / MariaDB 10.3+
@@ -229,57 +255,94 @@ chown -R www-data:www-data storage bootstrap/cache
 ├── resources/
 │   ├── js/
 │   │   ├── Components/            # Vue Components
-│   │   ├── Layouts/               # Page Layouts
-│   │   └── Pages/                 # Inertia Pages
-│   └── views/                     # Blade Templates
+│   │   │   ├── ui/               # shadcn/ui Components
+│   │   │   │   ├── button.vue
+│   │   │   │   ├── card.vue
+│   │   │   │   ├── dialog.vue
+│   │   │   │   ├── pagination.vue
+│   │   │   │   └── ...
+│   │   │   ├── Sidebar.vue       # Dynamic Navigation
+│   │   │   └── ...
+│   │   ├── Layouts/              # Page Layouts
+│   │   └── Pages/                # Inertia Pages
+│   │       ├── AcademicClasses/  # Class Management
+│   │       ├── Auth/             # Authentication Pages
+│   │       ├── Dashboard/        # Role-based Dashboards
+│   │       ├── Fees/             # Financial Management
+│   │       ├── Library/          # Library System
+│   │       ├── Parents/          # Parent Portal
+│   │       ├── ReportCards/      # Grade Reports
+│   │       ├── Students/         # Student Management
+│   │       ├── Subjects/         # Subject Catalog
+│   │       ├── Teachers/         # Teacher Management
+│   │       └── Welcome.vue       # Landing Page
+│   └── views/                    # Blade Templates
 ├── routes/
-│   ├── api.php                    # API Routes
-│   ├── web.php                    # Web Routes
-│   └── channels.php               # WebSocket Channels
+│   ├── api.php                   # API Routes
+│   ├── web.php                   # Web Routes
+│   └── channels.php              # WebSocket Channels
 └── storage/
-    ├── app/                       # Application Files
-    └── framework/                 # Laravel Framework Files
+    ├── app/                      # Application Files
+    └── framework/                # Laravel Framework Files
 ```
 
 ### Key Components
-- **Sidebar.vue**: Dynamic navigation based on user roles
-- **Welcome.vue**: Landing page with feature showcase
-- **Dashboard.vue**: Role-specific dashboard views
-- **Permission System**: Granular access control
-- **Notification System**: Real-time alerts and updates
+- **Sidebar.vue**: Dynamic navigation based on user roles with premium styling
+- **Welcome.vue**: Landing page with glass morphism and animated statistics
+- **Dashboard.vue**: Role-specific dashboard views with real-time widgets
+- **Pagination.vue**: Smart pagination with ellipsis and responsive design
+- **Card Components**: Warm-themed cards with hover effects (`card-warm`, `accent-terracotta`)
+- **Dialog System**: Modal-based create/edit forms for seamless UX
+- **Permission System**: Granular access control with role-based UI visibility
+- **Notification System**: Real-time alerts and toast notifications
 
-## 📚 API Documentation
+## 📚 Routes & Inertia.js Architecture
 
-### Authentication Endpoints
-```http
-POST /api/login
-POST /api/logout
-POST /api/register
-GET  /api/user
+This application uses **Inertia.js** - a modern approach that combines the backend power of Laravel with the frontend interactivity of Vue.js. Instead of traditional API endpoints, routes return Inertia responses that automatically hydrate Vue components.
+
+### Route Structure
+
+#### Authentication Routes (`routes/auth.php`)
+```php
+GET  /login              → Auth/Login.vue
+POST /login              → Authenticate session
+POST /logout             → Destroy session
+GET  /register           → Auth/Register.vue
+POST /register           → Create new user
+GET  /forgot-password    → Auth/ForgotPassword.vue
+POST /forgot-password    → Send reset link
+GET  /reset-password     → Auth/ResetPassword.vue
 ```
 
-### Student Management
-```http
-GET    /api/students           # List students
-POST   /api/students           # Create student
-GET    /api/students/{id}      # Show student
-PUT    /api/students/{id}      # Update student
-DELETE /api/students/{id}      # Delete student
+#### Web Routes (`routes/web.php`)
+```php
+GET  /students           → Students/Index.vue (with pagination data)
+GET  /students/create    → Students/Create.vue
+POST /students          → Store + redirect
+GET  /students/{id}     → Students/Show.vue
+GET  /students/{id}/edit → Students/Edit.vue
+PUT  /students/{id}     → Update + redirect
+DELETE /students/{id}  → Destroy + redirect
+
+GET  /teachers          → Teachers/Index.vue
+GET  /parents           → Parents/Index.vue
+GET  /classes           → AcademicClasses/Index.vue
+GET  /subjects          → Subjects/Index.vue
+GET  /fees              → Fees/Index.vue
+GET  /library           → Library/Index.vue
+GET  /report-cards      → ReportCards/Index.vue
 ```
 
-### Attendance Management
-```http
-GET    /api/attendance         # List attendance records
-POST   /api/attendance         # Mark attendance
-GET    /api/attendance/report  # Attendance reports
+### Inertia.js Response Pattern
+Controllers return Inertia responses with shared props:
+```php
+return Inertia::render('Students/Index', [
+    'students' => Student::paginate(10),
+    'filters' => $request->only(['search', 'status'])
+]);
 ```
 
-### Financial Management
-```http
-GET    /api/fees              # List fee structures
-POST   /api/payments          # Process payment
-GET    /api/invoices          # List invoices
-```
+Vue components access data via props and use `router.visit()` for navigation without page reloads.
 
 ## 🚀 Deployment
 
@@ -391,18 +454,41 @@ We welcome contributions! Please follow these steps:
 
 ## 📝 Changelog
 
+### Version 1.1.0 (2024-04-14) - UI/UX Revolution & Laravel 13 Upgrade
+- **Framework Upgrade**: Migrated from Laravel 10.x to Laravel 13.x
+- **Premium Design System**: Complete visual overhaul with warm color palette
+- **New Modules**:
+  - Academic Classes management with section handling
+  - Enhanced Fees management with payment tracking
+  - Subjects catalog with search and filtering
+  - Library system foundation
+  - Report cards generation
+- **UI Components**:
+  - shadcn/ui component library integration
+  - Custom Pagination component with smart ellipsis
+  - Premium card layouts with glass morphism effects
+  - Animated page transitions and hover effects
+- **UX Improvements**:
+  - Real-time search with debouncing
+  - Dialog-based create/edit forms
+  - Role-aware sidebar navigation
+  - Responsive mobile layouts
+- **Developer Experience**:
+  - Standardized Vue 3 + Inertia.js page structure
+  - Service-layer architecture for business logic
+  - Consistent Tailwind CSS utility classes
+
 ### Version 1.0.0 (2024-01-15)
 - Initial release
 - Core school management features
 - Role-based access control
 - Responsive UI design
-- API documentation
 
 ## 🐛 Bug Reporting
 
 If you encounter any issues:
 
-1. Check existing [issues](https://github.com/your-username/school-management-system/issues)
+1. Check existing [issues](https://github.com/alvinpaka/school-management-system/issues)
 2. Create a new issue with:
    - Detailed description
    - Steps to reproduce
@@ -411,7 +497,7 @@ If you encounter any issues:
 
 ## 🔒 Security
 
-If you discover a security vulnerability, please send an email to security@edumanage.pro instead of using the issue tracker.
+If you discover a security vulnerability, please send an email to alvinpaka@gmail.com instead of using the issue tracker.
 
 ## 📄 License
 
@@ -426,7 +512,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- Email: support@edumanage.pro
+- Email: alvinpaka@gmail.com
 - Documentation: https://docs.edumanage.pro
 - Community Forum: https://community.edumanage.pro
 

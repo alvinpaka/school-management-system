@@ -86,20 +86,20 @@ const recentActivities = [
         description: 'Mathematics homework submitted on time',
         time: '2 hours ago',
         icon: Award,
-        color: 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50'
+        color: 'bg-forest/10 text-forest'
     },
     {
         title: 'Exam Result Published',
         description: 'Science midterm results now available',
         time: '1 day ago',
         icon: FileText,
-        color: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50'
+        color: 'bg-terracotta/10 text-terracotta'
     }
 ];
 
 const upcomingEvents = [
-    { title: 'Mathematics Midterm', date: 'Feb 15, 2026', time: '9:00 AM', type: 'Examination', icon: PencilLine, color: 'text-rose-600 bg-rose-50' },
-    { title: 'Science Project Due', date: 'Feb 16, 2026', time: '11:59 PM', type: 'Deadline', icon: Flag, color: 'text-amber-600 bg-amber-50' }
+    { title: 'Mathematics Midterm', date: 'Feb 15, 2026', time: '9:00 AM', type: 'Examination', icon: PencilLine, color: 'bg-destructive/10 text-destructive' },
+    { title: 'Science Project Due', date: 'Feb 16, 2026', time: '11:59 PM', type: 'Deadline', icon: Flag, color: 'bg-amber/10 text-amber' }
 ];
 
 const recentGrades = [
@@ -113,9 +113,9 @@ const getInitials = (name) => {
 };
 
 const getGradeColor = (grade) => {
-    if (grade.startsWith('A')) return 'text-emerald-600';
-    if (grade.startsWith('B')) return 'text-blue-600';
-    return 'text-orange-600';
+    if (grade.startsWith('A')) return 'text-forest';
+    if (grade.startsWith('B')) return 'text-terracotta';
+    return 'text-amber';
 };
 </script>
 
@@ -125,49 +125,49 @@ const getGradeColor = (grade) => {
     <Sidebar>
         <template #header-title>
             <div class="flex items-center gap-2">
-                <div class="p-2 bg-primary/10 rounded-lg">
-                    <GraduationCap class="w-4 h-4 text-primary" />
+                <div class="p-2 bg-terracotta/10 rounded-lg">
+                    <GraduationCap class="w-4 h-4 text-terracotta" />
                 </div>
-                <span class="font-black text-sm uppercase tracking-wider text-muted-foreground/80">Student Portal</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted/80">Student Portal</span>
             </div>
         </template>
 
         <div class="space-y-8 animate-fade-in-up">
             <!-- Dramatic Welcome Header -->
-            <div class="relative overflow-hidden bg-card shadow-sm rounded-3xl lg:rounded-[2.5rem] border border-border p-6 lg:p-12">
+            <div class="relative overflow-hidden card-warm rounded-3xl lg:rounded-[2.5rem] p-6 lg:p-12">
                 <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div class="flex flex-col md:flex-row items-center gap-6 lg:gap-8">
                         <div class="relative group">
-                            <Avatar class="w-20 h-20 lg:w-24 lg:h-24 border-2 border-border rounded-2xl lg:rounded-3xl relative">
+                            <Avatar class="w-20 h-20 lg:w-24 lg:h-24 border-2 border-terracotta/20 rounded-2xl lg:rounded-3xl relative">
                                 <AvatarImage 
                                     v-if="$page.props.auth.user.photo"
                                     :src="`/storage/${$page.props.auth.user.photo}`" 
                                     :alt="$page.props.auth.user.name"
                                     class="object-cover"
                                 />
-                                <AvatarFallback class="text-xl lg:text-3xl font-black bg-primary text-primary-foreground rounded-2xl lg:rounded-3xl uppercase">
+                                <AvatarFallback class="text-xl lg:text-3xl font-black bg-terracotta text-white rounded-2xl lg:rounded-3xl uppercase">
                                     {{ getInitials($page.props.auth.user.name) }}
                                 </AvatarFallback>
                             </Avatar>
                         </div>
                         <div class="text-center md:text-left">
                             <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-2">
-                                <Badge class="bg-primary/10 text-primary border-0 font-black">{{ student?.academic_class?.name || 'Class 10A' }}</Badge>
-                                <Badge variant="outline" class="font-bold border-border text-muted-foreground">Roll: {{ student?.roll_number || '042' }}</Badge>
+                                <Badge class="bg-terracotta/10 text-terracotta border-0 font-black">{{ student?.academic_class?.name || 'Class 10A' }}</Badge>
+                                <Badge variant="outline" class="font-bold border-terracotta/20 text-warm-muted dark:text-dark-muted">Roll: {{ student?.roll_number || '042' }}</Badge>
                             </div>
-                            <h1 class="text-3xl lg:text-5xl font-black text-foreground mb-1 lg:mb-2 tracking-tighter leading-tight">
+                            <h1 class="text-3xl lg:text-5xl font-black text-warm-text dark:text-dark-text mb-1 lg:mb-2 tracking-tighter leading-tight">
                                 Keep shining, {{ $page.props.auth.user.name.split(' ')[0] }}! <span class="animate-pulse">🚀</span>
                             </h1>
-                            <p class="text-base lg:text-lg text-muted-foreground font-medium">
-                                You have <span class="text-emerald-500 font-black">3 assignments</span> due this week.
+                            <p class="text-base lg:text-lg text-warm-muted dark:text-dark-muted font-medium">
+                                You have <span class="text-forest font-black">3 assignments</span> due this week.
                             </p>
                         </div>
                     </div>
                 
                     <div class="flex flex-col items-start md:items-end mt-6 md:mt-0">
-                        <div class="bg-muted px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-border text-left md:text-right">
-                            <p class="text-[10px] font-black uppercase tracking-widest text-primary mb-1">Academic Progress</p>
-                            <p class="text-sm lg:text-base font-bold text-foreground">
+                        <div class="bg-white/50 dark:bg-dark-bg/50 px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-terracotta/20 text-left md:text-right">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-terracotta mb-1">Academic Progress</p>
+                            <p class="text-sm lg:text-base font-bold text-warm-text dark:text-dark-text">
                                 {{ new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) }}
                             </p>
                         </div>
@@ -183,48 +183,48 @@ const getGradeColor = (grade) => {
                     
                     <!-- Premium Stats Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
-                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer lg:hover:border-primary/30 transition-all duration-300">
+                        <div class="card-warm p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] group cursor-pointer lg:hover:border-terracotta/30 transition-all duration-300">
                             <div class="flex items-center justify-between mb-6">
-                                <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                <div class="w-14 h-14 rounded-2xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                                     <Trophy class="w-7 h-7" />
                                 </div>
-                                <Badge class="bg-primary/10 text-primary border-0 font-black">TOP 5%</Badge>
+                                <Badge class="bg-terracotta/10 text-terracotta border-0 font-black">TOP 5%</Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Academic GPA</p>
-                            <h3 class="text-4xl font-black text-foreground tracking-tighter">3.82</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">Academic GPA</p>
+                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">3.82</h3>
                         </div>
 
-                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer lg:hover:border-emerald-500/30 transition-all duration-300">
+                        <div class="card-warm p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] group cursor-pointer lg:hover:border-forest/30 transition-all duration-300">
                             <div class="flex items-center justify-between mb-6">
-                                <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                                <div class="w-14 h-14 rounded-2xl bg-forest/10 flex items-center justify-center text-forest">
                                     <CheckCircle class="w-7 h-7" />
                                 </div>
-                                <Badge class="bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 border-0 font-black">EXCELLENT</Badge>
+                                <Badge class="bg-forest/10 text-forest border-0 font-black">EXCELLENT</Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Attendance</p>
-                            <h3 class="text-4xl font-black text-foreground tracking-tighter">98.2%</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">Attendance</p>
+                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">98.2%</h3>
                         </div>
 
-                        <div class="bg-card p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] border border-border shadow-sm group cursor-pointer lg:hover:border-orange-500/30 transition-all duration-300">
+                        <div class="card-warm p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] group cursor-pointer lg:hover:border-amber/30 transition-all duration-300">
                             <div class="flex items-center justify-between mb-6">
-                                <div class="w-14 h-14 rounded-2xl bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center text-orange-600">
+                                <div class="w-14 h-14 rounded-2xl bg-amber/10 flex items-center justify-center text-amber">
                                     <Award class="w-7 h-7" />
                                 </div>
-                                <Badge class="bg-orange-50 dark:bg-orange-500/10 text-orange-600 border-0 font-black">3 PENDING</Badge>
+                                <Badge class="bg-amber/10 text-amber border-0 font-black">3 PENDING</Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-muted-foreground/80 mb-1">Assignments</p>
-                            <h3 class="text-4xl font-black text-foreground tracking-tighter">12</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">Assignments</p>
+                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">12</h3>
                         </div>
                     </div>
 
                     <!-- Grade Intelligence -->
-                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm overflow-hidden">
-                        <div class="p-6 lg:p-8 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="card-warm rounded-3xl lg:rounded-[2.5rem] overflow-hidden">
+                        <div class="p-6 lg:p-8 border-b border-terracotta/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
-                                <h3 class="text-2xl font-black text-foreground tracking-tighter">Recent Performance</h3>
-                                <p class="text-sm text-muted-foreground font-medium">Your latest examination metrics</p>
+                                <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter">Recent Performance</h3>
+                                <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">Your latest examination metrics</p>
                             </div>
-                            <Button variant="outline" class="rounded-xl border-border px-4 font-bold text-muted-foreground lg:hover:text-primary w-full sm:w-auto">
+                            <Button variant="outline" class="rounded-xl border-terracotta/20 px-4 font-bold text-warm-muted dark:text-dark-muted lg:hover:text-terracotta w-full sm:w-auto">
                                 All Reports
                             </Button>
                         </div>
@@ -232,19 +232,19 @@ const getGradeColor = (grade) => {
                             <div 
                                 v-for="grade in recentGrades" 
                                 :key="grade.subject"
-                                class="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 p-4 rounded-3xl lg:hover:bg-muted transition-all group"
+                                class="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 p-4 rounded-3xl lg:hover:bg-terracotta/5 transition-all group"
                             >
-                                <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-muted flex items-center justify-center text-muted-foreground lg:group-hover:bg-primary/10 lg:group-hover:text-primary transition-colors">
+                                <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-terracotta/5 flex items-center justify-center text-terracotta lg:group-hover:bg-terracotta lg:group-hover:text-white transition-colors">
                                     <BookOpen class="w-7 h-7 lg:w-8 lg:h-8" />
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center justify-between mb-2">
-                                        <h4 class="text-lg font-black text-foreground truncate tracking-tight">{{ grade.subject }}</h4>
+                                        <h4 class="text-lg font-black text-warm-text dark:text-dark-text truncate tracking-tight">{{ grade.subject }}</h4>
                                         <span :class="['text-2xl font-black italic tracking-tighter', getGradeColor(grade.grade)]">{{ grade.grade }}</span>
                                     </div>
-                                    <div class="w-full h-2 bg-muted rounded-full overflow-hidden">
+                                    <div class="w-full h-2 bg-terracotta/10 rounded-full overflow-hidden">
                                         <div 
-                                            class="h-full bg-primary transition-all duration-1000" 
+                                            class="h-full bg-terracotta transition-all duration-1000" 
                                             :style="{ width: `${grade.score}%` }"
                                         ></div>
                                     </div>
@@ -259,15 +259,15 @@ const getGradeColor = (grade) => {
                             v-for="action in quickActions" 
                             :key="action.title" 
                             :href="action.href"
-                            class="bg-card p-4 rounded-3xl border border-border lg:hover:border-primary/30 shadow-sm group transition-all duration-500"
+                            class="card-warm p-4 rounded-3xl group transition-all duration-500"
                         >
                             <div class="flex items-center gap-5 relative z-10">
-                                <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-muted flex items-center justify-center text-muted-foreground transition-all duration-500 lg:group-hover:bg-primary lg:group-hover:text-white lg:group-hover:shadow-lg lg:group-hover:shadow-primary/20 lg:group-hover:scale-105">
+                                <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-terracotta/5 flex items-center justify-center text-terracotta transition-all duration-500 lg:group-hover:bg-terracotta lg:group-hover:text-white lg:group-hover:shadow-lg lg:group-hover:shadow-terracotta/20 lg:group-hover:scale-105">
                                     <component :is="action.icon" class="w-7 h-7 lg:w-8 lg:h-8" />
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="text-base lg:text-lg font-black text-foreground tracking-tight">{{ action.title }}</h4>
-                                    <p class="text-xs lg:text-sm text-muted-foreground font-medium">{{ action.description }}</p>
+                                    <h4 class="text-base lg:text-lg font-black text-warm-text dark:text-dark-text tracking-tight">{{ action.title }}</h4>
+                                    <p class="text-xs lg:text-sm text-warm-muted dark:text-dark-muted font-medium">{{ action.description }}</p>
                                 </div>
                             </div>
                         </Link>
@@ -278,64 +278,65 @@ const getGradeColor = (grade) => {
                 <div class="lg:col-span-4 space-y-6 lg:space-y-8">
                     
                     <!-- Events Intelligence -->
-                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm p-6 lg:p-8">
+                    <div class="card-warm rounded-3xl lg:rounded-[2.5rem] p-6 lg:p-8">
                         <div class="flex items-center justify-between mb-8">
-                            <h3 class="text-2xl font-black text-foreground tracking-tighter">Timeline</h3>
-                            <div class="w-10 h-10 rounded-xl bg-muted flex items-center justify-center text-primary">
+                            <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter">Timeline</h3>
+                            <div class="w-10 h-10 rounded-xl bg-terracotta/5 flex items-center justify-center text-terracotta">
                                 <CalendarDays class="w-5 h-5" />
                             </div>
                         </div>
                         <div class="space-y-6">
-                            <div v-for="event in upcomingEvents" :key="event.title" class="relative pl-6 border-l-2 border-dashed border-border">
-                                <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-card border-2 border-primary"></div>
+                            <div v-for="event in upcomingEvents" :key="event.title" class="relative pl-6 border-l-2 border-dashed border-terracotta/20">
+                                <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-warm-bg dark:bg-dark-bg border-2 border-terracotta"></div>
                                 <div class="mb-4">
                                     <div class="flex items-center justify-between mb-2">
                                         <span :class="['px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest', event.color]">
                                             {{ event.type }}
                                         </span>
-                                        <span class="text-[10px] font-black text-muted-foreground/80">{{ event.date }}</span>
+                                        <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted/80">{{ event.date }}</span>
                                     </div>
-                                    <h4 class="text-sm font-black text-foreground mb-2 leading-tight">{{ event.title }}</h4>
+                                    <h4 class="text-sm font-black text-warm-text dark:text-dark-text mb-2 leading-tight">{{ event.title }}</h4>
                                 </div>
                             </div>
                         </div>
-                        <Button variant="outline" class="w-full mt-6 rounded-2xl border-border font-black h-12 text-muted-foreground hover:text-primary">
+                        <Button variant="outline" class="w-full mt-6 rounded-2xl border-terracotta/20 font-black h-12 text-warm-muted dark:text-dark-muted hover:text-terracotta">
                             Full Calendar
                         </Button>
                     </div>
 
                     <!-- Live Stream / Study Hub -->
-                    <div class="rounded-3xl lg:rounded-[2.5rem] bg-primary p-6 lg:p-8 text-primary-foreground shadow-xl lg:shadow-primary/20 text-center relative overflow-hidden group">
+                    <div class="rounded-3xl lg:rounded-[2.5rem] accent-terracotta p-6 lg:p-8 text-white shadow-xl shadow-terracotta/30 text-center relative overflow-hidden group">
                         <div class="relative z-10">
-                            <div class="w-16 h-16 lg:w-20 lg:h-20 bg-white/10 rounded-2xl lg:rounded-3xl flex items-center justify-center mx-auto mb-6 backdrop-blur-xl border border-white/20 lg:group-hover:scale-110 transition-transform">
+                            <div class="w-16 h-16 lg:w-20 lg:h-20 bg-white/10 rounded-2xl lg:rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20 lg:group-hover:scale-110 transition-transform">
                                 <Zap class="w-8 h-8 lg:w-10 lg:h-10 text-white" />
                             </div>
                             <h4 class="text-xl lg:text-2xl font-black mb-2 tracking-tighter">Learn Pro</h4>
-                            <p class="text-primary-foreground/80 text-xs lg:text-sm font-medium mb-6 lg:mb-8 leading-relaxed">
+                            <p class="text-white/80 text-xs lg:text-sm font-medium mb-6 lg:mb-8 leading-relaxed">
                                 Access the world's most advanced digital curriculum and resources.
                             </p>
-                            <Button class="w-full bg-background text-primary hover:bg-background/90 font-black rounded-2xl h-11 lg:h-12 shadow-md border-0">
+                            <Button class="w-full bg-white text-terracotta hover:bg-white/90 font-black rounded-2xl h-11 lg:h-12 shadow-md border-0">
                                 Enter Learning Hub
                             </Button>
                         </div>
                     </div>
 
                     <!-- Peer Activity -->
-                    <div class="bg-card rounded-3xl lg:rounded-[2.5rem] border border-border shadow-sm p-6 lg:p-8">
-                        <h3 class="text-xl font-black text-foreground tracking-tighter mb-6 flex items-center gap-2">
-                            <Activity class="w-5 h-5 text-emerald-500" />
+                    <div class="card-warm rounded-3xl lg:rounded-[2.5rem] p-6 lg:p-8">
+                        <h3 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-6 flex items-center gap-2">
+                            <Activity class="w-5 h-5 text-forest" />
                             Active Peers
                         </h3>
                         <div class="flex -space-x-4 overflow-hidden mb-6">
-                            <Avatar v-for="i in 5" :key="i" class="inline-block border-4 border-card w-12 h-12">
+                            <Avatar v-for="i in 5" :key="i" class="inline-block border-4 border-warm-bg dark:border-dark-bg w-12 h-12">
                                 <AvatarImage :src="`https://i.pravatar.cc/100?u=${i}`" />
+                                <AvatarFallback class="bg-terracotta/10 text-terracotta">S</AvatarFallback>
                             </Avatar>
-                            <div class="w-12 h-12 rounded-full bg-muted border-4 border-card flex items-center justify-center text-xs font-black text-muted-foreground/80">
+                            <div class="w-12 h-12 rounded-full bg-terracotta/5 border-4 border-warm-bg dark:border-dark-bg flex items-center justify-center text-xs font-black text-warm-muted dark:text-dark-muted/80">
                                 +12
                             </div>
                         </div>
-                        <p class="text-xs font-bold text-muted-foreground/80 leading-relaxed uppercase tracking-wider">
-                            <span class="text-emerald-500 font-black">18 students</span> from your section are currently studying in the digital lab.
+                        <p class="text-xs font-bold text-warm-muted dark:text-dark-muted/80 leading-relaxed uppercase tracking-wider">
+                            <span class="text-forest font-black">18 students</span> from your section are currently studying in the digital lab.
                         </p>
                     </div>
                 </div>
@@ -343,19 +344,3 @@ const getGradeColor = (grade) => {
         </div>
     </Sidebar>
 </template>
-
-<style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.1);
-  border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.2);
-}
-</style>

@@ -26,54 +26,52 @@ const selectedPriority = ref('all');
 </script>
 
 <template>
-    <Head title="Notice Management" />
+    <Head title="Notice Management | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <Bell class="w-5 h-5" />
-                <span>Notices</span>
+                <Bell class="w-5 h-5 text-terracotta" />
+                <span class="font-semibold text-warm-text dark:text-dark-text">Notices</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl">
+        <div class="mx-auto max-w-7xl space-y-6 animate-fade-in-up">
             <!-- Page Header -->
-            <div class="mb-6">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Notices</h2>
-                        <p class="text-gray-600 dark:text-gray-400">Manage school notices and announcements</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <Button>
-                            <Plus class="w-4 h-4 mr-2" />
-                            Add Notice
-                        </Button>
-                    </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Notices</h1>
+                    <p class="text-warm-muted dark:text-dark-muted font-medium">Manage school notices and announcements</p>
+                </div>
+                <div class="flex gap-2">
+                    <Button class="accent-terracotta text-white">
+                        <Plus class="w-4 h-4 mr-2" />
+                        Add Notice
+                    </Button>
                 </div>
             </div>
 
             <!-- Search and Filters -->
-            <Card class="mb-6">
-                <CardHeader>
-                    <CardTitle>Search & Filter</CardTitle>
-                    <CardDescription>Find notices quickly</CardDescription>
-                </CardHeader>
-                <CardContent>
+            <div class="card-warm">
+                <div class="p-6 border-b border-terracotta/20">
+                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Search & Filter</h3>
+                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Find notices quickly</p>
+                </div>
+                <div class="p-6">
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <div class="relative">
-                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-warm-muted dark:text-dark-muted w-4 h-4" />
                                 <input
                                     v-model="searchQuery"
                                     type="text"
                                     placeholder="Search notices by title or content..."
-                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    class="w-full pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text"
                                 />
                             </div>
                         </div>
                         <div class="flex gap-2">
-                            <select v-model="selectedType" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <select v-model="selectedType" class="px-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text">
                                 <option value="all">All Types</option>
                                 <option value="holiday">Holiday</option>
                                 <option value="meeting">Meeting</option>
@@ -81,67 +79,78 @@ const selectedPriority = ref('all');
                                 <option value="policy">Policy</option>
                                 <option value="event">Event</option>
                             </select>
-                            <select v-model="selectedPriority" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <select v-model="selectedPriority" class="px-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text">
                                 <option value="all">All Priorities</option>
                                 <option value="high">High</option>
                                 <option value="medium">Medium</option>
                                 <option value="low">Low</option>
                             </select>
-                            <Button variant="outline">
+                            <Button variant="outline" class="border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta">
                                 <Filter class="w-4 h-4 mr-2" />
                                 Filter
                             </Button>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             <!-- Notices List -->
             <div class="space-y-4">
-                <Card v-for="notice in notices" :key="notice.id">
-                    <CardHeader>
+                <div v-for="notice in notices" :key="notice.id" class="card-warm">
+                    <div class="p-6 border-b border-terracotta/20">
                         <div class="flex items-start justify-between">
                             <div>
-                                <CardTitle>{{ notice.title }}</CardTitle>
-                                <CardDescription>Published {{ new Date(notice.published_at).toLocaleDateString() }}</CardDescription>
+                                <h3 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter">{{ notice.title }}</h3>
+                                <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Published {{ new Date(notice.published_at).toLocaleDateString() }}</p>
                             </div>
                             <div class="flex gap-2">
-                                <Badge :class="notice.priority === 'high' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400' : notice.priority === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'">
+                                <Badge :class="notice.priority === 'high' ? 'bg-destructive/10 text-destructive border-0' : notice.priority === 'medium' ? 'bg-amber/10 text-amber border-0' : 'bg-terracotta/10 text-terracotta border-0'">
                                     {{ notice.priority }}
                                 </Badge>
-                                <Badge variant="outline" class="capitalize">
+                                <Badge variant="outline" class="capitalize border-terracotta/20 text-warm-text dark:text-dark-text">
                                     {{ notice.type }}
                                 </Badge>
                             </div>
                         </div>
-                    </CardHeader>
-                    <CardContent>
-                        <div class="prose prose-sm max-w-none text-gray-600 dark:text-gray-400">
+                    </div>
+                    <div class="p-6">
+                        <div class="prose prose-sm max-w-none text-warm-muted dark:text-dark-muted">
                             {{ notice.content }}
                         </div>
                         
-                        <div class="mt-4 pt-4 border-t">
-                            <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                        <div class="mt-4 pt-4 border-t border-terracotta/20">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm text-warm-muted dark:text-dark-muted">
                                 <div class="flex items-center">
-                                    <Calendar class="w-4 h-4 mr-1" />
+                                    <Calendar class="w-4 h-4 mr-2 text-terracotta" />
                                     <span>Expires: {{ new Date(notice.expires_at).toLocaleDateString() }}</span>
                                 </div>
                                 <div class="flex items-center">
-                                    <Tag class="w-4 h-4 mr-1" />
+                                    <Tag class="w-4 h-4 mr-2 text-terracotta" />
                                     <span>{{ notice.target_audience }}</span>
                                 </div>
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-4">
                                 <Link :href="route('notice.show', notice.id)">
-                                    <Button variant="ghost" size="sm">
+                                    <Button variant="ghost" size="sm" class="hover:bg-terracotta/10 text-terracotta">
                                         <Eye class="w-4 h-4 mr-2" />
                                         Read More
                                     </Button>
                                 </Link>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div v-if="notices.length === 0" class="card-warm">
+                <div class="p-12 text-center">
+                    <div class="w-20 h-20 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                        <Bell class="w-10 h-10 text-terracotta/30" />
+                    </div>
+                    <h3 class="text-xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">No Notices Found</h3>
+                    <p class="text-warm-muted dark:text-dark-muted">No notices have been published yet.</p>
+                </div>
             </div>
         </div>
     </Sidebar>

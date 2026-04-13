@@ -39,7 +39,7 @@ const form = useForm({
     employee_id: props.teacher.employee_id,
     phone: props.teacher.phone,
     employment_type: props.teacher.employment_type || 'Full-time',
-    role: props.teacher.user.roles?.[0]?.name || 'teacher', // Add role field
+    role: props.teacher.user.roles?.[0]?.name || 'teacher',
     status: props.teacher.status || 'Active',
     specialization: props.teacher.specialization,
     qualification: props.teacher.qualification,
@@ -57,10 +57,8 @@ const form = useForm({
 
 const submit = () => {
     if (form.photo) {
-        // Create FormData manually for proper file handling
         const formData = new FormData();
 
-        // Add all form fields to FormData
         const formDataObj = form.data();
         Object.keys(formDataObj).forEach(key => {
             if (key === 'photo' && form.photo) {
@@ -70,7 +68,6 @@ const submit = () => {
             }
         });
 
-        // Use axios directly for FormData submission
         import('axios').then(({ default: axios }) => {
             axios.post(route('teachers.update', props.teacher.id), formData, {
                 headers: {
@@ -79,7 +76,6 @@ const submit = () => {
                 }
             })
             .then(response => {
-                // Redirect to show page
                 window.location.href = route('teachers.show', props.teacher.id);
             })
             .catch(error => {
@@ -89,12 +85,10 @@ const submit = () => {
             });
         });
     } else {
-        // No photo - use normal Inertia submission
         form.put(route('teachers.update', props.teacher.id));
     }
 };
 
-// Handle photo upload and preview
 const photoPreview = ref(null);
 const photoFile = ref(null);
 
@@ -138,83 +132,83 @@ const getCurrentPhoto = () => {
 </script>
 
 <template>
-    <Head title="Edit Teacher" />
+    <Head title="Edit Teacher | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Link :href="route('teachers.show', teacher.id)">
-                    <Button variant="ghost" size="sm" class="gap-2">
+                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
                         <ArrowLeft class="w-4 h-4" />
                         Back to Profile
                     </Button>
                 </Link>
-                <Separator orientation="vertical" class="h-6" />
-                <span class="font-semibold">Edit Teacher</span>
+                <Separator orientation="vertical" class="h-6 bg-terracotta/20" />
+                <span class="font-semibold text-warm-text dark:text-dark-text">Edit Teacher</span>
             </div>
         </template>
 
         <div class="mx-auto max-w-7xl space-y-6">
             <!-- Header Card -->
-            <Card class="overflow-hidden">
-                <div class="h-24 bg-emerald-500"></div>
-                <CardContent class="relative pt-0 pb-6">
+            <div class="card-warm overflow-hidden">
+                <div class="h-24 accent-terracotta"></div>
+                <div class="relative pt-0 pb-6 p-6">
                     <div class="flex flex-col md:flex-row md:items-end md:justify-between -mt-12">
                         <div class="flex flex-col md:flex-row items-center md:items-end space-y-4 md:space-y-0 md:space-x-6">
-                            <Avatar class="w-24 h-24 md:w-32 md:h-32 border-4 border-white dark:border-gray-950 shadow-xl">
+                            <Avatar class="w-24 h-24 md:w-32 md:h-32 border-4 border-white dark:border-dark-bg shadow-xl">
                                 <AvatarImage 
                                     v-if="getCurrentPhoto()"
                                     :src="getCurrentPhoto()" 
                                     :alt="form.name"
                                 />
-                                <AvatarFallback class="text-2xl md:text-3xl font-bold bg-emerald-500 text-white">
+                                <AvatarFallback class="text-2xl md:text-3xl font-bold bg-terracotta text-white">
                                     {{ getInitials(form.name) }}
                                 </AvatarFallback>
                             </Avatar>
                             
                             <div class="text-center md:text-left space-y-2 mb-2">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                                <h1 class="text-2xl md:text-3xl font-bold text-warm-text dark:text-dark-text">
                                     {{ form.name }}
                                 </h1>
                                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                                    <Badge variant="outline" class="text-xs">
+                                    <Badge variant="outline" class="text-xs border-terracotta/20 text-terracotta">
                                         {{ teacher.employee_id }}
                                     </Badge>
-                                    <Badge variant="outline" class="text-xs">
+                                    <Badge variant="outline" class="text-xs border-amber/20 text-amber">
                                         Editing Profile
                                     </Badge>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             <!-- Main Form -->
             <form @submit.prevent="submit" class="space-y-6">
                 <!-- Photo Upload Card -->
-                <Card>
-                    <CardHeader>
-                        <CardTitle class="flex items-center gap-2">
-                            <Camera class="w-5 h-5" />
+                <div class="card-warm">
+                    <div class="p-6 border-b border-terracotta/20">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                            <Camera class="w-5 h-5 text-terracotta" />
                             Profile Photo
-                        </CardTitle>
-                        <CardDescription>
+                        </h3>
+                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
                             Upload a new profile photo for the teacher (JPG, PNG - Max 2MB)
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
+                        </p>
+                    </div>
+                    <div class="p-6">
                         <div class="flex flex-col md:flex-row items-start gap-6">
                             <!-- Current Photo Preview -->
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="relative">
-                                    <Avatar class="w-40 h-40 border-4 border-gray-200 dark:border-gray-800">
+                                    <Avatar class="w-40 h-40 border-4 border-terracotta/20">
                                         <AvatarImage 
                                             v-if="getCurrentPhoto()"
                                             :src="getCurrentPhoto()" 
                                             :alt="form.name"
                                         />
-                                        <AvatarFallback class="text-4xl font-bold bg-emerald-500 text-white">
+                                        <AvatarFallback class="text-4xl font-bold bg-terracotta text-white">
                                             {{ getInitials(form.name) }}
                                         </AvatarFallback>
                                     </Avatar>
@@ -229,26 +223,26 @@ const getCurrentPhoto = () => {
                                         <X class="w-4 h-4" />
                                     </Button>
                                 </div>
-                                <Badge v-if="photoPreview" variant="secondary" class="text-xs">
+                                <Badge v-if="photoPreview" variant="secondary" class="text-xs bg-terracotta/10 text-terracotta">
                                     New Photo Selected
                                 </Badge>
                             </div>
 
                             <!-- Upload Section -->
                             <div class="flex-1 space-y-4">
-                                <div class="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 text-center hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors">
-                                    <Upload class="w-12 h-12 mx-auto text-gray-400 mb-3" />
+                                <div class="border-2 border-dashed border-terracotta/30 rounded-lg p-6 text-center hover:border-terracotta transition-colors">
+                                    <Upload class="w-12 h-12 mx-auto text-warm-muted dark:text-dark-muted mb-3" />
                                     <div class="space-y-2">
                                         <Label 
                                             for="photo" 
-                                            class="cursor-pointer text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 font-medium"
+                                            class="cursor-pointer text-terracotta hover:text-terracotta/80 font-medium"
                                         >
                                             Click to upload
                                         </Label>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        <p class="text-sm text-warm-muted dark:text-dark-muted">
                                             or drag and drop
                                         </p>
-                                        <p class="text-xs text-gray-400 dark:text-gray-500">
+                                        <p class="text-xs text-warm-muted dark:text-dark-muted">
                                             PNG, JPG or JPEG (MAX. 2MB)
                                         </p>
                                     </div>
@@ -260,36 +254,36 @@ const getCurrentPhoto = () => {
                                         class="hidden"
                                     />
                                 </div>
-                                <div v-if="form.errors.photo" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.photo" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.photo }}
                                 </div>
-                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-warm-muted dark:text-dark-muted">
                                     <Camera class="w-4 h-4" />
                                     <span class="font-medium">{{ photoFile.name }}</span>
                                     <span class="text-xs">({{ (photoFile.size / 1024).toFixed(2) }} KB)</span>
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
 
                 <!-- Personal Information -->
-                <Card>
-                    <CardHeader>
-                        <CardTitle class="flex items-center gap-2">
-                            <User class="w-5 h-5" />
+                <div class="card-warm">
+                    <div class="p-6 border-b border-terracotta/20">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                            <User class="w-5 h-5 text-terracotta" />
                             Personal Information
-                        </CardTitle>
-                        <CardDescription>
+                        </h3>
+                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
                             Update the teacher's basic personal details
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
+                        </p>
+                    </div>
+                    <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label for="name" class="flex items-center gap-2">
-                                    <User class="w-4 h-4 text-gray-500" />
+                                <Label for="name" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <User class="w-4 h-4 text-terracotta" />
                                     Full Name *
                                 </Label>
                                 <Input
@@ -299,16 +293,17 @@ const getCurrentPhoto = () => {
                                     placeholder="Enter full name"
                                     required
                                     autofocus
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <div v-if="form.errors.name" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.name" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.name }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="email" class="flex items-center gap-2">
-                                    <Mail class="w-4 h-4 text-gray-500" />
+                                <Label for="email" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Mail class="w-4 h-4 text-terracotta" />
                                     Email Address *
                                 </Label>
                                 <Input
@@ -318,39 +313,41 @@ const getCurrentPhoto = () => {
                                     placeholder="teacher@example.com"
                                     required
                                     autocomplete="username"
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <div v-if="form.errors.email" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.email" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.email }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="phone" class="flex items-center gap-2">
-                                    <Phone class="w-4 h-4 text-gray-500" />
+                                <Label for="phone" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Phone class="w-4 h-4 text-terracotta" />
                                     Phone Number
                                 </Label>
                                 <Input
                                     id="phone"
                                     v-model="form.phone"
                                     type="tel"
-                                    placeholder="+256 700 000 000"
+                                    placeholder="+254 700 000 000"
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <div v-if="form.errors.phone" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.phone" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.phone }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="employment_type" class="flex items-center gap-2">
-                                    <Briefcase class="w-4 h-4 text-gray-500" />
+                                <Label for="employment_type" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Briefcase class="w-4 h-4 text-terracotta" />
                                     Employment Type
                                 </Label>
                                 <select
                                     id="employment_type"
                                     v-model="form.employment_type"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="Full-time">Full-time</option>
                                     <option value="Part-time">Part-time</option>
@@ -358,94 +355,95 @@ const getCurrentPhoto = () => {
                                     <option value="Temporary">Temporary</option>
                                     <option value="Intern">Intern</option>
                                 </select>
-                                <div v-if="form.errors.employment_type" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.employment_type" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.employment_type }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="role" class="flex items-center gap-2">
-                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                <Label for="role" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <UserCircle class="w-4 h-4 text-terracotta" />
                                     Staff Role
                                 </Label>
                                 <select
                                     id="role"
                                     v-model="form.role"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="teacher">Teacher</option>
                                     <option value="librarian">Librarian</option>
                                     <option value="accountant">Accountant</option>
                                     <option value="receptionist">Receptionist</option>
                                 </select>
-                                <div v-if="form.errors.role" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.role" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.role }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="status" class="flex items-center gap-2">
-                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                <Label for="status" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <UserCircle class="w-4 h-4 text-terracotta" />
                                     Status
                                 </Label>
                                 <select
                                     id="status"
                                     v-model="form.status"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>
                                     <option value="Suspended">Suspended</option>
                                     <option value="On Leave">On Leave</option>
                                 </select>
-                                <div v-if="form.errors.status" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.status" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.status }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="date_of_birth" class="flex items-center gap-2">
-                                    <Calendar class="w-4 h-4 text-gray-500" />
+                                <Label for="date_of_birth" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Calendar class="w-4 h-4 text-terracotta" />
                                     Date of Birth
                                 </Label>
                                 <Input
                                     id="date_of_birth"
                                     v-model="form.date_of_birth"
                                     type="date"
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <div v-if="form.errors.date_of_birth" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.date_of_birth" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.date_of_birth }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="gender" class="flex items-center gap-2">
-                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                <Label for="gender" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <UserCircle class="w-4 h-4 text-terracotta" />
                                     Gender
                                 </Label>
                                 <select
                                     id="gender"
                                     v-model="form.gender"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="">Select gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>
                                 </select>
-                                <div v-if="form.errors.gender" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.gender" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.gender }}
                                 </div>
                             </div>
 
                             <div class="space-y-2 md:col-span-2">
-                                <Label for="address" class="flex items-center gap-2">
-                                    <MapPin class="w-4 h-4 text-gray-500" />
+                                <Label for="address" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <MapPin class="w-4 h-4 text-terracotta" />
                                     Address
                                 </Label>
                                 <Input
@@ -453,53 +451,52 @@ const getCurrentPhoto = () => {
                                     v-model="form.address"
                                     type="text"
                                     placeholder="Enter full address"
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <div v-if="form.errors.address" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.address" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.address }}
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
 
                 <!-- Professional Information -->
-                <Card>
-                    <CardHeader>
-                        <CardTitle class="flex items-center gap-2">
-                            <Briefcase class="w-5 h-5" />
+                <div class="card-warm">
+                    <div class="p-6 border-b border-terracotta/20">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                            <Briefcase class="w-5 h-5 text-terracotta" />
                             Professional Information
-                        </CardTitle>
-                        <CardDescription>
+                        </h3>
+                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
                             Update the teacher's professional details and qualifications
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
+                        </p>
+                    </div>
+                    <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label class="flex items-center gap-2">
-                                    <Briefcase class="w-4 h-4 text-gray-500" />
+                                <Label class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Briefcase class="w-4 h-4 text-terracotta" />
                                     Employee ID
                                 </Label>
-
-                                <div class="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm font-medium">
+                                <div class="px-4 py-2 rounded-lg border border-terracotta/20 bg-terracotta/5 text-sm font-medium text-warm-text dark:text-dark-text">
                                     {{ form.employee_id || 'Not generated' }}
                                 </div>
-
-                                <p class="text-xs text-muted-foreground">
+                                <p class="text-xs text-warm-muted dark:text-dark-muted">
                                     This ID is automatically generated and cannot be edited.
                                 </p>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="specialization" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                <Label for="specialization" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Specialization
                                 </Label>
                                 <select
                                     id="specialization"
                                     v-model="form.specialization"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="">Select specialization</option>
                                     <optgroup label="📘 O-Level Core Subjects">
@@ -541,21 +538,21 @@ const getCurrentPhoto = () => {
                                     </optgroup>
                                     <option value="Other">Other</option>
                                 </select>
-                                <div v-if="form.errors.specialization" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.specialization" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.specialization }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="qualification" class="flex items-center gap-2">
-                                    <Award class="w-4 h-4 text-gray-500" />
+                                <Label for="qualification" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Award class="w-4 h-4 text-terracotta" />
                                     Qualification
                                 </Label>
                                 <select
                                     id="qualification"
                                     v-model="form.qualification"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="">Select qualification</option>
                                     <option value="High School Diploma">High School Diploma</option>
@@ -570,21 +567,21 @@ const getCurrentPhoto = () => {
                                     <option value="M.Ed">M.Ed</option>
                                     <option value="Other">Other</option>
                                 </select>
-                                <div v-if="form.errors.qualification" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.qualification" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.qualification }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="experience" class="flex items-center gap-2">
-                                    <Award class="w-4 h-4 text-gray-500" />
+                                <Label for="experience" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Award class="w-4 h-4 text-terracotta" />
                                     Experience
                                 </Label>
                                 <select
                                     id="experience"
                                     v-model="form.experience"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="">Select experience</option>
                                     <option value="Less than 1 year">Less than 1 year</option>
@@ -602,47 +599,48 @@ const getCurrentPhoto = () => {
                                     <option value="16-20 years">16-20 years</option>
                                     <option value="More than 20 years">More than 20 years</option>
                                 </select>
-                                <div v-if="form.errors.experience" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.experience" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.experience }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="joining_date" class="flex items-center gap-2">
-                                    <Calendar class="w-4 h-4 text-gray-500" />
+                                <Label for="joining_date" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Calendar class="w-4 h-4 text-terracotta" />
                                     Joining Date
                                 </Label>
                                 <Input
                                     id="joining_date"
                                     v-model="form.joining_date"
                                     type="date"
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <div v-if="form.errors.joining_date" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.joining_date" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.joining_date }}
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
 
                 <!-- Emergency Contact -->
-                <Card>
-                    <CardHeader>
-                        <CardTitle class="flex items-center gap-2">
-                            <UserCircle class="w-5 h-5" />
+                <div class="card-warm">
+                    <div class="p-6 border-b border-terracotta/20">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                            <UserCircle class="w-5 h-5 text-terracotta" />
                             Emergency Contact
-                        </CardTitle>
-                        <CardDescription>
+                        </h3>
+                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
                             Emergency contact information
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
+                        </p>
+                    </div>
+                    <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label for="emergency_contact_name" class="flex items-center gap-2">
-                                    <User class="w-4 h-4 text-gray-500" />
+                                <Label for="emergency_contact_name" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <User class="w-4 h-4 text-terracotta" />
                                     Contact Name
                                 </Label>
                                 <Input
@@ -650,16 +648,17 @@ const getCurrentPhoto = () => {
                                     v-model="form.emergency_contact_name"
                                     type="text"
                                     placeholder="Enter contact name"
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <div v-if="form.errors.emergency_contact_name" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.emergency_contact_name" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.emergency_contact_name }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="emergency_contact_phone" class="flex items-center gap-2">
-                                    <Phone class="w-4 h-4 text-gray-500" />
+                                <Label for="emergency_contact_phone" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Phone class="w-4 h-4 text-terracotta" />
                                     Phone Number
                                 </Label>
                                 <Input
@@ -667,22 +666,23 @@ const getCurrentPhoto = () => {
                                     v-model="form.emergency_contact_phone"
                                     type="tel"
                                     placeholder="Enter contact phone"
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <div v-if="form.errors.emergency_contact_phone" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.emergency_contact_phone" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.emergency_contact_phone }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="emergency_contact_relationship" class="flex items-center gap-2">
-                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                <Label for="emergency_contact_relationship" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <UserCircle class="w-4 h-4 text-terracotta" />
                                     Relationship
                                 </Label>
                                 <select
                                     id="emergency_contact_relationship"
                                     v-model="form.emergency_contact_relationship"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="">Select relationship</option>
                                     <option value="spouse">Spouse</option>
@@ -692,21 +692,21 @@ const getCurrentPhoto = () => {
                                     <option value="friend">Friend</option>
                                     <option value="other">Other</option>
                                 </select>
-                                <div v-if="form.errors.emergency_contact_relationship" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.emergency_contact_relationship" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.emergency_contact_relationship }}
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="blood_group" class="flex items-center gap-2">
-                                    <Award class="w-4 h-4 text-gray-500" />
+                                <Label for="blood_group" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Award class="w-4 h-4 text-terracotta" />
                                     Blood Group
                                 </Label>
                                 <select
                                     id="blood_group"
                                     v-model="form.blood_group"
-                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-terracotta/30"
                                 >
                                     <option value="">Select blood group</option>
                                     <option value="A+">A+</option>
@@ -718,36 +718,36 @@ const getCurrentPhoto = () => {
                                     <option value="O+">O+</option>
                                     <option value="O-">O-</option>
                                 </select>
-                                <div v-if="form.errors.blood_group" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.blood_group" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.blood_group }}
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
 
                 <!-- Security -->
-                <Card>
-                    <CardHeader>
-                        <CardTitle class="flex items-center gap-2">
-                            <Lock class="w-5 h-5" />
+                <div class="card-warm">
+                    <div class="p-6 border-b border-terracotta/20">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                            <Lock class="w-5 h-5 text-terracotta" />
                             Security Settings
-                        </CardTitle>
-                        <CardDescription>
+                        </h3>
+                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
                             Update teacher account password
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
+                        </p>
+                    </div>
+                    <div class="p-6">
                         <div class="space-y-4">
-                            <div class="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                            <div class="p-4 bg-amber/5 border border-amber/20 rounded-lg">
                                 <div class="flex items-start gap-3">
-                                    <AlertCircle class="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5" />
+                                    <AlertCircle class="w-5 h-5 text-amber mt-0.5" />
                                     <div class="flex-1">
-                                        <h4 class="font-medium text-amber-900 dark:text-amber-200 mb-1">
+                                        <h4 class="font-medium text-amber mb-1">
                                             Password Update Notice
                                         </h4>
-                                        <p class="text-sm text-amber-700 dark:text-amber-300">
+                                        <p class="text-sm text-amber/80">
                                             Leave the password field empty to keep the current password. Only fill this field if you want to change the teacher's password.
                                         </p>
                                     </div>
@@ -755,8 +755,8 @@ const getCurrentPhoto = () => {
                             </div>
                             
                             <div class="space-y-2 max-w-md">
-                                <Label for="password" class="flex items-center gap-2">
-                                    <Lock class="w-4 h-4 text-gray-500" />
+                                <Label for="password" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                    <Lock class="w-4 h-4 text-terracotta" />
                                     New Password
                                 </Label>
                                 <Input
@@ -765,53 +765,43 @@ const getCurrentPhoto = () => {
                                     type="password"
                                     placeholder="Enter new password"
                                     autocomplete="new-password"
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                <p class="text-xs text-warm-muted dark:text-dark-muted">
                                     Minimum 8 characters recommended
                                 </p>
-                                <div v-if="form.errors.password" class="flex items-center gap-2 text-red-600 text-sm">
+                                <div v-if="form.errors.password" class="flex items-center gap-2 text-destructive text-sm">
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.password }}
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
 
                 <!-- Form Actions -->
-                <Card>
-                    <CardContent class="pt-6">
+                <div class="card-warm">
+                    <div class="p-6">
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <p class="text-sm text-warm-muted dark:text-dark-muted">
                                 * Required fields must be filled
                             </p>
                             <div class="flex items-center gap-3">
                                 <Link :href="route('teachers.show', teacher.id)">
-                                    <Button variant="outline" type="button">
+                                    <Button variant="outline" type="button" class="border-terracotta/20">
                                         <X class="w-4 h-4 mr-2" />
                                         Cancel
                                     </Button>
                                 </Link>
-                                <Button type="submit" :disabled="form.processing" size="lg">
+                                <Button type="submit" :disabled="form.processing" size="lg" class="accent-terracotta text-white">
                                     <Save class="w-4 h-4 mr-2" />
                                     {{ form.processing ? 'Updating...' : 'Update Teacher' }}
                                 </Button>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </form>
         </div>
     </Sidebar>
 </template>
-
-<style scoped>
-/* Custom select styling to match shadcn-vue Input component */
-select {
-    transition: all 0.2s;
-}
-
-select:focus {
-    outline: none;
-}
-</style>

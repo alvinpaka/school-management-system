@@ -55,7 +55,7 @@ class TeacherService extends BaseService
         return $this->remember("teacher:{$teacher->id}:detail", function () use ($teacher) {
             $teacher->load([
                 'user:id,name,email,phone,photo,address',
-                'classes:id,name,code,section_id'
+                'classes:id,name,code'
             ]);
 
             // Calculate total students efficiently

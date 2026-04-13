@@ -22,15 +22,17 @@ class FeeController extends Controller
     {
         $search = $request->input('search');
         $studentIds = null;
-        
+
         if (auth()->user()->hasRole('parent')) {
             $studentIds = view()->shared('parentStudentIds', []);
         }
-        
+
         $fees = $this->feeService->getFeesList($search, $studentIds);
-        
+        $students = $this->feeService->getStudentsForSelect();
+
         return Inertia::render('Fees/Index', [
             'fees' => $fees,
+            'students' => $students,
             'filters' => ['search' => $search]
         ]);
     }

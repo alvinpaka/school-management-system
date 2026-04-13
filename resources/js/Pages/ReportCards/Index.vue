@@ -47,7 +47,6 @@ const shareViaWhatsApp = (studentId) => {
         const csrfToken = document.createElement('input');
         csrfToken.type = 'hidden';
         csrfToken.name = '_token';
-        // Try multiple ways to get CSRF token
         const tokenElement = document.querySelector('meta[name="csrf-token"]') || 
                           document.querySelector('meta[name="x-csrf-token"]') ||
                           document.querySelector('input[name="_token"]');
@@ -85,30 +84,38 @@ watch(searchQuery, (newValue) => {
 </script>
 
 <template>
-    <Head title="Report Cards" />
+    <Head title="Report Cards | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <FileText class="w-5 h-5" />
-                <span>Report Cards</span>
+                <FileText class="w-5 h-5 text-terracotta" />
+                <span class="font-semibold text-warm-text dark:text-dark-text">Report Cards</span>
             </div>
         </template>
 
-        <div class="mx-auto max-w-7xl">
+        <div class="mx-auto max-w-7xl space-y-6 animate-fade-in-up">
+            <!-- Page Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Report Cards</h1>
+                    <p class="text-warm-muted dark:text-dark-muted font-medium">Generate and share student report cards</p>
+                </div>
+            </div>
+
             <!-- Search and Filter Section -->
-            <Card class="mb-6">
-                <CardContent class="p-6">
+            <div class="card-warm">
+                <div class="p-6">
                     <div class="flex flex-col lg:flex-row gap-4">
                         <!-- Search Bar -->
                         <div class="flex-1">
                             <div class="relative">
-                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-warm-muted dark:text-dark-muted" />
                                 <input
                                     v-model="searchQuery"
                                     type="text"
                                     placeholder="Search students by name or admission number..."
-                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                    class="w-full pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text"
                                 />
                             </div>
                         </div>
@@ -121,6 +128,7 @@ watch(searchQuery, (newValue) => {
                                 @click="selectClass(classItem.id)"
                                 :variant="selectedClass === classItem.id ? 'default' : 'outline'"
                                 size="sm"
+                                :class="selectedClass === classItem.id ? 'accent-terracotta text-white' : 'border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta'"
                                 class="flex items-center space-x-2"
                             >
                                 <Users class="w-4 h-4" />
@@ -128,20 +136,20 @@ watch(searchQuery, (newValue) => {
                             </Button>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
             <!-- Students Grid -->
             <div v-if="props.students && props.students.data && props.students.data.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <div
                     v-for="student in props.students.data"
                     :key="student.id"
-                    class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6"
+                    class="card-warm p-6 transition-all duration-300 hover:scale-[1.02]"
                 >
                     <!-- Student Header -->
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600">
+                            <div class="w-12 h-12 rounded-xl overflow-hidden bg-terracotta/10 border-2 border-terracotta/20">
                                 <img 
                                     v-if="student.user?.photo" 
                                     :src="`/storage/${student.user.photo}`" 
@@ -149,30 +157,30 @@ watch(searchQuery, (newValue) => {
                                     class="w-full h-full object-cover"
                                 />
                                 <div v-else class="flex items-center justify-center h-full">
-                                    <span class="text-blue-500 text-sm font-bold">{{ student.user?.name?.charAt(0) || 'S' }}</span>
+                                    <span class="text-terracotta text-lg font-black">{{ student.user?.name?.charAt(0) || 'S' }}</span>
                                 </div>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ student.user?.name }}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ student.admission_number }}</p>
+                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text">{{ student.user?.name }}</h3>
+                                <p class="text-sm text-warm-muted dark:text-dark-muted">{{ student.admission_number }}</p>
                             </div>
                         </div>
                         
                         <!-- Class Badge -->
-                        <Badge class="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                        <Badge class="bg-terracotta/10 text-terracotta border-0">
                             {{ student.academic_class?.name || 'N/A' }} - {{ student.section?.name || 'N/A' }}
                         </Badge>
                     </div>
                     
                     <!-- Action Buttons -->
-                    <div class="flex space-x-2">
+                    <div class="flex space-x-2 mt-4">
                         <Button
                             @click="generateReportCard(student.id)"
                             variant="outline"
                             size="sm"
-                            class="flex items-center space-x-1"
+                            class="flex-1 border-terracotta/20 text-terracotta hover:bg-terracotta/10"
                         >
-                            <FileText class="w-3 h-3" />
+                            <FileText class="w-3 h-3 mr-2" />
                             Generate
                         </Button>
                         
@@ -180,9 +188,9 @@ watch(searchQuery, (newValue) => {
                             @click="shareViaWhatsApp(student.id)"
                             variant="outline"
                             size="sm"
-                            class="flex items-center space-x-1"
+                            class="flex-1 border-terracotta/20 text-terracotta hover:bg-terracotta/10"
                         >
-                            <Share class="w-3 h-3" />
+                            <Share class="w-3 h-3 mr-2" />
                             Share
                         </Button>
                     </div>
@@ -190,29 +198,31 @@ watch(searchQuery, (newValue) => {
             </div>
 
             <!-- Empty State -->
-            <div v-else class="text-center py-12">
-                <div class="text-gray-500 dark:text-gray-400">
-                    <FileText class="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                    <h3 class="text-lg font-medium mb-2">No students found</h3>
-                    <p class="text-sm">
-                        {{ searchQuery ? `No students found matching "${searchQuery}"` : 'No students found in this class' }}
-                    </p>
+            <div v-else class="card-warm text-center py-16">
+                <div class="w-20 h-20 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                    <FileText class="w-10 h-10 text-terracotta/30" />
                 </div>
+                <h3 class="text-xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">No students found</h3>
+                <p class="text-warm-muted dark:text-dark-muted">
+                    {{ searchQuery ? `No students found matching "${searchQuery}"` : 'No students found in this class' }}
+                </p>
             </div>
 
             <!-- Pagination -->
             <div v-if="props.students && props.students.links && props.students.links.length > 3" class="mt-8 flex justify-center">
-                <Link
-                    v-for="(link, index) in props.students.links"
-                    :key="index"
-                    :href="link.url"
-                    v-html="link.label"
-                    class="px-3 py-2 mx-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
-                    :class="{
-                        'bg-blue-600 text-white border-blue-600': link.active,
-                        'text-gray-700 dark:text-gray-300': !link.active
-                    }"
-                />
+                <div class="flex flex-wrap gap-2">
+                    <Link
+                        v-for="(link, index) in props.students.links"
+                        :key="index"
+                        :href="link.url"
+                        v-html="link.label"
+                        class="px-3 py-2 text-sm border border-terracotta/20 rounded-lg transition-colors"
+                        :class="{
+                            'bg-terracotta text-white border-terracotta': link.active,
+                            'text-warm-text dark:text-dark-text hover:bg-terracotta/10': !link.active
+                        }"
+                    />
+                </div>
             </div>
         </div>
     </Sidebar>

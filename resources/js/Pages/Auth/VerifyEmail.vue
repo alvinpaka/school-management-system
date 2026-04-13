@@ -36,7 +36,7 @@ const verificationLinkSent = computed(
             
             <CardContent>
                 <div
-                    class="mb-4 text-sm font-medium text-green-600 bg-green-50 dark:bg-green-900/20 p-3 rounded-md"
+                    class="mb-4 text-sm font-medium text-terracotta bg-terracotta/10 dark:bg-terracotta/20 p-3 rounded-md"
                     v-if="verificationLinkSent"
                 >
                     A new verification link has been sent to the email address you

@@ -24,96 +24,130 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Update Fee Status" />
+    <Head title="Update Fee Status | EduManage Pro" />
 
     <Sidebar>
         <template #header-title>
-            Update Fee Record
+            <div class="flex items-center space-x-3">
+                <span class="font-semibold text-warm-text dark:text-dark-text">Update Fee Record</span>
+            </div>
         </template>
 
-        <div class="mx-auto max-w-7xl">
+        <div class="mx-auto max-w-7xl space-y-6 animate-fade-in-up">
             <!-- Page Header -->
-            <div class="mb-6">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Update Fee Record</h2>
-                        <p class="text-gray-600 dark:text-gray-400">{{ fee.student?.user?.name }} ({{ fee.fee_type }})</p>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <Link :href="route('fees.index')">
-                            <Button variant="outline">
-                                Back to Fees
-                            </Button>
-                        </Link>
-                    </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Update Fee Record</h1>
+                    <p class="text-warm-muted dark:text-dark-muted font-medium">
+                        {{ fee.student?.user?.name }} <span class="mx-2">•</span> {{ fee.fee_type }}
+                    </p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <Link :href="route('fees.index')">
+                        <Button variant="outline" class="border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                            Back to Fees
+                        </Button>
+                    </Link>
                 </div>
             </div>
 
             <!-- Edit Form Card -->
-            <Card>
-                <CardHeader>
-                    <CardTitle>Fee Details</CardTitle>
-                    <CardDescription>{{ fee.fee_type }} - <span class="font-medium">UGX</span> {{ Number(fee.amount).toLocaleString() }}</CardDescription>
-                </CardHeader>
-                <CardContent>
+            <div class="card-warm">
+                <div class="p-6 border-b border-terracotta/20">
+                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Fee Details</h3>
+                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        {{ fee.fee_type }} - <span class="font-medium">KES</span> {{ Number(fee.amount).toLocaleString() }}
+                    </p>
+                </div>
+                <div class="p-6">
                     <form @submit.prevent="submit" class="max-w-xl">
                         <div class="space-y-4">
                             <div class="space-y-2">
-                                <Label for="status">Status</Label>
-                                <select id="status" v-model="form.status" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                                <Label for="status" class="text-warm-text dark:text-dark-text">Status</Label>
+                                <select 
+                                    id="status" 
+                                    v-model="form.status" 
+                                    class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text dark:text-dark-text"
+                                >
                                     <option value="pending">Pending</option>
                                     <option value="partially_paid">Partially Paid</option>
                                     <option value="paid">Paid</option>
                                 </select>
-                                <p v-if="form.errors.status" class="text-sm text-red-600 dark:text-red-400">
+                                <p v-if="form.errors.status" class="text-sm text-destructive">
                                     {{ form.errors.status }}
                                 </p>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="amount">Amount (UGX)</Label>
-                                <Input id="amount" type="number" step="1" v-model="form.amount" required :class="{ 'border-red-500': form.errors.amount }" />
-                                <p v-if="form.errors.amount" class="text-sm text-red-600 dark:text-red-400">
+                                <Label for="amount" class="text-warm-text dark:text-dark-text">Amount (KES)</Label>
+                                <Input 
+                                    id="amount" 
+                                    type="number" 
+                                    step="1" 
+                                    v-model="form.amount" 
+                                    required 
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
+                                    :class="{ 'border-destructive focus:ring-destructive/30': form.errors.amount }" 
+                                />
+                                <p v-if="form.errors.amount" class="text-sm text-destructive">
                                     {{ form.errors.amount }}
                                 </p>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="due_date">Due Date</Label>
-                                <Input id="due_date" type="date" v-model="form.due_date" required :class="{ 'border-red-500': form.errors.due_date }" />
-                                <p v-if="form.errors.due_date" class="text-sm text-red-600 dark:text-red-400">
+                                <Label for="due_date" class="text-warm-text dark:text-dark-text">Due Date</Label>
+                                <Input 
+                                    id="due_date" 
+                                    type="date" 
+                                    v-model="form.due_date" 
+                                    required 
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
+                                    :class="{ 'border-destructive focus:ring-destructive/30': form.errors.due_date }" 
+                                />
+                                <p v-if="form.errors.due_date" class="text-sm text-destructive">
                                     {{ form.errors.due_date }}
                                 </p>
                             </div>
 
                             <div class="space-y-2" v-if="form.status === 'paid'">
-                                <Label for="paid_date">Paid Date</Label>
-                                <Input id="paid_date" type="date" v-model="form.paid_date" :class="{ 'border-red-500': form.errors.paid_date }" />
-                                <p v-if="form.errors.paid_date" class="text-sm text-red-600 dark:text-red-400">
+                                <Label for="paid_date" class="text-warm-text dark:text-dark-text">Paid Date</Label>
+                                <Input 
+                                    id="paid_date" 
+                                    type="date" 
+                                    v-model="form.paid_date" 
+                                    class="border-terracotta/20 focus:ring-terracotta/30"
+                                    :class="{ 'border-destructive focus:ring-destructive/30': form.errors.paid_date }" 
+                                />
+                                <p v-if="form.errors.paid_date" class="text-sm text-destructive">
                                     {{ form.errors.paid_date }}
                                 </p>
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="remarks">Remarks</Label>
-                                <textarea id="remarks" v-model="form.remarks" class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" :class="{ 'border-red-500': form.errors.remarks }"></textarea>
-                                <p v-if="form.errors.remarks" class="text-sm text-red-600 dark:text-red-400">
+                                <Label for="remarks" class="text-warm-text dark:text-dark-text">Remarks</Label>
+                                <textarea 
+                                    id="remarks" 
+                                    v-model="form.remarks" 
+                                    class="flex min-h-[80px] w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 placeholder:text-warm-muted text-warm-text dark:text-dark-text"
+                                    :class="{ 'border-destructive focus:ring-destructive/30': form.errors.remarks }"
+                                ></textarea>
+                                <p v-if="form.errors.remarks" class="text-sm text-destructive">
                                     {{ form.errors.remarks }}
                                 </p>
                             </div>
                         </div>
 
-                        <div class="mt-6 flex items-center justify-end space-x-3">
-                            <Link :href="route('fees.index')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900">
+                        <div class="mt-6 flex items-center justify-end space-x-3 pt-4 border-t border-terracotta/20">
+                            <Link :href="route('fees.index')" class="text-sm text-warm-muted dark:text-dark-muted hover:text-terracotta transition-colors">
                                 Cancel
                             </Link>
-                            <Button type="submit" :disabled="form.processing">
+                            <Button type="submit" :disabled="form.processing" class="accent-terracotta text-white">
                                 Update Status
                             </Button>
                         </div>
                     </form>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </div>
     </Sidebar>
 </template>

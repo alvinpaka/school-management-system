@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { User, Mail, Lock, Eye, EyeOff, ArrowLeft, ArrowRight, ShieldCheck, Zap, BarChart3, GraduationCap, CheckCircle2 } from 'lucide-vue-next';
-import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 
@@ -32,9 +31,9 @@ const passwordStrength = computed(() => {
     if (/[^a-zA-Z0-9]/.test(password)) score++;
     
     if (score <= 2) return { score, label: 'Weak', color: 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.4)]' };
-    if (score <= 4) return { score, label: 'Fair', color: 'bg-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.4)]' };
-    if (score <= 5) return { score, label: 'Good', color: 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.4)]' };
-    return { score, label: 'Extremely Strong', color: 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.4)]' };
+    if (score <= 4) return { score, label: 'Fair', color: 'bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.4)]' };
+    if (score <= 5) return { score, label: 'Good', color: 'bg-terracotta shadow-[0_0_10px_rgba(196,98,45,0.4)]' };
+    return { score, label: 'Extremely Strong', color: 'bg-green-600 shadow-[0_0_10px_rgba(22,163,74,0.4)]' };
 });
 
 const submit = () => {
@@ -47,56 +46,56 @@ const submit = () => {
 <template>
     <Head title="Register - EduManage Pro" />
 
-    <div class="min-h-screen flex bg-mesh dark:bg-slate-950 transition-colors duration-500">
+    <div class="min-h-screen flex bg-warm-bg dark:bg-dark-bg transition-colors duration-500">
         <!-- Left Side - Branding (hidden on mobile) -->
         <div class="hidden lg:flex lg:w-[45%] p-16 flex-col justify-between relative overflow-hidden">
             <!-- Decorative Orbs -->
-            <div class="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-emerald-600/10 blur-[100px] rounded-full animate-float" />
-            <div class="absolute -bottom-[10%] right-[10%] w-[50%] h-[50%] bg-indigo-600/10 blur-[100px] rounded-full animate-float" style="animation-delay: 2s" />
+            <div class="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-terracotta/10 blur-[60px] rounded-full animate-float" />
+            <div class="absolute -bottom-[10%] right-[10%] w-[50%] h-[50%] bg-amber-500/10 blur-[60px] rounded-full animate-float" style="animation-delay: 2s" />
             
             <div class="relative z-10">
                 <!-- Logo -->
                 <Link href="/" class="flex items-center space-x-4 mb-20 group">
-                    <div class="w-14 h-14 bg-gradient-to-br from-indigo-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-indigo-500/20 transform transition-all duration-500 group-hover:scale-110">
+                    <div class="w-14 h-14 bg-terracotta rounded-2xl flex items-center justify-center shadow-2xl shadow-terracotta/20 transform transition-all duration-500 group-hover:scale-110">
                         <GraduationCap class="w-8 h-8 text-white" />
                     </div>
                     <div>
-                        <h1 class="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-emerald-600 dark:from-indigo-400 dark:to-emerald-400">
-                            EduManage Pro
+                        <h1 class="text-3xl font-black text-warm-text dark:text-dark-text">
+                            EduManage <span class="text-terracotta">Pro</span>
                         </h1>
-                        <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">The Gold Standard</p>
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-warm-muted font-bold">The Gold Standard</p>
                     </div>
                 </Link>
 
                 <!-- Onboarding Content -->
                 <div class="space-y-16 max-w-lg">
                     <div class="animate-fade-in-up">
-                        <h2 class="text-6xl font-black text-gray-900 dark:text-white mb-6 tracking-tighter leading-tight">
+                        <h2 class="text-6xl font-black text-warm-text dark:text-dark-text mb-6 tracking-tighter leading-tight">
                             Start Your <br/> Legacy.
                         </h2>
-                        <p class="text-xl text-gray-500 dark:text-gray-400 font-medium leading-relaxed">
+                        <p class="text-xl text-warm-muted dark:text-dark-muted font-medium leading-relaxed">
                             Join over 500+ institutions worldwide and experience the most advanced school management system ever built.
                         </p>
                     </div>
 
                     <div class="space-y-8 animate-fade-in-up" style="animation-delay: 0.1s">
                         <div class="flex items-start space-x-6 group">
-                            <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950">
-                                <CheckCircle2 class="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                            <div class="w-12 h-12 bg-warm-bg border border-warm-border shadow-sm rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-950">
+                                <CheckCircle2 class="w-6 h-6 text-terracotta" />
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">Instant Activation</h3>
-                                <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">30-day free trial. No credit card required.</p>
+                                <h3 class="text-lg font-bold text-warm-text dark:text-dark-text mb-1">Instant Activation</h3>
+                                <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">30-day free trial. No credit card required.</p>
                             </div>
                         </div>
 
                         <div class="flex items-start space-x-6 group">
-                            <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950">
-                                <Zap class="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                            <div class="w-12 h-12 bg-warm-bg border border-warm-border shadow-sm rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950">
+                                <Zap class="w-6 h-6 text-terracotta" />
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">Auto-Configuration</h3>
-                                <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Smart setup tailored to your school type.</p>
+                                <h3 class="text-lg font-bold text-warm-text dark:text-dark-text mb-1">Auto-Configuration</h3>
+                                <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">Smart setup tailored to your school type.</p>
                             </div>
                         </div>
                     </div>
@@ -104,13 +103,13 @@ const submit = () => {
             </div>
 
             <!-- Social Proof -->
-            <div class="glass p-8 rounded-[2rem] border-white/20 animate-fade-in-up" style="animation-delay: 0.2s">
+            <div class="bg-warm-bg border border-warm-border shadow-sm p-8 rounded-[2rem] border-warm-border animate-fade-in-up" style="animation-delay: 0.2s">
                 <div class="flex items-center space-x-4">
                     <div class="flex -space-x-3">
-                        <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-white bg-gray-200 dark:border-slate-900" />
+                        <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-white bg-warm-bg dark:bg-dark-bg" />
                     </div>
-                    <p class="text-xs font-bold text-gray-500 dark:text-gray-400">
-                        Join <span class="text-indigo-600 dark:text-indigo-400 text-sm font-black">1.2M+ users</span> already elevating education.
+                    <p class="text-xs font-bold text-warm-muted dark:text-dark-muted">
+                        Join <span class="text-terracotta text-sm font-black">1.2M+ users</span> already elevating education.
                     </p>
                 </div>
             </div>
@@ -118,36 +117,32 @@ const submit = () => {
 
         <!-- Right Side - Registration Form -->
         <div class="w-full lg:w-[55%] flex items-center justify-center p-6 md:p-12 relative">
-            <div class="absolute top-8 right-8 z-20">
-                <DarkModeToggle variant="ghost" class="glass rounded-xl h-12 w-12" />
-            </div>
-
             <div class="w-full max-w-lg animate-scale-up">
                 <!-- Mobile Logo -->
                 <div class="lg:hidden mb-12 text-center">
                     <Link href="/" class="inline-flex items-center space-x-4 group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-indigo-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl transform transition-all duration-300 group-hover:scale-110">
+                        <div class="w-14 h-14 bg-terracotta rounded-2xl flex items-center justify-center shadow-xl transform transition-all duration-300 group-hover:scale-110">
                             <GraduationCap class="w-8 h-8 text-white" />
                         </div>
-                        <span class="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-emerald-600">
-                            EduManage Pro
+                        <span class="text-3xl font-black text-warm-text">
+                            EduManage <span class="text-terracotta">Pro</span>
                         </span>
                     </Link>
                 </div>
 
-                <div class="glass-card p-10 md:p-14 rounded-[3rem] border-white/20 relative">
+                <div class="bg-warm-bg border border-warm-border shadow-sm rounded-xl p-10 md:p-14 rounded-[3rem] border-warm-border relative">
                     <div class="relative z-10">
                         <div class="mb-10 text-center lg:text-left">
-                            <h3 class="text-4xl font-black text-gray-900 dark:text-white mb-3 tracking-tighter">Register</h3>
-                            <p class="text-gray-500 dark:text-gray-400 font-medium">Create your institutional legacy.</p>
+                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text mb-3 tracking-tighter">Register</h3>
+                            <p class="text-warm-muted dark:text-dark-muted font-medium">Create your institutional legacy.</p>
                         </div>
 
                         <form @submit.prevent="submit" class="space-y-6">
                             <!-- Full Name -->
                             <div class="space-y-2">
-                                <Label for="name" class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Full Name</Label>
+                                <Label for="name" class="text-sm font-bold text-warm-text dark:text-dark-text ml-1">Full Name</Label>
                                 <div class="relative group">
-                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted group-focus-within:text-terracotta transition-colors">
                                         <User class="w-5 h-5" />
                                     </div>
                                     <Input
@@ -156,18 +151,18 @@ const submit = () => {
                                         placeholder="Principal Name / Admin Name"
                                         required
                                         autofocus
-                                        class="h-14 pl-12 glass bg-white/50 dark:bg-slate-900/50 rounded-2xl border-white/10 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
-                                        :class="{ 'border-red-500/50': form.errors.name }"
+                                        class="h-14 pl-12 bg-warm-bg border border-warm-border shadow-sm bg-warm-bg dark:bg-dark-bg rounded-2xl  focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
+                                        :class="{ 'border-destructive/50': form.errors.name }"
                                     />
                                 </div>
-                                <p v-if="form.errors.name" class="text-xs text-red-500 font-bold ml-1">{{ form.errors.name }}</p>
+                                <p v-if="form.errors.name" class="text-xs text-destructive font-bold ml-1">{{ form.errors.name }}</p>
                             </div>
 
                             <!-- Email Address -->
                             <div class="space-y-2">
-                                <Label for="email" class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Email Address</Label>
+                                <Label for="email" class="text-sm font-bold text-warm-text dark:text-dark-text ml-1">Email Address</Label>
                                 <div class="relative group">
-                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted group-focus-within:text-terracotta transition-colors">
                                         <Mail class="w-5 h-5" />
                                     </div>
                                     <Input
@@ -176,18 +171,18 @@ const submit = () => {
                                         v-model="form.email"
                                         placeholder="admin@school-domain.com"
                                         required
-                                        class="h-14 pl-12 glass bg-white/50 dark:bg-slate-900/50 rounded-2xl border-white/10 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
-                                        :class="{ 'border-red-500/50': form.errors.email }"
+                                        class="h-14 pl-12 bg-warm-bg border border-warm-border shadow-sm bg-warm-bg dark:bg-dark-bg rounded-2xl  focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
+                                        :class="{ 'border-destructive/50': form.errors.email }"
                                     />
                                 </div>
-                                <p v-if="form.errors.email" class="text-xs text-red-500 font-bold ml-1">{{ form.errors.email }}</p>
+                                <p v-if="form.errors.email" class="text-xs text-destructive font-bold ml-1">{{ form.errors.email }}</p>
                             </div>
 
                             <!-- Password -->
                             <div class="space-y-2">
-                                <Label for="password" class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Secure Password</Label>
+                                <Label for="password" class="text-sm font-bold text-warm-text dark:text-dark-text ml-1">Secure Password</Label>
                                 <div class="relative group">
-                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted group-focus-within:text-terracotta transition-colors">
                                         <Lock class="w-5 h-5" />
                                     </div>
                                     <Input
@@ -196,10 +191,11 @@ const submit = () => {
                                         v-model="form.password"
                                         placeholder="Create a strong password"
                                         required
-                                        class="h-14 pl-12 pr-12 glass bg-white/50 dark:bg-slate-900/50 rounded-2xl border-white/10 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
-                                        :class="{ 'border-red-500/50': form.errors.password }"
+                                        autocomplete="new-password"
+                                        class="h-14 pl-12 pr-12 bg-warm-bg border border-warm-border shadow-sm bg-warm-bg dark:bg-dark-bg rounded-2xl  focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
+                                        :class="{ 'border-destructive/50': form.errors.password }"
                                     />
-                                    <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 transition-colors">
+                                    <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-warm-muted hover:text-terracotta transition-colors">
                                         <Eye v-if="!showPassword" class="w-5 h-5" />
                                         <EyeOff v-else class="w-5 h-5" />
                                     </button>
@@ -211,7 +207,7 @@ const submit = () => {
                                         <div 
                                             v-for="i in 6" 
                                             :key="i"
-                                            class="h-1.5 flex-1 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden"
+                                            class="h-1.5 flex-1 rounded-full bg-warm-border dark:bg-dark-border overflow-hidden"
                                         >
                                             <div 
                                                 class="h-full transition-all duration-500"
@@ -220,19 +216,19 @@ const submit = () => {
                                         </div>
                                     </div>
                                     <div class="flex justify-between items-center">
-                                        <span class="text-[10px] font-black uppercase tracking-wider" :class="passwordStrength.score > 2 ? 'text-indigo-600 dark:text-indigo-400' : 'text-red-500'">
+                                        <span class="text-[10px] font-black uppercase tracking-wider" :class="passwordStrength.score > 2 ? 'text-terracotta' : 'text-destructive'">
                                             Strength: {{ passwordStrength.label }}
                                         </span>
                                     </div>
                                 </div>
-                                <p v-if="form.errors.password" class="text-xs text-red-500 font-bold ml-1">{{ form.errors.password }}</p>
+                                <p v-if="form.errors.password" class="text-xs text-destructive font-bold ml-1">{{ form.errors.password }}</p>
                             </div>
 
                             <!-- Password Confirmation -->
                             <div class="space-y-2">
-                                <Label for="password_confirmation" class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Confirm Password</Label>
+                                <Label for="password_confirmation" class="text-sm font-bold text-warm-text dark:text-dark-text ml-1">Confirm Password</Label>
                                 <div class="relative group">
-                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-violet-600 transition-colors">
+                                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted group-focus-within:text-terracotta transition-colors">
                                         <ShieldCheck class="w-5 h-5" />
                                     </div>
                                     <Input
@@ -241,10 +237,11 @@ const submit = () => {
                                         v-model="form.password_confirmation"
                                         placeholder="Repeat your password"
                                         required
-                                        class="h-14 pl-12 pr-12 glass bg-white/50 dark:bg-slate-900/50 rounded-2xl border-white/10 focus:ring-2 focus:ring-violet-500/20 transition-all font-medium"
-                                        :class="{ 'border-red-500/50': form.errors.password_confirmation }"
+                                        autocomplete="new-password"
+                                        class="h-14 pl-12 pr-12 bg-warm-bg border border-warm-border shadow-sm bg-warm-bg dark:bg-dark-bg rounded-2xl  focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
+                                        :class="{ 'border-destructive/50': form.errors.password_confirmation }"
                                     />
-                                    <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-violet-600 transition-colors">
+                                    <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-warm-muted hover:text-terracotta transition-colors">
                                         <Eye v-if="!showConfirmPassword" class="w-5 h-5" />
                                         <EyeOff v-else class="w-5 h-5" />
                                     </button>
@@ -253,7 +250,7 @@ const submit = () => {
 
                             <Button
                                 type="submit"
-                                class="w-full h-14 mt-4 text-white font-black text-lg bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-700 hover:to-emerald-700 shadow-xl shadow-indigo-500/20 rounded-2xl transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-3"
+                                class="w-full h-14 mt-4 text-white font-black text-lg bg-terracotta hover:bg-terracotta/90 shadow-xl shadow-terracotta/20 rounded-2xl transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-3"
                                 :disabled="form.processing"
                             >
                                 <span v-if="!form.processing">Create Academy Profile</span>
@@ -269,11 +266,11 @@ const submit = () => {
 
                 <!-- Footer Actions -->
                 <div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 px-4 pb-8">
-                    <p class="text-sm font-bold text-gray-500 dark:text-gray-400">
+                    <p class="text-sm font-bold text-warm-muted dark:text-dark-muted">
                         Already registered?
-                        <Link :href="route('login')" class="text-indigo-600 dark:text-indigo-400 hover:underline ml-1 font-black">Sign in here</Link>
+                        <Link :href="route('login')" class="text-terracotta hover:underline ml-1 font-black">Sign in here</Link>
                     </p>
-                    <Link href="/" class="text-sm font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 flex items-center gap-2">
+                    <Link href="/" class="text-sm font-bold text-warm-muted dark:text-dark-muted hover:text-terracotta flex items-center gap-2">
                         <ArrowLeft class="w-4 h-4" />
                         Back to site
                     </Link>

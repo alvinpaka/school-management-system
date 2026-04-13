@@ -43,9 +43,9 @@ const isAdminOrTeacher = computed(() => userRoles.value.some(r => ['admin', 'tea
 
 const getStatusColor = (status) => {
     switch (status) {
-        case 'completed': return 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20';
-        case 'ongoing':   return 'bg-amber-500/10 text-amber-600 border-amber-500/20';
-        default:          return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
+        case 'completed': return 'bg-forest/10 text-forest border-forest/20';
+        case 'ongoing':   return 'bg-amber/10 text-amber border-amber/20';
+        default:          return 'bg-terracotta/10 text-terracotta border-terracotta/20';
     }
 };
 </script>
@@ -57,35 +57,35 @@ const getStatusColor = (status) => {
         <template #header-title>
             <div class="flex items-center gap-2">
                 <Link :href="route('exams.index')">
-                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-white/10">
+                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
                         <ArrowLeft class="w-4 h-4 mr-2" />
                         Assessments
                     </Button>
                 </Link>
-                <span class="text-gray-400">/</span>
-                <span class="font-black text-sm uppercase tracking-wider text-gray-500">Exam Intelligence</span>
+                <span class="text-warm-muted dark:text-dark-muted">/</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">Exam Intelligence</span>
             </div>
         </template>
 
         <div class="space-y-8 animate-fade-in-up">
             <!-- Header -->
-            <div class="relative overflow-hidden bg-white dark:bg-slate-900 shadow-sm rounded-[3rem] border border-slate-200 dark:border-slate-800 p-8 md:p-12">
+            <div class="relative overflow-hidden card-warm rounded-[3rem] p-8 md:p-12">
                 <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div class="flex items-center gap-8">
-                        <div class="w-24 h-24 bg-slate-50 dark:bg-slate-800 rounded-[2rem] flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm">
-                            <Trophy class="w-12 h-12 text-amber-500" />
+                        <div class="w-24 h-24 bg-terracotta/5 rounded-[2rem] flex items-center justify-center border border-terracotta/20 shadow-sm">
+                            <Trophy class="w-12 h-12 text-amber" />
                         </div>
                         <div>
                             <div class="flex items-center gap-2 mb-2">
                                 <Badge :class="['rounded-lg px-3 py-1 text-[10px] font-black uppercase tracking-widest border-0 shadow-sm', getStatusColor(exam.status)]">
                                     {{ exam.status }}
                                 </Badge>
-                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Term: {{ exam.term || 'Primary' }}</span>
+                                <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Term: {{ exam.term || 'Primary' }}</span>
                             </div>
-                            <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-2 tracking-tighter">
+                            <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">
                                 {{ exam.name }}
                             </h1>
-                            <p class="text-lg text-gray-500 dark:text-gray-400 font-medium">
+                            <p class="text-lg text-warm-muted dark:text-dark-muted font-medium">
                                 Professional examination registry and assessment scheduling.
                             </p>
                         </div>
@@ -93,7 +93,7 @@ const getStatusColor = (status) => {
 
                     <div v-if="isAdminOrTeacher" class="flex flex-wrap items-center gap-3">
                         <Link :href="route('exams.edit', exam.id)">
-                            <Button class="bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl h-14 px-8 shadow-md">
+                            <Button class="accent-terracotta text-white font-black rounded-2xl h-14 px-8 shadow-md shadow-terracotta/30">
                                 <Edit class="w-5 h-5 mr-2" />
                                 Edit Schedule
                             </Button>
@@ -107,45 +107,44 @@ const getStatusColor = (status) => {
                 <div class="lg:col-span-2 space-y-8">
 
                     <!-- Examination Details Card -->
-                    <Card class="bg-white dark:bg-slate-900 shadow-sm border-slate-200 dark:border-slate-800 rounded-[3rem] overflow-hidden">
-                        <CardHeader class="p-8 border-b border-slate-50 dark:border-slate-800">
-                            <CardTitle class="text-2xl font-black tracking-tighter flex items-center gap-3">
-                                <ShieldCheck class="w-6 h-6 text-indigo-600" />
+                    <div class="card-warm rounded-[3rem] overflow-hidden">
+                        <div class="p-8 border-b border-terracotta/20">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                                <ShieldCheck class="w-6 h-6 text-terracotta" />
                                 Examination Integrity & Details
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent class="p-8">
-                            <!-- ✅ Single grid wrapping all three detail blocks -->
+                            </h3>
+                        </div>
+                        <div class="p-8">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                                 <!-- Time Window -->
-                                <div class="md:col-span-2 p-6 rounded-[2rem] bg-gray-50/50 dark:bg-white/5 border border-white/10 group">
+                                <div class="md:col-span-2 p-6 rounded-[2rem] bg-terracotta/5 border border-terracotta/20 group">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-600 group-hover:scale-110 transition-transform">
+                                        <div class="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center text-amber group-hover:scale-110 transition-transform">
                                             <Clock class="w-5 h-5" />
                                         </div>
-                                        <h4 class="font-black text-gray-900 dark:text-white uppercase tracking-tighter">Time Window</h4>
+                                        <h4 class="font-black text-warm-text dark:text-dark-text uppercase tracking-tighter">Time Window</h4>
                                     </div>
-                                    <p class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">
+                                    <p class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tight">
                                         {{ exam.start_time }} — {{ exam.end_time }}
                                     </p>
                                 </div>
 
                                 <!-- Max Score -->
-                                <div class="p-6 rounded-[2rem] bg-gray-50/50 dark:bg-white/5 border border-white/10 group">
+                                <div class="p-6 rounded-[2rem] bg-terracotta/5 border border-terracotta/20 group">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform">
+                                        <div class="w-10 h-10 rounded-xl bg-forest/10 flex items-center justify-center text-forest group-hover:scale-110 transition-transform">
                                             <Target class="w-5 h-5" />
                                         </div>
-                                        <h4 class="font-black text-gray-900 dark:text-white uppercase tracking-tighter">Maximum Score</h4>
+                                        <h4 class="font-black text-warm-text dark:text-dark-text uppercase tracking-tighter">Maximum Score</h4>
                                     </div>
-                                    <p class="text-4xl font-black text-emerald-600 tracking-tighter">
+                                    <p class="text-4xl font-black text-forest tracking-tighter">
                                         {{ exam.max_marks }} Pts
                                     </p>
                                 </div>
 
                                 <!-- System Priority -->
-                                <div class="p-6 rounded-[2rem] bg-indigo-600 text-white shadow-xl shadow-indigo-500/20">
+                                <div class="p-6 rounded-[2rem] accent-terracotta text-white shadow-xl shadow-terracotta/30">
                                     <div class="flex items-center gap-4 mb-4">
                                         <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
                                             <Zap class="w-5 h-5" />
@@ -158,66 +157,66 @@ const getStatusColor = (status) => {
                                 </div>
 
                             </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
 
                     <!-- Student Results Overview -->
-                    <Card v-if="!isAdminOrTeacher && exam.status === 'completed'" class="glass shadow-2xl border-white/10 rounded-[3rem] overflow-hidden bg-gradient-to-br from-emerald-500/5 to-transparent">
-                        <CardHeader class="p-8">
-                            <CardTitle class="text-2xl font-black tracking-tighter flex items-center gap-3">
-                                <CheckCircle2 class="w-6 h-6 text-emerald-600" />
+                    <div v-if="!isAdminOrTeacher && exam.status === 'completed'" class="card-warm rounded-[3rem] overflow-hidden bg-gradient-to-br from-forest/5 to-transparent">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                                <CheckCircle2 class="w-6 h-6 text-forest" />
                                 My Performance Scorecard
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent class="p-8 pt-0">
-                            <div class="flex items-center justify-between p-8 glass bg-white/50 dark:bg-slate-900/50 rounded-[2.5rem] border-emerald-500/20">
+                            </h3>
+                        </div>
+                        <div class="p-8 pt-0">
+                            <div class="flex items-center justify-between p-8 bg-white dark:bg-dark-bg rounded-[2.5rem] border border-forest/20">
                                 <div>
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Final Result</p>
-                                    <h3 class="text-5xl font-black italic tracking-tighter text-emerald-600">A-</h3>
+                                    <p class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest mb-1">Final Result</p>
+                                    <h3 class="text-5xl font-black italic tracking-tighter text-forest">A-</h3>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total Points</p>
-                                    <h3 class="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">88 / 100</h3>
+                                    <p class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest mb-1">Total Points</p>
+                                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter">88 / 100</h3>
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
 
                 </div><!-- end lg:col-span-2 -->
 
                 <!-- Right Sidebar -->
                 <div class="space-y-8">
-                    <div class="glass-card rounded-[3rem] border-white/10 p-8">
-                        <h3 class="text-xl font-black text-gray-900 dark:text-white tracking-tighter mb-8 bg-indigo-500/10 rounded-xl px-4 py-1 inline-block">Exam Context</h3>
+                    <div class="card-warm rounded-[3rem] p-8">
+                        <h3 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-8 bg-terracotta/5 rounded-xl px-4 py-1 inline-block">Exam Context</h3>
 
                         <div class="space-y-6">
-                            <div class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 group">
+                            <div class="flex items-center justify-between p-4 rounded-2xl bg-terracotta/5 border border-terracotta/20 group">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+                                    <div class="w-10 h-10 rounded-xl bg-terracotta/10 flex items-center justify-center text-terracotta group-hover:scale-110 transition-transform">
                                         <BookOpen class="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Subject</p>
-                                        <p class="text-sm font-black text-gray-900 dark:text-white">{{ exam.subject?.name || 'General' }}</p>
+                                        <p class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Subject</p>
+                                        <p class="text-sm font-black text-warm-text dark:text-dark-text">{{ exam.subject?.name || 'General' }}</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 group">
+                            <div class="flex items-center justify-between p-4 rounded-2xl bg-terracotta/5 border border-terracotta/20 group">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-600 group-hover:scale-110 transition-transform">
+                                    <div class="w-10 h-10 rounded-xl bg-amber/10 flex items-center justify-center text-amber group-hover:scale-110 transition-transform">
                                         <Award class="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Weightage</p>
-                                        <p class="text-sm font-black text-gray-900 dark:text-white">35% of Total</p>
+                                        <p class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Weightage</p>
+                                        <p class="text-sm font-black text-warm-text dark:text-dark-text">35% of Total</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <Link :href="route('exams.index')" class="block mt-8">
-                            <Button variant="outline" class="w-full h-12 glass border-white/10 text-gray-700 hover:text-indigo-600 hover:bg-white/50 font-black rounded-2xl">
+                            <Button variant="outline" class="w-full h-12 border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta hover:bg-terracotta/5 font-black rounded-2xl">
                                 <ArrowLeft class="w-4 h-4 mr-2" />
                                 Return to List
                             </Button>
@@ -225,11 +224,11 @@ const getStatusColor = (status) => {
                     </div>
 
                     <!-- Staff Console -->
-                    <div v-if="isAdminOrTeacher" class="glass-card rounded-[3rem] border-white/10 p-8 bg-gradient-to-br from-indigo-600/5 to-transparent">
-                        <h3 class="text-xl font-black text-gray-900 dark:text-white tracking-tighter mb-6">Staff Console</h3>
+                    <div v-if="isAdminOrTeacher" class="card-warm rounded-[3rem] p-8 bg-gradient-to-br from-terracotta/5 to-transparent">
+                        <h3 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-6">Staff Console</h3>
                         <div class="grid grid-cols-1 gap-4">
                             <Link :href="route('exams.grades.enter', exam.id)">
-                                <Button class="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-lg shadow-emerald-500/20">
+                                <Button class="w-full h-12 accent-terracotta text-white font-black rounded-2xl shadow-lg shadow-terracotta/30">
                                     <BarChart3 class="w-4 h-4 mr-2" />
                                     Input Results
                                 </Button>
@@ -242,14 +241,3 @@ const getStatusColor = (status) => {
         </div><!-- end space-y-8 -->
     </Sidebar>
 </template>
-
-<style scoped>
-.animate-fade-in-up {
-    animation: fadeInUp 0.5s ease-out forwards;
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-</style>

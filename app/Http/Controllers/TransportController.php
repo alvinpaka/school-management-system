@@ -8,6 +8,11 @@ class TransportController extends Controller
 {
     public function index()
     {
+        // Teacher should not access transport
+        if (auth()->user()->hasRole('teacher')) {
+            abort(403, 'You are not authorized to access transport.');
+        }
+
         return Inertia::render('Transport/Index', [
             'routes' => [
                 [
@@ -62,6 +67,11 @@ class TransportController extends Controller
 
     public function show($id)
     {
+        // Teacher should not access transport
+        if (auth()->user()->hasRole('teacher')) {
+            abort(403, 'You are not authorized to access transport.');
+        }
+
         // Mock route details
         $route = [
             'id' => $id,

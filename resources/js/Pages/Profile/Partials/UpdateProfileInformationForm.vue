@@ -24,20 +24,14 @@ const form = useForm({
 
 <template>
     <section>
-        <Card>
-            <CardHeader>
-                <CardTitle>Profile Information</CardTitle>
-                <CardDescription>
-                    Update your account's profile information and email address.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
+        <div class="card-warm">
+            <div class="p-6">
                 <form
                     @submit.prevent="form.patch(route('profile.update'))"
                     class="space-y-6"
                 >
                     <div class="space-y-2">
-                        <Label for="name">Name</Label>
+                        <Label for="name" class="text-warm-text dark:text-dark-text">Name</Label>
                         <Input
                             id="name"
                             type="text"
@@ -45,36 +39,38 @@ const form = useForm({
                             required
                             autofocus
                             autocomplete="name"
-                            :class="{ 'border-red-500': form.errors.name }"
+                            class="border-terracotta/20 focus:ring-terracotta/30"
+                            :class="{ 'border-destructive focus:ring-destructive/30': form.errors.name }"
                         />
-                        <p v-if="form.errors.name" class="text-sm text-red-600 dark:text-red-400">
+                        <p v-if="form.errors.name" class="text-sm text-destructive">
                             {{ form.errors.name }}
                         </p>
                     </div>
 
                     <div class="space-y-2">
-                        <Label for="email">Email</Label>
+                        <Label for="email" class="text-warm-text dark:text-dark-text">Email</Label>
                         <Input
                             id="email"
                             type="email"
                             v-model="form.email"
                             required
                             autocomplete="username"
-                            :class="{ 'border-red-500': form.errors.email }"
+                            class="border-terracotta/20 focus:ring-terracotta/30"
+                            :class="{ 'border-destructive focus:ring-destructive/30': form.errors.email }"
                         />
-                        <p v-if="form.errors.email" class="text-sm text-red-600 dark:text-red-400">
+                        <p v-if="form.errors.email" class="text-sm text-destructive">
                             {{ form.errors.email }}
                         </p>
                     </div>
 
                     <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                        <p class="text-sm text-gray-800 dark:text-gray-200">
+                        <p class="text-sm text-warm-muted dark:text-dark-muted">
                             Your email address is unverified.
                             <Link
                                 :href="route('verification.send')"
                                 method="post"
                                 as="button"
-                                class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+                                class="rounded-md text-sm text-terracotta underline hover:text-terracotta/80 focus:outline-none focus:ring-2 focus:ring-terracotta focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                             >
                                 Click here to re-send the verification email.
                             </Link>
@@ -82,14 +78,14 @@ const form = useForm({
 
                         <div
                             v-show="status === 'verification-link-sent'"
-                            class="mt-2 text-sm font-medium text-green-600 dark:text-green-400"
+                            class="mt-2 text-sm font-medium text-forest"
                         >
                             A new verification link has been sent to your email address.
                         </div>
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <Button type="submit" :disabled="form.processing">
+                        <Button type="submit" :disabled="form.processing" class="accent-terracotta text-white">
                             Save
                         </Button>
 
@@ -100,11 +96,11 @@ const form = useForm({
                             leave-from-class="opacity-0"
                             leave-to-class="opacity-0"
                         >
-                            <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
+                            <p v-if="form.recentlySuccessful" class="text-sm text-forest">Saved.</p>
                         </Transition>
                     </div>
                 </form>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     </section>
 </template>

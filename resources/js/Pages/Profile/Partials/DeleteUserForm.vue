@@ -46,26 +46,26 @@ const closeModal = () => {
 
 <template>
     <section class="space-y-6">
-        <Card>
-            <CardHeader>
-                <CardTitle class="text-red-600">Delete Account</CardTitle>
-                <CardDescription>
+        <div class="card-warm border-destructive/20">
+            <div class="p-6 border-b border-destructive/20">
+                <h3 class="text-lg font-black text-destructive">Delete Account</h3>
+                <p class="text-sm text-destructive/70 mt-1">
                     Once your account is deleted, all of its resources and data will be permanently deleted. 
                     Before deleting your account, please download any data or information that you wish to retain.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Button variant="destructive" @click="confirmUserDeletion">
+                </p>
+            </div>
+            <div class="p-6">
+                <Button variant="destructive" @click="confirmUserDeletion" class="bg-destructive hover:bg-destructive/90 text-white shadow-md shadow-destructive/20">
                     Delete Account
                 </Button>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
 
         <Dialog :open="confirmingUserDeletion" @update:open="closeModal">
-            <DialogContent>
+            <DialogContent class="card-warm rounded-[2.5rem] shadow-2xl">
                 <DialogHeader>
-                    <DialogTitle>Are you sure you want to delete your account?</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle class="text-2xl font-black tracking-tighter text-destructive">Are you sure you want to delete your account?</DialogTitle>
+                    <DialogDescription class="text-warm-muted dark:text-dark-muted font-medium">
                         Once your account is deleted, all of its resources and data will be permanently deleted. 
                         Please enter your password to confirm you would like to permanently delete your account.
                     </DialogDescription>
@@ -91,22 +91,24 @@ const closeModal = () => {
                             type="password"
                             placeholder="Password"
                             @keyup.enter="deleteUser"
-                            :class="{ 'border-red-500': form.errors.password }"
+                            class="border-terracotta/20 focus:ring-terracotta/30"
+                            :class="{ 'border-destructive focus:ring-destructive/30': form.errors.password }"
                         />
-                        <p v-if="form.errors.password" class="text-sm text-red-600 dark:text-red-400">
+                        <p v-if="form.errors.password" class="text-sm text-destructive">
                             {{ form.errors.password }}
                         </p>
                     </div>
                 </div>
 
                 <DialogFooter>
-                    <Button variant="outline" @click="closeModal">
+                    <Button variant="outline" @click="closeModal" class="border-terracotta/20">
                         Cancel
                     </Button>
                     <Button
                         variant="destructive"
                         :disabled="form.processing"
                         @click="deleteUser"
+                        class="bg-destructive hover:bg-destructive/90 text-white shadow-md shadow-destructive/20"
                     >
                         Delete Account
                     </Button>

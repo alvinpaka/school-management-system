@@ -5,26 +5,36 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ParentResource;
 use App\Models\ParentUser;
 use App\Services\ParentService;
+use App\Services\StudentService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ParentController extends Controller
 {
     protected ParentService $parentService;
+    protected StudentService $studentService;
 
-    public function __construct(ParentService $parentService)
+    public function __construct(ParentService $parentService, StudentService $studentService)
     {
         $this->parentService = $parentService;
+        $this->studentService = $studentService;
     }
 
     public function index(Request $request)
     {
+        // Students should not access parents module
+        if (auth()->user()->hasRole('student')) {
+            abort(403, 'You are not authorized to access parents.');
+        }
+
         $search = $request->input('search');
-        
+
         $parents = $this->parentService->getParentsList($search);
-        
+        $students = $this->studentService->getAllStudentsForSelect();
+
         return Inertia::render('Parents/Index', [
             'parents' => $parents,
+            'students' => $students,
             'filters' => ['search' => $search]
         ]);
     }
@@ -60,6 +70,11 @@ class ParentController extends Controller
 
     public function show(ParentUser $parent)
     {
+        // Students should not access parents module
+        if (auth()->user()->hasRole('student')) {
+            abort(403, 'You are not authorized to access parents.');
+        }
+
         // Check if parent is trying to access another parent's data
         if (auth()->user()->hasRole('parent')) {
             if (auth()->id() !== $parent->user_id) {
@@ -74,6 +89,11 @@ class ParentController extends Controller
 
     public function edit(ParentUser $parent)
     {
+        // Students should not access parents module
+        if (auth()->user()->hasRole('student')) {
+            abort(403, 'You are not authorized to access parents.');
+        }
+
         // Check if parent is trying to access another parent's data
         if (auth()->user()->hasRole('parent')) {
             if (auth()->id() !== $parent->user_id) {

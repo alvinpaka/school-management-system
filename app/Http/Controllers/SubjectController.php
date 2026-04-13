@@ -12,6 +12,11 @@ class SubjectController extends Controller
 {
     public function index(Request $request)
     {
+        // Accountant and Librarian should not access subjects
+        if (auth()->user()->hasRole(['accountant', 'librarian'])) {
+            abort(403, 'You are not authorized to access subjects.');
+        }
+
         $search = $request->input('search');
         
         $query = Subject::query();
@@ -46,11 +51,21 @@ class SubjectController extends Controller
 
     public function create()
     {
+        // Accountant and Librarian should not access subjects
+        if (auth()->user()->hasRole(['accountant', 'librarian'])) {
+            abort(403, 'You are not authorized to access subjects.');
+        }
+
         return Inertia::render('Subjects/Create');
     }
 
     public function show(Subject $subject)
     {
+        // Accountant and Librarian should not access subjects
+        if (auth()->user()->hasRole(['accountant', 'librarian'])) {
+            abort(403, 'You are not authorized to access subjects.');
+        }
+
         return Inertia::render('Subjects/Show', [
             'subject' => $subject
         ]);

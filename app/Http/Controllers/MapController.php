@@ -8,6 +8,11 @@ class MapController extends Controller
 {
     public function index()
     {
+        // Accountant and Librarian should not access map
+        if (auth()->user()->hasRole(['accountant', 'librarian'])) {
+            abort(403, 'You are not authorized to access the map.');
+        }
+
         return Inertia::render('Map/Index', [
             'schoolInfo' => [
                 'name' => 'Springfield Educational Complex',

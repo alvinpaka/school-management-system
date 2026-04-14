@@ -24,7 +24,7 @@ class TeacherService extends BaseService
                     'employment_type', 'status', 'qualification', 'experience',
                     'joining_date', 'gender'
                 ])
-                ->with(['user:id,name,email,photo']);
+                ->with(['user:id,name,email,photo', 'user.roles:id,name']);
 
             // Search functionality
             if ($search) {
@@ -46,7 +46,15 @@ class TeacherService extends BaseService
                 });
             }
 
-            return $query->latest()->paginate($perPage);
+            $paginator = $query->latest()->paginate($perPage);
+            
+            // Transform to include role
+            $paginator->getCollection()->transform(function ($teacher) {
+                $teacher->role = $teacher->user->roles->first()?->name ?? 'teacher';
+                return $teacher;
+            });
+            
+            return $paginator;
         }, $this->cacheTTL);
     }
 
@@ -55,11 +63,37 @@ class TeacherService extends BaseService
         return $this->remember("teacher:{$teacher->id}:detail", function () use ($teacher) {
             $teacher->load([
                 'user:id,name,email,phone,photo,address',
-                'classes:id,name,code'
+                'user.roles:id,name',
+                'classes:id,name,code',
+                'classes.sections:id,name,academic_class_id',
+                'subjects:id,name,code,type'
             ]);
 
             // Calculate total students efficiently
             $totalStudents = $teacher->classes->sum(fn($class) => $class->students()->count());
+
+            // Get unique class assignments with section info from pivot
+            $classAssignments = [];
+            foreach ($teacher->classes as $class) {
+                $sectionId = $class->pivot->section_id ?? null;
+                $sectionName = null;
+                if ($sectionId && $class->sections) {
+                    $section = $class->sections->firstWhere('id', $sectionId);
+                    $sectionName = $section?->name;
+                }
+                $classAssignments[] = [
+                    'id' => $class->id,
+                    'name' => $class->name,
+                    'code' => $class->code,
+                    'section_id' => $sectionId,
+                    'section_name' => $sectionName,
+                    'is_class_teacher' => $class->pivot->is_class_teacher ?? false,
+                ];
+            }
+
+            // Get user roles
+            $userRoles = $teacher->user->roles->pluck('name')->toArray();
+            $primaryRole = $userRoles[0] ?? 'teacher';
 
             return [
                 'id' => $teacher->id,
@@ -80,6 +114,8 @@ class TeacherService extends BaseService
                 'emergency_contact_relationship' => $teacher->emergency_contact_relationship,
                 'blood_group' => $teacher->blood_group,
                 'total_students' => $totalStudents,
+                'role' => $primaryRole,
+                'roles' => $userRoles,
                 'user' => [
                     'id' => $teacher->user->id,
                     'name' => $teacher->user->name,
@@ -88,10 +124,14 @@ class TeacherService extends BaseService
                     'photo' => $teacher->user->photo,
                     'address' => $teacher->user->address,
                 ],
-                'classes' => $teacher->classes->map(fn($class) => [
-                    'id' => $class->id,
-                    'name' => $class->name,
-                    'code' => $class->code,
+                'classes' => $classAssignments,
+                'subjects' => $teacher->subjects->map(fn($subject) => [
+                    'id' => $subject->id,
+                    'name' => $subject->name,
+                    'code' => $subject->code,
+                    'type' => $subject->type,
+                    'academic_class_id' => $subject->pivot->academic_class_id,
+                    'section_id' => $subject->pivot->section_id,
                 ])->toArray(),
             ];
         }, $this->cacheTTL);

@@ -71,6 +71,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('teachers/{teacher}/edit', [TeacherController::class, 'edit'])->name('teachers.edit');
         Route::put('teachers/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
         Route::delete('teachers/{teacher}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
+        // Class assignment routes
+        Route::post('teachers/{teacher}/assign-class', [TeacherController::class, 'assignClass'])->name('teachers.assign-class');
+        Route::post('teachers/{teacher}/remove-class', [TeacherController::class, 'removeClass'])->name('teachers.remove-class');
+        // Subject assignment routes
+        Route::post('teachers/{teacher}/assign-subject', [TeacherController::class, 'assignSubject'])->name('teachers.assign-subject');
+        Route::post('teachers/{teacher}/remove-subject', [TeacherController::class, 'removeSubject'])->name('teachers.remove-subject');
     });
 
     Route::middleware('permission:view teachers')->group(function () {

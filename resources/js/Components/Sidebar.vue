@@ -247,14 +247,21 @@ const selectStudent = (student) => {
   router.visit(route('students.show', student.id));
 };
 
+let ticking = false;
 const handleScroll = () => {
-    isScrolled.value = window.scrollY > 20;
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            isScrolled.value = window.scrollY > 20;
+            ticking = false;
+        });
+        ticking = true;
+    }
 };
 
-// Add scroll listener
+// Add scroll listener with passive option for better performance
 import { onMounted, onUnmounted } from 'vue';
 onMounted(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 });
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
@@ -263,11 +270,11 @@ onUnmounted(() => {
 
 <template>
 <div class="min-h-screen bg-warm-bg dark:bg-dark-bg text-warm-text dark:text-dark-text relative transition-colors duration-300 font-serif">
-    <!-- Background Orbs -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="hero-orb-1 absolute -top-[15%] -left-[10%] w-[50%] h-[50%] blur-[100px] animate-float" />
-        <div class="hero-orb-2 absolute top-[30%] -right-[5%] w-[40%] h-[40%] blur-[100px] animate-float" style="animation-delay: 3s" />
-        <div class="hero-orb-3 absolute -bottom-[10%] left-[15%] w-[35%] h-[35%] blur-[100px] animate-float" style="animation-delay: 6s" />
+    <!-- Background Orbs (optimized) -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 contain-strict">
+        <div class="hero-orb-1 absolute -top-[15%] -left-[10%] w-[50%] h-[50%] blur-[80px] animate-float will-change-transform" />
+        <div class="hero-orb-2 absolute top-[30%] -right-[5%] w-[40%] h-[40%] blur-[80px] animate-float will-change-transform" style="animation-delay: 3s" />
+        <div class="hero-orb-3 absolute -bottom-[10%] left-[15%] w-[35%] h-[35%] blur-[80px] animate-float will-change-transform" style="animation-delay: 6s" />
     </div>
 
     <!-- Savanna Texture Overlay -->

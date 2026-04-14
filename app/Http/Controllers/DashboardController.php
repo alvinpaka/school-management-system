@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicClass;
+use App\Models\Section;
 use App\Services\DashboardService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -23,7 +25,22 @@ class DashboardController extends Controller
         if ($user->hasRole('admin')) {
             return Inertia::render('Dashboard/Admin', [
                 'stats' => $this->dashboardService->getAdminStats(),
-                'recentActivities' => $this->dashboardService->getRecentActivities(5)
+                'recentActivities' => $this->dashboardService->getRecentActivities(5),
+                'classes' => AcademicClass::query()
+                    ->select(['id', 'name', 'code'])
+                    ->get()
+                    ->map(fn($class) => [
+                        'id' => $class->id,
+                        'name' => $class->name,
+                        'code' => $class->code,
+                    ])->toArray(),
+                'sections' => Section::query()
+                    ->select(['id', 'name'])
+                    ->get()
+                    ->map(fn($section) => [
+                        'id' => $section->id,
+                        'name' => $section->name,
+                    ])->toArray(),
             ]);
         }
 

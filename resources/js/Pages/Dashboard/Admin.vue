@@ -1,11 +1,29 @@
 <script setup>
-import { shallowRef } from 'vue';
+import { shallowRef, ref, defineAsyncComponent } from 'vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Head, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
+// Lazy load modals for better performance
+const EnrollStudentModal = defineAsyncComponent({
+    loader: () => import('@/Components/Modals/EnrollStudentModal.vue'),
+    loadingComponent: {
+        template: '<div class="flex items-center justify-center p-8"><div class="animate-spin w-8 h-8 border-4 border-terracotta/20 border-t-terracotta rounded-full"></div></div>'
+    },
+    delay: 0,
+    suspensible: true
+});
+
+const AddTeacherModal = defineAsyncComponent({
+    loader: () => import('@/Components/Modals/AddTeacherModal.vue'),
+    loadingComponent: {
+        template: '<div class="flex items-center justify-center p-8"><div class="animate-spin w-8 h-8 border-4 border-forest/20 border-t-forest rounded-full"></div></div>'
+    },
+    delay: 0,
+    suspensible: true
+});
 import {
     Users,
     GraduationCap,
@@ -25,27 +43,49 @@ import {
     CalendarDays,
     ChevronRight,
     Plus,
+    RefreshCw,
     BarChart3,
     HeartHandshake,
     Zap,
     Sparkles
 } from 'lucide-vue-next';
 
-defineProps({
+const props = defineProps({
     stats: Object,
-    recentActivities: Array
+    recentActivities: Array,
+    classes: Array,
+    sections: Array
 });
+
+const isEnrollModalOpen = ref(false);
+const isRecruitModalOpen = ref(false);
+const isLoadingModalData = ref(false);
 
 // Cache current date to avoid recalculating on every render
 const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
 // Use shallowRef for static data to avoid reactivity overhead
 const quickActions = shallowRef([
-    { title: 'Enroll Student', description: 'New admission registry', icon: Users, color: 'terracotta', href: route('students.create') },
-    { title: 'Recruit Teacher', description: 'Faculty management', icon: UserCheck, color: 'forest', href: route('teachers.create') },
+    { title: 'Enroll Student', description: 'New admission registry', icon: Users, color: 'terracotta', action: 'enroll' },
+    { title: 'Recruit Teacher', description: 'Faculty management', icon: UserCheck, color: 'forest', action: 'recruit' },
     { title: 'Fee Collection', description: 'Financial accounting', icon: DollarSign, color: 'amber', href: route('fees.index') },
     { title: 'Academic Exams', description: 'Grading & results', icon: FileText, color: 'terracotta', href: route('exams.index') }
 ]);
+
+const handleQuickAction = async (action) => {
+    if (action.action === 'enroll') {
+        isLoadingModalData.value = true;
+        // Preload modal component
+        await import('@/Components/Modals/EnrollStudentModal.vue');
+        isEnrollModalOpen.value = true;
+        isLoadingModalData.value = false;
+    } else if (action.action === 'recruit') {
+        isLoadingModalData.value = true;
+        await import('@/Components/Modals/AddTeacherModal.vue');
+        isRecruitModalOpen.value = true;
+        isLoadingModalData.value = false;
+    }
+};
 
 const upcomingEvents = shallowRef([
     { title: 'Parent-Teacher Summit', date: 'Feb 20, 2026', time: '2:00 PM', type: 'Conference', icon: HeartHandshake, color: 'terracotta' },
@@ -180,9 +220,29 @@ const getIconComponent = (iconName) => {
                             <h2 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tight uppercase px-2 py-1 bg-terracotta/5 rounded-lg inline-block">Command Center</h2>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <template v-for="action in quickActions" :key="action.title">
+                            <button
+                                v-if="action.action"
+                                @click="handleQuickAction(action)"
+                                :disabled="isLoadingModalData"
+                                class="card-warm p-4 rounded-3xl hover:border-terracotta/30 text-left w-full disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+                            >
+                                <div class="flex items-center gap-5">
+                                    <div :class="['w-16 h-16 rounded-2xl flex items-center justify-center', colorMap[action.color]]">
+                                        <component :is="action.icon" class="w-8 h-8" />
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-lg font-black text-warm-text dark:text-dark-text tracking-tight">{{ action.title }}</h4>
+                                        <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">{{ action.description }}</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full border border-terracotta/20 flex items-center justify-center">
+                                        <RefreshCw v-if="isLoadingModalData && (action.action === 'enroll' || action.action === 'recruit')" class="w-5 h-5 animate-spin text-terracotta" />
+                                        <ChevronRight v-else class="w-5 h-5 text-warm-muted dark:text-dark-muted" />
+                                    </div>
+                                </div>
+                            </button>
                             <Link
-                                v-for="action in quickActions"
-                                :key="action.title"
+                                v-else
                                 :href="action.href"
                                 class="card-warm p-4 rounded-3xl hover:border-terracotta/30"
                             >
@@ -199,6 +259,7 @@ const getIconComponent = (iconName) => {
                                     </div>
                                 </div>
                             </Link>
+                        </template>
                         </div>
                     </div>
 
@@ -324,4 +385,14 @@ const getIconComponent = (iconName) => {
             </div>
         </div>
     </Sidebar>
+
+    <!-- Modals -->
+    <EnrollStudentModal
+        v-model:open="isEnrollModalOpen"
+        :classes="props.classes"
+        :sections="props.sections"
+    />
+    <AddTeacherModal
+        v-model:open="isRecruitModalOpen"
+    />
 </template>

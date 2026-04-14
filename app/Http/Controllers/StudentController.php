@@ -37,20 +37,67 @@ class StudentController extends Controller
     {
         $search = request('search');
         $studentIds = null;
+        $classIds = null;
+        $sectionIds = null;
+        $canEnroll = true;
+        $isClassTeacher = false;
+
+        $user = auth()->user();
 
         // Filter for parents - only show their children
-        if (auth()->user()->hasRole('parent')) {
+        if ($user->hasRole('parent')) {
             $studentIds = view()->shared('parentStudentIds', []);
         }
 
-        $students = $this->studentService->getStudentsList($search, $studentIds);
+        // Filter for teachers - only show students in their assigned classes/sections
+        if ($user->hasRole('teacher') && !$user->hasRole('admin')) {
+            $teacher = \App\Models\Teacher::where('user_id', $user->id)->first();
+            if ($teacher) {
+                // Check if this teacher is a class teacher (form teacher) for any class-section
+                $classTeacherAssignments = \DB::table('class_teachers')
+                    ->where('teacher_id', $teacher->id)
+                    ->where('status', 'active')
+                    ->where('is_class_teacher', true)
+                    ->get();
+                
+                if ($classTeacherAssignments->isNotEmpty()) {
+                    // Class teacher sees ALL students in their assigned class-section(s)
+                    $isClassTeacher = true;
+                    $classIds = $classTeacherAssignments->pluck('academic_class_id')->unique()->toArray();
+                    $sectionIds = $classTeacherAssignments->pluck('section_id')->filter()->unique()->toArray();
+                } else {
+                    // Subject teacher only sees students in classes/sections where they teach subjects
+                    $subjectAssignments = $teacher->subjects()
+                        ->wherePivot('status', 'active')
+                        ->get();
+                    
+                    $classIds = $subjectAssignments->pluck('pivot.academic_class_id')->filter()->unique()->toArray();
+                    
+                    // If no class-specific assignments, fall back to all their class assignments
+                    if (empty($classIds)) {
+                        $classAssignments = \DB::table('class_teachers')
+                            ->where('teacher_id', $teacher->id)
+                            ->where('status', 'active')
+                            ->get();
+                        $classIds = $classAssignments->pluck('academic_class_id')->unique()->toArray();
+                        $sectionIds = $classAssignments->pluck('section_id')->filter()->unique()->toArray();
+                    }
+                }
+            }
+            // Teachers cannot enroll students through this interface
+            $canEnroll = false;
+        }
+
+        $students = $this->studentService->getStudentsList($search, $studentIds, $classIds, $sectionIds);
         $formOptions = $this->studentService->getFormOptions();
 
         return Inertia::render('Students/Index', [
             'students' => $students,
             'classes' => $formOptions['classes'],
             'sections' => $formOptions['sections'],
-            'filters' => ['search' => $search]
+            'filters' => ['search' => $search],
+            'canEnroll' => $canEnroll,
+            'isClassTeacher' => $isClassTeacher,
         ]);
     }
 

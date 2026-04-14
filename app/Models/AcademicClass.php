@@ -23,6 +23,7 @@ class AcademicClass extends Model
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class, 'class_teacher');
+        return $this->belongsToMany(Teacher::class, 'class_teachers')
+            ->withPivot('section_id', 'assigned_date', 'status');
     }
 }

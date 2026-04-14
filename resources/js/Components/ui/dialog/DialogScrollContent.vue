@@ -34,7 +34,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 <template>
   <DialogPortal>
     <DialogOverlay
-      class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+      class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 will-change-opacity"
     >
       <DialogContent
         :class="
@@ -47,12 +47,17 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         @pointer-down-outside="
           (event) => {
             const originalEvent = event.detail.originalEvent;
-            const target = originalEvent.target;
-            if (
-              originalEvent.offsetX > target.clientWidth ||
-              originalEvent.offsetY > target.clientHeight
-            ) {
-              event.preventDefault();
+            // Use getBoundingClientRect only when necessary, avoid synchronous layout reads
+            if (originalEvent && originalEvent.target) {
+              const rect = originalEvent.target.getBoundingClientRect();
+              if (
+                originalEvent.clientX < rect.left ||
+                originalEvent.clientX > rect.right ||
+                originalEvent.clientY < rect.top ||
+                originalEvent.clientY > rect.bottom
+              ) {
+                event.preventDefault();
+              }
             }
           }
         "

@@ -15,11 +15,11 @@ class StudentService extends BaseService
 {
     protected int $cacheTTL = 600; // 10 minutes
 
-    public function getStudentsList(?string $search = null, ?array $studentIds = null, int $perPage = 10): LengthAwarePaginator
+    public function getStudentsList(?string $search = null, ?array $studentIds = null, ?array $classIds = null, ?array $sectionIds = null, int $perPage = 10): LengthAwarePaginator
     {
-        $cacheKey = $this->getCacheKey('students:list', [$search, $studentIds, $perPage, request('page', 1)]);
+        $cacheKey = $this->getCacheKey('students:list', [$search, $studentIds, $classIds, $sectionIds, $perPage, request('page', 1)]);
 
-        return $this->remember($cacheKey, function () use ($search, $studentIds, $perPage) {
+        return $this->remember($cacheKey, function () use ($search, $studentIds, $classIds, $sectionIds, $perPage) {
             $query = Student::query()
                 ->select([
                     'id', 'user_id', 'academic_class_id', 'section_id', 'parent_user_id',
@@ -35,6 +35,16 @@ class StudentService extends BaseService
             // Filter by specific student IDs (for parent view)
             if ($studentIds && !empty($studentIds)) {
                 $query->whereIn('id', $studentIds);
+            }
+
+            // Filter by class IDs (for teacher view - show only students in their classes)
+            if ($classIds && !empty($classIds)) {
+                $query->whereIn('academic_class_id', $classIds);
+            }
+
+            // Filter by section IDs (for teacher view - show only students in their assigned sections)
+            if ($sectionIds && !empty($sectionIds)) {
+                $query->whereIn('section_id', $sectionIds);
             }
 
             // Search functionality

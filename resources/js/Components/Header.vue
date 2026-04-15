@@ -6,15 +6,15 @@ import {
     User as UserIcon,
     Menu
 } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Badge } from '@/Components/ui/badge';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/Components/ui/dropdown-menu';
 import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 
 const emit = defineEmits(['toggle-mobile-menu']);

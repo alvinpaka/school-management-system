@@ -1,8 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
 import { 
     Trophy,
     TrendingUp,

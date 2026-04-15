@@ -1,6 +1,6 @@
 <script setup>
 import { ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/Components/ui/button';
 
 const props = defineProps({
     data: {

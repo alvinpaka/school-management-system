@@ -27,8 +27,8 @@ import {
     Settings,
     LayoutDashboard
 } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
 import Header from '@/Components/Header.vue';
 
 const page = usePage();

@@ -18,7 +18,7 @@ jobs:
 
       - run:
           name: Install PHP Dependencies
-          command: composer install --prefer-dist --no-progress --no-suggest
+          command: composer install --prefer-dist --no-progress
 
       # Save Composer Cache
       - save_cache:

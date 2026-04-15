@@ -144,7 +144,7 @@ const MENU_SCHEMA = [
   },
   {
     name: 'Notice Board',
-    href: 'notice.index',
+    href: 'notices.index',
     icon: Bell,
     roles: ['admin', 'teacher', 'student', 'accountant', 'librarian', 'receptionist'],
     permission: 'view notices'

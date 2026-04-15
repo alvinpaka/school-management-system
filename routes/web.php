@@ -203,8 +203,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // ─── Notice ───────────────────────────────────────────────────
     Route::middleware('permission:view notices')->group(function () {
-        Route::get('notice', [NoticeController::class, 'index'])->name('notice.index');
-        Route::get('notice/{id}', [NoticeController::class, 'show'])->name('notice.show');
+        Route::get('notices', [NoticeController::class, 'index'])->name('notices.index');
+        Route::get('notices/{id}', [NoticeController::class, 'show'])->name('notices.show');
+        Route::post('notices', [NoticeController::class, 'store'])->name('notices.store')->middleware('permission:manage notices');
+        Route::put('notices/{notice}', [NoticeController::class, 'update'])->name('notices.update')->middleware('permission:manage notices');
+        Route::delete('notices/{notice}', [NoticeController::class, 'destroy'])->name('notices.destroy')->middleware('permission:manage notices');
     });
 
     // ─── Map ───────────────────────────────────────────────────────

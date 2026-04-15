@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
+import NoticeModal from '@/Components/Modals/NoticeModal.vue';
+import DeleteConfirmModal from '@/Components/Modals/DeleteConfirmModal.vue';
 import { Button } from '@/Components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Badge } from '@/Components/ui/badge';
 import { 
     Plus,
@@ -13,12 +14,68 @@ import {
     Bell,
     AlertTriangle,
     Calendar,
-    Tag
+    Tag,
+    Edit2,
+    Trash2
 } from 'lucide-vue-next';
 
-defineProps({
-    notices: Array
+const props = defineProps({
+    notices: Array,
+    canManageNotices: Boolean
 });
+
+// Modal state
+const showModal = ref(false);
+const isEditing = ref(false);
+const isViewing = ref(false);
+const selectedNotice = ref(null);
+
+// Delete modal state
+const showDeleteModal = ref(false);
+const noticeToDelete = ref(null);
+const isDeleting = ref(false);
+
+const openCreateModal = () => {
+    isEditing.value = false;
+    isViewing.value = false;
+    selectedNotice.value = null;
+    showModal.value = true;
+};
+
+const openViewModal = (notice) => {
+    isEditing.value = false;
+    isViewing.value = true;
+    selectedNotice.value = notice;
+    showModal.value = true;
+};
+
+const openEditModal = (notice) => {
+    isEditing.value = true;
+    isViewing.value = false;
+    selectedNotice.value = notice;
+    showModal.value = true;
+};
+
+const openDeleteModal = (notice) => {
+    noticeToDelete.value = notice;
+    showDeleteModal.value = true;
+};
+
+const confirmDelete = () => {
+    if (!noticeToDelete.value) return;
+    
+    isDeleting.value = true;
+    router.delete(route('notices.destroy', noticeToDelete.value.id), {
+        onSuccess: () => {
+            showDeleteModal.value = false;
+            noticeToDelete.value = null;
+            isDeleting.value = false;
+        },
+        onError: () => {
+            isDeleting.value = false;
+        }
+    });
+};
 
 const searchQuery = ref('');
 const selectedType = ref('all');
@@ -43,8 +100,8 @@ const selectedPriority = ref('all');
                     <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Notices</h1>
                     <p class="text-warm-muted text-dark-muted font-medium">Manage school notices and announcements</p>
                 </div>
-                <div class="flex gap-2">
-                    <Button class="accent-terracotta text-white">
+                <div v-if="canManageNotices" class="flex gap-2">
+                    <Button class="accent-terracotta text-white" @click="openCreateModal">
                         <Plus class="w-4 h-4 mr-2" />
                         Add Notice
                     </Button>
@@ -129,13 +186,21 @@ const selectedPriority = ref('all');
                                     <span>{{ notice.target_audience }}</span>
                                 </div>
                             </div>
-                            <div class="mt-4">
-                                <Link :href="route('notice.show', notice.id)">
-                                    <Button variant="ghost" size="sm" class="hover:bg-terracotta/10 text-terracotta">
-                                        <Eye class="w-4 h-4 mr-2" />
-                                        Read More
+                            <div class="mt-4 flex gap-2">
+                                <Button variant="ghost" size="sm" class="hover:bg-terracotta/10 hover:text-terracotta text-terracotta" @click="openViewModal(notice)">
+                                    <Eye class="w-4 h-4 mr-2" />
+                                    Read More
+                                </Button>
+                                <template v-if="canManageNotices">
+                                    <Button variant="ghost" size="sm" class="hover:bg-terracotta/10 hover:text-terracotta text-terracotta" @click="openEditModal(notice)">
+                                        <Edit2 class="w-4 h-4 mr-2" />
+                                        Edit
                                     </Button>
-                                </Link>
+                                    <Button variant="ghost" size="sm" class="hover:bg-red-100 hover:text-red-600 text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400" @click="openDeleteModal(notice)">
+                                        <Trash2 class="w-4 h-4 mr-2" />
+                                        Delete
+                                    </Button>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -153,5 +218,27 @@ const selectedPriority = ref('all');
                 </div>
             </div>
         </div>
+
+        <!-- Notice Modal for Create/Edit/View -->
+        <NoticeModal
+            v-model:open="showModal"
+            :notice="selectedNotice"
+            :is-editing="isEditing"
+            :is-viewing="isViewing"
+            @close="showModal = false"
+            @success="showModal = false"
+            @edit="openEditModal(selectedNotice)"
+        />
+
+        <!-- Delete Confirmation Modal -->
+        <DeleteConfirmModal
+            v-model:open="showDeleteModal"
+            title="Delete Notice"
+            description="Are you sure you want to delete this notice? This action cannot be undone."
+            :item-name="noticeToDelete?.title"
+            :processing="isDeleting"
+            @confirm="confirmDelete"
+            @cancel="noticeToDelete = null"
+        />
     </Sidebar>
 </template>

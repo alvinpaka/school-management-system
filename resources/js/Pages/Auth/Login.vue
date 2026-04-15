@@ -5,9 +5,9 @@ import { Label } from '@/Components/ui/label';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
-import { Mail, Lock, Eye, EyeOff, ArrowLeft, ArrowRight, ShieldCheck, Zap, BarChart3, GraduationCap } from 'lucide-vue-next';
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, ArrowRight, ShieldCheck, Zap, BarChart3, GraduationCap, Sun, Moon } from 'lucide-vue-next';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 defineProps({
     canResetPassword: {
@@ -25,6 +25,24 @@ const form = useForm({
 });
 
 const showPassword = ref(false);
+
+// Dark mode state
+const isDark = ref(false);
+
+onMounted(() => {
+    isDark.value = document.documentElement.classList.contains('dark');
+});
+
+const toggleTheme = () => {
+    isDark.value = !isDark.value;
+    if (isDark.value) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    }
+};
 
 const submit = () => {
     form.post(route('login'), {
@@ -114,6 +132,18 @@ const submit = () => {
         <!-- Right Side - Login Form -->
         <div class="w-full lg:w-[55%] flex items-center justify-center p-6 md:p-12 relative">
             <div class="w-full max-w-lg animate-scale-up">
+                <!-- Theme Toggle -->
+                <div class="absolute top-4 right-4 z-50">
+                    <button
+                        @click="toggleTheme"
+                        :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+                        class="w-10 h-10 rounded-xl flex items-center justify-center border border-warm-border dark:border-dark-border bg-warm-bg dark:bg-dark-bg text-warm-muted dark:text-dark-muted hover:border-terracotta/50 hover:text-terracotta transition-all duration-300"
+                    >
+                        <Sun v-if="isDark" class="w-5 h-5" />
+                        <Moon v-else class="w-5 h-5" />
+                    </button>
+                </div>
+
                 <!-- Mobile Logo -->
                 <div class="lg:hidden mb-12 text-center overflow-visible">
                     <Link href="/" class="inline-flex items-center space-x-4 group">

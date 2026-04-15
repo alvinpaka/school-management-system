@@ -5,12 +5,31 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
 
 defineProps({
     status: {
         type: String,
     },
 });
+
+// Dark mode state
+const isDark = ref(false);
+
+onMounted(() => {
+    isDark.value = document.documentElement.classList.contains('dark');
+});
+
+const toggleTheme = () => {
+    isDark.value = !isDark.value;
+    if (isDark.value) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    }
+};
 
 const form = useForm({
     email: '',
@@ -117,6 +136,23 @@ const submit = () => {
         <!-- Right Side - Forgot Password Form -->
         <div class="w-full lg:w-1/2 flex items-center justify-center p-8 relative">
             <div class="w-full max-w-md">
+                <!-- Theme Toggle -->
+                <div class="absolute top-4 right-4 z-50">
+                    <button
+                        @click="toggleTheme"
+                        :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+                        class="w-10 h-10 rounded-xl flex items-center justify-center border border-warm-border dark:border-dark-border bg-warm-bg dark:bg-dark-bg text-warm-muted dark:text-dark-muted hover:border-terracotta/50 hover:text-terracotta transition-all duration-300"
+                    >
+                        <svg v-if="isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="5" stroke-width="2"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                        <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                </div>
+
                 <!-- Mobile Logo -->
                 <div class="lg:hidden mb-12 text-center">
                     <Link href="/" class="inline-flex items-center space-x-4 group">

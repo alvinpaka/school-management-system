@@ -2,7 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Button } from '@/Components/ui/button';
-import { ChevronRight, ArrowRight, Star, Quote, CheckCircle2, PlayCircle, ChevronLeft } from 'lucide-vue-next';
+import { ChevronRight, ArrowRight, Star, Quote, CheckCircle2, PlayCircle, ChevronLeft, Sun, Moon } from 'lucide-vue-next';
 import { useTheme } from '@/composables/useTheme';
 
 defineProps({
@@ -17,9 +17,25 @@ const activeTestimonial = ref(0);
 const mobileMenuOpen = ref(false);
 
 const { updateDocumentClass } = useTheme();
+
+// Dark mode state — reads from <html> class set by useTheme
+const isDark = ref(false);
+
 if (typeof document !== 'undefined') {
     updateDocumentClass();
+    isDark.value = document.documentElement.classList.contains('dark');
 }
+
+const toggleTheme = () => {
+    isDark.value = !isDark.value;
+    if (isDark.value) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    }
+};
 
 const handleScroll = () => {
     isScrolled.value = window.scrollY > 20;
@@ -150,6 +166,16 @@ onUnmounted(() => {
                 <a href="#testimonials" class="nav-link text-sm font-medium text-[#4A3728] dark:text-[#C8B89A] hover:text-[#C4622D] dark:hover:text-[#E07A45] transition-colors">Testimonials</a>
                 <div class="w-px h-5 bg-[#C4622D]/20"></div>
 
+                <!-- Theme Toggle -->
+                <button
+                    @click="toggleTheme"
+                    :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+                    class="relative w-9 h-9 rounded-xl flex items-center justify-center border border-[#C4622D]/20 text-[#4A3728] dark:text-[#C8B89A] hover:border-[#C4622D]/50 hover:text-[#C4622D] dark:hover:text-[#E07A45] hover:bg-[#C4622D]/8 transition-all duration-300"
+                >
+                    <Sun v-if="isDark" class="w-4 h-4 transition-all duration-300 rotate-0 scale-100" />
+                    <Moon v-else class="w-4 h-4 transition-all duration-300 rotate-0 scale-100" />
+                </button>
+
                 <template v-if="$page.props.auth.user">
                     <Button class="accent-terracotta text-white border-0 shadow-lg shadow-[#C4622D]/25 hover:shadow-[#C4622D]/40 hover:opacity-90 rounded-xl transition-all" as-child>
                         <Link :href="route('dashboard')">Dashboard</Link>
@@ -163,13 +189,23 @@ onUnmounted(() => {
                 </template>
             </nav>
 
-            <!-- Mobile Toggle -->
-            <button v-if="canLogin" @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 rounded-lg hover:bg-[#C4622D]/10 transition-colors">
-                <svg class="w-5 h-5 text-[#1A1612] dark:text-[#F5F0E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+            <!-- Mobile: Theme Toggle + Hamburger -->
+            <div v-if="canLogin" class="lg:hidden flex items-center gap-2">
+                <button
+                    @click="toggleTheme"
+                    :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+                    class="w-9 h-9 rounded-xl flex items-center justify-center border border-[#C4622D]/20 text-[#4A3728] dark:text-[#C8B89A] hover:border-[#C4622D]/50 hover:text-[#C4622D] dark:hover:text-[#E07A45] transition-all duration-300"
+                >
+                    <Sun v-if="isDark" class="w-4 h-4" />
+                    <Moon v-else class="w-4 h-4" />
+                </button>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 rounded-lg hover:bg-[#C4622D]/10 transition-colors">
+                    <svg class="w-5 h-5 text-[#1A1612] dark:text-[#F5F0E8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <!-- Mobile Menu -->
@@ -521,10 +557,10 @@ onUnmounted(() => {
 
                 <div class="relative z-10 max-w-3xl mx-auto">
                     <p class="font-body text-xs uppercase tracking-[0.3em] font-semibold text-[#E07A45] mb-6">Begin Today</p>
-                    <h3 class="font-display text-5xl md:text-7xl font-black text-white mb-8 leading-none">
+                    <h3 class="font-display text-5xl md:text-7xl font-black text-warm-text dark:text-white mb-8 leading-none">
                         Ready for the<br/>Transformation?
                     </h3>
-                    <p class="font-body text-lg text-white/60 mb-12 leading-relaxed">
+                    <p class="font-body text-lg text-warm-text text-dark-text dark:text-white/60 mb-12 leading-relaxed">
                         Join 500+ forward-thinking schools that have already elevated their institutions with EduManage Pro.
                     </p>
                     <div class="flex justify-center gap-5 flex-wrap">
@@ -540,7 +576,7 @@ onUnmounted(() => {
                                 </Link>
                             </Button>
                         </template>
-                        <button class="inline-flex items-center gap-2 border border-white/20 text-white/80 font-body font-semibold text-base px-10 py-4 rounded-2xl hover:bg-white/10 transition-all">
+                        <button class="inline-flex items-center gap-2 border dark:border-white text-warm-text text-dark-text dark:text-white font-body font-semibold text-base px-10 py-4 rounded-2xl hover:bg-white/10 transition-all">
                             <PlayCircle class="w-5 h-5" />
                             Book a Demo
                         </button>

@@ -49,7 +49,7 @@ const updatePassword = () => {
                     />
                     
                     <div class="space-y-2">
-                        <Label for="current_password" class="text-warm-text dark:text-dark-text">Current Password</Label>
+                        <Label for="current_password" class="text-warm-text text-dark-text">Current Password</Label>
                         <Input
                             id="current_password"
                             ref="currentPasswordInput"
@@ -65,7 +65,7 @@ const updatePassword = () => {
                     </div>
 
                     <div class="space-y-2">
-                        <Label for="password" class="text-warm-text dark:text-dark-text">New Password</Label>
+                        <Label for="password" class="text-warm-text text-dark-text">New Password</Label>
                         <Input
                             id="password"
                             ref="passwordInput"
@@ -81,7 +81,7 @@ const updatePassword = () => {
                     </div>
 
                     <div class="space-y-2">
-                        <Label for="password_confirmation" class="text-warm-text dark:text-dark-text">Confirm Password</Label>
+                        <Label for="password_confirmation" class="text-warm-text text-dark-text">Confirm Password</Label>
                         <Input
                             id="password_confirmation"
                             v-model="form.password_confirmation"

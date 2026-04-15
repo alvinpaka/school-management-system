@@ -119,7 +119,7 @@ const getIconComponent = (iconName) => {
                 <div class="p-2 bg-terracotta/10 rounded-lg">
                     <Home class="w-4 h-4 text-terracotta" />
                 </div>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">Overview</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">Overview</span>
             </div>
         </template>
 
@@ -142,19 +142,19 @@ const getIconComponent = (iconName) => {
                             </Avatar>
                         </div>
                         <div>
-                            <h1 class="text-3xl lg:text-5xl font-black text-warm-text dark:text-dark-text mb-1 lg:mb-2 tracking-tighter leading-tight">
+                            <h1 class="text-3xl lg:text-5xl font-black text-warm-text text-dark-text mb-1 lg:mb-2 tracking-tighter leading-tight">
                                 Welcome, {{ $page.props.auth.user.name.split(' ')[0] }}! 👋
                             </h1>
-                            <p class="text-base lg:text-lg text-warm-muted dark:text-dark-muted font-medium">
+                            <p class="text-base lg:text-lg text-warm-muted text-dark-muted font-medium">
                                 The management engine is running at <span class="text-terracotta font-black">99.9% peak efficiency</span>.
                             </p>
                         </div>
                     </div>
                     
                     <div class="flex flex-col items-start md:items-end">
-                        <div class="bg-white/50 dark:bg-dark-bg/50 px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-terracotta/20 text-left md:text-right">
+                        <div class="bg-white/50 bg-dark-bg/50 px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-terracotta/20 text-left md:text-right">
                             <p class="text-[10px] font-black uppercase tracking-widest text-terracotta mb-1">Current Session</p>
-                            <p class="text-sm lg:text-base font-bold text-warm-text dark:text-dark-text">{{ currentDate }}</p>
+                            <p class="text-sm lg:text-base font-bold text-warm-text text-dark-text">{{ currentDate }}</p>
                         </div>
                     </div>
                 </div>
@@ -179,8 +179,8 @@ const getIconComponent = (iconName) => {
                                     +12%
                                 </Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">Total Students</p>
-                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">{{ stats.students_count || 0 }}</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted text-dark-muted/80 mb-1">Total Students</p>
+                            <h3 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter">{{ stats.students_count || 0 }}</h3>
                         </div>
 
                         <!-- Faculty -->
@@ -194,8 +194,8 @@ const getIconComponent = (iconName) => {
                                     +5.2%
                                 </Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">Expert Faculty</p>
-                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">{{ stats.teachers_count || 0 }}</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted text-dark-muted/80 mb-1">Expert Faculty</p>
+                            <h3 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter">{{ stats.teachers_count || 0 }}</h3>
                         </div>
 
                         <!-- Finance (Revenue) -->
@@ -209,15 +209,15 @@ const getIconComponent = (iconName) => {
                                     +8.3%
                                 </Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">Revenue Flow</p>
-                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">KES 12.5M</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted text-dark-muted/80 mb-1">Revenue Flow</p>
+                            <h3 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter">KES 12.5M</h3>
                         </div>
                     </div>
 
                     <!-- Quick Command Center -->
                     <div class="space-y-4">
                         <div class="flex items-center justify-between px-2">
-                            <h2 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tight uppercase px-2 py-1 bg-terracotta/5 rounded-lg inline-block">Command Center</h2>
+                            <h2 class="text-xl font-black text-warm-text text-dark-text tracking-tight uppercase px-2 py-1 bg-terracotta/5 rounded-lg inline-block">Command Center</h2>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <template v-for="action in quickActions" :key="action.title">
@@ -232,12 +232,12 @@ const getIconComponent = (iconName) => {
                                         <component :is="action.icon" class="w-8 h-8" />
                                     </div>
                                     <div class="flex-1">
-                                        <h4 class="text-lg font-black text-warm-text dark:text-dark-text tracking-tight">{{ action.title }}</h4>
-                                        <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">{{ action.description }}</p>
+                                        <h4 class="text-lg font-black text-warm-text text-dark-text tracking-tight">{{ action.title }}</h4>
+                                        <p class="text-sm text-warm-muted text-dark-muted font-medium">{{ action.description }}</p>
                                     </div>
                                     <div class="w-10 h-10 rounded-full border border-terracotta/20 flex items-center justify-center">
                                         <RefreshCw v-if="isLoadingModalData && (action.action === 'enroll' || action.action === 'recruit')" class="w-5 h-5 animate-spin text-terracotta" />
-                                        <ChevronRight v-else class="w-5 h-5 text-warm-muted dark:text-dark-muted" />
+                                        <ChevronRight v-else class="w-5 h-5 text-warm-muted text-dark-muted" />
                                     </div>
                                 </div>
                             </button>
@@ -251,11 +251,11 @@ const getIconComponent = (iconName) => {
                                         <component :is="action.icon" class="w-8 h-8" />
                                     </div>
                                     <div class="flex-1">
-                                        <h4 class="text-lg font-black text-warm-text dark:text-dark-text tracking-tight">{{ action.title }}</h4>
-                                        <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">{{ action.description }}</p>
+                                        <h4 class="text-lg font-black text-warm-text text-dark-text tracking-tight">{{ action.title }}</h4>
+                                        <p class="text-sm text-warm-muted text-dark-muted font-medium">{{ action.description }}</p>
                                     </div>
                                     <div class="w-10 h-10 rounded-full border border-terracotta/20 flex items-center justify-center">
-                                        <ChevronRight class="w-5 h-5 text-warm-muted dark:text-dark-muted" />
+                                        <ChevronRight class="w-5 h-5 text-warm-muted text-dark-muted" />
                                     </div>
                                 </div>
                             </Link>
@@ -267,10 +267,10 @@ const getIconComponent = (iconName) => {
                     <div class="card-warm rounded-3xl lg:rounded-[2.5rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
-                                <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter">Live Activity</h3>
-                                <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">Real-time system event monitor</p>
+                                <h3 class="text-2xl font-black text-warm-text text-dark-text tracking-tighter">Live Activity</h3>
+                                <p class="text-sm text-warm-muted text-dark-muted font-medium">Real-time system event monitor</p>
                             </div>
-                            <Button variant="outline" class="rounded-xl border-terracotta/20 px-4 font-bold text-warm-muted dark:text-dark-muted hover:text-terracotta w-full sm:w-auto">
+                            <Button variant="outline" class="rounded-xl border-terracotta/20 px-4 font-bold text-warm-muted text-dark-muted hover:text-terracotta w-full sm:w-auto">
                                 History
                             </Button>
                         </div>
@@ -285,15 +285,15 @@ const getIconComponent = (iconName) => {
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center justify-between mb-1">
-                                        <h4 class="text-sm font-black text-warm-text dark:text-dark-text truncate">{{ activity.title }}</h4>
-                                        <span class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted/80 tracking-wider">{{ activity.time }}</span>
+                                        <h4 class="text-sm font-black text-warm-text text-dark-text truncate">{{ activity.title }}</h4>
+                                        <span class="text-[10px] font-black uppercase text-warm-muted text-dark-muted/80 tracking-wider">{{ activity.time }}</span>
                                     </div>
-                                    <p class="text-xs text-warm-muted dark:text-dark-muted font-medium line-clamp-1">{{ activity.description }}</p>
+                                    <p class="text-xs text-warm-muted text-dark-muted font-medium line-clamp-1">{{ activity.description }}</p>
                                 </div>
                             </div>
                             <div v-if="!recentActivities.length" class="p-12 text-center">
-                                <Activity class="w-12 h-12 text-warm-muted/40 dark:text-dark-muted/40 mx-auto mb-4" />
-                                <p class="text-warm-muted dark:text-dark-muted font-medium tracking-tight">System is idling quietly...</p>
+                                <Activity class="w-12 h-12 text-warm-muted/40 text-dark-muted/40 mx-auto mb-4" />
+                                <p class="text-warm-muted text-dark-muted font-medium tracking-tight">System is idling quietly...</p>
                             </div>
                         </div>
                     </div>
@@ -305,30 +305,30 @@ const getIconComponent = (iconName) => {
                     <!-- Events Intelligence -->
                     <div class="card-warm rounded-3xl lg:rounded-[2.5rem] p-6 lg:p-8">
                         <div class="flex items-center justify-between mb-8">
-                            <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter">Schedule</h3>
+                            <h3 class="text-2xl font-black text-warm-text text-dark-text tracking-tighter">Schedule</h3>
                             <div class="w-10 h-10 rounded-xl bg-terracotta/5 flex items-center justify-center text-terracotta cursor-pointer hover:bg-terracotta hover:text-white transition-colors">
                                 <Plus class="w-5 h-5" />
                             </div>
                         </div>
                         <div class="space-y-6">
                             <div v-for="event in upcomingEvents" :key="event.title" class="relative pl-6 border-l-2 border-dashed border-terracotta/20">
-                                <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-warm-bg dark:bg-dark-bg border-2 border-terracotta"></div>
+                                <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-warm-bg bg-dark-bg border-2 border-terracotta"></div>
                                 <div class="mb-4">
                                     <div class="flex items-center justify-between mb-2">
                                         <span :class="['px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest', colorMap[event.color]]">
                                             {{ event.type }}
                                         </span>
-                                        <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted/80">{{ event.date }}</span>
+                                        <span class="text-[10px] font-black text-warm-muted text-dark-muted/80">{{ event.date }}</span>
                                     </div>
-                                    <h4 class="text-sm font-black text-warm-text dark:text-dark-text mb-2 leading-tight">{{ event.title }}</h4>
-                                    <div class="flex items-center gap-2 text-warm-muted dark:text-dark-muted/80">
+                                    <h4 class="text-sm font-black text-warm-text text-dark-text mb-2 leading-tight">{{ event.title }}</h4>
+                                    <div class="flex items-center gap-2 text-warm-muted text-dark-muted/80">
                                         <Clock class="w-3 h-3" />
                                         <span class="text-[11px] font-bold">{{ event.time }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <Button variant="outline" class="w-full mt-6 rounded-2xl border-terracotta/20 font-black h-12 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                        <Button variant="outline" class="w-full mt-6 rounded-2xl border-terracotta/20 font-black h-12 text-warm-muted text-dark-muted hover:text-terracotta">
                             Full Calendar
                         </Button>
                     </div>
@@ -336,7 +336,7 @@ const getIconComponent = (iconName) => {
                     <!-- System Pulse -->
                     <div class="card-warm rounded-3xl lg:rounded-[2.5rem] p-6 lg:p-8 relative overflow-hidden">
                         <div class="relative z-10">
-                            <h3 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-6 flex items-center gap-2">
+                            <h3 class="text-xl font-black text-warm-text text-dark-text tracking-tighter mb-6 flex items-center gap-2">
                                 <Activity class="w-5 h-5 text-terracotta" />
                                 System Pulse
                             </h3>
@@ -344,21 +344,21 @@ const getIconComponent = (iconName) => {
                                 <div class="p-4 rounded-2xl bg-terracotta/5 border border-terracotta/20 flex items-center justify-between">
                                     <div class="flex items-center gap-3">
                                         <div class="w-2 h-2 rounded-full bg-forest"></div>
-                                        <span class="text-sm font-bold text-warm-text dark:text-dark-text/80">Database Cluster</span>
+                                        <span class="text-sm font-bold text-warm-text text-dark-text/80">Database Cluster</span>
                                     </div>
                                     <Badge class="bg-forest/10 dark:bg-forest/20 text-forest dark:text-[#5AAA72] border-0 font-black">ACTIVE</Badge>
                                 </div>
                                 <div class="p-4 rounded-2xl bg-terracotta/5 border border-terracotta/20 flex items-center justify-between">
                                     <div class="flex items-center gap-3">
                                         <div class="w-2 h-2 rounded-full bg-forest"></div>
-                                        <span class="text-sm font-bold text-warm-text dark:text-dark-text/80">Auth Engine</span>
+                                        <span class="text-sm font-bold text-warm-text text-dark-text/80">Auth Engine</span>
                                     </div>
                                     <Badge class="bg-forest/10 dark:bg-forest/20 text-forest dark:text-[#5AAA72] border-0 font-black">ACTIVE</Badge>
                                 </div>
                                 <div class="p-4 rounded-2xl bg-terracotta/5 border border-terracotta/20 flex items-center justify-between">
                                     <div class="flex items-center gap-3">
                                         <div class="w-2 h-2 rounded-full bg-amber"></div>
-                                        <span class="text-sm font-bold text-warm-text dark:text-dark-text/80">API Gateway</span>
+                                        <span class="text-sm font-bold text-warm-text text-dark-text/80">API Gateway</span>
                                     </div>
                                     <Badge class="bg-amber/10 dark:bg-amber/20 text-amber border-0 font-black">BUSY</Badge>
                                 </div>

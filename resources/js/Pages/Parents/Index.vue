@@ -211,7 +211,7 @@ watch(searchQuery, (newValue) => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Users class="w-5 h-5 text-terracotta" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Parents</span>
+                <span class="font-semibold text-warm-text text-dark-text">Parents</span>
             </div>
         </template>
 
@@ -219,8 +219,8 @@ watch(searchQuery, (newValue) => {
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Parents</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">Manage all parents in the system</p>
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Parents</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">Manage all parents in the system</p>
                 </div>
                 <div class="flex gap-2">
                     <Dialog v-model:open="isCreateDialogOpen">
@@ -254,8 +254,8 @@ watch(searchQuery, (newValue) => {
                                             {{ form.relationship_to_student }}
                                         </Badge>
                                     </div>
-                                    <DialogTitle class="text-2xl font-black tracking-tight text-warm-text dark:text-dark-text">{{ form.name || 'New Parent' }}</DialogTitle>
-                                    <DialogDescription class="text-warm-muted dark:text-dark-muted">
+                                    <DialogTitle class="text-2xl font-black tracking-tight text-warm-text text-dark-text">{{ form.name || 'New Parent' }}</DialogTitle>
+                                    <DialogDescription class="text-warm-muted text-dark-muted">
                                         Create a new parent/guardian account and link to students.
                                     </DialogDescription>
                                 </DialogHeader>
@@ -264,11 +264,11 @@ watch(searchQuery, (newValue) => {
                                     <!-- Profile Photo Section -->
                                     <div class="card-warm">
                                         <div class="p-6 border-b border-terracotta/20">
-                                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                                                 <Camera class="w-4 h-4 text-terracotta" />
                                                 Profile Photo
                                             </h3>
-                                            <p class="text-xs text-warm-muted dark:text-dark-muted mt-1">Upload a profile photo (JPG, PNG - Max 2MB)</p>
+                                            <p class="text-xs text-warm-muted text-dark-muted mt-1">Upload a profile photo (JPG, PNG - Max 2MB)</p>
                                         </div>
                                         <div class="p-6">
                                             <div class="flex flex-col sm:flex-row items-start gap-4">
@@ -292,18 +292,18 @@ watch(searchQuery, (newValue) => {
                                                 </div>
                                                 <div class="flex-1">
                                                     <div class="border-2 border-dashed border-terracotta/30 rounded-lg p-4 text-center hover:border-terracotta transition-colors">
-                                                        <Upload class="w-8 h-8 mx-auto text-warm-muted dark:text-dark-muted mb-2" />
+                                                        <Upload class="w-8 h-8 mx-auto text-warm-muted text-dark-muted mb-2" />
                                                         <Label for="parent_photo" class="cursor-pointer text-terracotta hover:text-terracotta/80 font-medium text-sm">
                                                             Click to upload
                                                         </Label>
-                                                        <p class="text-xs text-warm-muted dark:text-dark-muted mt-1">PNG, JPG (MAX. 2MB)</p>
+                                                        <p class="text-xs text-warm-muted text-dark-muted mt-1">PNG, JPG (MAX. 2MB)</p>
                                                         <Input id="parent_photo" type="file" accept="image/*" @change="handlePhotoChange" class="hidden" />
                                                     </div>
                                                     <div v-if="form.errors.photo" class="flex items-center gap-2 text-destructive text-sm mt-2">
                                                         <AlertCircle class="w-4 h-4" />
                                                         {{ form.errors.photo }}
                                                     </div>
-                                                    <div v-if="photoFile" class="flex items-center gap-2 text-xs text-warm-muted dark:text-dark-muted mt-2">
+                                                    <div v-if="photoFile" class="flex items-center gap-2 text-xs text-warm-muted text-dark-muted mt-2">
                                                         <Camera class="w-3 h-3" />
                                                         <span class="font-medium">{{ photoFile.name }}</span>
                                                         <span>({{ (photoFile.size / 1024).toFixed(2) }} KB)</span>
@@ -316,7 +316,7 @@ watch(searchQuery, (newValue) => {
                                     <!-- Personal Information -->
                                     <div class="card-warm">
                                         <div class="p-6 border-b border-terracotta/20">
-                                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                                                 <User class="w-4 h-4 text-terracotta" />
                                                 Personal Information
                                             </h3>
@@ -324,7 +324,7 @@ watch(searchQuery, (newValue) => {
                                         <div class="p-6 space-y-4">
                                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div class="space-y-2">
-                                                    <Label for="name" class="flex items-center gap-2 text-sm font-medium text-warm-text dark:text-dark-text">
+                                                    <Label for="name" class="flex items-center gap-2 text-sm font-medium text-warm-text text-dark-text">
                                                         <User class="w-3 h-3 text-terracotta" />
                                                         Full Name *
                                                     </Label>
@@ -335,7 +335,7 @@ watch(searchQuery, (newValue) => {
                                                     </div>
                                                 </div>
                                                 <div class="space-y-2">
-                                                    <Label for="email" class="flex items-center gap-2 text-sm font-medium text-warm-text dark:text-dark-text">
+                                                    <Label for="email" class="flex items-center gap-2 text-sm font-medium text-warm-text text-dark-text">
                                                         <Mail class="w-3 h-3 text-terracotta" />
                                                         Email Address *
                                                     </Label>
@@ -348,7 +348,7 @@ watch(searchQuery, (newValue) => {
                                             </div>
                                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div class="space-y-2">
-                                                    <Label for="phone" class="flex items-center gap-2 text-sm font-medium text-warm-text dark:text-dark-text">
+                                                    <Label for="phone" class="flex items-center gap-2 text-sm font-medium text-warm-text text-dark-text">
                                                         <Phone class="w-3 h-3 text-terracotta" />
                                                         Phone Number *
                                                     </Label>
@@ -359,7 +359,7 @@ watch(searchQuery, (newValue) => {
                                                     </div>
                                                 </div>
                                                 <div class="space-y-2">
-                                                    <Label for="occupation" class="flex items-center gap-2 text-sm font-medium text-warm-text dark:text-dark-text">
+                                                    <Label for="occupation" class="flex items-center gap-2 text-sm font-medium text-warm-text text-dark-text">
                                                         <Briefcase class="w-3 h-3 text-terracotta" />
                                                         Occupation
                                                     </Label>
@@ -371,7 +371,7 @@ watch(searchQuery, (newValue) => {
                                                 </div>
                                             </div>
                                             <div class="space-y-2">
-                                                <Label for="address" class="flex items-center gap-2 text-sm font-medium text-warm-text dark:text-dark-text">
+                                                <Label for="address" class="flex items-center gap-2 text-sm font-medium text-warm-text text-dark-text">
                                                     <MapPin class="w-3 h-3 text-terracotta" />
                                                     Address *
                                                 </Label>
@@ -387,7 +387,7 @@ watch(searchQuery, (newValue) => {
                                     <!-- Relationship Information -->
                                     <div class="card-warm">
                                         <div class="p-6 border-b border-terracotta/20">
-                                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                                                 <Heart class="w-4 h-4 text-terracotta" />
                                                 Relationship & Students
                                             </h3>
@@ -395,7 +395,7 @@ watch(searchQuery, (newValue) => {
                                         <div class="p-6 space-y-4">
                                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div class="space-y-2">
-                                                    <Label for="relationship_to_student" class="flex items-center gap-2 text-sm font-medium text-warm-text dark:text-dark-text">
+                                                    <Label for="relationship_to_student" class="flex items-center gap-2 text-sm font-medium text-warm-text text-dark-text">
                                                         <Users class="w-3 h-3 text-terracotta" />
                                                         Relationship *
                                                     </Label>
@@ -417,7 +417,7 @@ watch(searchQuery, (newValue) => {
                                                     </div>
                                                 </div>
                                                 <div class="space-y-2">
-                                                    <Label class="flex items-center gap-2 text-sm font-medium text-warm-text dark:text-dark-text">
+                                                    <Label class="flex items-center gap-2 text-sm font-medium text-warm-text text-dark-text">
                                                         <GraduationCap class="w-3 h-3 text-terracotta" />
                                                         Search Students *
                                                     </Label>
@@ -438,7 +438,7 @@ watch(searchQuery, (newValue) => {
                                             
                                             <!-- Search Results -->
                                             <div v-if="searchResults.length > 0" class="p-3 bg-terracotta/5 rounded-lg border border-terracotta/20">
-                                                <div class="text-sm font-medium text-warm-text dark:text-dark-text mb-2">Search Results:</div>
+                                                <div class="text-sm font-medium text-warm-text text-dark-text mb-2">Search Results:</div>
                                                 <div class="space-y-1 max-h-32 overflow-y-auto">
                                                     <div 
                                                         v-for="student in searchResults" 
@@ -447,8 +447,8 @@ watch(searchQuery, (newValue) => {
                                                         @click="selectStudent(student)"
                                                     >
                                                         <div>
-                                                            <div class="font-medium text-sm text-warm-text dark:text-dark-text">{{ student.user.name }}</div>
-                                                            <div class="text-xs text-warm-muted dark:text-dark-muted">{{ student.admission_number }}</div>
+                                                            <div class="font-medium text-sm text-warm-text text-dark-text">{{ student.user.name }}</div>
+                                                            <div class="text-xs text-warm-muted text-dark-muted">{{ student.admission_number }}</div>
                                                         </div>
                                                         <Button size="sm" variant="outline" @click.stop="addStudent(student)" class="border-terracotta/20">
                                                             <Plus class="w-3 h-3" />
@@ -459,7 +459,7 @@ watch(searchQuery, (newValue) => {
 
                                             <!-- Selected Students -->
                                             <div v-if="form.student_ids.length > 0">
-                                                <div class="text-sm font-medium text-warm-text dark:text-dark-text mb-2">Selected Students:</div>
+                                                <div class="text-sm font-medium text-warm-text text-dark-text mb-2">Selected Students:</div>
                                                 <div class="space-y-2">
                                                     <div 
                                                         v-for="studentId in form.student_ids" 
@@ -471,8 +471,8 @@ watch(searchQuery, (newValue) => {
                                                                 {{ getStudentInitials(getStudentById(studentId)) }}
                                                             </div>
                                                             <div>
-                                                                <div class="font-medium text-sm text-warm-text dark:text-dark-text">{{ getStudentById(studentId)?.user?.name }}</div>
-                                                                <div class="text-xs text-warm-muted dark:text-dark-muted">{{ getStudentById(studentId)?.admission_number }}</div>
+                                                                <div class="font-medium text-sm text-warm-text text-dark-text">{{ getStudentById(studentId)?.user?.name }}</div>
+                                                                <div class="text-xs text-warm-muted text-dark-muted">{{ getStudentById(studentId)?.admission_number }}</div>
                                                             </div>
                                                         </div>
                                                         <Button type="button" variant="ghost" size="sm" @click="removeStudent({id: studentId})" class="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 w-8 p-0">
@@ -482,7 +482,7 @@ watch(searchQuery, (newValue) => {
                                                 </div>
                                             </div>
                                             <div v-else-if="studentSearch.trim() === ''" class="p-3 bg-terracotta/5 rounded-lg border border-terracotta/20">
-                                                <div class="text-sm text-warm-muted dark:text-dark-muted text-center">
+                                                <div class="text-sm text-warm-muted text-dark-muted text-center">
                                                     No students selected. Search above to add students.
                                                 </div>
                                             </div>
@@ -496,7 +496,7 @@ watch(searchQuery, (newValue) => {
                                     <!-- Security -->
                                     <div class="card-warm">
                                         <div class="p-6 border-b border-terracotta/20">
-                                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                                                 <Lock class="w-4 h-4 text-terracotta" />
                                                 Security
                                             </h3>
@@ -505,18 +505,18 @@ watch(searchQuery, (newValue) => {
                                             <div class="p-3 bg-terracotta/5 border border-terracotta/20 rounded-lg mb-4">
                                                 <div class="flex items-start gap-2">
                                                     <AlertCircle class="w-4 h-4 text-terracotta mt-0.5" />
-                                                    <div class="text-xs text-warm-muted dark:text-dark-muted">
+                                                    <div class="text-xs text-warm-muted text-dark-muted">
                                                         Create a secure password for the parent account.
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="space-y-2">
-                                                <Label for="password" class="flex items-center gap-2 text-sm font-medium text-warm-text dark:text-dark-text">
+                                                <Label for="password" class="flex items-center gap-2 text-sm font-medium text-warm-text text-dark-text">
                                                     <Lock class="w-3 h-3 text-terracotta" />
                                                     Password *
                                                 </Label>
                                                 <Input id="password" v-model="form.password" type="password" placeholder="Enter secure password" required class="h-10 border-terracotta/20 focus:ring-terracotta/30" />
-                                                <p class="text-xs text-warm-muted dark:text-dark-muted">Minimum 8 characters recommended</p>
+                                                <p class="text-xs text-warm-muted text-dark-muted">Minimum 8 characters recommended</p>
                                                 <div v-if="form.errors.password" class="flex items-center gap-2 text-destructive text-sm">
                                                     <AlertCircle class="w-3 h-3" />
                                                     {{ form.errors.password }}
@@ -547,17 +547,17 @@ watch(searchQuery, (newValue) => {
                 <div class="p-6 border-b border-terracotta/20 bg-terracotta/5">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                            <h3 class="text-xl font-black text-warm-text dark:text-dark-text">All Parents</h3>
-                            <p class="text-sm text-warm-muted dark:text-dark-muted">{{ parents.total }} registered parents</p>
+                            <h3 class="text-xl font-black text-warm-text text-dark-text">All Parents</h3>
+                            <p class="text-sm text-warm-muted text-dark-muted">{{ parents.total }} registered parents</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <div class="relative">
-                                <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-muted dark:text-dark-muted" />
+                                <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-muted text-dark-muted" />
                                 <input
                                     type="text"
                                     v-model="searchQuery"
                                     placeholder="Search parents..."
-                                    class="pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text"
+                                    class="pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white bg-dark-bg text-warm-text text-dark-text"
                                 />
                             </div>
                             <Button variant="outline" size="sm" class="border-terracotta/20">
@@ -569,7 +569,7 @@ watch(searchQuery, (newValue) => {
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
                         <thead class="bg-terracotta/5">
-                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-muted dark:text-dark-muted border-b border-terracotta/20">
+                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-muted text-dark-muted border-b border-terracotta/20">
                                 <th class="px-6 py-4">Name</th>
                                 <th class="px-6 py-4">Phone</th>
                                 <th class="px-6 py-4">Address</th>
@@ -594,22 +594,22 @@ watch(searchQuery, (newValue) => {
                                             </div>
                                         </div>
                                         <div>
-                                            <div class="font-medium text-warm-text dark:text-dark-text">{{ parent.user?.name || 'Unknown' }}</div>
-                                            <div class="text-sm text-warm-muted dark:text-dark-muted">{{ parent.user?.email || 'No email' }}</div>
+                                            <div class="font-medium text-warm-text text-dark-text">{{ parent.user?.name || 'Unknown' }}</div>
+                                            <div class="text-sm text-warm-muted text-dark-muted">{{ parent.user?.email || 'No email' }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <Phone class="w-4 h-4 mr-2 text-terracotta" />
-                                        <span class="text-warm-text dark:text-dark-text">{{ parent.phone || 'N/A' }}</span>
+                                        <span class="text-warm-text text-dark-text">{{ parent.phone || 'N/A' }}</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="text-warm-text dark:text-dark-text">{{ parent.address || 'N/A' }}</span>
+                                    <span class="text-warm-text text-dark-text">{{ parent.address || 'N/A' }}</span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="text-warm-text dark:text-dark-text">{{ parent.occupation || 'N/A' }}</span>
+                                    <span class="text-warm-text text-dark-text">{{ parent.occupation || 'N/A' }}</span>
                                 </td>
                                 <td class="px-6 py-4">
                                     <Badge :class="parent.relationship_to_student === 'Father' ? 'bg-terracotta/10 text-terracotta border-0' : 'bg-forest/10 text-forest border-0'">

@@ -186,7 +186,7 @@ const getInitials = (name) => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Library class="w-5 h-5 text-terracotta" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Library Management</span>
+                <span class="font-semibold text-warm-text text-dark-text">Library Management</span>
             </div>
         </template>
 
@@ -194,7 +194,7 @@ const getInitials = (name) => {
             <!-- Professional Header Section -->
             <div class="relative overflow-hidden card-warm rounded-3xl lg:rounded-[3rem] p-6 lg:p-12">
                 <div class="flex flex-col md:flex-row items-center md:items-end gap-6 lg:gap-8">
-                    <div class="w-20 h-20 lg:w-24 lg:h-24 bg-white/50 dark:bg-dark-bg/50 rounded-2xl lg:rounded-[2.5rem] flex items-center justify-center border border-terracotta/20 shadow-inner overflow-hidden">
+                    <div class="w-20 h-20 lg:w-24 lg:h-24 bg-white/50 bg-dark-bg/50 rounded-2xl lg:rounded-[2.5rem] flex items-center justify-center border border-terracotta/20 shadow-inner overflow-hidden">
                         <Avatar class="w-full h-full rounded-none">
                             <AvatarImage 
                                 v-if="$page.props.auth.user.photo"
@@ -213,12 +213,12 @@ const getInitials = (name) => {
                             <Badge class="bg-terracotta/10 text-terracotta border-0 font-black uppercase text-[9px] tracking-widest px-3 lg:px-4 py-1 h-7">
                                 Knowledge Custodian
                             </Badge>
-                            <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Library HQ</span>
+                            <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">Library HQ</span>
                         </div>
-                        <h1 class="text-3xl lg:text-5xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-tight">
+                        <h1 class="text-3xl lg:text-5xl font-black text-warm-text text-dark-text tracking-tighter leading-tight">
                             Welcome, {{ librarian?.name || $page.props.auth.user.name }}
                         </h1>
-                        <p class="text-warm-muted dark:text-dark-muted font-bold text-xs lg:text-sm uppercase tracking-wide">
+                        <p class="text-warm-muted text-dark-muted font-bold text-xs lg:text-sm uppercase tracking-wide">
                             {{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
                         </p>
                     </div>
@@ -235,8 +235,8 @@ const getInitials = (name) => {
                         </div>
                         <Badge class="bg-terracotta text-white border-0 font-black text-[9px] uppercase tracking-widest">Catalog</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Total Books</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ libraryStats.totalBooks.toLocaleString() }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Total Books</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ libraryStats.totalBooks.toLocaleString() }}</h3>
                 </div>
 
                 <!-- Active Loans -->
@@ -245,10 +245,10 @@ const getInitials = (name) => {
                         <div class="w-12 h-12 rounded-2xl bg-forest/10 dark:bg-forest/20 flex items-center justify-center text-forest dark:text-[#5AAA72] font-bold shadow-inner transition-transform group-hover:scale-110">
                             <BookOpen class="w-6 h-6" />
                         </div>
-                        <Badge class="bg-muted border-0 text-warm-muted dark:text-dark-muted font-black text-[9px] uppercase tracking-widest">Active</Badge>
+                        <Badge class="bg-muted border-0 text-warm-muted text-dark-muted font-black text-[9px] uppercase tracking-widest">Active</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Books Issued</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ libraryStats.issuedBooks }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Books Issued</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ libraryStats.issuedBooks }}</h3>
                 </div>
 
                 <!-- Overdue Status -->
@@ -259,8 +259,8 @@ const getInitials = (name) => {
                         </div>
                         <Badge class="bg-amber text-white border-0 font-black text-[9px] uppercase tracking-widest">Alerts</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Overdue Books</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ libraryStats.overdueBooks }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Overdue Books</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ libraryStats.overdueBooks }}</h3>
                 </div>
 
                 <!-- Daily Deadline -->
@@ -269,17 +269,17 @@ const getInitials = (name) => {
                         <div class="w-12 h-12 rounded-2xl bg-destructive/10 dark:bg-destructive/20 flex items-center justify-center text-destructive font-bold shadow-inner transition-transform group-hover:scale-110">
                             <Clock class="w-6 h-6" />
                         </div>
-                        <Badge class="bg-muted border-0 text-warm-muted dark:text-dark-muted font-black text-[9px] uppercase tracking-widest">Today</Badge>
+                        <Badge class="bg-muted border-0 text-warm-muted text-dark-muted font-black text-[9px] uppercase tracking-widest">Today</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Due Today</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ libraryStats.dueToday }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Due Today</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ libraryStats.dueToday }}</h3>
                 </div>
             </div>
 
             <!-- Library Intelligence Tools -->
             <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                 <div class="p-6 lg:p-8 border-b border-terracotta/20 bg-terracotta/5">
-                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                         <Zap class="w-6 h-6 text-terracotta" />
                         Strategic Library Terminal
                     </h3>
@@ -293,12 +293,12 @@ const getInitials = (name) => {
                             class="group relative p-6 rounded-[2rem] bg-terracotta/5 border border-terracotta/20 transition-all duration-300 lg:hover:border-terracotta lg:hover:shadow-lg"
                         >
                             <div class="flex flex-col items-center text-center space-y-4">
-                                <div class="w-14 h-14 rounded-2xl bg-white dark:bg-dark-bg border border-terracotta/20 flex items-center justify-center shadow-inner lg:group-hover:bg-terracotta lg:group-hover:text-white lg:group-hover:border-terracotta transition-all">
+                                <div class="w-14 h-14 rounded-2xl bg-white bg-dark-bg border border-terracotta/20 flex items-center justify-center shadow-inner lg:group-hover:bg-terracotta lg:group-hover:text-white lg:group-hover:border-terracotta transition-all">
                                     <component :is="action.icon" class="w-7 h-7 text-terracotta lg:group-hover:text-white" />
                                 </div>
                                 <div>
-                                    <h3 class="text-xs font-black text-warm-text dark:text-dark-text uppercase tracking-widest leading-none mb-1">{{ action.title }}</h3>
-                                    <p class="text-[9px] font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest opacity-60 line-clamp-1">{{ action.description }}</p>
+                                    <h3 class="text-xs font-black text-warm-text text-dark-text uppercase tracking-widest leading-none mb-1">{{ action.title }}</h3>
+                                    <p class="text-[9px] font-bold text-warm-muted text-dark-muted uppercase tracking-widest opacity-60 line-clamp-1">{{ action.description }}</p>
                                 </div>
                             </div>
                         </Link>
@@ -313,18 +313,18 @@ const getInitials = (name) => {
                     <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                                <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                     <Book class="w-6 h-6 text-terracotta" />
                                     Active Catalog
                                 </h3>
-                                <Button variant="ghost" size="sm" class="rounded-xl font-black text-[10px] uppercase tracking-widest text-warm-muted dark:text-dark-muted border border-terracotta/20 w-full sm:w-auto">
+                                <Button variant="ghost" size="sm" class="rounded-xl font-black text-[10px] uppercase tracking-widest text-warm-muted text-dark-muted border border-terracotta/20 w-full sm:w-auto">
                                     View Repository <ChevronRight class="w-4 h-4 ml-1" />
                                 </Button>
                             </div>
                         </div>
                         <div class="p-4 lg:p-8">
                             <div class="space-y-4">
-                                <div v-for="(book, index) in recentBooks" :key="index" class="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 p-4 lg:p-5 rounded-3xl lg:rounded-[2.5rem] bg-terracotta/5 border border-terracotta/20 group transition-all lg:hover:bg-white lg:hover:shadow-md">
+                                <div v-for="(book, index) in recentBooks" :key="index" class="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 p-4 lg:p-5 rounded-3xl lg:rounded-[2.5rem] bg-terracotta/5 border border-terracotta/20 group transition-all lg:hover:bg-white lg:hover:bg-dark-bg lg:hover:shadow-md">
                                     <div :class="[
                                         'w-12 h-12 rounded-2xl flex items-center justify-center font-bold shadow-inner shrink-0 lg:group-hover:scale-110 transition-transform',
                                         book.status === 'available' ? 'bg-forest/10 text-forest' :
@@ -335,7 +335,7 @@ const getInitials = (name) => {
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <div class="flex items-center justify-between mb-2">
-                                            <h4 class="text-lg font-black text-warm-text dark:text-dark-text tracking-tighter truncate">{{ book.title }}</h4>
+                                            <h4 class="text-lg font-black text-warm-text text-dark-text tracking-tighter truncate">{{ book.title }}</h4>
                                             <Badge :class="[
                                                 'font-black text-[10px] uppercase h-6 px-3 border-0',
                                                 book.status === 'available' ? 'bg-forest/10 text-forest' :
@@ -345,7 +345,7 @@ const getInitials = (name) => {
                                                 {{ book.status }}
                                             </Badge>
                                         </div>
-                                        <div class="flex flex-wrap items-center gap-4 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted/80">
+                                        <div class="flex flex-wrap items-center gap-4 text-[10px] font-black uppercase text-warm-muted text-dark-muted/80">
                                             <span class="flex items-center gap-1.5"><Tag class="w-3.5 h-3.5 text-terracotta/80" /> {{ book.isbn }}</span>
                                             <span class="flex items-center gap-1.5"><BookOpen class="w-3.5 h-3.5 text-terracotta/80" /> {{ book.category }}</span>
                                             <span class="flex items-center gap-1.5"><Archive class="w-3.5 h-3.5 text-amber" /> {{ book.copies }} Unit(s)</span>
@@ -363,7 +363,7 @@ const getInitials = (name) => {
                     <!-- Activity Log -->
                     <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <Activity class="w-5 h-5 text-terracotta" />
                                 Resource Circulation Log
                             </h3>
@@ -375,9 +375,9 @@ const getInitials = (name) => {
                                         <component :is="activity.icon" class="w-5 h-5" />
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <h4 class="text-sm font-black text-warm-text dark:text-dark-text tracking-tight">{{ activity.title }}</h4>
-                                        <p class="text-xs font-bold text-warm-muted dark:text-dark-muted uppercase tracking-wide truncate">{{ activity.description }}</p>
-                                        <div class="flex items-center gap-2 mt-1 text-[9px] font-black uppercase text-warm-muted dark:text-dark-muted/60">
+                                        <h4 class="text-sm font-black text-warm-text text-dark-text tracking-tight">{{ activity.title }}</h4>
+                                        <p class="text-xs font-bold text-warm-muted text-dark-muted uppercase tracking-wide truncate">{{ activity.description }}</p>
+                                        <div class="flex items-center gap-2 mt-1 text-[9px] font-black uppercase text-warm-muted text-dark-muted/60">
                                             <Clock class="w-3 h-3 text-terracotta/80" /> {{ activity.time }}
                                         </div>
                                     </div>
@@ -392,7 +392,7 @@ const getInitials = (name) => {
                     <!-- Overdue Inventory Alerts -->
                     <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20">
-                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <AlertTriangle class="w-6 h-6 text-amber" />
                                 Delinquency Alerts
                                 <Badge class="bg-amber text-white border-0 font-black text-[10px]">{{ overdueBooks.length }}</Badge>
@@ -401,8 +401,8 @@ const getInitials = (name) => {
                         <div class="p-6 lg:p-8">
                             <div class="space-y-4">
                                 <div v-for="book in overdueBooks" :key="book.title" class="p-5 rounded-[2rem] bg-amber/5 border border-amber/20 group hover:border-amber transition-all">
-                                    <h4 class="text-base font-black text-warm-text dark:text-dark-text tracking-tight leading-none mb-2">{{ book.title }}</h4>
-                                    <p class="text-[10px] font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest mb-4">{{ book.student }}</p>
+                                    <h4 class="text-base font-black text-warm-text text-dark-text tracking-tight leading-none mb-2">{{ book.title }}</h4>
+                                    <p class="text-[10px] font-bold text-warm-muted text-dark-muted uppercase tracking-widest mb-4">{{ book.student }}</p>
                                     <div class="flex items-center justify-between">
                                         <Badge variant="outline" class="font-black text-[9px] h-6 border-amber/30 text-amber uppercase">
                                             +{{ book.days }} Days Delay
@@ -417,7 +417,7 @@ const getInitials = (name) => {
                     <!-- Membership Analytics -->
                     <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20">
-                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text/80">
+                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text/80">
                                 <Users class="w-5 h-5 text-terracotta" />
                                 Member Engagement
                             </h3>
@@ -430,8 +430,8 @@ const getInitials = (name) => {
                                     'Active Readers': libraryStats.issuedBooks,
                                     'Circulation Ratio': Math.round((libraryStats.issuedBooks / libraryStats.totalBooks) * 100) + '%'
                                 }" :key="label" class="flex flex-col sm:flex-row sm:items-center justify-between py-1 group gap-1">
-                                    <span class="text-[11px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest lg:group-hover:text-terracotta transition-colors">{{ label }}</span>
-                                    <span class="text-sm font-black text-warm-text dark:text-dark-text tracking-tight">{{ val }}</span>
+                                    <span class="text-[11px] font-black text-warm-muted text-dark-muted uppercase tracking-widest lg:group-hover:text-terracotta transition-colors">{{ label }}</span>
+                                    <span class="text-sm font-black text-warm-text text-dark-text tracking-tight">{{ val }}</span>
                                 </div>
                                 <Button class="w-full h-12 rounded-[1.5rem] border border-terracotta/20 font-black text-[10px] uppercase tracking-widest lg:hover:bg-terracotta lg:hover:text-white lg:hover:border-terracotta transition-all" variant="outline">
                                     <UserPlus class="w-4 h-4 mr-2" /> Register Member
@@ -443,7 +443,7 @@ const getInitials = (name) => {
                     <!-- Analytical Export -->
                     <div class="accent-terracotta rounded-3xl lg:rounded-[3rem] p-8 lg:p-10 text-white shadow-2xl shadow-terracotta/30 relative overflow-hidden group">
                         <div class="relative z-10 text-center space-y-6">
-                            <div class="w-16 h-16 lg:w-20 lg:h-20 bg-white/10 rounded-2xl lg:rounded-[2rem] flex items-center justify-center mx-auto border border-white/20 lg:group-hover:scale-110 transition-transform">
+                            <div class="w-16 h-16 lg:w-20 lg:h-20 bg-white/10 dark:bg-white/5 rounded-2xl lg:rounded-[2rem] flex items-center justify-center mx-auto border border-white/20 dark:border-white/10 lg:group-hover:scale-110 transition-transform">
                                 <Library class="w-8 h-8 lg:w-10 lg:h-10 text-white" />
                             </div>
                             <div>

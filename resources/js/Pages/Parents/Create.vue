@@ -178,7 +178,7 @@ const getCurrentPhoto = () => {
                 <CardContent class="relative pt-0 pb-6">
                     <div class="flex flex-col md:flex-row md:items-end md:justify-between -mt-12">
                         <div class="flex flex-col md:flex-row items-center md:items-end space-y-4 md:space-y-0 md:space-x-6">
-                            <Avatar class="w-24 h-24 md:w-32 md:h-32 border-4 border-white dark:border-gray-950 shadow-xl">
+                            <Avatar class="w-24 h-24 md:w-32 md:h-32 border-4 border-border shadow-xl">
                                 <AvatarImage 
                                     v-if="getCurrentPhoto()"
                                     :src="getCurrentPhoto()" 
@@ -190,7 +190,7 @@ const getCurrentPhoto = () => {
                             </Avatar>
                             
                             <div class="text-center md:text-left space-y-2 mb-2">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                                <h1 class="text-2xl md:text-3xl font-bold text-foreground">
                                     {{ form.name || 'New Parent' }}
                                 </h1>
                                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
@@ -226,7 +226,7 @@ const getCurrentPhoto = () => {
                             <!-- Current Photo Preview -->
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="relative">
-                                    <Avatar class="w-40 h-40 border-4 border-gray-200 dark:border-gray-800">
+                                    <Avatar class="w-40 h-40 border-4 border-border">
                                         <AvatarImage 
                                             v-if="photoPreview"
                                             :src="photoPreview" 
@@ -254,8 +254,8 @@ const getCurrentPhoto = () => {
 
                             <!-- Upload Section -->
                             <div class="flex-1 space-y-4">
-                                <div class="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 text-center hover:border-purple-500 dark:hover:border-purple-500 transition-colors">
-                                    <Upload class="w-12 h-12 mx-auto text-gray-400 mb-3" />
+                                <div class="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-purple-500 dark:hover:border-purple-500 transition-colors">
+                                    <Upload class="w-12 h-12 mx-auto text-muted-foreground mb-3" />
                                     <div class="space-y-2">
                                         <Label 
                                             for="photo" 
@@ -263,10 +263,10 @@ const getCurrentPhoto = () => {
                                         >
                                             Click to upload
                                         </Label>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        <p class="text-sm text-muted-foreground">
                                             or drag and drop
                                         </p>
-                                        <p class="text-xs text-gray-400 dark:text-gray-500">
+                                        <p class="text-xs text-muted-foreground">
                                             PNG, JPG or JPEG (MAX. 2MB)
                                         </p>
                                     </div>
@@ -282,7 +282,7 @@ const getCurrentPhoto = () => {
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.photo }}
                                 </div>
-                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-muted-foreground">
                                     <Camera class="w-4 h-4" />
                                     <span class="font-medium">{{ photoFile.name }}</span>
                                     <span class="text-xs">({{ (photoFile.size / 1024).toFixed(2) }} KB)</span>
@@ -307,7 +307,7 @@ const getCurrentPhoto = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="name" class="flex items-center gap-2">
-                                    <User class="w-4 h-4 text-gray-500" />
+                                    <User class="w-4 h-4 text-muted-foreground" />
                                     Full Name *
                                 </Label>
                                 <Input
@@ -326,7 +326,7 @@ const getCurrentPhoto = () => {
 
                             <div class="space-y-2">
                                 <Label for="email" class="flex items-center gap-2">
-                                    <Mail class="w-4 h-4 text-gray-500" />
+                                    <Mail class="w-4 h-4 text-muted-foreground" />
                                     Email Address *
                                 </Label>
                                 <Input
@@ -345,7 +345,7 @@ const getCurrentPhoto = () => {
 
                             <div class="space-y-2">
                                 <Label for="phone" class="flex items-center gap-2">
-                                    <Phone class="w-4 h-4 text-gray-500" />
+                                    <Phone class="w-4 h-4 text-muted-foreground" />
                                     Phone Number *
                                 </Label>
                                 <Input
@@ -363,7 +363,7 @@ const getCurrentPhoto = () => {
 
                             <div class="space-y-2">
                                 <Label for="occupation" class="flex items-center gap-2">
-                                    <Briefcase class="w-4 h-4 text-gray-500" />
+                                    <Briefcase class="w-4 h-4 text-muted-foreground" />
                                     Occupation
                                 </Label>
                                 <Input
@@ -380,7 +380,7 @@ const getCurrentPhoto = () => {
 
                             <div class="space-y-2 md:col-span-2">
                                 <Label for="address" class="flex items-center gap-2">
-                                    <MapPin class="w-4 h-4 text-gray-500" />
+                                    <MapPin class="w-4 h-4 text-muted-foreground" />
                                     Address *
                                 </Label>
                                 <Input
@@ -414,7 +414,7 @@ const getCurrentPhoto = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="relationship_to_student" class="flex items-center gap-2">
-                                    <Users class="w-4 h-4 text-gray-500" />
+                                    <Users class="w-4 h-4 text-muted-foreground" />
                                     Relationship to Student *
                                 </Label>
                                 <select
@@ -437,7 +437,7 @@ const getCurrentPhoto = () => {
                             
                             <div class="space-y-2">
                                 <Label for="student_ids" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Search & Select Students *
                                 </Label>
                                 <div class="relative">
@@ -459,19 +459,19 @@ const getCurrentPhoto = () => {
                                         <Search class="w-4 h-4" />
                                     </Button>
                                 </div>
-                                <div v-if="searchResults.length > 0" class="mt-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg border">
-                                    <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search Results:</div>
+                                <div v-if="searchResults.length > 0" class="mt-2 p-2 bg-muted rounded-lg border">
+                                    <div class="text-sm font-medium text-foreground mb-2">Search Results:</div>
                                     <div class="space-y-1 max-h-32 overflow-y-auto">
                                         <div 
                                             v-for="student in searchResults" 
                                             :key="student.id"
-                                            class="flex items-center justify-between p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer"
+                                            class="flex items-center justify-between p-2 hover:bg-muted rounded cursor-pointer"
                                             @click="selectStudent(student)"
                                         >
                                             <div class="flex-1">
                                                 <div>
-                                                    <div class="font-medium text-gray-900 dark:text-white">{{ student.user.name }}</div>
-                                                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ student.admission_number }}</div>
+                                                    <div class="font-medium text-foreground">{{ student.user.name }}</div>
+                                                    <div class="text-sm text-muted-foreground">{{ student.admission_number }}</div>
                                                 </div>
                                                 <Button
                                                     size="sm"
@@ -488,7 +488,7 @@ const getCurrentPhoto = () => {
 
                             <!-- Selected Students Display -->
                             <div v-if="form.student_ids.length > 0" class="mt-4">
-                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Selected Students:</div>
+                                <div class="text-sm font-medium text-foreground mb-2">Selected Students:</div>
                                 <div class="space-y-2">
                                     <div 
                                         v-for="studentId in form.student_ids" 
@@ -500,8 +500,8 @@ const getCurrentPhoto = () => {
                                                 {{ getStudentInitials(getStudentById(studentId)) }}
                                             </div>
                                             <div>
-                                                <div class="font-medium text-gray-900 dark:text-white">{{ getStudentById(studentId)?.user?.name }}</div>
-                                                <div class="text-sm text-gray-500 dark:text-gray-400">{{ getStudentById(studentId)?.admission_number }}</div>
+                                                <div class="font-medium text-foreground">{{ getStudentById(studentId)?.user?.name }}</div>
+                                                <div class="text-sm text-muted-foreground">{{ getStudentById(studentId)?.admission_number }}</div>
                                             </div>
                                         </div>
                                         <Button
@@ -517,8 +517,8 @@ const getCurrentPhoto = () => {
                                 </div>
                             </div>
                             
-                            <div v-else-if="studentSearch.trim() === ''" class="mt-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border">
-                                <div class="text-sm text-gray-500 dark:text-gray-400 text-center">
+                            <div v-else-if="studentSearch.trim() === ''" class="mt-2 p-3 bg-muted rounded-lg border">
+                                <div class="text-sm text-muted-foreground text-center">
                                     No students selected. Search above to add students.
                                 </div>
                             </div>
@@ -555,7 +555,7 @@ const getCurrentPhoto = () => {
                             
                             <div class="space-y-2 max-w-md">
                                 <Label for="password" class="flex items-center gap-2">
-                                    <Lock class="w-4 h-4 text-gray-500" />
+                                    <Lock class="w-4 h-4 text-muted-foreground" />
                                     Password *
                                 </Label>
                                 <Input
@@ -566,7 +566,7 @@ const getCurrentPhoto = () => {
                                     required
                                     autocomplete="new-password"
                                 />
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                <p class="text-xs text-muted-foreground">
                                     Minimum 8 characters recommended
                                 </p>
                                 <div v-if="form.errors.password" class="flex items-center gap-2 text-red-600 text-sm">
@@ -582,7 +582,7 @@ const getCurrentPhoto = () => {
                 <Card>
                     <CardContent class="pt-6">
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <p class="text-sm text-muted-foreground">
                                 * Required fields must be filled
                             </p>
                             <div class="flex items-center gap-3">

@@ -145,8 +145,8 @@ const closeDialog = () => {
     <Dialog :open="open" @update:open="emit('update:open', $event)">
         <DialogContent class="w-[95vw] max-w-7xl max-h-[95vh] overflow-y-auto card-warm">
             <DialogHeader>
-                <DialogTitle class="text-2xl font-black tracking-tight text-warm-text dark:text-dark-text">Enroll New Student</DialogTitle>
-                <DialogDescription class="text-warm-muted dark:text-dark-muted">
+                <DialogTitle class="text-2xl font-black tracking-tight text-warm-text text-dark-text">Enroll New Student</DialogTitle>
+                <DialogDescription class="text-warm-muted text-dark-muted">
                     Create a new student enrollment with all required details.
                 </DialogDescription>
             </DialogHeader>
@@ -164,7 +164,7 @@ const closeDialog = () => {
                                     </AvatarFallback>
                                 </Avatar>
                                 <div class="text-center md:text-left space-y-1 mb-1">
-                                    <h3 class="text-xl font-bold text-warm-text dark:text-dark-text">{{ form.name || 'New Student' }}</h3>
+                                    <h3 class="text-xl font-bold text-warm-text text-dark-text">{{ form.name || 'New Student' }}</h3>
                                     <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
                                         <Badge variant="outline" class="gap-1 text-xs border-terracotta/20 text-terracotta">
                                             <Sparkles class="w-3 h-3" />
@@ -182,7 +182,7 @@ const closeDialog = () => {
                     <!-- Photo Upload -->
                     <div class="card-warm">
                         <div class="p-6 border-b border-terracotta/20">
-                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                                 <Camera class="w-4 h-4 text-terracotta" />
                                 Profile Photo
                             </h3>
@@ -198,7 +198,7 @@ const closeDialog = () => {
                                         Click to upload photo
                                     </Label>
                                     <Input id="photo" type="file" accept="image/*" @change="handlePhotoChange" class="hidden" />
-                                    <p class="text-xs text-warm-muted dark:text-dark-muted">PNG, JPG (Max 2MB)</p>
+                                    <p class="text-xs text-warm-muted text-dark-muted">PNG, JPG (Max 2MB)</p>
                                     <Button v-if="photoPreview" type="button" variant="outline" size="sm" @click="removePhoto" class="text-destructive border-destructive/20">
                                         <X class="w-3 h-3 mr-1" /> Remove
                                     </Button>
@@ -211,24 +211,24 @@ const closeDialog = () => {
                     <!-- Basic Info -->
                     <div class="card-warm">
                         <div class="p-6 border-b border-terracotta/20">
-                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                            <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                                 <User class="w-4 h-4 text-terracotta" />
                                 Basic Information
                             </h3>
                         </div>
                         <div class="p-6 space-y-3">
                             <div class="space-y-1">
-                                <Label for="name" class="text-sm text-warm-text dark:text-dark-text">Full Name *</Label>
+                                <Label for="name" class="text-sm text-warm-text text-dark-text">Full Name *</Label>
                                 <Input id="name" v-model="form.name" type="text" placeholder="Enter full name" required class="border-terracotta/20 focus:ring-terracotta/30" />
                                 <div v-if="form.errors.name" class="text-destructive text-xs">{{ form.errors.name }}</div>
                             </div>
                             <div class="space-y-1">
-                                <Label for="email" class="text-sm text-warm-text dark:text-dark-text">Email Address *</Label>
+                                <Label for="email" class="text-sm text-warm-text text-dark-text">Email Address *</Label>
                                 <Input id="email" v-model="form.email" type="email" placeholder="student@example.com" required class="border-terracotta/20 focus:ring-terracotta/30" />
                                 <div v-if="form.errors.email" class="text-destructive text-xs">{{ form.errors.email }}</div>
                             </div>
                             <div class="space-y-1">
-                                <Label for="password" class="text-sm text-warm-text dark:text-dark-text">Password *</Label>
+                                <Label for="password" class="text-sm text-warm-text text-dark-text">Password *</Label>
                                 <Input id="password" v-model="form.password" type="password" placeholder="Enter password" required class="border-terracotta/20 focus:ring-terracotta/30" />
                                 <div v-if="form.errors.password" class="text-destructive text-xs">{{ form.errors.password }}</div>
                             </div>
@@ -239,7 +239,7 @@ const closeDialog = () => {
                 <!-- Academic Information -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                             <GradIcon class="w-4 h-4 text-terracotta" />
                             Academic Information
                         </h3>
@@ -247,7 +247,7 @@ const closeDialog = () => {
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="space-y-1">
-                                <Label class="text-sm text-warm-text dark:text-dark-text">Admission Number</Label>
+                                <Label class="text-sm text-warm-text text-dark-text">Admission Number</Label>
                                 <div class="flex gap-2">
                                     <Input v-model="form.admission_number" readonly class="bg-terracotta/5 text-sm border-terracotta/20" />
                                     <Button type="button" variant="outline" size="icon" @click="regenerateNumbers" class="shrink-0 border-terracotta/20">
@@ -256,15 +256,15 @@ const closeDialog = () => {
                                 </div>
                             </div>
                             <div class="space-y-1">
-                                <Label class="text-sm text-warm-text dark:text-dark-text">Roll Number</Label>
+                                <Label class="text-sm text-warm-text text-dark-text">Roll Number</Label>
                                 <Input v-model="form.roll_number" readonly class="bg-terracotta/5 text-sm border-terracotta/20" />
                             </div>
                             <div class="space-y-1">
-                                <Label for="admission_date" class="text-sm text-warm-text dark:text-dark-text">Admission Date</Label>
+                                <Label for="admission_date" class="text-sm text-warm-text text-dark-text">Admission Date</Label>
                                 <Input id="admission_date" v-model="form.admission_date" type="date" class="border-terracotta/20 focus:ring-terracotta/30" />
                             </div>
                             <div class="space-y-1">
-                                <Label for="academic_class_id" class="text-sm text-warm-text dark:text-dark-text">Class *</Label>
+                                <Label for="academic_class_id" class="text-sm text-warm-text text-dark-text">Class *</Label>
                                 <select id="academic_class_id" v-model="form.academic_class_id" class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-terracotta/30" required>
                                     <option value="">Select class</option>
                                     <option v-for="classItem in classes" :key="classItem.id" :value="classItem.id">{{ classItem.name }}</option>
@@ -272,7 +272,7 @@ const closeDialog = () => {
                                 <div v-if="form.errors.academic_class_id" class="text-destructive text-xs">{{ form.errors.academic_class_id }}</div>
                             </div>
                             <div class="space-y-1">
-                                <Label for="section_id" class="text-sm text-warm-text dark:text-dark-text">Section *</Label>
+                                <Label for="section_id" class="text-sm text-warm-text text-dark-text">Section *</Label>
                                 <select id="section_id" v-model="form.section_id" class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-terracotta/30" required>
                                     <option value="">Select section</option>
                                     <option v-for="section in sections" :key="section.id" :value="section.id">{{ section.name }}</option>
@@ -280,7 +280,7 @@ const closeDialog = () => {
                                 <div v-if="form.errors.section_id" class="text-destructive text-xs">{{ form.errors.section_id }}</div>
                             </div>
                             <div class="space-y-1">
-                                <Label for="status" class="text-sm text-warm-text dark:text-dark-text">Status</Label>
+                                <Label for="status" class="text-sm text-warm-text text-dark-text">Status</Label>
                                 <select id="status" v-model="form.status" class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-terracotta/30">
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
@@ -295,7 +295,7 @@ const closeDialog = () => {
                 <!-- Personal Details -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                             <User class="w-4 h-4 text-terracotta" />
                             Personal Details
                         </h3>
@@ -303,15 +303,15 @@ const closeDialog = () => {
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="space-y-1">
-                                <Label for="phone" class="text-sm text-warm-text dark:text-dark-text">Phone Number</Label>
+                                <Label for="phone" class="text-sm text-warm-text text-dark-text">Phone Number</Label>
                                 <Input id="phone" v-model="form.phone" type="tel" placeholder="+254..." class="border-terracotta/20 focus:ring-terracotta/30" />
                             </div>
                             <div class="space-y-1">
-                                <Label for="date_of_birth" class="text-sm text-warm-text dark:text-dark-text">Date of Birth</Label>
+                                <Label for="date_of_birth" class="text-sm text-warm-text text-dark-text">Date of Birth</Label>
                                 <Input id="date_of_birth" v-model="form.date_of_birth" type="date" class="border-terracotta/20 focus:ring-terracotta/30" />
                             </div>
                             <div class="space-y-1">
-                                <Label for="gender" class="text-sm text-warm-text dark:text-dark-text">Gender</Label>
+                                <Label for="gender" class="text-sm text-warm-text text-dark-text">Gender</Label>
                                 <select id="gender" v-model="form.gender" class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-terracotta/30">
                                     <option value="">Select gender</option>
                                     <option value="male">Male</option>
@@ -320,7 +320,7 @@ const closeDialog = () => {
                                 </select>
                             </div>
                             <div class="space-y-1">
-                                <Label for="blood_group" class="text-sm text-warm-text dark:text-dark-text">Blood Group</Label>
+                                <Label for="blood_group" class="text-sm text-warm-text text-dark-text">Blood Group</Label>
                                 <select id="blood_group" v-model="form.blood_group" class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus:ring-terracotta/30">
                                     <option value="">Select blood group</option>
                                     <option value="A+">A+</option>
@@ -334,7 +334,7 @@ const closeDialog = () => {
                                 </select>
                             </div>
                             <div class="space-y-1 md:col-span-2">
-                                <Label for="address" class="text-sm text-warm-text dark:text-dark-text">Address</Label>
+                                <Label for="address" class="text-sm text-warm-text text-dark-text">Address</Label>
                                 <Input id="address" v-model="form.address" type="text" placeholder="Enter full address" class="border-terracotta/20 focus:ring-terracotta/30" />
                             </div>
                         </div>
@@ -344,14 +344,14 @@ const closeDialog = () => {
                 <!-- Emergency Contact -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-base font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-base font-black text-warm-text text-dark-text">
                             <Phone class="w-4 h-4 text-terracotta" />
                             Emergency Contact
                         </h3>
                     </div>
                     <div class="p-6">
                         <div class="space-y-1">
-                            <Label for="emergency_contact" class="text-sm text-warm-text dark:text-dark-text">Emergency Contact Phone</Label>
+                            <Label for="emergency_contact" class="text-sm text-warm-text text-dark-text">Emergency Contact Phone</Label>
                             <Input id="emergency_contact" v-model="form.emergency_contact" type="tel" placeholder="+254..." class="border-terracotta/20 focus:ring-terracotta/30" />
                         </div>
                     </div>

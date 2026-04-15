@@ -122,8 +122,8 @@ const calculateAge = (dob) => {
                         Students
                     </Button>
                 </Link>
-                <span class="text-warm-muted dark:text-dark-muted">/</span>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">Student Intelligence</span>
+                <span class="text-warm-muted text-dark-muted">/</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">Student Intelligence</span>
             </div>
         </template>
 
@@ -151,18 +151,18 @@ const calculateAge = (dob) => {
                                 <Badge :class="['rounded-full px-4 py-1 h-7 border-0 font-black uppercase text-[9px] tracking-widest', getStatusColor(student.status)]">
                                     {{ student.status }}
                                 </Badge>
-                                <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Adm: #{{ student.admission_number }}</span>
+                                <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">Adm: #{{ student.admission_number }}</span>
                             </div>
-                            <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text tracking-tighter">
+                            <h1 class="text-4xl md:text-5xl font-black text-warm-text text-dark-text tracking-tighter">
                                 {{ student.user.name }}
                             </h1>
                             <div class="flex flex-wrap items-center justify-center md:justify-start gap-6">
-                                <div class="flex items-center text-sm font-bold text-warm-muted dark:text-dark-muted uppercase tracking-wide">
+                                <div class="flex items-center text-sm font-bold text-warm-muted text-dark-muted uppercase tracking-wide">
                                     <GraduationCap class="w-5 h-5 mr-2 text-terracotta" />
                                     {{ student.academic_class?.name || 'Class 10A' }}
                                     <span v-if="student.section?.name" class="ml-1 text-terracotta">• Section {{ student.section.name }}</span>
                                 </div>
-                                <div class="flex items-center text-sm font-bold text-warm-muted dark:text-dark-muted uppercase tracking-wide">
+                                <div class="flex items-center text-sm font-bold text-warm-muted text-dark-muted uppercase tracking-wide">
                                     <ShieldCheck class="w-5 h-5 mr-2 text-forest" />
                                     Roll: {{ student.roll_number }}
                                 </div>
@@ -179,7 +179,7 @@ const calculateAge = (dob) => {
                         </Link>
                         <DropdownMenu>
                             <DropdownMenuTrigger as-child>
-                                <Button variant="outline" class="rounded-2xl h-14 w-14 border-terracotta/20 text-warm-muted dark:text-dark-muted">
+                                <Button variant="outline" class="rounded-2xl h-14 w-14 border-terracotta/20 text-warm-muted text-dark-muted">
                                     <MoreVertical class="w-6 h-6" />
                                 </Button>
                             </DropdownMenuTrigger>
@@ -212,9 +212,9 @@ const calculateAge = (dob) => {
                         <div :class="['w-12 h-12 rounded-2xl flex items-center justify-center transition-colors font-bold', `bg-${stat.color}/10 text-${stat.color}`]">
                             <component :is="stat.icon" class="w-6 h-6" />
                         </div>
-                        <Badge class="bg-terracotta/5 dark:bg-terracotta/5 border-0 text-warm-muted dark:text-dark-muted font-black text-[9px] uppercase tracking-widest">{{ stat.label }}</Badge>
+                        <Badge class="bg-terracotta/5 dark:bg-terracotta/5 border-0 text-warm-muted text-dark-muted font-black text-[9px] uppercase tracking-widest">{{ stat.label }}</Badge>
                     </div>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter">{{ stat.val }}</h3>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter">{{ stat.val }}</h3>
                 </div>
             </div>
 
@@ -235,7 +235,7 @@ const calculateAge = (dob) => {
                 <TabsContent value="overview" class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in-up mt-0">
                     <div class="card-warm rounded-[3rem] overflow-hidden">
                         <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <UserCircle class="w-6 h-6 text-terracotta" />
                                 Personal Specifications
                             </h3>
@@ -255,8 +255,8 @@ const calculateAge = (dob) => {
                                     <component :is="item.icon" class="w-5 h-5" />
                                 </div>
                                 <div class="flex-1">
-                                    <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted mb-1">{{ item.label }}</p>
-                                    <p class="text-sm font-black text-warm-text dark:text-dark-text truncate">{{ item.val }}</p>
+                                    <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted text-dark-muted mb-1">{{ item.label }}</p>
+                                    <p class="text-sm font-black text-warm-text text-dark-text truncate">{{ item.val }}</p>
                                 </div>
                                 <Badge v-if="item.extra" class="bg-terracotta/10 text-terracotta border-0 font-black">{{ item.extra }}</Badge>
                             </div>
@@ -265,7 +265,7 @@ const calculateAge = (dob) => {
 
                     <div class="card-warm rounded-[3rem] overflow-hidden">
                         <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <Heart class="w-6 h-6 text-amber" />
                                 Health & Bio-Analytics
                             </h3>
@@ -286,7 +286,7 @@ const calculateAge = (dob) => {
                                     <AlertCircle class="w-4 h-4" />
                                     Critical Medical Alerts
                                 </h4>
-                                <p class="text-sm font-medium text-warm-muted dark:text-dark-muted leading-relaxed">
+                                <p class="text-sm font-medium text-warm-muted text-dark-muted leading-relaxed">
                                     {{ student.medical_conditions || 'None reported. Student is cleared for all physical activities.' }}
                                 </p>
                             </div>
@@ -298,7 +298,7 @@ const calculateAge = (dob) => {
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div class="card-warm rounded-[3rem] overflow-hidden">
                             <div class="p-8 border-b border-terracotta/20">
-                                <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                                <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                     <BookOpen class="w-6 h-6 text-terracotta" />
                                     Academic Summary
                                 </h3>
@@ -314,8 +314,8 @@ const calculateAge = (dob) => {
                                     :key="item.label"
                                     class="flex justify-between items-center p-4 bg-terracotta/5 rounded-2xl border border-terracotta/20"
                                 >
-                                    <span class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted">{{ item.label }}</span>
-                                    <span class="text-sm font-black text-warm-text dark:text-dark-text">{{ item.val }}</span>
+                                    <span class="text-xs font-black uppercase tracking-widest text-warm-muted text-dark-muted">{{ item.label }}</span>
+                                    <span class="text-sm font-black text-warm-text text-dark-text">{{ item.val }}</span>
                                 </div>
                             </div>
                         </div>
@@ -325,7 +325,7 @@ const calculateAge = (dob) => {
                             <div class="relative z-10 w-full space-y-6">
                                 <h4 class="text-2xl font-black tracking-tighter">Learning Velocity</h4>
                                 <div class="flex items-end justify-center gap-4 h-32">
-                                    <div v-for="h in [0.4, 0.6, 1, 0.8, 0.9]" :key="h" class="w-6 bg-white/20 rounded-t-lg transition-all hover:bg-white/40" :style="{ height: `${h * 100}%` }"></div>
+                                    <div v-for="h in [0.4, 0.6, 1, 0.8, 0.9]" :key="h" class="w-6 bg-white/20 dark:bg-white/10 rounded-t-lg transition-all hover:bg-white/40" :style="{ height: `${h * 100}%` }"></div>
                                 </div>
                                 <p class="text-xs font-bold opacity-80 uppercase tracking-widest">Growth Curve: +15% this term</p>
                             </div>
@@ -338,7 +338,7 @@ const calculateAge = (dob) => {
                         <div class="lg:col-span-2">
                             <div class="card-warm rounded-[3rem] overflow-hidden">
                                 <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                         <Users class="w-6 h-6 text-terracotta" />
                                         Primary Guardian Details
                                     </h3>
@@ -351,7 +351,7 @@ const calculateAge = (dob) => {
                                             </AvatarFallback>
                                         </Avatar>
                                         <div>
-                                            <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none mb-2">
+                                            <h3 class="text-2xl font-black text-warm-text text-dark-text tracking-tighter leading-none mb-2">
                                                 {{ student.parent_user?.user?.name || student.parent_name }}
                                             </h3>
                                             <Badge class="bg-terracotta/10 text-terracotta border-0 font-black uppercase tracking-widest text-[9px]">
@@ -372,10 +372,10 @@ const calculateAge = (dob) => {
                                             class="p-4 bg-terracotta/5 rounded-2xl border border-terracotta/20"
                                         >
                                             <div class="flex items-center gap-3 mb-1">
-                                                <component :is="info.icon" class="w-4 h-4 text-warm-muted dark:text-dark-muted" />
-                                                <span class="text-[9px] font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted">{{ info.label }}</span>
+                                                <component :is="info.icon" class="w-4 h-4 text-warm-muted text-dark-muted" />
+                                                <span class="text-[9px] font-black uppercase tracking-widest text-warm-muted text-dark-muted">{{ info.label }}</span>
                                             </div>
-                                            <p class="text-sm font-black text-warm-text dark:text-dark-text">{{ info.val }}</p>
+                                            <p class="text-sm font-black text-warm-text text-dark-text">{{ info.val }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -387,8 +387,8 @@ const calculateAge = (dob) => {
                                 <History class="w-10 h-10" />
                             </div>
                             <div>
-                                <h4 class="text-xl font-black tracking-tighter text-warm-text dark:text-dark-text">Family History</h4>
-                                <p class="text-xs font-bold text-warm-muted dark:text-dark-muted leading-relaxed max-w-[200px] mt-2">
+                                <h4 class="text-xl font-black tracking-tighter text-warm-text text-dark-text">Family History</h4>
+                                <p class="text-xs font-bold text-warm-muted text-dark-muted leading-relaxed max-w-[200px] mt-2">
                                     3 active siblings currently enrolled in the EduManage ecosystem.
                                 </p>
                             </div>
@@ -406,8 +406,8 @@ const calculateAge = (dob) => {
             <DialogContent class="card-warm rounded-[2.5rem] shadow-2xl">
                 <DialogHeader>
                     <DialogTitle class="text-2xl font-black tracking-tighter text-destructive">Critical: Purge Registry?</DialogTitle>
-                    <DialogDescription class="font-bold text-warm-muted dark:text-dark-muted">
-                        This action will permanently redact <strong class="text-warm-text dark:text-dark-text">{{ student.user.name }}</strong> from all academic and biological databases. This operation is irreversible.
+                    <DialogDescription class="font-bold text-warm-muted text-dark-muted">
+                        This action will permanently redact <strong class="text-warm-text text-dark-text">{{ student.user.name }}</strong> from all academic and biological databases. This operation is irreversible.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter class="gap-3">

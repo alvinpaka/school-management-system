@@ -44,7 +44,7 @@ const submit = () => {
                         Back to Exams
                     </Button>
                 </Link>
-                <span class="text-gray-400">|</span>
+                <span class="text-muted-foreground">|</span>
                 <span>Schedule New Exam</span>
             </div>
         </template>
@@ -61,7 +61,7 @@ const submit = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Basic Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Basic Information</h3>
+                                <h3 class="text-lg font-medium text-foreground">Basic Information</h3>
                                 
                                 <div>
                                     <Label for="name">Exam Name</Label>
@@ -84,7 +84,7 @@ const submit = () => {
                                     <select
                                         id="subject_id"
                                         v-model="form.subject_id"
-                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        class="mt-1 block w-full border-border dark:bg-background dark:text-foreground rounded-lg px-3 py-2"
                                         required
                                     >
                                         <option value="">Select a subject</option>
@@ -115,7 +115,7 @@ const submit = () => {
 
                             <!-- Schedule Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Schedule Information</h3>
+                                <h3 class="text-lg font-medium text-foreground">Schedule Information</h3>
                                 
                                 <div>
                                     <Label for="date">Exam Date</Label>
@@ -162,7 +162,7 @@ const submit = () => {
                         </div>
 
                         <!-- Form Actions -->
-                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-border">
                             <Link :href="route('exams.index')">
                                 <Button variant="outline" type="button">
                                     Cancel

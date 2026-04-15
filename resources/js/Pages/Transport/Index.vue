@@ -43,8 +43,8 @@ const selectedStatus = ref('all');
             <div class="mb-6">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Transport</h2>
-                        <p class="text-gray-600 dark:text-gray-400">Manage school transport routes and vehicles</p>
+                        <h2 class="text-2xl font-bold text-foreground">Transport</h2>
+                        <p class="text-muted-foreground">Manage school transport routes and vehicles</p>
                     </div>
                     <div class="flex gap-2">
                         <Button>
@@ -68,8 +68,8 @@ const selectedStatus = ref('all');
                                 <Bus class="w-6 h-6 text-white" />
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Routes</p>
-                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats.total_routes }}</p>
+                                <p class="text-sm font-medium text-muted-foreground">Total Routes</p>
+                                <p class="text-2xl font-bold text-foreground">{{ stats.total_routes }}</p>
                             </div>
                         </div>
                     </CardContent>
@@ -82,8 +82,8 @@ const selectedStatus = ref('all');
                                 <Users class="w-6 h-6 text-white" />
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Active Routes</p>
-                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats.active_routes }}</p>
+                                <p class="text-sm font-medium text-muted-foreground">Active Routes</p>
+                                <p class="text-2xl font-bold text-foreground">{{ stats.active_routes }}</p>
                             </div>
                         </div>
                     </CardContent>
@@ -96,8 +96,8 @@ const selectedStatus = ref('all');
                                 <Users class="w-6 h-6 text-white" />
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Students</p>
-                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats.total_students.toLocaleString() }}</p>
+                                <p class="text-sm font-medium text-muted-foreground">Total Students</p>
+                                <p class="text-2xl font-bold text-foreground">{{ stats.total_students.toLocaleString() }}</p>
                             </div>
                         </div>
                     </CardContent>
@@ -110,8 +110,8 @@ const selectedStatus = ref('all');
                                 <Bus class="w-6 h-6 text-white" />
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Vehicles</p>
-                                <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ stats.total_vehicles }}</p>
+                                <p class="text-sm font-medium text-muted-foreground">Total Vehicles</p>
+                                <p class="text-2xl font-bold text-foreground">{{ stats.total_vehicles }}</p>
                             </div>
                         </div>
                     </CardContent>
@@ -128,17 +128,17 @@ const selectedStatus = ref('all');
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <div class="relative">
-                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                                 <input
                                     v-model="searchQuery"
                                     type="text"
                                     placeholder="Search routes by name or area..."
-                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                             </div>
                         </div>
                         <div class="flex gap-2">
-                            <select v-model="selectedStatus" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <select v-model="selectedStatus" class="px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                                 <option value="all">All Status</option>
                                 <option value="active">Active</option>
                                 <option value="maintenance">Maintenance</option>
@@ -162,50 +162,50 @@ const selectedStatus = ref('all');
                 <CardContent>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left">
-                            <thead class="bg-gray-50 dark:bg-gray-800">
+                            <thead class="bg-muted">
                                 <tr>
-                                    <th class="px-6 py-3 font-medium text-gray-900 dark:text-white">Route Name</th>
-                                    <th class="px-6 py-3 font-medium text-gray-900 dark:text-white">Vehicle</th>
-                                    <th class="px-6 py-3 font-medium text-gray-900 dark:text-white">Capacity</th>
-                                    <th class="px-6 py-3 font-medium text-gray-900 dark:text-white">Driver</th>
-                                    <th class="px-6 py-3 font-medium text-gray-900 dark:text-white">Students</th>
-                                    <th class="px-6 py-3 font-medium text-gray-900 dark:text-white">Status</th>
-                                    <th class="px-6 py-3 font-medium text-gray-900 dark:text-white">Actions</th>
+                                    <th class="px-6 py-3 font-medium text-foreground">Route Name</th>
+                                    <th class="px-6 py-3 font-medium text-foreground">Vehicle</th>
+                                    <th class="px-6 py-3 font-medium text-foreground">Capacity</th>
+                                    <th class="px-6 py-3 font-medium text-foreground">Driver</th>
+                                    <th class="px-6 py-3 font-medium text-foreground">Students</th>
+                                    <th class="px-6 py-3 font-medium text-foreground">Status</th>
+                                    <th class="px-6 py-3 font-medium text-foreground">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                <tr v-for="transportRoute in routes" :key="transportRoute.id" class="hover:bg-gray-50 dark:hover:bg-gray-800">
+                            <tbody class="divide-y divide-border">
+                                <tr v-for="transportRoute in routes" :key="transportRoute.id" class="hover:bg-muted">
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
-                                            <MapPin class="w-4 h-4 mr-2 text-gray-400" />
+                                            <MapPin class="w-4 h-4 mr-2 text-muted-foreground" />
                                             <div>
-                                                <div class="font-medium text-gray-900 dark:text-white">{{ transportRoute.name }}</div>
-                                                <div class="text-sm text-gray-500 dark:text-gray-400">{{ transportRoute.description }}</div>
+                                                <div class="font-medium text-foreground">{{ transportRoute.name }}</div>
+                                                <div class="text-sm text-muted-foreground">{{ transportRoute.description }}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
-                                            <Bus class="w-4 h-4 mr-2 text-gray-400" />
+                                            <Bus class="w-4 h-4 mr-2 text-muted-foreground" />
                                             <div>
-                                                <div class="font-medium text-gray-900 dark:text-white">{{ transportRoute.vehicle }}</div>
-                                                <div class="text-sm text-gray-500 dark:text-gray-400">Capacity: {{ transportRoute.capacity }}</div>
+                                                <div class="font-medium text-foreground">{{ transportRoute.vehicle }}</div>
+                                                <div class="text-sm text-muted-foreground">Capacity: {{ transportRoute.capacity }}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
-                                            <Users class="w-4 h-4 mr-2 text-gray-400" />
+                                            <Users class="w-4 h-4 mr-2 text-muted-foreground" />
                                             <div>
-                                                <div class="font-medium text-gray-900 dark:text-white">{{ transportRoute.driver }}</div>
-                                                <div class="text-sm text-gray-500 dark:text-gray-400">{{ transportRoute.phone }}</div>
+                                                <div class="font-medium text-foreground">{{ transportRoute.driver }}</div>
+                                                <div class="text-sm text-muted-foreground">{{ transportRoute.phone }}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
-                                            <Users class="w-4 h-4 mr-2 text-gray-400" />
-                                            <div class="font-medium text-gray-900 dark:text-white">{{ transportRoute.students_assigned }}</div>
+                                            <Users class="w-4 h-4 mr-2 text-muted-foreground" />
+                                            <div class="font-medium text-foreground">{{ transportRoute.students_assigned }}</div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">

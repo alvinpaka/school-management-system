@@ -25,7 +25,7 @@ defineProps({
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Trophy class="w-5 h-5 text-terracotta" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Grades</span>
+                <span class="font-semibold text-warm-text text-dark-text">Grades</span>
             </div>
         </template>
 
@@ -33,8 +33,8 @@ defineProps({
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Grades Overview</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">View and manage student grades</p>
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Grades Overview</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">View and manage student grades</p>
                 </div>
             </div>
 
@@ -46,8 +46,8 @@ defineProps({
                             <Trophy class="w-6 h-6 text-forest" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Average Grade</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats?.average_grade || 'N/A' }}</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">Average Grade</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats?.average_grade || 'N/A' }}</p>
                         </div>
                     </div>
                 </div>
@@ -58,8 +58,8 @@ defineProps({
                             <TrendingUp class="w-6 h-6 text-terracotta" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Pass Rate</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats?.pass_rate || 'N/A' }}%</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">Pass Rate</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats?.pass_rate || 'N/A' }}%</p>
                         </div>
                     </div>
                 </div>
@@ -70,8 +70,8 @@ defineProps({
                             <Users class="w-6 h-6 text-amber" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Total Students</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats?.total_students || 0 }}</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">Total Students</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats?.total_students || 0 }}</p>
                         </div>
                     </div>
                 </div>
@@ -82,8 +82,8 @@ defineProps({
                             <BookOpen class="w-6 h-6 text-terracotta" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Total Exams</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats?.total_exams || 0 }}</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">Total Exams</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats?.total_exams || 0 }}</p>
                         </div>
                     </div>
                 </div>
@@ -92,29 +92,29 @@ defineProps({
             <!-- Recent Grades -->
             <div class="card-warm">
                 <div class="p-6 border-b border-terracotta/20">
-                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Recent Grades</h3>
-                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Latest grade entries across all classes</p>
+                    <h3 class="text-lg font-black text-warm-text text-dark-text">Recent Grades</h3>
+                    <p class="text-sm text-warm-muted text-dark-muted mt-1">Latest grade entries across all classes</p>
                 </div>
                 <div class="p-12 text-center">
                     <div class="w-20 h-20 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-4">
                         <Trophy class="w-10 h-10 text-terracotta/30" />
                     </div>
-                    <h3 class="text-xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">Grades Module</h3>
-                    <p class="text-warm-muted dark:text-dark-muted mb-6">Comprehensive grade management system</p>
+                    <h3 class="text-xl font-black text-warm-text text-dark-text mb-2 tracking-tighter">Grades Module</h3>
+                    <p class="text-warm-muted text-dark-muted mb-6">Comprehensive grade management system</p>
                     <div class="space-y-3 text-left max-w-md mx-auto">
-                        <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                        <div class="flex items-center text-sm text-warm-muted text-dark-muted">
                             <CheckCircle class="w-4 h-4 mr-3 text-forest" />
                             Grade entry and management
                         </div>
-                        <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                        <div class="flex items-center text-sm text-warm-muted text-dark-muted">
                             <CheckCircle class="w-4 h-4 mr-3 text-forest" />
                             Performance analytics
                         </div>
-                        <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                        <div class="flex items-center text-sm text-warm-muted text-dark-muted">
                             <CheckCircle class="w-4 h-4 mr-3 text-forest" />
                             Grade reports and transcripts
                         </div>
-                        <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                        <div class="flex items-center text-sm text-warm-muted text-dark-muted">
                             <CheckCircle class="w-4 h-4 mr-3 text-forest" />
                             Class performance tracking
                         </div>

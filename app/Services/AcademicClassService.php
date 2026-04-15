@@ -13,12 +13,12 @@ class AcademicClassService extends BaseService
 
     public function getClassesList(?string $search = null, ?array $classIds = null, int $perPage = 10): LengthAwarePaginator
     {
-        $cacheKey = $this->getCacheKey('classes:list', [$search, $classIds, $perPage, request('page', 1)]);
+        $cacheKey = $this->getCacheKey('classes:list:v6', [$search, $classIds, $perPage, request('page', 1)]);
 
         return $this->remember($cacheKey, function () use ($search, $classIds, $perPage) {
             $query = AcademicClass::query()
-                ->select(['id', 'name', 'code', 'created_at'])
-                ->with(['sections:id,academic_class_id,name']);
+                ->withCount(['students as total_students'])
+                ->with(['sections:id,academic_class_id,name', 'teachers.user']);
 
             if ($search) {
                 $query->where(function($q) use ($search) {
@@ -34,7 +34,10 @@ class AcademicClassService extends BaseService
                 $query->whereIn('id', $classIds);
             }
 
-            return $query->latest()->paginate($perPage);
+            // Robust natural sort: Extract number from "S1", "S2", etc.
+            return $query->orderByRaw('CAST(SUBSTRING(name, 2) AS UNSIGNED) ASC')
+                ->orderBy('name', 'asc')
+                ->paginate($perPage);
         }, $this->cacheTTL);
     }
 
@@ -61,18 +64,29 @@ class AcademicClassService extends BaseService
 
     public function getClassDetail(AcademicClass $class): array
     {
-        return $this->remember("class:{$class->id}:detail", function () use ($class) {
-            $class->load(['sections:id,academic_class_id,name']);
+        return $this->remember("class:{$class->id}:detail:v3", function () use ($class) {
+            $class->load([
+                'sections' => function($query) {
+                    $query->withCount('students')->with(['teachers.user']);
+                }
+            ]);
 
             return [
                 'id' => $class->id,
                 'name' => $class->name,
                 'code' => $class->code,
+                'grade_level' => $class->grade_level,
+                'total_population' => $class->sections->sum('students_count'),
                 'created_at' => $class->created_at,
                 'updated_at' => $class->updated_at,
                 'sections' => $class->sections->map(fn($section) => [
                     'id' => $section->id,
                     'name' => $section->name,
+                    'students_count' => $section->students_count,
+                    'class_teacher' => $section->classTeacher ? [
+                        'name' => $section->classTeacher->user->name,
+                        'phone' => $section->classTeacher->phone ?? null,
+                    ] : null,
                 ])->toArray(),
             ];
         }, $this->cacheTTL);

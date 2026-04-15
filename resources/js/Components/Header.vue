@@ -43,11 +43,11 @@ const userRole = computed(() => {
             @click="emit('toggle-mobile-menu')"
             variant="ghost" 
             size="icon" 
-            class="lg:hidden h-9 w-9 rounded-xl text-warm-muted dark:text-dark-muted mr-1 hover:bg-terracotta/10"
+            class="lg:hidden h-9 w-9 rounded-xl text-warm-muted text-dark-muted mr-1 hover:bg-terracotta/10"
         >
             <Menu class="w-5 h-5" />
         </Button>
-        <h1 class="text-lg lg:text-xl font-black text-warm-text dark:text-dark-text truncate tracking-tighter uppercase">
+        <h1 class="text-lg lg:text-xl font-black text-warm-text text-dark-text truncate tracking-tighter uppercase">
           <slot name="header-title" />
         </h1>
       </div>
@@ -56,7 +56,7 @@ const userRole = computed(() => {
       <div class="flex items-center space-x-4">
         <!-- Notifications -->
         <div class="relative">
-          <Button variant="ghost" size="sm" class="relative p-2 rounded-xl hover:bg-terracotta/10 text-warm-muted dark:text-dark-muted">
+          <Button variant="ghost" size="sm" class="relative p-2 rounded-xl hover:bg-terracotta/10 text-warm-muted text-dark-muted">
             <Bell class="w-5 h-5" />
             <Badge class="absolute top-1 right-1 h-4 w-4 rounded-full p-0 flex items-center justify-center text-[10px] bg-terracotta text-white border-0 font-black">
               3
@@ -65,7 +65,7 @@ const userRole = computed(() => {
         </div>
         
         <!-- Dark Mode Toggle -->
-        <!-- <DarkModeToggle variant="ghost" /> -->
+        <DarkModeToggle variant="ghost" />
         
         <!-- User Dropdown -->
         <DropdownMenu>
@@ -83,30 +83,30 @@ const userRole = computed(() => {
                 </div>
               </div>
               <div class="hidden md:block text-left">
-                <div class="text-xs font-black text-warm-text dark:text-dark-text leading-tight truncate max-w-[120px]">
+                <div class="text-xs font-black text-warm-text text-dark-text leading-tight truncate max-w-[120px]">
                   {{ user?.name || 'User' }}
                 </div>
                 <div class="text-[10px] font-bold text-terracotta uppercase tracking-wider">
                   {{ userRole }}
                 </div>
               </div>
-              <svg class="w-3 h-3 text-warm-muted dark:text-dark-muted hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3 h-3 text-warm-muted text-dark-muted hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" class="w-56 mt-2 rounded-2xl card-warm p-2 shadow-2xl animate-scale-up">
             <div class="px-3 py-2">
-              <div class="text-sm font-black text-warm-text dark:text-dark-text">
+              <div class="text-sm font-black text-warm-text text-dark-text">
                 {{ user?.name || 'User' }}
               </div>
-              <div class="text-[10px] font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest">
+              <div class="text-[10px] font-bold text-warm-muted text-dark-muted uppercase tracking-widest">
                 {{ user?.email || '' }}
               </div>
             </div>
             <DropdownMenuSeparator class="bg-terracotta/20" />
             <DropdownMenuItem as-child class="rounded-xl cursor-pointer hover:bg-terracotta/10 m-1">
-              <a :href="route('profile.edit')" class="w-full flex items-center px-2 py-1.5 font-bold text-xs uppercase tracking-wider text-warm-text dark:text-dark-text hover:text-terracotta">
+              <a :href="route('profile.edit')" class="w-full flex items-center px-2 py-1.5 font-bold text-xs uppercase tracking-wider text-warm-text text-dark-text hover:text-terracotta">
                 Profile
               </a>
             </DropdownMenuItem>

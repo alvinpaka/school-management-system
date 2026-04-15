@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/vue3';
 
 <template>
     <div
-        class="flex min-h-screen flex-col items-center bg-warm-bg pt-6 sm:justify-center sm:pt-0 dark:bg-dark-bg transition-colors duration-500"
+        class="flex min-h-screen flex-col items-center bg-warm-bg pt-6 sm:justify-center sm:pt-0 bg-dark-bg transition-colors duration-500"
     >
         <div class="mb-6">
             <Link href="/" class="flex items-center gap-3 group">
@@ -14,16 +14,16 @@ import { Link } from '@inertiajs/vue3';
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-black text-warm-text dark:text-dark-text">
+                    <h1 class="text-2xl font-black text-warm-text text-dark-text">
                         EduManage <span class="text-terracotta">Pro</span>
                     </h1>
-                    <p class="text-[9px] uppercase tracking-[0.2em] font-bold text-warm-muted">Nairobi · Kenya</p>
+                    <p class="text-[9px] uppercase tracking-[0.2em] font-bold text-warm-muted text-dark-muted">Nairobi · Kenya</p>
                 </div>
             </Link>
         </div>
 
         <div
-            class="w-full overflow-hidden bg-warm-bg border border-warm-border px-6 py-6 shadow-xl sm:max-w-md sm:rounded-2xl dark:bg-dark-bg dark:border-dark-border"
+            class="w-full overflow-hidden bg-warm-bg border border-warm-border px-6 py-6 shadow-xl sm:max-w-md sm:rounded-2xl bg-dark-bg border-dark-border"
         >
             <slot />
         </div>

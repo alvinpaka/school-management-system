@@ -35,10 +35,10 @@ const submit = () => {
     <GuestLayout>
         <Head title="Reset Password" />
 
-        <Card class="w-full max-w-md mx-auto">
+        <Card class="w-full max-w-md mx-auto card-warm">
             <CardHeader class="space-y-1">
-                <CardTitle class="text-2xl text-center">Reset Password</CardTitle>
-                <CardDescription class="text-center">
+                <CardTitle class="text-2xl text-center text-warm-text text-dark-text">Reset Password</CardTitle>
+                <CardDescription class="text-center text-warm-muted text-dark-muted">
                     Enter your new password below
                 </CardDescription>
             </CardHeader>

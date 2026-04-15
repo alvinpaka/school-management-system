@@ -105,7 +105,7 @@ watch(searchQuery, (newValue) => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <DollarSign class="w-5 h-5 text-terracotta" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Fees</span>
+                <span class="font-semibold text-warm-text text-dark-text">Fees</span>
             </div>
         </template>
 
@@ -113,11 +113,11 @@ watch(searchQuery, (newValue) => {
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Fees Management</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">Manage student fees and payments</p>
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Fees Management</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">Manage student fees and payments</p>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <Button variant="outline" size="sm" class="border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                    <Button variant="outline" size="sm" class="border-terracotta/20 text-warm-muted text-dark-muted hover:text-terracotta">
                         <Download class="w-4 h-4 mr-2" />
                         Export Report
                     </Button>
@@ -130,18 +130,18 @@ watch(searchQuery, (newValue) => {
                         </DialogTrigger>
                         <DialogContent class="w-[95vw] max-w-4xl max-h-[90vh] overflow-y-auto card-warm">
                             <DialogHeader>
-                                <DialogTitle class="text-xl font-bold text-warm-text dark:text-dark-text">Add New Fee</DialogTitle>
-                                <DialogDescription class="text-warm-muted dark:text-dark-muted">
+                                <DialogTitle class="text-xl font-bold text-warm-text text-dark-text">Add New Fee</DialogTitle>
+                                <DialogDescription class="text-warm-muted text-dark-muted">
                                     Record a new fee payment for a student.
                                 </DialogDescription>
                             </DialogHeader>
                             <form @submit.prevent="submitForm" class="space-y-4 py-4">
                                 <div class="space-y-2">
-                                    <Label for="student_id" class="text-warm-text dark:text-dark-text">Student *</Label>
+                                    <Label for="student_id" class="text-warm-text text-dark-text">Student *</Label>
                                     <select
                                         id="student_id"
                                         v-model="form.student_id"
-                                        class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text dark:text-dark-text"
+                                        class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text text-dark-text"
                                         required
                                     >
                                         <option value="">Select a student</option>
@@ -152,7 +152,7 @@ watch(searchQuery, (newValue) => {
                                     <div v-if="form.errors.student_id" class="text-destructive text-sm">{{ form.errors.student_id }}</div>
                                 </div>
                                 <div class="space-y-2">
-                                    <Label for="fee_type" class="text-warm-text dark:text-dark-text">Fee Type *</Label>
+                                    <Label for="fee_type" class="text-warm-text text-dark-text">Fee Type *</Label>
                                     <Input
                                         id="fee_type"
                                         v-model="form.fee_type"
@@ -165,7 +165,7 @@ watch(searchQuery, (newValue) => {
                                 </div>
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="space-y-2">
-                                        <Label for="amount" class="text-warm-text dark:text-dark-text">Amount (KES) *</Label>
+                                        <Label for="amount" class="text-warm-text text-dark-text">Amount (KES) *</Label>
                                         <Input
                                             id="amount"
                                             v-model="form.amount"
@@ -177,7 +177,7 @@ watch(searchQuery, (newValue) => {
                                         <div v-if="form.errors.amount" class="text-destructive text-sm">{{ form.errors.amount }}</div>
                                     </div>
                                     <div class="space-y-2">
-                                        <Label for="due_date" class="text-warm-text dark:text-dark-text">Due Date *</Label>
+                                        <Label for="due_date" class="text-warm-text text-dark-text">Due Date *</Label>
                                         <Input
                                             id="due_date"
                                             v-model="form.due_date"
@@ -189,11 +189,11 @@ watch(searchQuery, (newValue) => {
                                     </div>
                                 </div>
                                 <div class="space-y-2">
-                                    <Label for="status" class="text-warm-text dark:text-dark-text">Status</Label>
+                                    <Label for="status" class="text-warm-text text-dark-text">Status</Label>
                                     <select
                                         id="status"
                                         v-model="form.status"
-                                        class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text dark:text-dark-text"
+                                        class="flex h-10 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text text-dark-text"
                                     >
                                         <option value="pending">Pending</option>
                                         <option value="paid">Paid</option>
@@ -221,17 +221,17 @@ watch(searchQuery, (newValue) => {
                 <div class="p-6 border-b border-terracotta/20 bg-terracotta/5">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                            <h3 class="text-xl font-black text-warm-text dark:text-dark-text">All Fees</h3>
-                            <p class="text-sm text-warm-muted dark:text-dark-muted">{{ fees.total }} fee records</p>
+                            <h3 class="text-xl font-black text-warm-text text-dark-text">All Fees</h3>
+                            <p class="text-sm text-warm-muted text-dark-muted">{{ fees.total }} fee records</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <div class="relative">
-                                <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-muted dark:text-dark-muted" />
+                                <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-muted text-dark-muted" />
                                 <input
                                     type="text"
                                     v-model="searchQuery"
                                     placeholder="Search fees..."
-                                    class="pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text"
+                                    class="pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white bg-dark-bg text-warm-text text-dark-text"
                                 />
                             </div>
                             <Button variant="outline" size="sm" class="border-terracotta/20">
@@ -243,7 +243,7 @@ watch(searchQuery, (newValue) => {
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead class="bg-terracotta/5">
-                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-muted dark:text-dark-muted border-b border-terracotta/20">
+                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-muted text-dark-muted border-b border-terracotta/20">
                                 <th class="text-left py-4 px-6">Student</th>
                                 <th class="text-left py-4 px-6">Fee Type</th>
                                 <th class="text-left py-4 px-6">Amount</th>
@@ -260,8 +260,8 @@ watch(searchQuery, (newValue) => {
                                             <User class="w-5 h-5 text-terracotta" />
                                         </div>
                                         <div>
-                                            <div class="font-medium text-warm-text dark:text-dark-text">{{ fee.student?.user?.name }}</div>
-                                            <div class="text-sm text-warm-muted dark:text-dark-muted">{{ fee.student?.admission_number }}</div>
+                                            <div class="font-medium text-warm-text text-dark-text">{{ fee.student?.user?.name }}</div>
+                                            <div class="text-sm text-warm-muted text-dark-muted">{{ fee.student?.admission_number }}</div>
                                         </div>
                                     </div>
                                 </td>
@@ -271,13 +271,13 @@ watch(searchQuery, (newValue) => {
                                     </Badge>
                                 </td>
                                 <td class="py-4 px-6">
-                                    <div class="flex items-center text-sm text-warm-text dark:text-dark-text">
+                                    <div class="flex items-center text-sm text-warm-text text-dark-text">
                                         <span class="font-medium mr-1">KES</span>
                                         {{ Number(fee.amount).toLocaleString() }}
                                     </div>
                                 </td>
                                 <td class="py-4 px-6">
-                                    <div class="flex items-center text-sm text-warm-text dark:text-dark-text">
+                                    <div class="flex items-center text-sm text-warm-text text-dark-text">
                                         <Calendar class="w-4 h-4 mr-1 text-terracotta" />
                                         {{ new Date(fee.due_date).toLocaleDateString() }}
                                     </div>
@@ -292,7 +292,7 @@ watch(searchQuery, (newValue) => {
                                         <DropdownMenu>
                                             <DropdownMenuTrigger as-child>
                                                 <Button variant="ghost" size="sm" class="hover:bg-terracotta/10">
-                                                    <svg class="w-4 h-4 text-warm-muted dark:text-dark-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg class="w-4 h-4 text-warm-muted text-dark-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                                                     </svg>
                                                 </Button>

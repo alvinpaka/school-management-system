@@ -69,7 +69,7 @@ const getSubjectColor = (name) => {
                 <div class="p-2 bg-terracotta/10 rounded-lg">
                     <Calendar class="w-4 h-4 text-terracotta" />
                 </div>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">
                     {{ isAdminOrTeacher ? 'Registry Control' : 'My Routine' }}
                 </span>
             </div>
@@ -83,10 +83,10 @@ const getSubjectColor = (name) => {
                 
                 <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div>
-                        <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">
+                        <h1 class="text-4xl md:text-5xl font-black text-warm-text text-dark-text mb-2 tracking-tighter">
                             {{ isAdminOrTeacher ? 'Master Timetable' : 'Daily Routine' }}
                         </h1>
-                        <p class="text-lg text-warm-muted dark:text-dark-muted font-medium">
+                        <p class="text-lg text-warm-muted text-dark-muted font-medium">
                             {{ isAdminOrTeacher 
                                 ? 'Coordinate academic sessions, room allocations, and faculty schedules.' 
                                 : 'Track your lecture times and academic commitments across the week.' }}
@@ -94,7 +94,7 @@ const getSubjectColor = (name) => {
                     </div>
                     
                     <div class="flex flex-wrap items-center gap-3">
-                        <Button variant="outline" class="h-14 bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl px-6 font-bold gap-2 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                        <Button variant="outline" class="h-14 bg-white bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl px-6 font-bold gap-2 text-warm-muted text-dark-muted hover:text-terracotta">
                             <Download class="w-5 h-5" />
                             Export PDF
                         </Button>
@@ -113,9 +113,9 @@ const getSubjectColor = (name) => {
                         <div class="w-12 h-12 rounded-2xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                             <Clock class="w-6 h-6" />
                         </div>
-                        <span class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">32h</span>
+                        <span class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">32h</span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Total Weekly Hours</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Total Weekly Hours</p>
                 </div>
                 
                 <div class="card-warm p-6 rounded-[2rem] group">
@@ -125,7 +125,7 @@ const getSubjectColor = (name) => {
                         </div>
                         <span class="text-2xl font-black tracking-tighter text-forest">05</span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Break Segments</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Break Segments</p>
                 </div>
 
                 <div class="card-warm p-6 rounded-[2rem] group">
@@ -135,7 +135,7 @@ const getSubjectColor = (name) => {
                         </div>
                         <span class="text-2xl font-black tracking-tighter text-amber">12</span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Assigned Rooms</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Assigned Rooms</p>
                 </div>
 
                 <div class="card-warm p-6 rounded-[2rem] group">
@@ -143,9 +143,9 @@ const getSubjectColor = (name) => {
                         <div class="w-12 h-12 rounded-2xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                             <Users class="w-6 h-6" />
                         </div>
-                        <span class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">08</span>
+                        <span class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">08</span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Faculty Members</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Faculty Members</p>
                 </div>
             </div>
 
@@ -157,13 +157,13 @@ const getSubjectColor = (name) => {
                             <tr class="bg-terracotta/5">
                                 <th class="p-6 text-left border-b-2 border-terracotta/20 border-r border-terracotta/10 w-36">
                                     <div class="flex flex-col">
-                                        <span class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Time</span>
-                                        <span class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest mt-1">→ Day</span>
+                                        <span class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Time</span>
+                                        <span class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest mt-1">→ Day</span>
                                     </div>
                                 </th>
                                 <th v-for="day in days" :key="day" class="p-6 text-center border-b-2 border-terracotta/20">
                                     <div class="flex flex-col items-center">
-                                        <span class="text-sm font-black text-warm-text dark:text-dark-text">{{ day }}</span>
+                                        <span class="text-sm font-black text-warm-text text-dark-text">{{ day }}</span>
                                         <span class="text-[9px] font-bold text-terracotta mt-1 uppercase tracking-wider">Week {{ Math.floor(Math.random() * 4) + 1 }}</span>
                                     </div>
                                 </th>
@@ -173,7 +173,7 @@ const getSubjectColor = (name) => {
                             <tr v-for="(time, timeIndex) in timeSlots" :key="time" class="group transition-colors duration-200 hover:bg-terracotta/5">
                                 <td class="p-6 text-left border-r border-terracotta/10 bg-terracotta/5 sticky left-0 z-10">
                                     <div class="flex flex-col">
-                                        <span class="text-xs font-black text-warm-text dark:text-dark-text">{{ time }}</span>
+                                        <span class="text-xs font-black text-warm-text text-dark-text">{{ time }}</span>
                                         <span class="text-[9px] font-medium text-terracotta mt-0.5">{{ ['Breakfast', 'Morning', 'Lunch', 'Afternoon'][Math.floor(Math.random() * 4)] }}</span>
                                     </div>
                                 </td>
@@ -189,7 +189,7 @@ const getSubjectColor = (name) => {
                                                     <Monitor class="w-5 h-5" />
                                                 </div>
                                                 <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-black text-warm-text dark:text-dark-text tracking-tight truncate">Advanced Mathematics</p>
+                                                    <p class="text-sm font-black text-warm-text text-dark-text tracking-tight truncate">Advanced Mathematics</p>
                                                     <p class="text-[10px] font-bold text-terracotta/70 uppercase tracking-widest mt-0.5 flex items-center gap-1">
                                                         <MapPin class="w-3 h-3" />
                                                         Room 201
@@ -220,7 +220,7 @@ const getSubjectColor = (name) => {
                                                     <Atom class="w-5 h-5" />
                                                 </div>
                                                 <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-black text-warm-text dark:text-dark-text tracking-tight truncate">Quantum Physics</p>
+                                                    <p class="text-sm font-black text-warm-text text-dark-text tracking-tight truncate">Quantum Physics</p>
                                                     <p class="text-[10px] font-bold text-forest/70 uppercase tracking-widest mt-0.5 flex items-center gap-1">
                                                         <MapPin class="w-3 h-3" />
                                                         Lab 101
@@ -251,7 +251,7 @@ const getSubjectColor = (name) => {
                                                     <Palette class="w-5 h-5" />
                                                 </div>
                                                 <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-black text-warm-text dark:text-dark-text tracking-tight truncate">Creative Arts</p>
+                                                    <p class="text-sm font-black text-warm-text text-dark-text tracking-tight truncate">Creative Arts</p>
                                                     <p class="text-[10px] font-bold text-amber/70 uppercase tracking-widest mt-0.5 flex items-center gap-1">
                                                         <MapPin class="w-3 h-3" />
                                                         Studio 3
@@ -301,19 +301,19 @@ const getSubjectColor = (name) => {
             <div class="flex flex-wrap items-center justify-center gap-6 py-6 border-t border-terracotta/20">
                 <div class="flex items-center gap-2">
                     <div class="w-3 h-3 rounded-full bg-terracotta"></div>
-                    <span class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Mathematics</span>
+                    <span class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Mathematics</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="w-3 h-3 rounded-full bg-forest"></div>
-                    <span class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Science</span>
+                    <span class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Science</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="w-3 h-3 rounded-full bg-destructive"></div>
-                    <span class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Language</span>
+                    <span class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Language</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="w-3 h-3 rounded-full bg-amber"></div>
-                    <span class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Arts</span>
+                    <span class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Arts</span>
                 </div>
             </div>
         </div>

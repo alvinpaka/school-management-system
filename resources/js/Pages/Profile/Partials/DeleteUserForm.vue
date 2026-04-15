@@ -65,7 +65,7 @@ const closeModal = () => {
             <DialogContent class="card-warm rounded-[2.5rem] shadow-2xl">
                 <DialogHeader>
                     <DialogTitle class="text-2xl font-black tracking-tighter text-destructive">Are you sure you want to delete your account?</DialogTitle>
-                    <DialogDescription class="text-warm-muted dark:text-dark-muted font-medium">
+                    <DialogDescription class="text-warm-muted text-dark-muted font-medium">
                         Once your account is deleted, all of its resources and data will be permanently deleted. 
                         Please enter your password to confirm you would like to permanently delete your account.
                     </DialogDescription>

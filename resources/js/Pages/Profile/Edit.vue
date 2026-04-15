@@ -165,7 +165,7 @@ const getRoleColor = (role) => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <UserCircle class="w-5 h-5 text-terracotta" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">My Profile</span>
+                <span class="font-semibold text-warm-text text-dark-text">My Profile</span>
             </div>
         </template>
 
@@ -199,14 +199,14 @@ const getRoleColor = (role) => {
                             </div>
                             
                             <div class="text-center md:text-left space-y-2 mb-2">
-                                <h1 class="text-2xl md:text-3xl font-black text-warm-text dark:text-dark-text">
+                                <h1 class="text-2xl md:text-3xl font-black text-warm-text text-dark-text">
                                     {{ $page.props.auth.user.name }}
                                 </h1>
                                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
                                     <Badge :class="getRoleColor(getUserRole())" class="border-0">
                                         {{ getUserRole() }}
                                     </Badge>
-                                    <div class="flex items-center text-sm text-warm-muted dark:text-dark-muted">
+                                    <div class="flex items-center text-sm text-warm-muted text-dark-muted">
                                         <Mail class="w-4 h-4 mr-1.5 text-terracotta" />
                                         {{ $page.props.auth.user.email }}
                                     </div>
@@ -268,11 +268,11 @@ const getRoleColor = (role) => {
                     <!-- Profile Information -->
                     <div class="card-warm">
                         <div class="p-6 border-b border-terracotta/20">
-                            <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                            <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                 <UserIcon class="w-5 h-5 text-terracotta" />
                                 Profile Information
                             </h3>
-                            <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                            <p class="text-sm text-warm-muted text-dark-muted mt-1">
                                 Update your account's profile information and email address.
                             </p>
                         </div>
@@ -287,11 +287,11 @@ const getRoleColor = (role) => {
                     <!-- Update Password -->
                     <div class="card-warm">
                         <div class="p-6 border-b border-terracotta/20">
-                            <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                            <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                 <Key class="w-5 h-5 text-terracotta" />
                                 Update Password
                             </h3>
-                            <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                            <p class="text-sm text-warm-muted text-dark-muted mt-1">
                                 Ensure your account is using a long, random password to stay secure.
                             </p>
                         </div>
@@ -303,16 +303,16 @@ const getRoleColor = (role) => {
                     <!-- Two-Factor Authentication (Placeholder) -->
                     <div class="card-warm">
                         <div class="p-6 border-b border-terracotta/20">
-                            <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                            <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                 <Shield class="w-5 h-5 text-terracotta" />
                                 Two-Factor Authentication
                             </h3>
-                            <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                            <p class="text-sm text-warm-muted text-dark-muted mt-1">
                                 Add additional security to your account using two-factor authentication
                             </p>
                         </div>
                         <div class="p-6">
-                            <div class="text-center py-8 text-warm-muted dark:text-dark-muted">
+                            <div class="text-center py-8 text-warm-muted text-dark-muted">
                                 <Shield class="w-12 h-12 mx-auto mb-3 opacity-50 text-terracotta" />
                                 <p>Two-factor authentication not yet configured</p>
                                 <Button variant="link" class="mt-2 text-terracotta">Enable 2FA</Button>
@@ -359,11 +359,11 @@ const getRoleColor = (role) => {
         <Dialog :open="photoModalOpen" @update:open="closePhotoModal">
             <DialogContent class="sm:max-w-md card-warm">
                 <DialogHeader>
-                    <DialogTitle class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                    <DialogTitle class="flex items-center gap-2 text-warm-text text-dark-text">
                         <Camera class="w-5 h-5 text-terracotta" />
                         Upload Profile Photo
                     </DialogTitle>
-                    <DialogDescription class="text-warm-muted dark:text-dark-muted">
+                    <DialogDescription class="text-warm-muted text-dark-muted">
                         Upload your profile photo for identification. Passport size recommended (400x500px). Maximum file size: 2MB.
                     </DialogDescription>
                 </DialogHeader>
@@ -397,7 +397,7 @@ const getRoleColor = (role) => {
 
                     <!-- File Input -->
                     <div>
-                        <label class="block text-sm font-medium text-warm-text dark:text-dark-text mb-2">
+                        <label class="block text-sm font-medium text-warm-text text-dark-text mb-2">
                             Select Photo
                         </label>
                         <div class="border-2 border-dashed border-terracotta/30 rounded-lg p-6 text-center hover:border-terracotta transition-colors">
@@ -408,10 +408,10 @@ const getRoleColor = (role) => {
                             >
                                 Click to upload
                             </label>
-                            <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                            <p class="text-sm text-warm-muted text-dark-muted mt-1">
                                 or drag and drop
                             </p>
-                            <p class="text-xs text-warm-muted dark:text-dark-muted mt-1">
+                            <p class="text-xs text-warm-muted text-dark-muted mt-1">
                                 PNG, JPG or JPEG (MAX. 2MB)
                             </p>
                             <input
@@ -425,7 +425,7 @@ const getRoleColor = (role) => {
                     </div>
 
                     <!-- File Info -->
-                    <div v-if="photoFile" class="flex items-center gap-2 text-sm text-warm-muted dark:text-dark-muted p-3 bg-terracotta/5 rounded-lg">
+                    <div v-if="photoFile" class="flex items-center gap-2 text-sm text-warm-muted text-dark-muted p-3 bg-terracotta/5 rounded-lg">
                         <Camera class="w-4 h-4 text-terracotta" />
                         <span class="font-medium">{{ photoFile.name }}</span>
                         <span class="text-xs">({{ (photoFile.size / 1024).toFixed(2) }} KB)</span>

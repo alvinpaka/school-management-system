@@ -61,13 +61,13 @@ const getStatusColor = (status) => {
         <template #header-title>
             <div class="flex items-center gap-2">
                 <Link :href="route('fees.index')">
-                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
+                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-terracotta/10 text-warm-text text-dark-text">
                         <ArrowLeft class="w-4 h-4 mr-2" />
                         Accounts
                     </Button>
                 </Link>
-                <span class="text-warm-muted dark:text-dark-muted">/</span>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">Transaction Details</span>
+                <span class="text-warm-muted text-dark-muted">/</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">Transaction Details</span>
             </div>
         </template>
 
@@ -84,12 +84,12 @@ const getStatusColor = (status) => {
                                 <Badge :class="['rounded-lg px-3 py-1 text-[10px] font-black uppercase tracking-widest border-0', getStatusColor(fee.status)]">
                                     {{ fee.status || 'Active' }}
                                 </Badge>
-                                <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Type: {{ fee.type || 'Academic' }}</span>
+                                <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">Type: {{ fee.type || 'Academic' }}</span>
                             </div>
-                            <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">
+                            <h1 class="text-4xl md:text-5xl font-black text-warm-text text-dark-text mb-2 tracking-tighter">
                                 {{ fee.title }}
                             </h1>
-                            <p class="text-lg text-warm-muted dark:text-dark-muted font-medium">
+                            <p class="text-lg text-warm-muted text-dark-muted font-medium">
                                 Financial structure and billing cycle specifications.
                             </p>
                         </div>
@@ -113,7 +113,7 @@ const getStatusColor = (status) => {
                     <!-- Financial Breakdown Card -->
                     <div class="card-warm rounded-[3rem] overflow-hidden">
                         <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <CreditCard class="w-6 h-6 text-forest" />
                                 Financial Breakdown
                             </h3>
@@ -127,12 +127,12 @@ const getStatusColor = (status) => {
                                         <div class="w-10 h-10 rounded-xl bg-terracotta/10 flex items-center justify-center text-terracotta group-hover:scale-110 transition-transform">
                                             <User class="w-5 h-5" />
                                         </div>
-                                        <h4 class="font-black text-warm-text dark:text-dark-text uppercase tracking-tighter">Student</h4>
+                                        <h4 class="font-black text-warm-text text-dark-text uppercase tracking-tighter">Student</h4>
                                     </div>
-                                    <p class="text-xl font-black text-warm-text dark:text-dark-text">
+                                    <p class="text-xl font-black text-warm-text text-dark-text">
                                         {{ fee.student?.user?.name || 'Unassigned' }}
                                     </p>
-                                    <p class="text-xs font-bold text-warm-muted dark:text-dark-muted mt-1 uppercase tracking-wider">
+                                    <p class="text-xs font-bold text-warm-muted text-dark-muted mt-1 uppercase tracking-wider">
                                         {{ fee.student?.academic_class?.name || 'Class Unknown' }}
                                     </p>
                                 </div>
@@ -148,7 +148,7 @@ const getStatusColor = (status) => {
                                             Verification Status
                                         </h4>
                                     </div>
-                                    <p :class="['text-sm font-bold', fee.status === 'paid' ? 'text-warm-text dark:text-dark-text' : 'text-warm-text dark:text-dark-text']">
+                                    <p :class="['text-sm font-bold', fee.status === 'paid' ? 'text-warm-text text-dark-text' : 'text-warm-text text-dark-text']">
                                         {{ fee.status === 'paid' ? 'This transaction is fully cleared and verified by the institute audit department.' : 'Awaiting payment confirmation. Please settle the outstanding balance by the maturity date.' }}
                                     </p>
                                 </div>
@@ -160,7 +160,7 @@ const getStatusColor = (status) => {
                     <!-- Transaction History -->
                     <div class="card-warm rounded-[3rem] overflow-hidden">
                         <div class="p-8 border-b border-terracotta/20">
-                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <History class="w-5 h-5 text-terracotta" />
                                 Internal Transaction History
                             </h3>
@@ -172,9 +172,9 @@ const getStatusColor = (status) => {
                                         <div class="w-8 h-8 rounded-lg bg-forest/20 flex items-center justify-center text-forest">
                                             <CheckCircle2 class="w-4 h-4" />
                                         </div>
-                                        <p class="text-sm font-bold text-warm-text dark:text-dark-text">Record Initialized</p>
+                                        <p class="text-sm font-bold text-warm-text text-dark-text">Record Initialized</p>
                                     </div>
-                                    <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">
+                                    <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">
                                         {{ new Date(fee.created_at).toLocaleDateString() }}
                                     </span>
                                 </div>
@@ -183,9 +183,9 @@ const getStatusColor = (status) => {
                                         <div class="w-8 h-8 rounded-lg bg-terracotta/20 flex items-center justify-center text-terracotta">
                                             <Edit class="w-4 h-4" />
                                         </div>
-                                        <p class="text-sm font-bold text-warm-text dark:text-dark-text">Last System Audit</p>
+                                        <p class="text-sm font-bold text-warm-text text-dark-text">Last System Audit</p>
                                     </div>
-                                    <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">
+                                    <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">
                                         {{ new Date(fee.updated_at).toLocaleDateString() }}
                                     </span>
                                 </div>
@@ -198,7 +198,7 @@ const getStatusColor = (status) => {
                 <!-- Right Sidebar -->
                 <div class="space-y-8">
                     <div class="card-warm rounded-[3rem] p-8">
-                        <h3 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-8 bg-terracotta/5 rounded-xl px-4 py-1 inline-block">Payment Intel</h3>
+                        <h3 class="text-xl font-black text-warm-text text-dark-text tracking-tighter mb-8 bg-terracotta/5 rounded-xl px-4 py-1 inline-block">Payment Intel</h3>
 
                         <div class="space-y-6">
                             <div class="flex items-center justify-between p-4 rounded-2xl bg-terracotta/5 border border-terracotta/20 group">
@@ -207,8 +207,8 @@ const getStatusColor = (status) => {
                                         <DollarSign class="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <p class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Type</p>
-                                        <p class="text-sm font-black text-warm-text dark:text-dark-text">{{ fee.fee_type || fee.type || 'Standard' }}</p>
+                                        <p class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">Type</p>
+                                        <p class="text-sm font-black text-warm-text text-dark-text">{{ fee.fee_type || fee.type || 'Standard' }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@ const getStatusColor = (status) => {
                                     <AlertCircle class="w-5 h-5" />
                                     <h4 class="font-black uppercase tracking-tighter">Action Required</h4>
                                 </div>
-                                <p class="text-xs font-bold text-warm-muted dark:text-dark-muted leading-relaxed mb-4">
+                                <p class="text-xs font-bold text-warm-muted text-dark-muted leading-relaxed mb-4">
                                     This payment is currently outstanding. Please secure funds and clear via bank transfer or portal.
                                 </p>
                                 <Button class="w-full h-10 bg-amber hover:bg-amber/90 text-white font-black rounded-xl text-xs shadow-md">
@@ -228,7 +228,7 @@ const getStatusColor = (status) => {
                         </div>
 
                         <Link :href="route('fees.index')" class="block mt-8">
-                            <Button variant="outline" class="w-full h-12 border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta hover:bg-terracotta/5 font-black rounded-2xl">
+                            <Button variant="outline" class="w-full h-12 border-terracotta/20 text-warm-muted text-dark-muted hover:text-terracotta hover:bg-terracotta/5 font-black rounded-2xl">
                                 <ArrowLeft class="w-4 h-4 mr-2" />
                                 Back to Accounts
                             </Button>
@@ -239,7 +239,7 @@ const getStatusColor = (status) => {
                     <div class="rounded-[3rem] accent-terracotta p-8 text-white shadow-2xl shadow-terracotta/30 relative overflow-hidden group">
                         <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-white/5 blur-[40px] rounded-full group-hover:scale-150 transition-transform duration-1000"></div>
                         <div class="relative z-10 text-center">
-                            <div class="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20">
+                            <div class="w-20 h-20 bg-white/10 dark:bg-white/5 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20 dark:border-white/10">
                                 <Receipt class="w-10 h-10 text-white" />
                             </div>
                             <h4 class="text-2xl font-black mb-2 tracking-tighter">e-Receipt</h4>

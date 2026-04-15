@@ -24,7 +24,7 @@ const submit = () => {
 <template>
     <Head title="Forgot Password - EduManage Pro" />
 
-    <div class="min-h-screen flex bg-warm-bg dark:bg-dark-bg transition-colors duration-500">
+    <div class="min-h-screen flex bg-warm-bg bg-dark-bg transition-colors duration-500">
         <!-- Left Side - Branding & Info (hidden on mobile) -->
         <div class="hidden lg:flex lg:w-1/2 bg-terracotta p-16 flex-col justify-between text-white relative overflow-hidden">
             <!-- Background Pattern -->
@@ -125,16 +125,16 @@ const submit = () => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
-                        <span class="text-3xl font-black text-terracotta">
-                            EduManage <span class="text-warm-text">Pro</span>
+                        <span class="text-3xl font-black text-warm-text text-dark-text">
+                            EduManage <span class="text-terracotta">Pro</span>
                         </span>
                     </Link>
                 </div>
 
-                <Card class="border-0 shadow-2xl bg-warm-bg dark:bg-dark-bg">
+                <Card class="border-0 shadow-2xl bg-warm-bg bg-dark-bg">
                     <CardHeader class="space-y-2 pb-8">
-                        <CardTitle class="text-3xl font-bold text-center text-warm-text dark:text-dark-text">Forgot Password</CardTitle>
-                        <CardDescription class="text-center text-base text-warm-muted dark:text-dark-muted">
+                        <CardTitle class="text-3xl font-bold text-center text-warm-text text-dark-text">Forgot Password</CardTitle>
+                        <CardDescription class="text-center text-base text-warm-muted text-dark-muted">
                             Enter your email address and we'll send you a link to reset your password
                         </CardDescription>
                     </CardHeader>
@@ -145,7 +145,7 @@ const submit = () => {
                             <svg class="w-5 h-5 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <AlertDescription class="text-warm-text dark:text-dark-text">
+                            <AlertDescription class="text-warm-text text-dark-text">
                                 {{ status }}
                             </AlertDescription>
                         </Alert>
@@ -155,7 +155,7 @@ const submit = () => {
                             <div class="space-y-3">
                                 <Label for="email">Email Address</Label>
                                 <div class="relative">
-                                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-warm-muted dark:text-dark-muted">
+                                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-warm-muted text-dark-muted">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                                         </svg>
@@ -168,7 +168,7 @@ const submit = () => {
                                         required
                                         autofocus
                                         autocomplete="username"
-                                        class="pl-11 h-12 bg-warm-bg dark:bg-dark-bg border-warm-border dark:border-dark-border"
+                                        class="pl-11 h-12 bg-warm-bg bg-dark-bg border-warm-border border-dark-border"
                                         :class="{ 'border-destructive dark:border-destructive focus-visible:ring-destructive': form.errors.email }"
                                     />
                                 </div>
@@ -211,7 +211,7 @@ const submit = () => {
 
                 <!-- Back to Homepage -->
                 <div class="mt-8 text-center">
-                    <Link href="/" class="text-sm text-warm-muted dark:text-dark-muted hover:text-terracotta dark:hover:text-terracotta inline-flex items-center">
+                    <Link href="/" class="text-sm text-warm-muted text-dark-muted hover:text-terracotta dark:hover:text-terracotta inline-flex items-center">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>

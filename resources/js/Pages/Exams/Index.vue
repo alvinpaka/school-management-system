@@ -129,7 +129,7 @@ const getGradeColor = (grade) => {
                 <div class="p-2 bg-terracotta/10 rounded-lg">
                     <Trophy class="w-4 h-4 text-terracotta" />
                 </div>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">
                     {{ isAdminOrTeacher ? 'Examination Hub' : 'Personal Performance' }}
                 </span>
             </div>
@@ -143,10 +143,10 @@ const getGradeColor = (grade) => {
                 
                 <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div>
-                        <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">
+                        <h1 class="text-4xl md:text-5xl font-black text-warm-text text-dark-text mb-2 tracking-tighter">
                             {{ isAdminOrTeacher ? 'Exam Schedule' : 'My Results' }}
                         </h1>
-                        <p class="text-lg text-warm-muted dark:text-dark-muted font-medium">
+                        <p class="text-lg text-warm-muted text-dark-muted font-medium">
                             {{ isAdminOrTeacher 
                                 ? 'Coordinate academic assessments and monitor student grading cycles.' 
                                 : 'Track your academic milestones and review your performance trends.' }}
@@ -163,14 +163,14 @@ const getGradeColor = (grade) => {
                             </DialogTrigger>
                             <DialogContent class="w-[95vw] max-w-5xl max-h-[90vh] overflow-y-auto card-warm">
                                 <DialogHeader>
-                                    <DialogTitle class="text-2xl font-black tracking-tight text-warm-text dark:text-dark-text">Schedule New Assessment</DialogTitle>
-                                    <DialogDescription class="text-warm-muted dark:text-dark-muted">
+                                    <DialogTitle class="text-2xl font-black tracking-tight text-warm-text text-dark-text">Schedule New Assessment</DialogTitle>
+                                    <DialogDescription class="text-warm-muted text-dark-muted">
                                         Create a new exam or assessment schedule.
                                     </DialogDescription>
                                 </DialogHeader>
                                 <form @submit.prevent="submitForm" class="space-y-5 py-4">
                                     <div class="space-y-2">
-                                        <Label for="exam_name" class="font-medium text-warm-text dark:text-dark-text">Exam Name *</Label>
+                                        <Label for="exam_name" class="font-medium text-warm-text text-dark-text">Exam Name *</Label>
                                         <Input
                                             id="exam_name"
                                             v-model="form.name"
@@ -183,11 +183,11 @@ const getGradeColor = (grade) => {
                                     </div>
                                     
                                     <div class="space-y-2">
-                                        <Label for="subject_id" class="font-medium text-warm-text dark:text-dark-text">Subject *</Label>
+                                        <Label for="subject_id" class="font-medium text-warm-text text-dark-text">Subject *</Label>
                                         <select
                                             id="subject_id"
                                             v-model="form.subject_id"
-                                            class="flex h-11 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text dark:text-dark-text"
+                                            class="flex h-11 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text text-dark-text"
                                             required
                                         >
                                             <option value="">Select a subject</option>
@@ -200,7 +200,7 @@ const getGradeColor = (grade) => {
 
                                     <div class="grid grid-cols-2 gap-4">
                                         <div class="space-y-2">
-                                            <Label for="exam_date" class="font-medium text-warm-text dark:text-dark-text">Exam Date *</Label>
+                                            <Label for="exam_date" class="font-medium text-warm-text text-dark-text">Exam Date *</Label>
                                             <Input
                                                 id="exam_date"
                                                 v-model="form.date"
@@ -211,7 +211,7 @@ const getGradeColor = (grade) => {
                                             <div v-if="form.errors.date" class="text-destructive text-sm">{{ form.errors.date }}</div>
                                         </div>
                                         <div class="space-y-2">
-                                            <Label for="max_marks" class="font-medium text-warm-text dark:text-dark-text">Maximum Marks *</Label>
+                                            <Label for="max_marks" class="font-medium text-warm-text text-dark-text">Maximum Marks *</Label>
                                             <Input
                                                 id="max_marks"
                                                 v-model="form.max_marks"
@@ -226,7 +226,7 @@ const getGradeColor = (grade) => {
 
                                     <div class="grid grid-cols-2 gap-4">
                                         <div class="space-y-2">
-                                            <Label for="start_time" class="font-medium text-warm-text dark:text-dark-text">Start Time *</Label>
+                                            <Label for="start_time" class="font-medium text-warm-text text-dark-text">Start Time *</Label>
                                             <Input
                                                 id="start_time"
                                                 v-model="form.start_time"
@@ -237,7 +237,7 @@ const getGradeColor = (grade) => {
                                             <div v-if="form.errors.start_time" class="text-destructive text-sm">{{ form.errors.start_time }}</div>
                                         </div>
                                         <div class="space-y-2">
-                                            <Label for="end_time" class="font-medium text-warm-text dark:text-dark-text">End Time *</Label>
+                                            <Label for="end_time" class="font-medium text-warm-text text-dark-text">End Time *</Label>
                                             <Input
                                                 id="end_time"
                                                 v-model="form.end_time"
@@ -272,9 +272,9 @@ const getGradeColor = (grade) => {
                         <div class="w-12 h-12 rounded-2xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                             <Target class="w-6 h-6" />
                         </div>
-                        <span class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">{{ exams.total || 0 }}</span>
+                        <span class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">{{ exams.total || 0 }}</span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Total Assessments</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Total Assessments</p>
                 </div>
                 
                 <div class="card-warm p-6 rounded-[2rem] group">
@@ -286,7 +286,7 @@ const getGradeColor = (grade) => {
                             {{ isAdminOrTeacher ? '82%' : '85.4%' }}
                         </span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">
                         {{ isAdminOrTeacher ? 'Class Average' : 'Personal GPA' }}
                     </p>
                 </div>
@@ -300,7 +300,7 @@ const getGradeColor = (grade) => {
                             {{ exams.data.filter(e => e.status === 'ongoing').length }}
                         </span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Ongoing Exams</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Ongoing Exams</p>
                 </div>
 
                 <div class="card-warm p-6 rounded-[2rem] group">
@@ -308,9 +308,9 @@ const getGradeColor = (grade) => {
                         <div class="w-12 h-12 rounded-2xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                             <Award class="w-6 h-6" />
                         </div>
-                        <span class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">Top 5</span>
+                        <span class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">Top 5</span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Academic Standing</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Academic Standing</p>
                 </div>
             </div>
 
@@ -319,25 +319,25 @@ const getGradeColor = (grade) => {
                 <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div>
-                            <h3 class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">
+                            <h3 class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">
                                 {{ isAdminOrTeacher ? 'Assessment Inventory' : 'My Performance Ledger' }}
                             </h3>
-                            <p class="font-medium text-warm-muted dark:text-dark-muted">
+                            <p class="font-medium text-warm-muted text-dark-muted">
                                 {{ isAdminOrTeacher ? 'Comprehensive list of all scheduled and previous exams' : 'View your detailed subject-wise breakdown' }}
                             </p>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="relative group">
-                                <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-muted dark:text-dark-muted group-focus-within:text-terracotta transition-colors" />
+                                <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-muted text-dark-muted group-focus-within:text-terracotta transition-colors" />
                                 <input
                                     type="text"
                                     v-model="searchQuery"
                                     placeholder="Search assessments..."
-                                    class="pl-10 pr-4 h-12 w-full sm:w-64 bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl text-sm font-bold focus:ring-4 focus:ring-terracotta/10 transition-all outline-none text-warm-text dark:text-dark-text"
+                                    class="pl-10 pr-4 h-12 w-full sm:w-64 bg-white bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl text-sm font-bold focus:ring-4 focus:ring-terracotta/10 transition-all outline-none text-warm-text text-dark-text"
                                 />
                             </div>
-                            <Button variant="outline" class="h-12 w-12 bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl">
-                                <Filter class="w-4 h-4 text-warm-muted dark:text-dark-muted" />
+                            <Button variant="outline" class="h-12 w-12 bg-white bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl">
+                                <Filter class="w-4 h-4 text-warm-muted text-dark-muted" />
                             </Button>
                         </div>
                     </div>
@@ -346,11 +346,11 @@ const getGradeColor = (grade) => {
                     <table class="w-full">
                         <thead>
                             <tr class="bg-terracotta/5 text-left border-b border-terracotta/20">
-                                <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Exam & Subject</th>
-                                <th v-if="isAdminOrTeacher" class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Class</th>
-                                <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Schedule</th>
-                                <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest text-center">Status</th>
-                                <th :class="isAdminOrTeacher ? 'text-right' : 'text-center'" class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">
+                                <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Exam & Subject</th>
+                                <th v-if="isAdminOrTeacher" class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Class</th>
+                                <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Schedule</th>
+                                <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest text-center">Status</th>
+                                <th :class="isAdminOrTeacher ? 'text-right' : 'text-center'" class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">
                                     {{ isAdminOrTeacher ? 'Actions' : 'Performance' }}
                                 </th>
                             </tr>
@@ -359,28 +359,28 @@ const getGradeColor = (grade) => {
                             <tr v-for="exam in exams.data" :key="exam.id" class="hover:bg-terracotta/5 transition-colors group">
                                 <td class="py-6 px-8">
                                     <div class="flex items-center gap-4">
-                                        <div class="w-12 h-12 bg-white dark:bg-dark-bg rounded-2xl flex items-center justify-center border border-terracotta/20 group-hover:scale-110 transition-transform">
+                                        <div class="w-12 h-12 bg-white bg-dark-bg rounded-2xl flex items-center justify-center border border-terracotta/20 group-hover:scale-110 transition-transform">
                                             <div class="w-8 h-8 rounded-xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                                                 <FileText class="w-4 h-4" />
                                             </div>
                                         </div>
                                         <div>
-                                            <div class="font-black text-warm-text dark:text-dark-text tracking-tight">{{ exam.name }}</div>
-                                            <div class="text-xs font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest">{{ exam.subject?.name || 'General' }}</div>
+                                            <div class="font-black text-warm-text text-dark-text tracking-tight">{{ exam.name }}</div>
+                                            <div class="text-xs font-bold text-warm-muted text-dark-muted uppercase tracking-widest">{{ exam.subject?.name || 'General' }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td v-if="isAdminOrTeacher" class="py-6 px-8">
-                                    <Badge variant="outline" class="rounded-xl border-terracotta/20 bg-white/50 dark:bg-dark-bg/50 px-3 font-bold text-warm-text dark:text-dark-text">
+                                    <Badge variant="outline" class="rounded-xl border-terracotta/20 bg-white/50 bg-dark-bg/50 px-3 font-bold text-warm-text text-dark-text">
                                         {{ exam.academic_class?.name || 'TBA' }}
                                     </Badge>
                                 </td>
                                 <td class="py-6 px-8">
-                                    <div class="flex items-center gap-2 text-sm font-bold text-warm-text dark:text-dark-text">
+                                    <div class="flex items-center gap-2 text-sm font-bold text-warm-text text-dark-text">
                                         <Calendar class="w-4 h-4 text-terracotta" />
                                         {{ new Date(exam.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) }}
                                     </div>
-                                    <div class="flex items-center gap-2 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted mt-1">
+                                    <div class="flex items-center gap-2 text-[10px] font-black uppercase text-warm-muted text-dark-muted mt-1">
                                         <Clock class="w-3 h-3" />
                                         {{ exam.start_time }} - {{ exam.end_time }}
                                     </div>
@@ -396,7 +396,7 @@ const getGradeColor = (grade) => {
                                         <DropdownMenu>
                                             <DropdownMenuTrigger as-child>
                                                 <Button variant="ghost" class="w-10 h-10 p-0 rounded-xl hover:bg-terracotta/10">
-                                                    <MoreVertical class="w-4 h-4 text-warm-muted dark:text-dark-muted" />
+                                                    <MoreVertical class="w-4 h-4 text-warm-muted text-dark-muted" />
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end" class="w-56 card-warm rounded-[1.5rem] p-2">
@@ -440,13 +440,13 @@ const getGradeColor = (grade) => {
                                         <div v-if="exam.status === 'completed'" class="flex items-center justify-center gap-3">
                                             <div class="text-right">
                                                 <div class="text-xl font-black italic tracking-tighter" :class="getGradeColor('A')">A-</div>
-                                                <div class="text-[9px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">GPA: 3.7</div>
+                                                <div class="text-[9px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">GPA: 3.7</div>
                                             </div>
-                                            <div class="w-10 h-10 rounded-xl bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm flex items-center justify-center text-forest">
+                                            <div class="w-10 h-10 rounded-xl bg-white bg-dark-bg border border-terracotta/20 shadow-sm flex items-center justify-center text-forest">
                                                 <CheckCircle2 class="w-5 h-5" />
                                             </div>
                                         </div>
-                                        <div v-else class="text-xs font-bold text-warm-muted dark:text-dark-muted italic">
+                                        <div v-else class="text-xs font-bold text-warm-muted text-dark-muted italic">
                                             Awaiting Results
                                         </div>
                                     </div>
@@ -457,7 +457,7 @@ const getGradeColor = (grade) => {
                                     <div class="w-20 h-20 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-4">
                                         <FileText class="w-10 h-10 text-terracotta/30" />
                                     </div>
-                                    <p class="text-warm-muted dark:text-dark-muted font-bold">No assessments found for this period.</p>
+                                    <p class="text-warm-muted text-dark-muted font-bold">No assessments found for this period.</p>
                                 </td>
                             </tr>
                         </tbody>

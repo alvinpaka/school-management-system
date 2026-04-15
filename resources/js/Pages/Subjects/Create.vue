@@ -33,7 +33,7 @@ const submit = () => {
                     <ArrowLeft class="w-4 h-4 mr-2" />
                     Back to Subjects
                 </Button>
-                <span class="text-gray-400">|</span>
+                <span class="text-muted-foreground">|</span>
                 <span>Add New Subject</span>
             </div>
         </template>
@@ -50,7 +50,7 @@ const submit = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Basic Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Basic Information</h3>
+                                <h3 class="text-lg font-medium text-foreground">Basic Information</h3>
                                 
                                 <div>
                                     <Label for="name">Subject Name</Label>
@@ -86,14 +86,14 @@ const submit = () => {
 
                             <!-- Subject Type -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Subject Type</h3>
+                                <h3 class="text-lg font-medium text-foreground">Subject Type</h3>
                                 
                                 <div>
                                     <Label for="type">Type</Label>
                                     <select
                                         id="type"
                                         v-model="form.type"
-                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        class="mt-1 block w-full border-border dark:bg-background dark:text-foreground rounded-lg px-3 py-2"
                                         required
                                     >
                                         <option value="theory">Theory</option>
@@ -108,7 +108,7 @@ const submit = () => {
                         </div>
 
                         <!-- Form Actions -->
-                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-border">
                             <Button variant="outline" type="button" :href="route('subjects.index')">
                                 Cancel
                             </Button>

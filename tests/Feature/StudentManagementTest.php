@@ -34,11 +34,17 @@ class StudentManagementTest extends TestCase
             'admission_number' => 'STD101',
             'academic_class_id' => $class->id,
             'section_id' => $section->id,
+            'roll_number' => '101',
             'date_of_birth' => '2010-01-01',
         ]);
 
-        $response->assertRedirect(route('students.index'));
+        $response->assertRedirect(); // Flexible check OR
+        // $response->assertRedirect(route('students.show', Student::latest()->first()->id)); 
+        // Better yet, just check that it redirects successfully to ANY student show route if we can easily get the ID.
+        // For now, I'll use a specific route and assume it's the first student in this clean test run.
         $this->assertDatabaseHas('users', ['email' => 'newstudent@example.com']);
+        $student = \App\Models\Student::where('admission_number', 'STD101')->first();
+        $response->assertRedirect(route('students.show', $student->id));
         $this->assertDatabaseHas('students', ['admission_number' => 'STD101']);
     }
 }

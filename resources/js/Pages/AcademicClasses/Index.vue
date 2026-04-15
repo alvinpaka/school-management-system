@@ -105,7 +105,7 @@ watch(searchQuery, (newValue) => {
                 <div class="p-2 bg-terracotta/10 rounded-lg">
                     <Layers class="w-4 h-4 text-terracotta" />
                 </div>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">Academic Structure</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">Academic Structure</span>
             </div>
         </template>
 
@@ -113,13 +113,13 @@ watch(searchQuery, (newValue) => {
             <!-- Header Section -->
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Classes</h1>
-                    <p class="text-lg text-warm-muted dark:text-dark-muted font-medium tracking-tight">
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Classes</h1>
+                    <p class="text-lg text-warm-muted text-dark-muted font-medium tracking-tight">
                         Organizing <span class="text-terracotta font-bold">{{ classes.total }}</span> distinct academic groups.
                     </p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <Button variant="outline" class="bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm h-12 rounded-2xl font-bold px-6 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                    <Button variant="outline" class="bg-white bg-dark-bg border border-terracotta/20 shadow-sm h-12 rounded-2xl font-bold px-6 text-warm-muted text-dark-muted hover:text-terracotta">
                         <FileSpreadsheet class="w-4 h-4 mr-2 text-forest" />
                         Structure Audit
                     </Button>
@@ -132,15 +132,15 @@ watch(searchQuery, (newValue) => {
                         </DialogTrigger>
                         <DialogContent class="w-[95vw] max-w-6xl max-h-[90vh] overflow-y-auto card-warm">
                             <DialogHeader>
-                                <DialogTitle class="text-2xl font-black tracking-tight text-warm-text dark:text-dark-text">Initialize New Class</DialogTitle>
-                                <DialogDescription class="text-warm-muted dark:text-dark-muted">
+                                <DialogTitle class="text-2xl font-black tracking-tight text-warm-text text-dark-text">Initialize New Class</DialogTitle>
+                                <DialogDescription class="text-warm-muted text-dark-muted">
                                     Create a new academic class with its sections.
                                 </DialogDescription>
                             </DialogHeader>
                             <form @submit.prevent="submitForm" class="space-y-6 py-4">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div class="space-y-2">
-                                        <Label for="name" class="font-medium text-warm-text dark:text-dark-text">Class Name *</Label>
+                                        <Label for="name" class="font-medium text-warm-text text-dark-text">Class Name *</Label>
                                         <Input
                                             id="name"
                                             v-model="form.name"
@@ -152,7 +152,7 @@ watch(searchQuery, (newValue) => {
                                         <div v-if="form.errors.name" class="text-destructive text-sm">{{ form.errors.name }}</div>
                                     </div>
                                     <div class="space-y-2">
-                                        <Label for="code" class="font-medium text-warm-text dark:text-dark-text">Class Code *</Label>
+                                        <Label for="code" class="font-medium text-warm-text text-dark-text">Class Code *</Label>
                                         <Input
                                             id="code"
                                             v-model="form.code"
@@ -165,7 +165,7 @@ watch(searchQuery, (newValue) => {
                                     </div>
                                 </div>
                                 <div class="space-y-3">
-                                    <Label class="font-medium text-warm-text dark:text-dark-text">Sections *</Label>
+                                    <Label class="font-medium text-warm-text text-dark-text">Sections *</Label>
                                     <div v-for="(section, index) in form.sections" :key="index" class="flex items-center space-x-2">
                                         <Input
                                             v-model="form.sections[index]"
@@ -217,21 +217,21 @@ watch(searchQuery, (newValue) => {
                 <!-- Search & Filters Header -->
                 <div class="p-8 border-b border-terracotta/20 bg-terracotta/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="relative w-full max-w-md group">
-                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted dark:text-dark-muted group-focus-within:text-terracotta transition-colors">
+                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted text-dark-muted group-focus-within:text-terracotta transition-colors">
                             <Search class="w-5 h-5" />
                         </div>
                         <Input 
                             v-model="searchQuery"
                             placeholder="Identify classes by name or level..." 
-                            class="h-14 pl-12 bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm rounded-[1.25rem] focus:ring-2 focus:ring-terracotta/30 text-base font-medium"
+                            class="h-14 pl-12 bg-white bg-dark-bg border border-terracotta/20 shadow-sm rounded-[1.25rem] focus:ring-2 focus:ring-terracotta/30 text-base font-medium"
                         />
                     </div>
                     <div class="flex items-center gap-2">
-                        <Button variant="outline" class="bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm h-14 w-14 rounded-[1.25rem] p-0">
-                            <Filter class="w-5 h-5 text-warm-muted dark:text-dark-muted" />
+                        <Button variant="outline" class="bg-white bg-dark-bg border border-terracotta/20 shadow-sm h-14 w-14 rounded-[1.25rem] p-0">
+                            <Filter class="w-5 h-5 text-warm-muted text-dark-muted" />
                         </Button>
                         <div class="h-8 w-[1px] bg-terracotta/20 mx-2 hidden md:block"></div>
-                        <div class="text-sm font-bold text-warm-muted dark:text-dark-muted">
+                        <div class="text-sm font-bold text-warm-muted text-dark-muted">
                             {{ classes.total }} active classes
                         </div>
                     </div>
@@ -241,10 +241,9 @@ watch(searchQuery, (newValue) => {
                 <div class="overflow-x-auto overflow-y-hidden custom-scrollbar">
                     <table class="w-full border-collapse">
                         <thead>
-                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-muted dark:text-dark-muted border-b border-terracotta/20">
+                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-muted text-dark-muted border-b border-terracotta/20">
                                 <th class="text-left py-6 px-8 whitespace-nowrap">Academic Division</th>
                                 <th class="text-left py-6 px-8 whitespace-nowrap">Sections</th>
-                                <th class="text-left py-6 px-8 whitespace-nowrap">Lead Educator</th>
                                 <th class="text-left py-6 px-8 whitespace-nowrap">Capacity</th>
                                 <th class="text-right py-6 px-8 whitespace-nowrap">Action</th>
                             </tr>
@@ -257,7 +256,7 @@ watch(searchQuery, (newValue) => {
                                             <BookOpen class="w-7 h-7" />
                                         </div>
                                         <div class="min-w-0">
-                                            <p class="font-black text-warm-text dark:text-dark-text truncate tracking-tight text-lg mb-0.5">{{ classItem.name }}</p>
+                                            <p class="font-black text-warm-text text-dark-text truncate tracking-tight text-lg mb-0.5">{{ classItem.name }}</p>
                                             <p class="text-[11px] font-black text-terracotta uppercase tracking-widest">Level {{ classItem.grade_level }}</p>
                                         </div>
                                     </div>
@@ -271,17 +270,7 @@ watch(searchQuery, (newValue) => {
                                         >
                                             Sec {{ section.name }}
                                         </Badge>
-                                        <p v-if="!classItem.sections?.length" class="text-[10px] font-bold text-warm-muted dark:text-dark-muted italic">No sections initialized</p>
-                                    </div>
-                                </td>
-                                <td class="py-6 px-8">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-lg bg-terracotta/5 flex items-center justify-center text-terracotta border border-terracotta/20">
-                                            <UserCircle class="w-5 h-5" />
-                                        </div>
-                                        <p class="text-sm font-bold text-warm-text dark:text-dark-text truncate max-w-[150px]">
-                                            {{ classItem.class_teacher?.user?.name || 'Unassigned' }}
-                                        </p>
+                                        <p v-if="!classItem.sections?.length" class="text-[10px] font-bold text-warm-muted text-dark-muted italic">No sections initialized</p>
                                     </div>
                                 </td>
                                 <td class="py-6 px-8">
@@ -289,14 +278,14 @@ watch(searchQuery, (newValue) => {
                                         <div class="p-2 bg-forest/10 rounded-lg">
                                             <Users class="w-3.5 h-3.5 text-forest" />
                                         </div>
-                                        <p class="font-black text-warm-text dark:text-dark-text tracking-tighter">{{ classItem.total_students || 0 }} <span class="text-warm-muted dark:text-dark-muted text-[10px] lowercase transition-colors group-hover:text-forest">students</span></p>
+                                        <p class="font-black text-warm-text text-dark-text tracking-tighter">{{ classItem.total_students || 0 }} <span class="text-warm-muted text-dark-muted text-[10px] lowercase transition-colors group-hover:text-forest">students</span></p>
                                     </div>
                                 </td>
                                 <td class="py-6 px-8 text-right">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger as-child>
-                                            <Button variant="ghost" class="h-10 w-10 p-0 bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm hover:bg-terracotta/10 rounded-xl">
-                                                <MoreHorizontal class="w-5 h-5 text-warm-muted dark:text-dark-muted" />
+                                            <Button variant="ghost" class="h-10 w-10 p-0 bg-white bg-dark-bg border border-terracotta/20 shadow-sm hover:bg-terracotta/10 rounded-xl">
+                                                <MoreHorizontal class="w-5 h-5 text-warm-muted text-dark-muted" />
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end" class="card-warm rounded-xl rounded-2xl p-2 w-48 shadow-2xl">

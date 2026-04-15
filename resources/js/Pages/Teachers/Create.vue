@@ -131,7 +131,7 @@ const regenerateEmployeeID = () => {
                 <CardContent class="relative pt-0 pb-6">
                     <div class="flex flex-col md:flex-row md:items-end md:justify-between -mt-12">
                         <div class="flex flex-col md:flex-row items-center md:items-end space-y-4 md:space-y-0 md:space-x-6">
-                            <Avatar class="w-24 h-24 md:w-32 md:h-32 border-4 border-white dark:border-gray-950 shadow-xl">
+                            <Avatar class="w-24 h-24 md:w-32 md:h-32 border-4 border-border shadow-xl">
                                 <AvatarImage 
                                     v-if="photoPreview"
                                     :src="photoPreview" 
@@ -143,7 +143,7 @@ const regenerateEmployeeID = () => {
                             </Avatar>
                             
                             <div class="text-center md:text-left space-y-2 mb-2">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                                <h1 class="text-2xl md:text-3xl font-bold text-foreground">
                                     {{ form.name || 'New Staff Member' }}
                                 </h1>
                                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
@@ -179,7 +179,7 @@ const regenerateEmployeeID = () => {
                             <!-- Current Photo Preview -->
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="relative">
-                                    <Avatar class="w-40 h-40 border-4 border-gray-200 dark:border-gray-800">
+                                    <Avatar class="w-40 h-40 border-4 border-border">
                                         <AvatarImage 
                                             v-if="photoPreview"
                                             :src="photoPreview" 
@@ -207,8 +207,8 @@ const regenerateEmployeeID = () => {
 
                             <!-- Upload Section -->
                             <div class="flex-1 space-y-4">
-                                <div class="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 text-center hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors">
-                                    <Upload class="w-12 h-12 mx-auto text-gray-400 mb-3" />
+                                <div class="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors">
+                                    <Upload class="w-12 h-12 mx-auto text-muted-foreground mb-3" />
                                     <div class="space-y-2">
                                         <Label 
                                             for="photo" 
@@ -216,10 +216,10 @@ const regenerateEmployeeID = () => {
                                         >
                                             Click to upload
                                         </Label>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        <p class="text-sm text-muted-foreground">
                                             or drag and drop
                                         </p>
-                                        <p class="text-xs text-gray-400 dark:text-gray-500">
+                                        <p class="text-xs text-muted-foreground">
                                             PNG, JPG or JPEG (MAX. 2MB)
                                         </p>
                                     </div>
@@ -235,7 +235,7 @@ const regenerateEmployeeID = () => {
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.photo }}
                                 </div>
-                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-muted-foreground">
                                     <Camera class="w-4 h-4" />
                                     <span class="font-medium">{{ photoFile.name }}</span>
                                     <span class="text-xs">({{ (photoFile.size / 1024).toFixed(2) }} KB)</span>
@@ -260,7 +260,7 @@ const regenerateEmployeeID = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="name" class="flex items-center gap-2">
-                                    <User class="w-4 h-4 text-gray-500" />
+                                    <User class="w-4 h-4 text-muted-foreground" />
                                     Full Name *
                                 </Label>
                                 <Input
@@ -279,7 +279,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="email" class="flex items-center gap-2">
-                                    <Mail class="w-4 h-4 text-gray-500" />
+                                    <Mail class="w-4 h-4 text-muted-foreground" />
                                     Email Address *
                                 </Label>
                                 <Input
@@ -298,7 +298,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="phone" class="flex items-center gap-2">
-                                    <Phone class="w-4 h-4 text-gray-500" />
+                                    <Phone class="w-4 h-4 text-muted-foreground" />
                                     Phone Number
                                 </Label>
                                 <Input
@@ -315,7 +315,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="employment_type" class="flex items-center gap-2">
-                                    <Briefcase class="w-4 h-4 text-gray-500" />
+                                    <Briefcase class="w-4 h-4 text-muted-foreground" />
                                     Employment Type
                                 </Label>
                                 <select
@@ -337,7 +337,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="role" class="flex items-center gap-2">
-                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                    <UserCircle class="w-4 h-4 text-muted-foreground" />
                                     Staff Role
                                 </Label>
                                 <select
@@ -359,7 +359,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="status" class="flex items-center gap-2">
-                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                    <UserCircle class="w-4 h-4 text-muted-foreground" />
                                     Status
                                 </Label>
                                 <select
@@ -380,7 +380,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="date_of_birth" class="flex items-center gap-2">
-                                    <Calendar class="w-4 h-4 text-gray-500" />
+                                    <Calendar class="w-4 h-4 text-muted-foreground" />
                                     Date of Birth
                                 </Label>
                                 <Input
@@ -396,7 +396,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="gender" class="flex items-center gap-2">
-                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                    <UserCircle class="w-4 h-4 text-muted-foreground" />
                                     Gender
                                 </Label>
                                 <select
@@ -417,7 +417,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2 md:col-span-2">
                                 <Label for="address" class="flex items-center gap-2">
-                                    <MapPin class="w-4 h-4 text-gray-500" />
+                                    <MapPin class="w-4 h-4 text-muted-foreground" />
                                     Address
                                 </Label>
                                 <Input
@@ -450,11 +450,11 @@ const regenerateEmployeeID = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label class="flex items-center gap-2">
-                                    <Briefcase class="w-4 h-4 text-gray-500" />
+                                    <Briefcase class="w-4 h-4 text-muted-foreground" />
                                     Employee ID
                                 </Label>
                             
-                                <div class="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm font-medium">
+                                <div class="px-4 py-2 rounded-lg border border-border bg-muted text-sm font-medium">
                                     {{ form.employee_id }}
                                 </div>
                             
@@ -465,7 +465,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="specialization" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Specialization
                                 </Label>
                                 <select
@@ -521,7 +521,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="qualification" class="flex items-center gap-2">
-                                    <Award class="w-4 h-4 text-gray-500" />
+                                    <Award class="w-4 h-4 text-muted-foreground" />
                                     Qualification
                                 </Label>
                                 <select
@@ -550,7 +550,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="experience" class="flex items-center gap-2">
-                                    <Award class="w-4 h-4 text-gray-500" />
+                                    <Award class="w-4 h-4 text-muted-foreground" />
                                     Experience
                                 </Label>
                                 <select
@@ -582,7 +582,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="joining_date" class="flex items-center gap-2">
-                                    <Calendar class="w-4 h-4 text-gray-500" />
+                                    <Calendar class="w-4 h-4 text-muted-foreground" />
                                     Joining Date
                                 </Label>
                                 <Input
@@ -614,7 +614,7 @@ const regenerateEmployeeID = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="emergency_contact_name" class="flex items-center gap-2">
-                                    <User class="w-4 h-4 text-gray-500" />
+                                    <User class="w-4 h-4 text-muted-foreground" />
                                     Contact Name
                                 </Label>
                                 <Input
@@ -631,7 +631,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="emergency_contact_phone" class="flex items-center gap-2">
-                                    <Phone class="w-4 h-4 text-gray-500" />
+                                    <Phone class="w-4 h-4 text-muted-foreground" />
                                     Phone Number
                                 </Label>
                                 <Input
@@ -648,7 +648,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="emergency_contact_relationship" class="flex items-center gap-2">
-                                    <UserCircle class="w-4 h-4 text-gray-500" />
+                                    <UserCircle class="w-4 h-4 text-muted-foreground" />
                                     Relationship
                                 </Label>
                                 <select
@@ -672,7 +672,7 @@ const regenerateEmployeeID = () => {
 
                             <div class="space-y-2">
                                 <Label for="blood_group" class="flex items-center gap-2">
-                                    <AlertCircle class="w-4 h-4 text-gray-500" />
+                                    <AlertCircle class="w-4 h-4 text-muted-foreground" />
                                     Blood Group
                                 </Label>
                                 <select
@@ -728,7 +728,7 @@ const regenerateEmployeeID = () => {
                             
                             <div class="space-y-2 max-w-md">
                                 <Label for="password" class="flex items-center gap-2">
-                                    <Lock class="w-4 h-4 text-gray-500" />
+                                    <Lock class="w-4 h-4 text-muted-foreground" />
                                     Password *
                                 </Label>
                                 <Input
@@ -739,7 +739,7 @@ const regenerateEmployeeID = () => {
                                     required
                                     autocomplete="new-password"
                                 />
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                <p class="text-xs text-muted-foreground">
                                     Minimum 8 characters recommended
                                 </p>
                                 <div v-if="form.errors.password" class="flex items-center gap-2 text-red-600 text-sm">
@@ -755,7 +755,7 @@ const regenerateEmployeeID = () => {
                 <Card>
                     <CardContent class="pt-6">
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <p class="text-sm text-muted-foreground">
                                 * Required fields must be filled
                             </p>
                             <div class="flex items-center gap-3">

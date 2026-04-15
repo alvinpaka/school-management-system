@@ -69,7 +69,7 @@ const submit = () => {
     <Sidebar>
         <template #header-title>
             <div class="flex items-center space-x-3">
-                <span class="font-semibold text-warm-text dark:text-dark-text">Enter Grades: {{ exam.name }}</span>
+                <span class="font-semibold text-warm-text text-dark-text">Enter Grades: {{ exam.name }}</span>
             </div>
         </template>
 
@@ -77,11 +77,11 @@ const submit = () => {
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">{{ exam.name }}</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">{{ exam.subject.name }} - {{ exam.max_marks }} marks</p>
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">{{ exam.name }}</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">{{ exam.subject.name }} - {{ exam.max_marks }} marks</p>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <Button variant="outline" size="sm" class="border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                    <Button variant="outline" size="sm" class="border-terracotta/20 text-warm-muted text-dark-muted hover:text-terracotta">
                         <Download class="w-4 h-4 mr-2" />
                         Export Grades
                     </Button>
@@ -95,30 +95,30 @@ const submit = () => {
             <!-- Filters Card -->
             <div class="card-warm">
                 <div class="p-6 border-b border-terracotta/20">
-                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Class Selection</h3>
-                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Select class and section to enter grades</p>
+                    <h3 class="text-lg font-black text-warm-text text-dark-text">Class Selection</h3>
+                    <p class="text-sm text-warm-muted text-dark-muted mt-1">Select class and section to enter grades</p>
                 </div>
                 <div class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="space-y-2">
-                            <Label for="class" class="text-warm-text dark:text-dark-text">Class</Label>
+                            <Label for="class" class="text-warm-text text-dark-text">Class</Label>
                             <select 
                                 id="class" 
                                 v-model="form.academic_class_id" 
                                 @change="fetchStudents"
-                                class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
+                                class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white bg-dark-bg text-warm-text text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
                             >
                                 <option value="">Select Class</option>
                                 <option v-for="cls in classes" :key="cls.id" :value="cls.id">{{ cls.name }}</option>
                             </select>
                         </div>
                         <div class="space-y-2">
-                            <Label for="section" class="text-warm-text dark:text-dark-text">Section</Label>
+                            <Label for="section" class="text-warm-text text-dark-text">Section</Label>
                             <select 
                                 id="section" 
                                 v-model="form.section_id" 
                                 @change="fetchStudents"
-                                class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
+                                class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white bg-dark-bg text-warm-text text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
                             >
                                 <option value="">Select Section</option>
                                 <option v-for="section in sections" :key="section.id" :value="section.id">{{ section.name }}</option>
@@ -139,8 +139,8 @@ const submit = () => {
                 <div class="p-6 border-b border-terracotta/20">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Student Grades</h3>
-                            <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">{{ form.grades.length }} students</p>
+                            <h3 class="text-lg font-black text-warm-text text-dark-text">Student Grades</h3>
+                            <p class="text-sm text-warm-muted text-dark-muted mt-1">{{ form.grades.length }} students</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <Badge class="bg-forest/10 text-forest border-0">
@@ -161,8 +161,8 @@ const submit = () => {
                                     <User class="w-5 h-5 text-terracotta" />
                                 </div>
                                 <div>
-                                    <div class="font-medium text-warm-text dark:text-dark-text">{{ student.name }}</div>
-                                    <div class="text-sm text-warm-muted dark:text-dark-muted">ID: {{ student.student_id }}</div>
+                                    <div class="font-medium text-warm-text text-dark-text">{{ student.name }}</div>
+                                    <div class="text-sm text-warm-muted text-dark-muted">ID: {{ student.student_id }}</div>
                                 </div>
                             </div>
                             <div class="flex flex-wrap items-center gap-4">
@@ -175,7 +175,7 @@ const submit = () => {
                                         class="w-20 border-terracotta/20 focus:ring-terracotta/30"
                                         placeholder="Marks"
                                     />
-                                    <span class="text-sm text-warm-muted dark:text-dark-muted">/ {{ exam.max_marks }}</span>
+                                    <span class="text-sm text-warm-muted text-dark-muted">/ {{ exam.max_marks }}</span>
                                 </div>
                                 <Input
                                     v-model="student.remarks"
@@ -197,8 +197,8 @@ const submit = () => {
                     <div class="w-20 h-20 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-4">
                         <Award class="w-10 h-10 text-terracotta/30" />
                     </div>
-                    <h3 class="text-xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">No Students Found</h3>
-                    <p class="text-warm-muted dark:text-dark-muted">Select a class and section to enter grades</p>
+                    <h3 class="text-xl font-black text-warm-text text-dark-text mb-2 tracking-tighter">No Students Found</h3>
+                    <p class="text-warm-muted text-dark-muted">Select a class and section to enter grades</p>
                 </div>
             </div>
         </div>

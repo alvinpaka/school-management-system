@@ -46,7 +46,7 @@ const submit = () => {
 <template>
     <Head title="Register - EduManage Pro" />
 
-    <div class="min-h-screen flex bg-warm-bg dark:bg-dark-bg transition-colors duration-500">
+    <div class="min-h-screen flex bg-warm-bg bg-dark-bg transition-colors duration-500">
         <!-- Left Side - Branding (hidden on mobile) -->
         <div class="hidden lg:flex lg:w-[45%] p-16 flex-col justify-between relative overflow-hidden">
             <!-- Decorative Orbs -->
@@ -60,20 +60,20 @@ const submit = () => {
                         <GraduationCap class="w-8 h-8 text-white" />
                     </div>
                     <div>
-                        <h1 class="text-3xl font-black text-warm-text dark:text-dark-text">
+                        <h1 class="text-3xl font-black text-warm-text text-dark-text">
                             EduManage <span class="text-terracotta">Pro</span>
                         </h1>
-                        <p class="text-[10px] uppercase tracking-[0.2em] text-warm-muted font-bold">The Gold Standard</p>
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-warm-muted text-dark-muted font-bold">The Gold Standard</p>
                     </div>
                 </Link>
 
                 <!-- Onboarding Content -->
                 <div class="space-y-16 max-w-lg">
                     <div class="animate-fade-in-up">
-                        <h2 class="text-6xl font-black text-warm-text dark:text-dark-text mb-6 tracking-tighter leading-tight">
+                        <h2 class="text-6xl font-black text-warm-text text-dark-text mb-6 tracking-tighter leading-tight">
                             Start Your <br/> Legacy.
                         </h2>
-                        <p class="text-xl text-warm-muted dark:text-dark-muted font-medium leading-relaxed">
+                        <p class="text-xl text-warm-muted text-dark-muted font-medium leading-relaxed">
                             Join over 500+ institutions worldwide and experience the most advanced school management system ever built.
                         </p>
                     </div>
@@ -84,8 +84,8 @@ const submit = () => {
                                 <CheckCircle2 class="w-6 h-6 text-terracotta" />
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-warm-text dark:text-dark-text mb-1">Instant Activation</h3>
-                                <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">30-day free trial. No credit card required.</p>
+                                <h3 class="text-lg font-bold text-warm-text text-dark-text mb-1">Instant Activation</h3>
+                                <p class="text-sm text-warm-muted text-dark-muted font-medium">30-day free trial. No credit card required.</p>
                             </div>
                         </div>
 
@@ -94,8 +94,8 @@ const submit = () => {
                                 <Zap class="w-6 h-6 text-terracotta" />
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-warm-text dark:text-dark-text mb-1">Auto-Configuration</h3>
-                                <p class="text-sm text-warm-muted dark:text-dark-muted font-medium">Smart setup tailored to your school type.</p>
+                                <h3 class="text-lg font-bold text-warm-text text-dark-text mb-1">Auto-Configuration</h3>
+                                <p class="text-sm text-warm-muted text-dark-muted font-medium">Smart setup tailored to your school type.</p>
                             </div>
                         </div>
                     </div>
@@ -106,9 +106,9 @@ const submit = () => {
             <div class="bg-warm-bg border border-warm-border shadow-sm p-8 rounded-[2rem] border-warm-border animate-fade-in-up" style="animation-delay: 0.2s">
                 <div class="flex items-center space-x-4">
                     <div class="flex -space-x-3">
-                        <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-white bg-warm-bg dark:bg-dark-bg" />
+                        <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-white bg-warm-bg bg-dark-bg" />
                     </div>
-                    <p class="text-xs font-bold text-warm-muted dark:text-dark-muted">
+                    <p class="text-xs font-bold text-warm-muted text-dark-muted">
                         Join <span class="text-terracotta text-sm font-black">1.2M+ users</span> already elevating education.
                     </p>
                 </div>
@@ -124,23 +124,23 @@ const submit = () => {
                         <div class="w-14 h-14 bg-terracotta rounded-2xl flex items-center justify-center shadow-xl transform transition-all duration-300 group-hover:scale-110">
                             <GraduationCap class="w-8 h-8 text-white" />
                         </div>
-                        <span class="text-3xl font-black text-warm-text">
+                        <span class="text-3xl font-black text-warm-text text-dark-text">
                             EduManage <span class="text-terracotta">Pro</span>
                         </span>
                     </Link>
                 </div>
 
-                <div class="bg-warm-bg border border-warm-border shadow-sm rounded-xl p-10 md:p-14 rounded-[3rem] border-warm-border relative">
+                <div class="bg-warm-bg bg-dark-bg border border-warm-border border-dark-border shadow-sm rounded-xl p-10 md:p-14 rounded-[3rem] relative">
                     <div class="relative z-10">
                         <div class="mb-10 text-center lg:text-left">
-                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text mb-3 tracking-tighter">Register</h3>
-                            <p class="text-warm-muted dark:text-dark-muted font-medium">Create your institutional legacy.</p>
+                            <h3 class="text-4xl font-black text-warm-text text-dark-text mb-3 tracking-tighter">Register</h3>
+                            <p class="text-warm-muted text-dark-muted font-medium">Create your institutional legacy.</p>
                         </div>
 
                         <form @submit.prevent="submit" class="space-y-6">
                             <!-- Full Name -->
                             <div class="space-y-2">
-                                <Label for="name" class="text-sm font-bold text-warm-text dark:text-dark-text ml-1">Full Name</Label>
+                                <Label for="name" class="text-sm font-bold text-warm-text text-dark-text ml-1">Full Name</Label>
                                 <div class="relative group">
                                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted group-focus-within:text-terracotta transition-colors">
                                         <User class="w-5 h-5" />
@@ -151,7 +151,7 @@ const submit = () => {
                                         placeholder="Principal Name / Admin Name"
                                         required
                                         autofocus
-                                        class="h-14 pl-12 bg-warm-bg border border-warm-border shadow-sm bg-warm-bg dark:bg-dark-bg rounded-2xl  focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
+                                        class="h-14 pl-12 bg-warm-bg bg-dark-bg border border-warm-border border-dark-border shadow-sm rounded-2xl focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
                                         :class="{ 'border-destructive/50': form.errors.name }"
                                     />
                                 </div>
@@ -160,7 +160,7 @@ const submit = () => {
 
                             <!-- Email Address -->
                             <div class="space-y-2">
-                                <Label for="email" class="text-sm font-bold text-warm-text dark:text-dark-text ml-1">Email Address</Label>
+                                <Label for="email" class="text-sm font-bold text-warm-text text-dark-text ml-1">Email Address</Label>
                                 <div class="relative group">
                                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted group-focus-within:text-terracotta transition-colors">
                                         <Mail class="w-5 h-5" />
@@ -171,7 +171,7 @@ const submit = () => {
                                         v-model="form.email"
                                         placeholder="admin@school-domain.com"
                                         required
-                                        class="h-14 pl-12 bg-warm-bg border border-warm-border shadow-sm bg-warm-bg dark:bg-dark-bg rounded-2xl  focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
+                                        class="h-14 pl-12 bg-warm-bg bg-dark-bg border border-warm-border border-dark-border shadow-sm rounded-2xl focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
                                         :class="{ 'border-destructive/50': form.errors.email }"
                                     />
                                 </div>
@@ -180,7 +180,7 @@ const submit = () => {
 
                             <!-- Password -->
                             <div class="space-y-2">
-                                <Label for="password" class="text-sm font-bold text-warm-text dark:text-dark-text ml-1">Secure Password</Label>
+                                <Label for="password" class="text-sm font-bold text-warm-text text-dark-text ml-1">Secure Password</Label>
                                 <div class="relative group">
                                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted group-focus-within:text-terracotta transition-colors">
                                         <Lock class="w-5 h-5" />
@@ -192,7 +192,7 @@ const submit = () => {
                                         placeholder="Create a strong password"
                                         required
                                         autocomplete="new-password"
-                                        class="h-14 pl-12 pr-12 bg-warm-bg border border-warm-border shadow-sm bg-warm-bg dark:bg-dark-bg rounded-2xl  focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
+                                        class="h-14 pl-12 pr-12 bg-warm-bg bg-dark-bg border border-warm-border border-dark-border shadow-sm rounded-2xl focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
                                         :class="{ 'border-destructive/50': form.errors.password }"
                                     />
                                     <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-warm-muted hover:text-terracotta transition-colors">
@@ -207,7 +207,7 @@ const submit = () => {
                                         <div 
                                             v-for="i in 6" 
                                             :key="i"
-                                            class="h-1.5 flex-1 rounded-full bg-warm-border dark:bg-dark-border overflow-hidden"
+                                            class="h-1.5 flex-1 rounded-full bg-warm-border bg-dark-border overflow-hidden"
                                         >
                                             <div 
                                                 class="h-full transition-all duration-500"
@@ -226,7 +226,7 @@ const submit = () => {
 
                             <!-- Password Confirmation -->
                             <div class="space-y-2">
-                                <Label for="password_confirmation" class="text-sm font-bold text-warm-text dark:text-dark-text ml-1">Confirm Password</Label>
+                                <Label for="password_confirmation" class="text-sm font-bold text-warm-text text-dark-text ml-1">Confirm Password</Label>
                                 <div class="relative group">
                                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-warm-muted group-focus-within:text-terracotta transition-colors">
                                         <ShieldCheck class="w-5 h-5" />
@@ -238,7 +238,7 @@ const submit = () => {
                                         placeholder="Repeat your password"
                                         required
                                         autocomplete="new-password"
-                                        class="h-14 pl-12 pr-12 bg-warm-bg border border-warm-border shadow-sm bg-warm-bg dark:bg-dark-bg rounded-2xl  focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
+                                        class="h-14 pl-12 pr-12 bg-warm-bg bg-dark-bg border border-warm-border border-dark-border shadow-sm rounded-2xl focus:ring-2 focus:ring-terracotta/20 transition-all font-medium"
                                         :class="{ 'border-destructive/50': form.errors.password_confirmation }"
                                     />
                                     <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-warm-muted hover:text-terracotta transition-colors">
@@ -266,11 +266,11 @@ const submit = () => {
 
                 <!-- Footer Actions -->
                 <div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 px-4 pb-8">
-                    <p class="text-sm font-bold text-warm-muted dark:text-dark-muted">
+                    <p class="text-sm font-bold text-warm-muted text-dark-muted">
                         Already registered?
                         <Link :href="route('login')" class="text-terracotta hover:underline ml-1 font-black">Sign in here</Link>
                     </p>
-                    <Link href="/" class="text-sm font-bold text-warm-muted dark:text-dark-muted hover:text-terracotta flex items-center gap-2">
+                    <Link href="/" class="text-sm font-bold text-warm-muted text-dark-muted hover:text-terracotta flex items-center gap-2">
                         <ArrowLeft class="w-4 h-4" />
                         Back to site
                     </Link>

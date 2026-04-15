@@ -26,10 +26,10 @@ const verificationLinkSent = computed(
     <GuestLayout>
         <Head title="Email Verification" />
 
-        <Card class="w-full max-w-md mx-auto">
+        <Card class="w-full max-w-md mx-auto card-warm">
             <CardHeader class="space-y-1">
-                <CardTitle class="text-2xl text-center">Verify Your Email</CardTitle>
-                <CardDescription class="text-center">
+                <CardTitle class="text-2xl text-center text-warm-text text-dark-text">Verify Your Email</CardTitle>
+                <CardDescription class="text-center text-warm-muted text-dark-muted">
                     Thanks for signing up! Please check your email for a verification link
                 </CardDescription>
             </CardHeader>

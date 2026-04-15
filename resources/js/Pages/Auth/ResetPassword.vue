@@ -1,9 +1,9 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -35,10 +35,10 @@ const submit = () => {
     <GuestLayout>
         <Head title="Reset Password" />
 
-        <Card class="w-full max-w-md mx-auto">
+        <Card class="w-full max-w-md mx-auto card-warm">
             <CardHeader class="space-y-1">
-                <CardTitle class="text-2xl text-center">Reset Password</CardTitle>
-                <CardDescription class="text-center">
+                <CardTitle class="text-2xl text-center text-warm-text text-dark-text">Reset Password</CardTitle>
+                <CardDescription class="text-center text-warm-muted text-dark-muted">
                     Enter your new password below
                 </CardDescription>
             </CardHeader>

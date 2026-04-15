@@ -1,10 +1,10 @@
 <script setup>
 import { Head, useForm, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
 import { 
     ArrowLeft,
     Save,
@@ -40,13 +40,13 @@ const submit = () => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Link :href="route('exams.index')">
-                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
+                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text text-dark-text">
                         <ArrowLeft class="w-4 h-4 mr-2" />
                         Back to Exams
                     </Button>
                 </Link>
-                <span class="text-warm-muted dark:text-dark-muted">|</span>
-                <span class="font-semibold text-warm-text dark:text-dark-text">Edit Exam</span>
+                <span class="text-warm-muted text-dark-muted">|</span>
+                <span class="font-semibold text-warm-text text-dark-text">Edit Exam</span>
             </div>
         </template>
 
@@ -54,8 +54,8 @@ const submit = () => {
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Edit Exam</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Edit Exam</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">
                         Update exam details and schedule
                     </p>
                 </div>
@@ -64,8 +64,8 @@ const submit = () => {
             <!-- Form Card -->
             <div class="card-warm">
                 <div class="p-6 border-b border-terracotta/20">
-                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Edit Exam Information</h3>
-                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                    <h3 class="text-lg font-black text-warm-text text-dark-text">Edit Exam Information</h3>
+                    <p class="text-sm text-warm-muted text-dark-muted mt-1">
                         Update the exam details and schedule.
                     </p>
                 </div>
@@ -74,13 +74,13 @@ const submit = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Basic Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                     <Award class="w-5 h-5 text-terracotta" />
                                     Basic Information
                                 </h3>
                                 
                                 <div class="space-y-2">
-                                    <Label for="name" class="text-warm-text dark:text-dark-text">Exam Name</Label>
+                                    <Label for="name" class="text-warm-text text-dark-text">Exam Name</Label>
                                     <Input
                                         id="name"
                                         v-model="form.name"
@@ -95,11 +95,11 @@ const submit = () => {
                                 </div>
 
                                 <div class="space-y-2">
-                                    <Label for="subject_id" class="text-warm-text dark:text-dark-text">Subject</Label>
+                                    <Label for="subject_id" class="text-warm-text text-dark-text">Subject</Label>
                                     <select
                                         id="subject_id"
                                         v-model="form.subject_id"
-                                        class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
+                                        class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white bg-dark-bg text-warm-text text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
                                         required
                                     >
                                         <option value="">Select a subject</option>
@@ -113,7 +113,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="space-y-2">
-                                    <Label for="max_marks" class="text-warm-text dark:text-dark-text">Maximum Marks</Label>
+                                    <Label for="max_marks" class="text-warm-text text-dark-text">Maximum Marks</Label>
                                     <Input
                                         id="max_marks"
                                         v-model="form.max_marks"
@@ -130,13 +130,13 @@ const submit = () => {
 
                             <!-- Schedule Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                     <Calendar class="w-5 h-5 text-terracotta" />
                                     Schedule Information
                                 </h3>
                                 
                                 <div class="space-y-2">
-                                    <Label for="date" class="text-warm-text dark:text-dark-text">Exam Date</Label>
+                                    <Label for="date" class="text-warm-text text-dark-text">Exam Date</Label>
                                     <Input
                                         id="date"
                                         v-model="form.date"
@@ -150,7 +150,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="space-y-2">
-                                    <Label for="start_time" class="text-warm-text dark:text-dark-text">Start Time</Label>
+                                    <Label for="start_time" class="text-warm-text text-dark-text">Start Time</Label>
                                     <Input
                                         id="start_time"
                                         v-model="form.start_time"
@@ -164,7 +164,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="space-y-2">
-                                    <Label for="end_time" class="text-warm-text dark:text-dark-text">End Time</Label>
+                                    <Label for="end_time" class="text-warm-text text-dark-text">End Time</Label>
                                     <Input
                                         id="end_time"
                                         v-model="form.end_time"

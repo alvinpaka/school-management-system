@@ -1,8 +1,8 @@
 <script setup>
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 defineProps({
@@ -31,7 +31,7 @@ const form = useForm({
                     class="space-y-6"
                 >
                     <div class="space-y-2">
-                        <Label for="name" class="text-warm-text dark:text-dark-text">Name</Label>
+                        <Label for="name" class="text-warm-text text-dark-text">Name</Label>
                         <Input
                             id="name"
                             type="text"
@@ -48,7 +48,7 @@ const form = useForm({
                     </div>
 
                     <div class="space-y-2">
-                        <Label for="email" class="text-warm-text dark:text-dark-text">Email</Label>
+                        <Label for="email" class="text-warm-text text-dark-text">Email</Label>
                         <Input
                             id="email"
                             type="email"
@@ -64,13 +64,13 @@ const form = useForm({
                     </div>
 
                     <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                        <p class="text-sm text-warm-muted dark:text-dark-muted">
+                        <p class="text-sm text-warm-muted text-dark-muted">
                             Your email address is unverified.
                             <Link
                                 :href="route('verification.send')"
                                 method="post"
                                 as="button"
-                                class="rounded-md text-sm text-terracotta underline hover:text-terracotta/80 focus:outline-none focus:ring-2 focus:ring-terracotta focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                                class="rounded-md text-sm text-terracotta underline hover:text-terracotta/80 focus:outline-none focus:ring-2 focus:ring-terracotta focus:ring-offset-2 dark:focus:ring-offset-dark-bg"
                             >
                                 Click here to re-send the verification email.
                             </Link>

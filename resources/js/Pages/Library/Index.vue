@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
 import { 
     Search,
     Filter,
@@ -32,7 +32,7 @@ const selectedCategory = ref('all');
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <BookOpen class="w-5 h-5 text-terracotta" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Library</span>
+                <span class="font-semibold text-warm-text text-dark-text">Library</span>
             </div>
         </template>
 
@@ -40,15 +40,15 @@ const selectedCategory = ref('all');
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Library</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">Manage library books and resources</p>
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Library</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">Manage library books and resources</p>
                 </div>
                 <div class="flex gap-2">
                     <Button class="accent-terracotta text-white font-black rounded-2xl h-12 px-6 shadow-xl shadow-terracotta/30">
                         <Plus class="w-4 h-4 mr-2" />
                         Add Book
                     </Button>
-                    <Button variant="outline" class="border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                    <Button variant="outline" class="border-terracotta/20 text-warm-muted text-dark-muted hover:text-terracotta">
                         <Download class="w-4 h-4 mr-2" />
                         Export
                     </Button>
@@ -63,8 +63,8 @@ const selectedCategory = ref('all');
                             <BookOpen class="w-6 h-6 text-terracotta" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Total Books</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats.total_books.toLocaleString() }}</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">Total Books</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats.total_books.toLocaleString() }}</p>
                         </div>
                     </div>
                 </div>
@@ -75,8 +75,8 @@ const selectedCategory = ref('all');
                             <TrendingUp class="w-6 h-6 text-forest" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Available</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats.available_books.toLocaleString() }}</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">Available</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats.available_books.toLocaleString() }}</p>
                         </div>
                     </div>
                 </div>
@@ -87,8 +87,8 @@ const selectedCategory = ref('all');
                             <Calendar class="w-6 h-6 text-amber" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Borrowed</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats.borrowed_books.toLocaleString() }}</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">Borrowed</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats.borrowed_books.toLocaleString() }}</p>
                         </div>
                     </div>
                 </div>
@@ -99,8 +99,8 @@ const selectedCategory = ref('all');
                             <Calendar class="w-6 h-6 text-destructive" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">Overdue</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats.overdue_books.toLocaleString() }}</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">Overdue</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats.overdue_books.toLocaleString() }}</p>
                         </div>
                     </div>
                 </div>
@@ -111,8 +111,8 @@ const selectedCategory = ref('all');
                             <Plus class="w-6 h-6 text-terracotta" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-warm-muted dark:text-dark-muted">New Arrivals</p>
-                            <p class="text-2xl font-bold text-warm-text dark:text-dark-text">{{ stats.new_arrivals.toLocaleString() }}</p>
+                            <p class="text-sm font-medium text-warm-muted text-dark-muted">New Arrivals</p>
+                            <p class="text-2xl font-bold text-warm-text text-dark-text">{{ stats.new_arrivals.toLocaleString() }}</p>
                         </div>
                     </div>
                 </div>
@@ -121,24 +121,24 @@ const selectedCategory = ref('all');
             <!-- Search and Filters -->
             <div class="card-warm">
                 <div class="p-6 border-b border-terracotta/20">
-                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Search & Filter</h3>
-                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Find books quickly</p>
+                    <h3 class="text-lg font-black text-warm-text text-dark-text">Search & Filter</h3>
+                    <p class="text-sm text-warm-muted text-dark-muted mt-1">Find books quickly</p>
                 </div>
                 <div class="p-6">
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <div class="relative">
-                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-warm-muted dark:text-dark-muted w-4 h-4" />
+                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-warm-muted text-dark-muted w-4 h-4" />
                                 <input
                                     v-model="searchQuery"
                                     type="text"
                                     placeholder="Search books by title, author, or ISBN..."
-                                    class="w-full pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text"
+                                    class="w-full pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white bg-dark-bg text-warm-text text-dark-text"
                                 />
                             </div>
                         </div>
                         <div class="flex gap-2">
-                            <select v-model="selectedCategory" class="px-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text">
+                            <select v-model="selectedCategory" class="px-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white bg-dark-bg text-warm-text text-dark-text">
                                 <option value="all">All Categories</option>
                                 <option value="education">Education</option>
                                 <option value="science">Science</option>
@@ -157,13 +157,13 @@ const selectedCategory = ref('all');
             <!-- Recent Books -->
             <div class="card-warm">
                 <div class="p-6 border-b border-terracotta/20">
-                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Recent Books</h3>
-                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">Latest additions to the library</p>
+                    <h3 class="text-lg font-black text-warm-text text-dark-text">Recent Books</h3>
+                    <p class="text-sm text-warm-muted text-dark-muted mt-1">Latest additions to the library</p>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
                         <thead class="bg-terracotta/5">
-                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-muted dark:text-dark-muted border-b border-terracotta/20">
+                            <tr class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-muted text-dark-muted border-b border-terracotta/20">
                                 <th class="px-6 py-4">Title</th>
                                 <th class="px-6 py-4">Author</th>
                                 <th class="px-6 py-4">Category</th>
@@ -179,13 +179,13 @@ const selectedCategory = ref('all');
                                             <BookOpen class="w-4 h-4 text-terracotta" />
                                         </div>
                                         <div>
-                                            <div class="font-medium text-warm-text dark:text-dark-text">{{ book.title }}</div>
-                                            <div class="text-sm text-warm-muted dark:text-dark-muted">{{ book.author }}</div>
+                                            <div class="font-medium text-warm-text text-dark-text">{{ book.title }}</div>
+                                            <div class="text-sm text-warm-muted text-dark-muted">{{ book.author }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="text-warm-text dark:text-dark-text">{{ book.author }}</span>
+                                    <span class="text-warm-text text-dark-text">{{ book.author }}</span>
                                 </td>
                                 <td class="px-6 py-4">
                                     <Badge :class="book.category === 'Education' ? 'bg-terracotta/10 text-terracotta border-0' : book.category === 'Science' ? 'bg-forest/10 text-forest border-0' : 'bg-amber/10 text-amber border-0'">

@@ -2,18 +2,18 @@
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/ui/tabs';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Separator } from '@/Components/ui/separator';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/Components/ui/dropdown-menu';
 import {
     Dialog,
     DialogContent,
@@ -21,7 +21,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/Components/ui/dialog';
 import { 
     ArrowLeft,
     User,
@@ -101,13 +101,13 @@ const getRelationshipColor = (relationship) => {
         <template #header-title>
             <div class="flex items-center gap-2">
                 <Link :href="route('parents.index')">
-                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
+                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-terracotta/10 text-warm-text text-dark-text">
                         <ArrowLeft class="w-4 h-4 mr-2" />
                         Guardians
                     </Button>
                 </Link>
-                <span class="text-warm-muted dark:text-dark-muted">/</span>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">Family Intelligence</span>
+                <span class="text-warm-muted text-dark-muted">/</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">Family Intelligence</span>
             </div>
         </template>
 
@@ -135,18 +135,18 @@ const getRelationshipColor = (relationship) => {
                                 <Badge :class="['rounded-full px-4 py-1 h-7 border-0 font-black uppercase text-[9px] tracking-widest', getRelationshipColor(parent.relationship_to_student)]">
                                     {{ parent.relationship_to_student || 'Guardian' }}
                                 </Badge>
-                                <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Verified Sponsor</span>
+                                <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">Verified Sponsor</span>
                             </div>
-                            <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text tracking-tighter">
+                            <h1 class="text-4xl md:text-5xl font-black text-warm-text text-dark-text tracking-tighter">
                                 {{ parent.user?.name || 'Unknown' }}
                                 <ShieldCheck class="inline-block w-8 h-8 text-forest ml-2" />
                             </h1>
                             <div class="flex flex-wrap items-center justify-center md:justify-start gap-6">
-                                <div class="flex items-center text-sm font-bold text-warm-muted dark:text-dark-muted uppercase tracking-wide">
+                                <div class="flex items-center text-sm font-bold text-warm-muted text-dark-muted uppercase tracking-wide">
                                     <Briefcase class="w-5 h-5 mr-2 text-terracotta" />
                                     {{ parent.occupation || 'Professional' }}
                                 </div>
-                                <div class="flex items-center text-sm font-bold text-warm-muted dark:text-dark-muted uppercase tracking-wide">
+                                <div class="flex items-center text-sm font-bold text-warm-muted text-dark-muted uppercase tracking-wide">
                                     <Baby class="w-5 h-5 mr-2 text-forest" />
                                     {{ parent.students?.length || 0 }} Protected Dependents
                                 </div>
@@ -163,7 +163,7 @@ const getRelationshipColor = (relationship) => {
                         </Link>
                         <DropdownMenu>
                             <DropdownMenuTrigger as-child>
-                                <Button variant="outline" class="rounded-2xl h-14 w-14 border-terracotta/20 text-warm-muted dark:text-dark-muted">
+                                <Button variant="outline" class="rounded-2xl h-14 w-14 border-terracotta/20 text-warm-muted text-dark-muted">
                                     <MoreVertical class="w-6 h-6" />
                                 </Button>
                             </DropdownMenuTrigger>
@@ -196,9 +196,9 @@ const getRelationshipColor = (relationship) => {
                         <div :class="['w-12 h-12 rounded-2xl flex items-center justify-center transition-colors shadow-inner font-bold', `bg-${stat.color}/10 text-${stat.color}`]">
                             <component :is="stat.icon" class="w-6 h-6" />
                         </div>
-                        <Badge class="bg-terracotta/5 border-0 text-warm-muted dark:text-dark-muted font-black text-[9px] uppercase tracking-widest">{{ stat.label }}</Badge>
+                        <Badge class="bg-terracotta/5 border-0 text-warm-muted text-dark-muted font-black text-[9px] uppercase tracking-widest">{{ stat.label }}</Badge>
                     </div>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter">{{ stat.val }}</h3>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter">{{ stat.val }}</h3>
                 </div>
             </div>
 
@@ -216,7 +216,7 @@ const getRelationshipColor = (relationship) => {
                 <TabsContent value="overview" class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in-up mt-0">
                     <div class="card-warm rounded-[3rem] overflow-hidden">
                         <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <UserCircle class="w-6 h-6 text-terracotta" />
                                 Guardian Specifications
                             </h3>
@@ -236,8 +236,8 @@ const getRelationshipColor = (relationship) => {
                                     <component :is="item.icon" class="w-5 h-5" />
                                 </div>
                                 <div class="flex-1">
-                                    <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted mb-1">{{ item.label }}</p>
-                                    <p class="text-sm font-black text-warm-text dark:text-dark-text truncate">{{ item.val }}</p>
+                                    <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted text-dark-muted mb-1">{{ item.label }}</p>
+                                    <p class="text-sm font-black text-warm-text text-dark-text truncate">{{ item.val }}</p>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +245,7 @@ const getRelationshipColor = (relationship) => {
 
                     <div class="card-warm rounded-[3rem] overflow-hidden">
                         <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <Activity class="w-6 h-6 text-forest" />
                                 Engagement Analysis
                             </h3>
@@ -262,7 +262,7 @@ const getRelationshipColor = (relationship) => {
                                     <AlertCircle class="w-4 h-4" />
                                     Account Notes
                                 </h4>
-                                <p class="text-sm font-medium text-warm-muted dark:text-dark-muted leading-relaxed italic">
+                                <p class="text-sm font-medium text-warm-muted text-dark-muted leading-relaxed italic">
                                     Guardian prefers communication via official mobile link during business hours. Verified payment initiator.
                                 </p>
                             </div>
@@ -283,7 +283,7 @@ const getRelationshipColor = (relationship) => {
                                     <AvatarFallback class="bg-terracotta text-white font-black text-2xl uppercase">{{ getInitials(student.user?.name) }}</AvatarFallback>
                                 </Avatar>
                                 <div>
-                                    <h4 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tight leading-tight">{{ student.user?.name }}</h4>
+                                    <h4 class="text-xl font-black text-warm-text text-dark-text tracking-tight leading-tight">{{ student.user?.name }}</h4>
                                     <p class="text-[10px] font-black text-terracotta uppercase tracking-widest mt-1">{{ student.academic_class?.name || 'Class 10A' }}</p>
                                 </div>
                                 <div class="flex gap-2 w-full pt-4">
@@ -298,10 +298,10 @@ const getRelationshipColor = (relationship) => {
                         
                         <!-- Add Dependent -->
                         <div v-if="isAdmin" class="p-6 rounded-[3rem] border border-dashed border-terracotta/20 flex flex-col items-center justify-center text-center space-y-4 hover:bg-terracotta/5 transition-all cursor-pointer">
-                            <div class="w-16 h-16 rounded-full bg-terracotta/5 flex items-center justify-center text-warm-muted dark:text-dark-muted">
+                            <div class="w-16 h-16 rounded-full bg-terracotta/5 flex items-center justify-center text-warm-muted text-dark-muted">
                                 <Users class="w-8 h-8" />
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted">Add Dependent</p>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted text-dark-muted">Add Dependent</p>
                         </div>
                     </div>
                 </TabsContent>
@@ -313,8 +313,8 @@ const getRelationshipColor = (relationship) => {
             <DialogContent class="card-warm rounded-[2.5rem] shadow-2xl">
                 <DialogHeader>
                     <DialogTitle class="text-2xl font-black tracking-tighter text-destructive">Critical: Revoke Authorization?</DialogTitle>
-                    <DialogDescription class="font-bold text-warm-muted dark:text-dark-muted">
-                        This action will redact <strong class="text-warm-text dark:text-dark-text">{{ parent.user?.name }}</strong> from the secure guardian database. Linked dependents will lose their primary sponsor association. This is irreversible.
+                    <DialogDescription class="font-bold text-warm-muted text-dark-muted">
+                        This action will redact <strong class="text-warm-text text-dark-text">{{ parent.user?.name }}</strong> from the secure guardian database. Linked dependents will lose their primary sponsor association. This is irreversible.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter class="gap-3">

@@ -2,13 +2,13 @@
 import { Head, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Separator } from '@/Components/ui/separator';
+import { Badge } from '@/Components/ui/badge';
 import { 
     ArrowLeft,
     Save,
@@ -146,7 +146,7 @@ const regenerateAdmissionNumber = () => {
                 <CardContent class="relative pt-0 pb-6">
                     <div class="flex flex-col md:flex-row md:items-end md:justify-between -mt-12">
                         <div class="flex flex-col md:flex-row items-center md:items-end space-y-4 md:space-y-0 md:space-x-6">
-                            <Avatar class="w-24 h-24 md:w-32 md:h-32 border-4 border-white dark:border-gray-950 shadow-xl">
+                            <Avatar class="w-24 h-24 md:w-32 md:h-32 border-4 border-border shadow-xl">
                                 <AvatarImage 
                                     v-if="photoPreview"
                                     :src="photoPreview" 
@@ -158,7 +158,7 @@ const regenerateAdmissionNumber = () => {
                             </Avatar>
                             
                             <div class="text-center md:text-left space-y-2 mb-2">
-                                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                                <h1 class="text-2xl md:text-3xl font-bold text-foreground">
                                     {{ form.name || 'New Student' }}
                                 </h1>
                                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
@@ -194,7 +194,7 @@ const regenerateAdmissionNumber = () => {
                             <!-- Current Photo Preview -->
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="relative">
-                                    <Avatar class="w-40 h-40 border-4 border-gray-200 dark:border-gray-800">
+                                    <Avatar class="w-40 h-40 border-4 border-border">
                                         <AvatarImage 
                                             v-if="photoPreview"
                                             :src="photoPreview" 
@@ -222,8 +222,8 @@ const regenerateAdmissionNumber = () => {
 
                             <!-- Upload Section -->
                             <div class="flex-1 space-y-4">
-                                <div class="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 text-center hover:border-blue-500 dark:hover:border-blue-500 transition-colors">
-                                    <Upload class="w-12 h-12 mx-auto text-gray-400 mb-3" />
+                                <div class="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-blue-500 dark:hover:border-blue-500 transition-colors">
+                                    <Upload class="w-12 h-12 mx-auto text-muted-foreground mb-3" />
                                     <div class="space-y-2">
                                         <Label 
                                             for="photo" 
@@ -231,10 +231,10 @@ const regenerateAdmissionNumber = () => {
                                         >
                                             Click to upload
                                         </Label>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        <p class="text-sm text-muted-foreground">
                                             or drag and drop
                                         </p>
-                                        <p class="text-xs text-gray-400 dark:text-gray-500">
+                                        <p class="text-xs text-muted-foreground">
                                             PNG, JPG or JPEG (MAX. 2MB)
                                         </p>
                                     </div>
@@ -250,7 +250,7 @@ const regenerateAdmissionNumber = () => {
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.photo }}
                                 </div>
-                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-muted-foreground">
                                     <Camera class="w-4 h-4" />
                                     <span class="font-medium">{{ photoFile.name }}</span>
                                     <span class="text-xs">({{ (photoFile.size / 1024).toFixed(2) }} KB)</span>
@@ -275,7 +275,7 @@ const regenerateAdmissionNumber = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="name" class="flex items-center gap-2">
-                                    <User class="w-4 h-4 text-gray-500" />
+                                    <User class="w-4 h-4 text-muted-foreground" />
                                     Full Name *
                                 </Label>
                                 <Input
@@ -294,7 +294,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="email" class="flex items-center gap-2">
-                                    <Mail class="w-4 h-4 text-gray-500" />
+                                    <Mail class="w-4 h-4 text-muted-foreground" />
                                     Email Address *
                                 </Label>
                                 <Input
@@ -313,7 +313,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="phone" class="flex items-center gap-2">
-                                    <Phone class="w-4 h-4 text-gray-500" />
+                                    <Phone class="w-4 h-4 text-muted-foreground" />
                                     Phone Number
                                 </Label>
                                 <Input
@@ -330,7 +330,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="date_of_birth" class="flex items-center gap-2">
-                                    <Calendar class="w-4 h-4 text-gray-500" />
+                                    <Calendar class="w-4 h-4 text-muted-foreground" />
                                     Date of Birth
                                 </Label>
                                 <Input
@@ -346,7 +346,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="gender" class="flex items-center gap-2">
-                                    <User class="w-4 h-4 text-gray-500" />
+                                    <User class="w-4 h-4 text-muted-foreground" />
                                     Gender
                                 </Label>
                                 <select
@@ -367,7 +367,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2 md:col-span-2">
                                 <Label for="address" class="flex items-center gap-2">
-                                    <MapPin class="w-4 h-4 text-gray-500" />
+                                    <MapPin class="w-4 h-4 text-muted-foreground" />
                                     Address
                                 </Label>
                                 <Input
@@ -400,7 +400,7 @@ const regenerateAdmissionNumber = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="admission_number" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Admission Number *
                                 </Label>
                                 <div class="flex gap-2">
@@ -411,7 +411,7 @@ const regenerateAdmissionNumber = () => {
                                         placeholder="e.g., STD2024001"
                                         required
                                         readonly
-                                        class="flex-1 bg-gray-50 dark:bg-gray-800 cursor-not-allowed"
+                                        class="flex-1 bg-muted cursor-not-allowed"
                                     />
                                     <Button 
                                         type="button" 
@@ -423,7 +423,7 @@ const regenerateAdmissionNumber = () => {
                                         <RefreshCw class="w-4 h-4" />
                                     </Button>
                                 </div>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                <p class="text-xs text-muted-foreground">
                                     Auto-generated. Click refresh to generate a new one.
                                 </p>
                                 <div v-if="form.errors.admission_number" class="flex items-center gap-2 text-red-600 text-sm">
@@ -434,7 +434,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="roll_number" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Roll Number
                                 </Label>
                                 <Input
@@ -443,7 +443,7 @@ const regenerateAdmissionNumber = () => {
                                     type="text"
                                     placeholder="e.g., ROLL20260001"
                                     readonly
-                                    class="bg-gray-50 dark:bg-gray-800 cursor-not-allowed"
+                                    class="bg-muted cursor-not-allowed"
                                 />
                                 <div v-if="form.errors.roll_number" class="flex items-center gap-2 text-red-600 text-sm">
                                     <AlertCircle class="w-4 h-4" />
@@ -453,7 +453,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="academic_class_id" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Class *
                                 </Label>
                                 <select
@@ -475,7 +475,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="section_id" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Section *
                                 </Label>
                                 <select
@@ -497,7 +497,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="admission_date" class="flex items-center gap-2">
-                                    <Calendar class="w-4 h-4 text-gray-500" />
+                                    <Calendar class="w-4 h-4 text-muted-foreground" />
                                     Admission Date
                                 </Label>
                                 <Input
@@ -513,7 +513,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="status" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Status
                                 </Label>
                                 <select
@@ -550,7 +550,7 @@ const regenerateAdmissionNumber = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="parent_name" class="flex items-center gap-2">
-                                    <User class="w-4 h-4 text-gray-500" />
+                                    <User class="w-4 h-4 text-muted-foreground" />
                                     Parent/Guardian Name
                                 </Label>
                                 <Input
@@ -567,7 +567,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="parent_email" class="flex items-center gap-2">
-                                    <Mail class="w-4 h-4 text-gray-500" />
+                                    <Mail class="w-4 h-4 text-muted-foreground" />
                                     Parent Email
                                 </Label>
                                 <Input
@@ -584,7 +584,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="parent_phone" class="flex items-center gap-2">
-                                    <Phone class="w-4 h-4 text-gray-500" />
+                                    <Phone class="w-4 h-4 text-muted-foreground" />
                                     Parent Phone
                                 </Label>
                                 <Input
@@ -617,7 +617,7 @@ const regenerateAdmissionNumber = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="emergency_contact" class="flex items-center gap-2">
-                                    <Phone class="w-4 h-4 text-gray-500" />
+                                    <Phone class="w-4 h-4 text-muted-foreground" />
                                     Emergency Contact
                                 </Label>
                                 <Input
@@ -634,7 +634,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="blood_group" class="flex items-center gap-2">
-                                    <Users class="w-4 h-4 text-gray-500" />
+                                    <Users class="w-4 h-4 text-muted-foreground" />
                                     Blood Group
                                 </Label>
                                 <select
@@ -660,7 +660,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2 md:col-span-2">
                                 <Label for="medical_conditions" class="flex items-center gap-2">
-                                    <Users class="w-4 h-4 text-gray-500" />
+                                    <Users class="w-4 h-4 text-muted-foreground" />
                                     Medical Conditions
                                 </Label>
                                 <textarea
@@ -693,7 +693,7 @@ const regenerateAdmissionNumber = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <Label for="previous_school" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Previous School
                                 </Label>
                                 <Input
@@ -710,7 +710,7 @@ const regenerateAdmissionNumber = () => {
 
                             <div class="space-y-2">
                                 <Label for="transfer_certificate" class="flex items-center gap-2">
-                                    <GraduationCap class="w-4 h-4 text-gray-500" />
+                                    <GraduationCap class="w-4 h-4 text-muted-foreground" />
                                     Transfer Certificate
                                 </Label>
                                 <Input
@@ -757,7 +757,7 @@ const regenerateAdmissionNumber = () => {
                             
                             <div class="space-y-2 max-w-md">
                                 <Label for="password" class="flex items-center gap-2">
-                                    <Lock class="w-4 h-4 text-gray-500" />
+                                    <Lock class="w-4 h-4 text-muted-foreground" />
                                     Password *
                                 </Label>
                                 <Input
@@ -768,7 +768,7 @@ const regenerateAdmissionNumber = () => {
                                     required
                                     autocomplete="new-password"
                                 />
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                <p class="text-xs text-muted-foreground">
                                     Minimum 8 characters recommended
                                 </p>
                                 <div v-if="form.errors.password" class="flex items-center gap-2 text-red-600 text-sm">
@@ -784,7 +784,7 @@ const regenerateAdmissionNumber = () => {
                 <Card>
                     <CardContent class="pt-6">
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <p class="text-sm text-muted-foreground">
                                 * Required fields must be filled
                             </p>
                             <div class="flex items-center gap-3">

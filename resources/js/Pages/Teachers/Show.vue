@@ -2,19 +2,19 @@
 import { Head, Link, router, usePage, useForm } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Label } from '@/Components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/ui/tabs';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Separator } from '@/Components/ui/separator';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/Components/ui/dropdown-menu';
 import {
     Dialog,
     DialogContent,
@@ -22,7 +22,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/Components/ui/dialog';
 import { 
     ArrowLeft,
     User,
@@ -327,13 +327,13 @@ const formatDate = (date) => {
         <template #header-title>
             <div class="flex items-center gap-2">
                 <Link :href="route('teachers.index')">
-                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
+                    <Button variant="ghost" size="sm" class="rounded-xl hover:bg-terracotta/10 text-warm-text text-dark-text">
                         <ArrowLeft class="w-4 h-4 mr-2" />
                         Faculty
                     </Button>
                 </Link>
-                <span class="text-warm-muted dark:text-dark-muted">/</span>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">Academic Personnel Intelligence</span>
+                <span class="text-warm-muted text-dark-muted">/</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">Academic Personnel Intelligence</span>
             </div>
         </template>
 
@@ -361,18 +361,18 @@ const formatDate = (date) => {
                                 <Badge :class="['rounded-full px-4 py-1 h-7 border-0 font-black uppercase text-[9px] tracking-widest', getStatusColor(teacher.status)]">
                                     {{ teacher.status || 'Active' }}
                                 </Badge>
-                                <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Employee: #{{ teacher.employee_id }}</span>
+                                <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">Employee: #{{ teacher.employee_id }}</span>
                             </div>
-                            <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text tracking-tighter">
+                            <h1 class="text-4xl md:text-5xl font-black text-warm-text text-dark-text tracking-tighter">
                                 {{ teacher.user.name }}
                                 <ShieldCheck class="inline-block w-8 h-8 text-forest ml-2" />
                             </h1>
                             <div class="flex flex-wrap items-center justify-center md:justify-start gap-6">
-                                <div class="flex items-center text-sm font-bold text-warm-muted dark:text-dark-muted uppercase tracking-wide">
+                                <div class="flex items-center text-sm font-bold text-warm-muted text-dark-muted uppercase tracking-wide">
                                     <GraduationCap class="w-5 h-5 mr-2 text-terracotta" />
                                     {{ teacher.role ? (teacher.role.charAt(0).toUpperCase() + teacher.role.slice(1)) : 'Teacher' }}
                                 </div>
-                                <div class="flex items-center text-sm font-bold text-warm-muted dark:text-dark-muted uppercase tracking-wide">
+                                <div class="flex items-center text-sm font-bold text-warm-muted text-dark-muted uppercase tracking-wide">
                                     <Building class="w-5 h-5 mr-2 text-terracotta" />
                                     {{ teacher.specialization || 'Faculty of Science' }}
                                 </div>
@@ -389,7 +389,7 @@ const formatDate = (date) => {
                         </Link>
                         <DropdownMenu>
                             <DropdownMenuTrigger as-child>
-                                <Button variant="outline" class="rounded-2xl h-14 w-14 border-terracotta/20 text-warm-muted dark:text-dark-muted">
+                                <Button variant="outline" class="rounded-2xl h-14 w-14 border-terracotta/20 text-warm-muted text-dark-muted">
                                     <MoreVertical class="w-6 h-6" />
                                 </Button>
                             </DropdownMenuTrigger>
@@ -418,9 +418,9 @@ const formatDate = (date) => {
                         <div :class="['w-12 h-12 rounded-2xl flex items-center justify-center transition-colors font-bold', `bg-${stat.color}/10 text-${stat.color}`]">
                             <component :is="stat.icon" class="w-6 h-6" />
                         </div>
-                        <Badge class="bg-terracotta/5 border-0 text-warm-muted dark:text-dark-muted font-black text-[9px] uppercase tracking-widest">{{ stat.label }}</Badge>
+                        <Badge class="bg-terracotta/5 border-0 text-warm-muted text-dark-muted font-black text-[9px] uppercase tracking-widest">{{ stat.label }}</Badge>
                     </div>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter">{{ stat.val }}</h3>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter">{{ stat.val }}</h3>
                 </div>
             </div>
 
@@ -441,7 +441,7 @@ const formatDate = (date) => {
                 <TabsContent value="overview" class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in-up mt-0">
                     <div class="card-warm rounded-[3rem] overflow-hidden">
                         <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <UserCircle class="w-6 h-6 text-terracotta" />
                                 Biological Specifications
                             </h3>
@@ -457,8 +457,8 @@ const formatDate = (date) => {
                                     <component :is="item.icon" class="w-5 h-5" />
                                 </div>
                                 <div class="flex-1">
-                                    <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted mb-1">{{ item.label }}</p>
-                                    <p class="text-sm font-black text-warm-text dark:text-dark-text truncate">{{ item.val }}</p>
+                                    <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted text-dark-muted mb-1">{{ item.label }}</p>
+                                    <p class="text-sm font-black text-warm-text text-dark-text truncate">{{ item.val }}</p>
                                 </div>
                             </div>
                         </div>
@@ -466,21 +466,21 @@ const formatDate = (date) => {
 
                     <div class="card-warm rounded-[3rem] overflow-hidden">
                         <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <AlertCircle class="w-6 h-6 text-amber" />
                                 Emergency & Health Audit
                             </h3>
                         </div>
                         <div class="p-8 space-y-8">
                             <div class="p-8 rounded-[2.5rem] bg-terracotta/5 border border-terracotta/20 shadow-sm">
-                                <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted mb-4">Secondary Contact Intelligence</p>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted text-dark-muted mb-4">Secondary Contact Intelligence</p>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div>
-                                        <h4 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tight">{{ teacher.emergency_contact_name || 'Guardian One' }}</h4>
+                                        <h4 class="text-xl font-black text-warm-text text-dark-text tracking-tight">{{ teacher.emergency_contact_name || 'Guardian One' }}</h4>
                                         <p class="text-xs font-bold text-terracotta uppercase tracking-widest">{{ teacher.emergency_contact_relationship || 'Emergency Contact' }}</p>
                                     </div>
                                     <div class="text-right">
-                                        <p class="text-lg font-black text-warm-text dark:text-dark-text">{{ teacher.emergency_contact_phone || 'Unlinked' }}</p>
+                                        <p class="text-lg font-black text-warm-text text-dark-text">{{ teacher.emergency_contact_phone || 'Unlinked' }}</p>
                                         <Badge class="bg-terracotta/10 text-terracotta border-0 rounded-full h-6 font-black uppercase text-[8px]">Encrypted</Badge>
                                     </div>
                                 </div>
@@ -492,7 +492,7 @@ const formatDate = (date) => {
                                         <Activity class="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted">Blood Registry</p>
+                                        <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted text-dark-muted">Blood Registry</p>
                                         <p class="text-2xl font-black text-amber">{{ teacher.blood_group || 'O+' }}</p>
                                     </div>
                                 </div>
@@ -508,7 +508,7 @@ const formatDate = (date) => {
                             <!-- Professional Credentials -->
                             <div class="card-warm rounded-[3rem] overflow-hidden">
                                 <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
-                                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                         <Award class="w-6 h-6 text-terracotta" />
                                         Professional Credentials
                                     </h3>
@@ -524,8 +524,8 @@ const formatDate = (date) => {
                                             <component :is="item.icon" class="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted mb-1">{{ item.label }}</p>
-                                            <p class="text-sm font-black text-warm-text dark:text-dark-text leading-tight">{{ item.val }}</p>
+                                            <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted text-dark-muted mb-1">{{ item.label }}</p>
+                                            <p class="text-sm font-black text-warm-text text-dark-text leading-tight">{{ item.val }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -534,7 +534,7 @@ const formatDate = (date) => {
                             <!-- Teaching Assignments (Combined Class + Subjects) -->
                             <div v-if="isAdmin" class="card-warm rounded-[3rem] overflow-hidden">
                                 <div class="p-8 border-b border-terracotta/20 bg-terracotta/5 flex items-center justify-between">
-                                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                         <GraduationCap class="w-6 h-6 text-terracotta" />
                                         Teaching Assignments
                                     </h3>
@@ -546,7 +546,7 @@ const formatDate = (date) => {
                                 <div class="p-8">
                                     <div v-if="teacher.classes?.length === 0" class="text-center py-8">
                                         <GraduationCap class="w-12 h-12 mx-auto text-warm-muted/30 mb-4" />
-                                        <p class="text-sm font-bold text-warm-muted dark:text-dark-muted">No teaching assignments</p>
+                                        <p class="text-sm font-bold text-warm-muted text-dark-muted">No teaching assignments</p>
                                         <p class="text-xs text-warm-muted/70 mt-1">Assign this teacher to classes with subjects they will teach</p>
                                     </div>
                                     <div v-else class="space-y-4">
@@ -557,11 +557,11 @@ const formatDate = (date) => {
                                                         <Building class="w-5 h-5" />
                                                     </div>
                                                     <div>
-                                                        <p class="text-sm font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                                        <p class="text-sm font-black text-warm-text text-dark-text flex items-center gap-2">
                                                             {{ cls.name }}
                                                             <Badge v-if="cls.is_class_teacher" class="bg-forest/10 text-forest border-0 text-[9px] font-black px-2 py-0">Class Teacher</Badge>
                                                         </p>
-                                                        <p class="text-xs text-warm-muted dark:text-dark-muted">{{ cls.code }} {{ cls.section_name ? '• ' + cls.section_name + ' Section' : '' }}</p>
+                                                        <p class="text-xs text-warm-muted text-dark-muted">{{ cls.code }} {{ cls.section_name ? '• ' + cls.section_name + ' Section' : '' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center gap-2">
@@ -591,7 +591,7 @@ const formatDate = (date) => {
                                             </div>
                                             <!-- Subjects for this class-section -->
                                             <div v-if="getSubjectsForClass(cls.id, cls.section_id).length > 0" class="pl-13 ml-9 space-y-2">
-                                                <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted mb-2">Teaching:</p>
+                                                <p class="text-[10px] font-black uppercase tracking-widest text-warm-muted text-dark-muted mb-2">Teaching:</p>
                                                 <div class="flex flex-wrap gap-2">
                                                     <Badge v-for="subject in getSubjectsForClass(cls.id, cls.section_id)" :key="subject.id" class="bg-amber/10 text-amber border-0 text-[10px] font-black px-2 py-1">
                                                         <BookOpen class="w-3 h-3 mr-1" />
@@ -614,8 +614,8 @@ const formatDate = (date) => {
                                 <h4 class="text-3xl font-black tracking-tighter mb-2">Faculty Impact</h4>
                                 <p class="text-xs font-bold opacity-80 uppercase tracking-widest mb-8">Tenure: {{ teacher.experience || '6' }} years</p>
                                 
-                                <div class="flex items-center gap-4 p-4 bg-white/10 rounded-2xl border border-white/20">
-                                    <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                                <div class="flex items-center gap-4 p-4 bg-white/10 dark:bg-white/5 rounded-2xl border border-white/20 dark:border-white/10">
+                                    <div class="w-10 h-10 rounded-xl bg-white/20 dark:bg-white/10 flex items-center justify-center">
                                         <Users class="w-5 h-5" />
                                     </div>
                                     <div>
@@ -634,8 +634,8 @@ const formatDate = (date) => {
                             <History class="w-12 h-12" />
                         </div>
                         <div class="max-w-md mx-auto">
-                            <h3 class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">Live Grid Standby</h3>
-                            <p class="text-sm font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest mt-2">The operational schedule for this personnel is currently being synchronized with the master timetable.</p>
+                            <h3 class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">Live Grid Standby</h3>
+                            <p class="text-sm font-bold text-warm-muted text-dark-muted uppercase tracking-widest mt-2">The operational schedule for this personnel is currently being synchronized with the master timetable.</p>
                         </div>
                         <Button class="accent-terracotta text-white font-black rounded-2xl px-8 h-12 shadow-sm shadow-terracotta/30">
                             Request Override
@@ -650,8 +650,8 @@ const formatDate = (date) => {
             <DialogContent class="card-warm rounded-xl rounded-[2.5rem] shadow-2xl">
                 <DialogHeader>
                     <DialogTitle class="text-2xl font-black tracking-tighter text-destructive">Critical: Purge Personnel?</DialogTitle>
-                    <DialogDescription class="font-bold text-warm-muted dark:text-dark-muted">
-                        This action will decommission <strong class="text-warm-text dark:text-dark-text">{{ teacher.user.name }}</strong> from all academic systems. Payroll and instructional logs will be archived. This is irreversible.
+                    <DialogDescription class="font-bold text-warm-muted text-dark-muted">
+                        This action will decommission <strong class="text-warm-text text-dark-text">{{ teacher.user.name }}</strong> from all academic systems. Payroll and instructional logs will be archived. This is irreversible.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter class="gap-3">
@@ -665,9 +665,9 @@ const formatDate = (date) => {
         <Dialog v-model:open="showAssignClassDialog">
             <DialogContent class="card-warm rounded-xl rounded-[2.5rem] shadow-2xl max-w-2xl">
                 <DialogHeader>
-                    <DialogTitle class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">Assign to Class</DialogTitle>
-                    <DialogDescription class="font-bold text-warm-muted dark:text-dark-muted">
-                        Select a class and section to assign <strong class="text-warm-text dark:text-dark-text">{{ teacher.user.name }}</strong> to.
+                    <DialogTitle class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">Assign to Class</DialogTitle>
+                    <DialogDescription class="font-bold text-warm-muted text-dark-muted">
+                        Select a class and section to assign <strong class="text-warm-text text-dark-text">{{ teacher.user.name }}</strong> to.
                     </DialogDescription>
                 </DialogHeader>
                 <div class="py-4 space-y-4">
@@ -678,7 +678,7 @@ const formatDate = (date) => {
                     <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Left Column: Class Selection -->
                         <div class="space-y-2">
-                            <Label class="text-sm font-bold text-warm-text dark:text-dark-text flex items-center gap-2">
+                            <Label class="text-sm font-bold text-warm-text text-dark-text flex items-center gap-2">
                                 <Building class="w-4 h-4 text-terracotta" />
                                 Select Class
                             </Label>
@@ -698,8 +698,8 @@ const formatDate = (date) => {
                                         <Building class="w-5 h-5" />
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-black text-warm-text dark:text-dark-text truncate">{{ cls.name }}</p>
-                                        <p class="text-xs text-warm-muted dark:text-dark-muted">{{ cls.code }}</p>
+                                        <p class="text-sm font-black text-warm-text text-dark-text truncate">{{ cls.name }}</p>
+                                        <p class="text-xs text-warm-muted text-dark-muted">{{ cls.code }}</p>
                                     </div>
                                     <div v-if="assignClassForm.class_id === cls.id" class="ml-auto flex-shrink-0">
                                         <ShieldCheck class="w-5 h-5 text-terracotta" />
@@ -712,7 +712,7 @@ const formatDate = (date) => {
                         <div class="space-y-4">
                             <!-- Section Selection (if class selected) -->
                             <div v-if="assignClassForm.class_id" class="space-y-2">
-                                <Label class="text-sm font-bold text-warm-text dark:text-dark-text flex items-center gap-2">
+                                <Label class="text-sm font-bold text-warm-text text-dark-text flex items-center gap-2">
                                     <Users class="w-4 h-4 text-terracotta" />
                                     Select Section
                                     <span class="text-destructive">*</span>
@@ -724,7 +724,7 @@ const formatDate = (date) => {
                                     v-else
                                     v-model="assignClassForm.section_id"
                                     :class="[
-                                        'w-full h-10 rounded-xl border bg-white dark:bg-dark-bg px-3 text-sm',
+                                        'w-full h-10 rounded-xl border bg-white bg-dark-bg px-3 text-sm',
                                         assignClassForm.errors.section_id ? 'border-destructive' : 'border-terracotta/20'
                                     ]"
                                     required
@@ -745,7 +745,7 @@ const formatDate = (date) => {
                                     v-model="assignClassForm.is_class_teacher"
                                     class="w-5 h-5 rounded border-forest text-forest focus:ring-forest flex-shrink-0"
                                 />
-                                <Label for="is_class_teacher" class="text-sm font-bold text-warm-text dark:text-dark-text cursor-pointer">
+                                <Label for="is_class_teacher" class="text-sm font-bold text-warm-text text-dark-text cursor-pointer">
                                     Set as Class Teacher
                                     <span class="block text-xs font-normal text-warm-muted">Responsible for student reports</span>
                                 </Label>
@@ -753,7 +753,7 @@ const formatDate = (date) => {
 
                             <!-- Subject Selection -->
                             <div v-if="assignClassForm.class_id" class="space-y-2">
-                                <Label class="text-sm font-bold text-warm-text dark:text-dark-text flex items-center gap-2">
+                                <Label class="text-sm font-bold text-warm-text text-dark-text flex items-center gap-2">
                                     <BookOpen class="w-4 h-4 text-terracotta" />
                                     Select Subjects (Optional)
                                 </Label>
@@ -773,7 +773,7 @@ const formatDate = (date) => {
                                             class="w-4 h-4 rounded border-terracotta text-terracotta focus:ring-terracotta flex-shrink-0"
                                         />
                                         <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-bold text-warm-text dark:text-dark-text">{{ subject.name }}</p>
+                                            <p class="text-sm font-bold text-warm-text text-dark-text">{{ subject.name }}</p>
                                             <p class="text-xs text-warm-muted">{{ subject.code }}</p>
                                         </div>
                                     </label>
@@ -799,9 +799,9 @@ const formatDate = (date) => {
         <Dialog v-model:open="showAssignSubjectDialog">
             <DialogContent class="card-warm rounded-xl rounded-[2.5rem] shadow-2xl max-w-md">
                 <DialogHeader>
-                    <DialogTitle class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">Assign Subject</DialogTitle>
-                    <DialogDescription class="font-bold text-warm-muted dark:text-dark-muted">
-                        Select a subject to assign to <strong class="text-warm-text dark:text-dark-text">{{ teacher.user.name }}</strong>.
+                    <DialogTitle class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">Assign Subject</DialogTitle>
+                    <DialogDescription class="font-bold text-warm-muted text-dark-muted">
+                        Select a subject to assign to <strong class="text-warm-text text-dark-text">{{ teacher.user.name }}</strong>.
                     </DialogDescription>
                 </DialogHeader>
                 <div class="py-4 space-y-4">
@@ -827,8 +827,8 @@ const formatDate = (date) => {
                                     <BookOpen class="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p class="text-sm font-black text-warm-text dark:text-dark-text">{{ subject.name }}</p>
-                                    <p class="text-xs text-warm-muted dark:text-dark-muted">{{ subject.code }} {{ subject.type ? '• ' + subject.type : '' }}</p>
+                                    <p class="text-sm font-black text-warm-text text-dark-text">{{ subject.name }}</p>
+                                    <p class="text-xs text-warm-muted text-dark-muted">{{ subject.code }} {{ subject.type ? '• ' + subject.type : '' }}</p>
                                 </div>
                                 <div v-if="assignSubjectForm.subject_id === subject.id" class="ml-auto">
                                     <ShieldCheck class="w-5 h-5 text-terracotta" />
@@ -841,7 +841,7 @@ const formatDate = (date) => {
                             <p class="text-xs font-bold text-warm-muted uppercase tracking-widest mb-2">For Specific Class (Optional)</p>
                             <select
                                 v-model="assignSubjectForm.academic_class_id"
-                                class="w-full h-12 rounded-xl border border-terracotta/20 bg-white dark:bg-dark-bg px-4 text-sm focus:ring-2 focus:ring-terracotta/30"
+                                class="w-full h-12 rounded-xl border border-terracotta/20 bg-white bg-dark-bg px-4 text-sm focus:ring-2 focus:ring-terracotta/30"
                             >
                                 <option value="">All Classes (General Assignment)</option>
                                 <option v-for="cls in availableClasses" :key="cls.id" :value="cls.id">
@@ -872,8 +872,8 @@ const formatDate = (date) => {
                         <AlertTriangle class="w-6 h-6" />
                         Remove Teaching Assignment
                     </DialogTitle>
-                    <DialogDescription class="font-bold text-warm-muted dark:text-dark-muted">
-                        Are you sure you want to remove <strong class="text-warm-text dark:text-dark-text">{{ teacher.user?.name }}</strong> from this class assignment?
+                    <DialogDescription class="font-bold text-warm-muted text-dark-muted">
+                        Are you sure you want to remove <strong class="text-warm-text text-dark-text">{{ teacher.user?.name }}</strong> from this class assignment?
                     </DialogDescription>
                 </DialogHeader>
                 <div class="py-4" v-if="classToRemove">
@@ -883,8 +883,8 @@ const formatDate = (date) => {
                                 <Building class="w-5 h-5" />
                             </div>
                             <div>
-                                <p class="text-sm font-black text-warm-text dark:text-dark-text">{{ classToRemove.name }}</p>
-                                <p class="text-xs text-warm-muted dark:text-dark-muted">{{ classToRemove.code }} {{ classToRemove.section_name ? '• ' + classToRemove.section_name + ' Section' : '' }}</p>
+                                <p class="text-sm font-black text-warm-text text-dark-text">{{ classToRemove.name }}</p>
+                                <p class="text-xs text-warm-muted text-dark-muted">{{ classToRemove.code }} {{ classToRemove.section_name ? '• ' + classToRemove.section_name + ' Section' : '' }}</p>
                             </div>
                         </div>
                         <div v-if="getSubjectsForClass(classToRemove.id).length > 0" class="mt-3 pt-3 border-t border-destructive/10">
@@ -921,8 +921,8 @@ const formatDate = (date) => {
                         <ShieldCheck class="w-6 h-6" />
                         Class Teacher Status
                     </DialogTitle>
-                    <DialogDescription class="font-bold text-warm-muted dark:text-dark-muted">
-                        Manage class teacher status for <strong class="text-warm-text dark:text-dark-text">{{ teacher.user.name }}</strong> in {{ classToEdit?.name }} {{ classToEdit?.section_name ? '(' + classToEdit?.section_name + ' Section)' : '' }}.
+                    <DialogDescription class="font-bold text-warm-muted text-dark-muted">
+                        Manage class teacher status for <strong class="text-warm-text text-dark-text">{{ teacher.user.name }}</strong> in {{ classToEdit?.name }} {{ classToEdit?.section_name ? '(' + classToEdit?.section_name + ' Section)' : '' }}.
                     </DialogDescription>
                 </DialogHeader>
                 <div class="py-6">
@@ -934,7 +934,7 @@ const formatDate = (date) => {
                             class="w-6 h-6 rounded border-terracotta text-terracotta focus:ring-terracotta flex-shrink-0"
                         />
                         <div>
-                            <Label for="edit_is_class_teacher" class="text-base font-black text-warm-text dark:text-dark-text cursor-pointer">
+                            <Label for="edit_is_class_teacher" class="text-base font-black text-warm-text text-dark-text cursor-pointer">
                                 Set as Class Teacher
                             </Label>
                             <p class="text-xs text-warm-muted">When enabled, this teacher will be responsible for managing student reports and class operations.</p>
@@ -965,8 +965,8 @@ const formatDate = (date) => {
                         </div>
                         Edit Subjects
                     </DialogTitle>
-                    <DialogDescription class="font-bold text-warm-muted dark:text-dark-muted pt-2">
-                        Manage subjects for <strong class="text-warm-text dark:text-dark-text">{{ teacher.user.name }}</strong> in {{ classToEditSubjects?.name }} {{ classToEditSubjects?.section_name ? '(' + classToEditSubjects?.section_name + ' Section)' : '' }}.
+                    <DialogDescription class="font-bold text-warm-muted text-dark-muted pt-2">
+                        Manage subjects for <strong class="text-warm-text text-dark-text">{{ teacher.user.name }}</strong> in {{ classToEditSubjects?.name }} {{ classToEditSubjects?.section_name ? '(' + classToEditSubjects?.section_name + ' Section)' : '' }}.
                     </DialogDescription>
                 </DialogHeader>
                 <div class="py-6">
@@ -996,7 +996,7 @@ const formatDate = (date) => {
                                     class="w-5 h-5 rounded border-terracotta text-terracotta focus:ring-terracotta flex-shrink-0"
                                 />
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-black text-warm-text dark:text-dark-text">{{ subject.name }}</p>
+                                    <p class="text-sm font-black text-warm-text text-dark-text">{{ subject.name }}</p>
                                     <p class="text-xs text-warm-muted">{{ subject.code }}</p>
                                 </div>
                                 <div v-if="editSubjectsForm.subject_ids.includes(subject.id)" class="flex-shrink-0">

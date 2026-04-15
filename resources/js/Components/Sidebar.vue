@@ -27,8 +27,8 @@ import {
     Settings,
     LayoutDashboard
 } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
 import Header from '@/Components/Header.vue';
 
 const page = usePage();
@@ -269,7 +269,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-<div class="min-h-screen bg-warm-bg dark:bg-dark-bg text-warm-text dark:text-dark-text relative transition-colors duration-300 font-serif">
+<div class="min-h-screen bg-warm-bg bg-dark-bg text-warm-text text-dark-text relative transition-colors duration-300 font-serif">
     <!-- Background Orbs (optimized) -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 contain-strict">
         <div class="hero-orb-1 absolute -top-[15%] -left-[10%] w-[50%] h-[50%] blur-[80px] animate-float will-change-transform" />
@@ -292,7 +292,7 @@ onUnmounted(() => {
         <!-- Sidebar -->
         <aside 
             :class="[
-                'bg-warm-bg/95 dark:bg-dark-bg/95 backdrop-blur-sm transition-all duration-500 ease-in-out border-r border-warm-border dark:border-dark-border fixed lg:relative z-50 flex flex-col shadow-xl h-full',
+                'bg-warm-bg/95 bg-dark-bg/95 backdrop-blur-sm transition-all duration-500 ease-in-out border-r border-warm-border border-dark-border fixed lg:relative z-50 flex flex-col shadow-xl h-full',
                 isCollapsed ? 'lg:w-24' : 'lg:w-72',
                 isMobileOpen ? 'translate-x-0 w-72' : '-translate-x-full lg:translate-x-0 w-0 lg:w-auto'
             ]"
@@ -300,12 +300,12 @@ onUnmounted(() => {
             <!-- Logo Section -->
             <div class="p-6 mb-2">
                 <div class="flex items-center justify-between">
-                    <Link href="/" class="flex items-center gap-3 group">
+                    <Link href="/dashboard" class="flex items-center gap-3 group">
                         <div class="w-12 h-12 bg-terracotta rounded-2xl flex items-center justify-center shadow-lg shadow-terracotta/30 transform transition-all duration-500 group-hover:scale-105">
                             <GraduationCap class="w-7 h-7 text-white" />
                         </div>
                         <div v-if="!isCollapsed" class="animate-fade-in whitespace-nowrap">
-                            <h1 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter">EduManage <span class="text-terracotta">Pro</span></h1>
+                            <h1 class="text-xl font-black text-warm-text text-dark-text tracking-tighter">EduManage <span class="text-terracotta">Pro</span></h1>
                             <p class="text-[9px] uppercase tracking-[0.2em] font-bold text-terracotta/60">Nairobi · Kenya</p>
                         </div>
                     </Link>
@@ -313,14 +313,14 @@ onUnmounted(() => {
                         @click="toggleSidebar"
                         class="ml-2 h-8 w-8 rounded-xl opacity-0 group-hover:opacity-100 lg:opacity-100 transition-all hover:bg-terracotta/10 hidden lg:flex items-center justify-center"
                     >
-                        <ChevronLeft :class="['w-4 h-4 text-warm-muted dark:text-dark-muted transition-transform duration-500', isCollapsed ? 'rotate-180' : '']" />
+                        <ChevronLeft :class="['w-4 h-4 text-warm-muted text-dark-muted transition-transform duration-500', isCollapsed ? 'rotate-180' : '']" />
                     </button>
                     <!-- Mobile Close Button -->
                     <button 
                         @click="isMobileOpen = false"
                         class="lg:hidden h-8 w-8 rounded-xl hover:bg-terracotta/10 flex items-center justify-center"
                     >
-                        <ChevronLeft class="w-4 h-4 text-warm-muted dark:text-dark-muted" />
+                        <ChevronLeft class="w-4 h-4 text-warm-muted text-dark-muted" />
                     </button>
                 </div>
             </div>
@@ -328,23 +328,23 @@ onUnmounted(() => {
             <!-- Search Box (Conditional) -->
             <div v-if="!isCollapsed" class="px-6 mb-6 animate-fade-in">
                 <div class="relative group">
-                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-warm-muted/60 dark:text-dark-muted/60 group-focus-within:text-terracotta transition-colors">
+                    <div class="absolute left-3 top-1/2 -translate-y-1/2 text-warm-muted/60 text-dark-muted/60 group-focus-within:text-terracotta transition-colors">
                         <Search class="w-4 h-4" />
                     </div>
                     <input 
                         v-model="searchQuery"
                         @input="searchStudents"
                         placeholder="Search students..." 
-                        class="w-full h-11 pl-10 bg-white/50 dark:bg-dark-bg/50 border border-terracotta/20 rounded-xl text-sm text-warm-text dark:text-dark-text placeholder:text-warm-muted/50 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-all"
+                        class="w-full h-11 pl-10 bg-white/50 bg-dark-bg/50 border border-terracotta/20 rounded-xl text-sm text-warm-text text-dark-text placeholder:text-warm-muted/50 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-all"
                     />
                     
                     <!-- Search Results -->
-                    <div v-if="showSearchResults && searchResults.length" class="absolute top-12 left-0 right-0 bg-white dark:bg-dark-bg rounded-2xl border border-terracotta/20 p-2 shadow-2xl z-50 animate-scale-up">
+                    <div v-if="showSearchResults && searchResults.length" class="absolute top-12 left-0 right-0 bg-white bg-dark-bg rounded-2xl border border-terracotta/20 p-2 shadow-2xl z-50 animate-scale-up">
                         <div v-for="student in searchResults.slice(0, 5)" :key="student.id" @click="selectStudent(student)" class="flex items-center gap-3 p-2 hover:bg-terracotta/5 rounded-xl cursor-pointer transition-all">
                             <div class="w-8 h-8 rounded-lg bg-terracotta/10 flex items-center justify-center text-terracotta font-bold text-xs uppercase">{{ student.user.name.charAt(0) }}</div>
                             <div class="min-w-0">
-                                <p class="text-xs font-bold truncate text-warm-text dark:text-dark-text">{{ student.user.name }}</p>
-                                <p class="text-[10px] text-warm-muted/70 dark:text-dark-muted/70 truncate">{{ student.admission_number }}</p>
+                                <p class="text-xs font-bold truncate text-warm-text text-dark-text">{{ student.user.name }}</p>
+                                <p class="text-[10px] text-warm-muted/70 text-dark-muted/70 truncate">{{ student.admission_number }}</p>
                             </div>
                         </div>
                     </div>
@@ -371,7 +371,7 @@ onUnmounted(() => {
                             'group flex items-center px-4 py-3.5 rounded-2xl transition-all duration-300 relative overflow-hidden',
                             item.active 
                                 ? 'bg-terracotta text-white shadow-lg shadow-terracotta/30' 
-                                : 'text-warm-muted dark:text-dark-muted hover:bg-terracotta/10 hover:text-terracotta',
+                                : 'text-warm-muted text-dark-muted hover:bg-terracotta/10 hover:text-terracotta',
                             isCollapsed && !isMobileOpen ? 'justify-center px-0' : ''
                         ]"
                     >
@@ -386,7 +386,7 @@ onUnmounted(() => {
                         <span v-if="!isCollapsed || isMobileOpen" class="text-sm font-bold tracking-tight relative z-10">{{ item.name }}</span>
                         
                         <!-- Tooltip for Collapsed -->
-                        <div v-if="isCollapsed && !isMobileOpen && hoveredItem === item.name" class="absolute left-full ml-4 px-3 py-2 bg-white dark:bg-dark-bg border border-terracotta/20 rounded-xl text-xs font-black shadow-2xl animate-fade-in-right z-50 whitespace-nowrap">
+                        <div v-if="isCollapsed && !isMobileOpen && hoveredItem === item.name" class="absolute left-full ml-4 px-3 py-2 bg-white bg-dark-bg border border-terracotta/20 rounded-xl text-xs font-black shadow-2xl animate-fade-in-right z-50 whitespace-nowrap">
                             {{ item.name }}
                         </div>
                     </Link>
@@ -406,7 +406,7 @@ onUnmounted(() => {
                             {{ user.name.charAt(0) }}
                         </div>
                         <div v-if="!isCollapsed || isMobileOpen" class="flex-1 min-w-0 animate-fade-in">
-                            <p class="text-xs font-black text-warm-text dark:text-dark-text truncate">{{ user.name }}</p>
+                            <p class="text-xs font-black text-warm-text text-dark-text truncate">{{ user.name }}</p>
                             <p class="text-[10px] font-bold text-terracotta uppercase tracking-wider truncate">{{ userRoles[0] }}</p>
                         </div>
                         <Link 

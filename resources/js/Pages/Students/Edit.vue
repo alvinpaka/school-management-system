@@ -3,20 +3,20 @@ import { Head, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import axios from 'axios';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Separator } from '@/Components/ui/separator';
+import { Badge } from '@/Components/ui/badge';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
+} from '@/Components/ui/select';
 import { 
     ArrowLeft,
     Save,
@@ -153,13 +153,13 @@ const getCurrentPhoto = () => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Link :href="route('students.show', student.id)">
-                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
+                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text text-dark-text">
                         <ArrowLeft class="w-4 h-4" />
                         Back to Profile
                     </Button>
                 </Link>
                 <Separator orientation="vertical" class="h-6 bg-terracotta/20" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Edit Student</span>
+                <span class="font-semibold text-warm-text text-dark-text">Edit Student</span>
             </div>
         </template>
 
@@ -182,7 +182,7 @@ const getCurrentPhoto = () => {
                             </Avatar>
                             
                             <div class="text-center md:text-left space-y-2 mb-2">
-                                <h1 class="text-2xl md:text-3xl font-bold text-warm-text dark:text-dark-text">
+                                <h1 class="text-2xl md:text-3xl font-bold text-warm-text text-dark-text">
                                     {{ form.name }}
                                 </h1>
                                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
@@ -204,11 +204,11 @@ const getCurrentPhoto = () => {
                 <!-- Photo Upload Card -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <Camera class="w-5 h-5 text-terracotta" />
                             Profile Photo
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Upload a new profile photo for the student (JPG, PNG - Max 2MB)
                         </p>
                     </div>
@@ -246,7 +246,7 @@ const getCurrentPhoto = () => {
                             <!-- Upload Section -->
                             <div class="flex-1 space-y-4">
                                 <div class="border-2 border-dashed border-terracotta/30 rounded-lg p-6 text-center hover:border-terracotta transition-colors">
-                                    <Upload class="w-12 h-12 mx-auto text-warm-muted dark:text-dark-muted mb-3" />
+                                    <Upload class="w-12 h-12 mx-auto text-warm-muted text-dark-muted mb-3" />
                                     <div class="space-y-2">
                                         <Label 
                                             for="photo" 
@@ -254,10 +254,10 @@ const getCurrentPhoto = () => {
                                         >
                                             Click to upload
                                         </Label>
-                                        <p class="text-sm text-warm-muted dark:text-dark-muted">
+                                        <p class="text-sm text-warm-muted text-dark-muted">
                                             or drag and drop
                                         </p>
-                                        <p class="text-xs text-warm-muted dark:text-dark-muted">
+                                        <p class="text-xs text-warm-muted text-dark-muted">
                                             PNG, JPG or JPEG (MAX. 2MB)
                                         </p>
                                     </div>
@@ -273,7 +273,7 @@ const getCurrentPhoto = () => {
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.photo }}
                                 </div>
-                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-warm-muted dark:text-dark-muted">
+                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-warm-muted text-dark-muted">
                                     <Camera class="w-4 h-4" />
                                     <span class="font-medium">{{ photoFile.name }}</span>
                                     <span class="text-xs">({{ (photoFile.size / 1024).toFixed(2) }} KB)</span>
@@ -286,18 +286,18 @@ const getCurrentPhoto = () => {
                 <!-- Personal Information -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <User class="w-5 h-5 text-terracotta" />
                             Personal Information
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Update the student's basic personal details
                         </p>
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label for="name" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="name" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <User class="w-4 h-4 text-terracotta" />
                                     Full Name *
                                 </Label>
@@ -317,7 +317,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="email" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="email" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Mail class="w-4 h-4 text-terracotta" />
                                     Email Address *
                                 </Label>
@@ -337,7 +337,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="phone" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="phone" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Phone class="w-4 h-4 text-terracotta" />
                                     Phone Number
                                 </Label>
@@ -355,7 +355,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="date_of_birth" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="date_of_birth" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Calendar class="w-4 h-4 text-terracotta" />
                                     Date of Birth
                                 </Label>
@@ -372,7 +372,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="gender" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="gender" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <User class="w-4 h-4 text-terracotta" />
                                     Gender
                                 </Label>
@@ -393,7 +393,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2 md:col-span-2">
-                                <Label for="address" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="address" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <MapPin class="w-4 h-4 text-terracotta" />
                                     Address
                                 </Label>
@@ -416,18 +416,18 @@ const getCurrentPhoto = () => {
                 <!-- Academic Information -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <GraduationCap class="w-5 h-5 text-terracotta" />
                             Academic Information
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Update the student's academic details and enrollment information
                         </p>
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label for="admission_number" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="admission_number" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Admission Number *
                                 </Label>
@@ -447,7 +447,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="roll_number" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="roll_number" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Roll Number *
                                 </Label>
@@ -466,7 +466,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="academic_class_id" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="academic_class_id" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Class *
                                 </Label>
@@ -488,7 +488,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="section_id" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="section_id" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Section *
                                 </Label>
@@ -510,7 +510,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="admission_date" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="admission_date" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Calendar class="w-4 h-4 text-terracotta" />
                                     Admission Date *
                                 </Label>
@@ -527,7 +527,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="status" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="status" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Status
                                 </Label>
@@ -553,18 +553,18 @@ const getCurrentPhoto = () => {
                 <!-- Medical Information -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <Users class="w-5 h-5 text-terracotta" />
                             Medical Information
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Add medical details and emergency contact information
                         </p>
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label for="emergency_contact" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="emergency_contact" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Phone class="w-4 h-4 text-terracotta" />
                                     Emergency Contact
                                 </Label>
@@ -582,7 +582,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="blood_group" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="blood_group" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Users class="w-4 h-4 text-terracotta" />
                                     Blood Group
                                 </Label>
@@ -608,7 +608,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2 md:col-span-2">
-                                <Label for="medical_conditions" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="medical_conditions" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Users class="w-4 h-4 text-terracotta" />
                                     Medical Conditions
                                 </Label>
@@ -630,18 +630,18 @@ const getCurrentPhoto = () => {
                 <!-- Academic History -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <GraduationCap class="w-5 h-5 text-terracotta" />
                             Academic History
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Previous educational background and transfer information
                         </p>
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label for="previous_school" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="previous_school" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Previous School
                                 </Label>
@@ -659,7 +659,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="transfer_certificate" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="transfer_certificate" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Transfer Certificate
                                 </Label>
@@ -682,11 +682,11 @@ const getCurrentPhoto = () => {
                 <!-- Security -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <Lock class="w-5 h-5 text-terracotta" />
                             Security Settings
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Update student account password
                         </p>
                     </div>
@@ -707,7 +707,7 @@ const getCurrentPhoto = () => {
                             </div>
                             
                             <div class="space-y-2 max-w-md">
-                                <Label for="password" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="password" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Lock class="w-4 h-4 text-terracotta" />
                                     New Password
                                 </Label>
@@ -719,7 +719,7 @@ const getCurrentPhoto = () => {
                                     autocomplete="new-password"
                                     class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <p class="text-xs text-warm-muted dark:text-dark-muted">
+                                <p class="text-xs text-warm-muted text-dark-muted">
                                     Minimum 8 characters recommended
                                 </p>
                                 <div v-if="form.errors.password" class="flex items-center gap-2 text-destructive text-sm">
@@ -735,7 +735,7 @@ const getCurrentPhoto = () => {
                 <div class="card-warm">
                     <div class="p-6">
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <p class="text-sm text-warm-muted dark:text-dark-muted">
+                            <p class="text-sm text-warm-muted text-dark-muted">
                                 * Required fields must be filled
                             </p>
                             <div class="flex items-center gap-3">

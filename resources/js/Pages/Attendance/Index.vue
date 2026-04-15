@@ -1,11 +1,11 @@
 <script setup>
 import { Head, useForm, router, usePage } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
 import { ref, watch, computed } from 'vue';
 import { 
     Plus,
@@ -131,7 +131,7 @@ const stats = computed(() => {
                 <div class="p-2 bg-forest/10 rounded-lg">
                     <CheckCircle class="w-4 h-4 text-forest" />
                 </div>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">
                     {{ isAdminOrTeacher ? 'Attendance Console' : 'My Attendance' }}
                 </span>
             </div>
@@ -145,10 +145,10 @@ const stats = computed(() => {
                 
                 <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div>
-                        <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">
+                        <h1 class="text-4xl md:text-5xl font-black text-warm-text text-dark-text mb-2 tracking-tighter">
                             {{ isAdminOrTeacher ? 'Daily Attendance' : 'Attendance History' }}
                         </h1>
-                        <p class="text-lg text-warm-muted dark:text-dark-muted font-medium">
+                        <p class="text-lg text-warm-muted text-dark-muted font-medium">
                             {{ isAdminOrTeacher 
                                 ? 'Review and mark student presence for administrative records.' 
                                 : 'Track your academic consistency and presence registry.' }}
@@ -156,9 +156,9 @@ const stats = computed(() => {
                     </div>
                     
                     <div class="flex flex-wrap items-center gap-3">
-                        <div class="bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm px-6 py-3 rounded-2xl flex flex-col items-end">
+                        <div class="bg-white bg-dark-bg border border-terracotta/20 shadow-sm px-6 py-3 rounded-2xl flex flex-col items-end">
                             <p class="text-[10px] font-black uppercase tracking-widest text-terracotta mb-1">Target Date</p>
-                            <div class="flex items-center gap-2 font-bold text-warm-text dark:text-dark-text">
+                            <div class="flex items-center gap-2 font-bold text-warm-text text-dark-text">
                                 <Calendar class="w-4 h-4 text-terracotta" />
                                 {{ formatLongDate(form.date) }}
                             </div>
@@ -173,15 +173,15 @@ const stats = computed(() => {
                 <div class="lg:col-span-1 space-y-6">
                     <div class="card-warm rounded-[2rem] overflow-hidden">
                         <div class="p-6 border-b border-terracotta/20">
-                            <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Configuration</h3>
+                            <h3 class="text-lg font-black text-warm-text text-dark-text">Configuration</h3>
                         </div>
                         <div class="p-6 space-y-4">
                             <div class="space-y-2">
-                                <Label class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted ml-1">Academic Class</Label>
+                                <Label class="text-[10px] font-black uppercase text-warm-muted text-dark-muted ml-1">Academic Class</Label>
                                 <select 
                                     v-model="form.academic_class_id" 
                                     @change="fetchAttendance"
-                                    class="w-full bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl h-12 px-4 text-sm font-bold focus:ring-2 focus:ring-terracotta/30 transition-all outline-none text-warm-text dark:text-dark-text"
+                                    class="w-full bg-white bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl h-12 px-4 text-sm font-bold focus:ring-2 focus:ring-terracotta/30 transition-all outline-none text-warm-text text-dark-text"
                                 >
                                     <option value="">Select Class</option>
                                     <option v-for="cls in classes" :key="cls.id" :value="cls.id">{{ cls.name }}</option>
@@ -189,11 +189,11 @@ const stats = computed(() => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted ml-1">Section</Label>
+                                <Label class="text-[10px] font-black uppercase text-warm-muted text-dark-muted ml-1">Section</Label>
                                 <select 
                                     v-model="form.section_id" 
                                     @change="fetchAttendance"
-                                    class="w-full bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl h-12 px-4 text-sm font-bold focus:ring-2 focus:ring-terracotta/30 transition-all outline-none text-warm-text dark:text-dark-text"
+                                    class="w-full bg-white bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl h-12 px-4 text-sm font-bold focus:ring-2 focus:ring-terracotta/30 transition-all outline-none text-warm-text text-dark-text"
                                 >
                                     <option value="">Select Section</option>
                                     <option v-for="section in sections" :key="section.id" :value="section.id">{{ section.name }}</option>
@@ -201,12 +201,12 @@ const stats = computed(() => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted ml-1">Report Date</Label>
+                                <Label class="text-[10px] font-black uppercase text-warm-muted text-dark-muted ml-1">Report Date</Label>
                                 <Input
                                     v-model="form.date"
                                     type="date"
                                     @change="fetchAttendance"
-                                    class="h-12 bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl font-bold text-warm-text dark:text-dark-text"
+                                    class="h-12 bg-white bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl font-bold text-warm-text text-dark-text"
                                 />
                             </div>
 
@@ -224,7 +224,7 @@ const stats = computed(() => {
                     <!-- Quick Stats Summary -->
                     <div class="card-warm p-6 rounded-[2rem] space-y-4">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-black uppercase text-warm-muted dark:text-dark-muted">Section Health</span>
+                            <span class="text-xs font-black uppercase text-warm-muted text-dark-muted">Section Health</span>
                             <Badge class="bg-forest/10 text-forest border-0 font-bold">{{ stats.percent }}%</Badge>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
@@ -255,14 +255,14 @@ const stats = computed(() => {
                                             class="absolute -inset-1 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"
                                             :class="getStatusColor(student.status)"
                                         ></div>
-                                        <div class="w-16 h-16 bg-white dark:bg-dark-bg rounded-2xl flex items-center justify-center text-xl font-black border border-terracotta/20 overflow-hidden shrink-0 relative z-10">
+                                        <div class="w-16 h-16 bg-white bg-dark-bg rounded-2xl flex items-center justify-center text-xl font-black border border-terracotta/20 overflow-hidden shrink-0 relative z-10">
                                             <img v-if="student.photo" :src="`/storage/${student.photo}`" class="object-cover w-full h-full" />
                                             <span v-else class="text-terracotta capitalize">{{ student.name.charAt(0) }}</span>
                                         </div>
                                     </div>
                                     <div class="min-w-0">
-                                        <h3 class="font-black text-warm-text dark:text-dark-text truncate tracking-tight">{{ student.name }}</h3>
-                                        <p class="text-xs font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest">ID: #{{ student.student_id }}</p>
+                                        <h3 class="font-black text-warm-text text-dark-text truncate tracking-tight">{{ student.name }}</h3>
+                                        <p class="text-xs font-bold text-warm-muted text-dark-muted uppercase tracking-widest">ID: #{{ student.student_id }}</p>
                                     </div>
                                 </div>
 
@@ -309,7 +309,7 @@ const stats = computed(() => {
                                 <Input
                                     v-model="student.remarks"
                                     placeholder="Add optional notes..."
-                                    class="h-10 bg-white dark:bg-dark-bg border border-terracotta/20 rounded-xl text-sm text-warm-text dark:text-dark-text"
+                                    class="h-10 bg-white bg-dark-bg border border-terracotta/20 rounded-xl text-sm text-warm-text text-dark-text"
                                 />
                             </div>
                         </div>
@@ -320,8 +320,8 @@ const stats = computed(() => {
                         <div class="w-24 h-24 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-6">
                             <Users class="w-12 h-12 text-terracotta/30" />
                         </div>
-                        <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">No Students Selected</h3>
-                        <p class="text-warm-muted dark:text-dark-muted font-medium mb-8">Choose an academic class and section to begin marking attendance.</p>
+                        <h3 class="text-2xl font-black text-warm-text text-dark-text tracking-tighter mb-2">No Students Selected</h3>
+                        <p class="text-warm-muted text-dark-muted font-medium mb-8">Choose an academic class and section to begin marking attendance.</p>
                         <Button variant="ghost" class="font-bold gap-2 text-terracotta hover:bg-terracotta/10">
                             <Info class="w-4 h-4" />
                             Help Center
@@ -341,7 +341,7 @@ const stats = computed(() => {
                             </div>
                             <span class="text-2xl font-black tracking-tighter text-forest">98%</span>
                         </div>
-                        <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Attendance Rate</p>
+                        <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Attendance Rate</p>
                     </div>
                     
                     <div class="card-warm p-6 rounded-[2rem] group">
@@ -349,9 +349,9 @@ const stats = computed(() => {
                             <div class="w-12 h-12 rounded-2xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                                 <ClipboardList class="w-6 h-6" />
                             </div>
-                            <span class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">182</span>
+                            <span class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">182</span>
                         </div>
-                        <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Days Present</p>
+                        <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Days Present</p>
                     </div>
 
                     <div class="card-warm p-6 rounded-[2rem] group">
@@ -361,7 +361,7 @@ const stats = computed(() => {
                             </div>
                             <span class="text-2xl font-black tracking-tighter text-destructive">03</span>
                         </div>
-                        <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Days Absent</p>
+                        <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Days Absent</p>
                     </div>
 
                     <div class="card-warm p-6 rounded-[2rem] group">
@@ -371,7 +371,7 @@ const stats = computed(() => {
                             </div>
                             <span class="text-2xl font-black tracking-tighter text-amber">02</span>
                         </div>
-                        <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Late Arrivals</p>
+                        <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Late Arrivals</p>
                     </div>
                 </div>
 
@@ -380,10 +380,10 @@ const stats = computed(() => {
                     <div class="p-8 border-b border-terracotta/20 bg-terracotta/5">
                         <div class="flex items-center justify-between">
                             <div>
-                                <h3 class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">Activity History</h3>
-                                <p class="font-medium text-warm-muted dark:text-dark-muted">Chronological record of your presence</p>
+                                <h3 class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">Activity History</h3>
+                                <p class="font-medium text-warm-muted text-dark-muted">Chronological record of your presence</p>
                             </div>
-                            <Button variant="outline" class="bg-white dark:bg-dark-bg border border-terracotta/20 rounded-xl px-6 font-bold text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                            <Button variant="outline" class="bg-white bg-dark-bg border border-terracotta/20 rounded-xl px-6 font-bold text-warm-muted text-dark-muted hover:text-terracotta">
                                 <Download class="w-4 h-4 mr-2" />
                                 Export CSV
                             </Button>
@@ -393,10 +393,10 @@ const stats = computed(() => {
                         <table class="w-full">
                             <thead>
                                 <tr class="bg-terracotta/5 text-left border-b border-terracotta/20">
-                                    <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Date</th>
-                                    <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Session</th>
-                                    <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest text-center">Status</th>
-                                    <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Remarks</th>
+                                    <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Date</th>
+                                    <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Session</th>
+                                    <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest text-center">Status</th>
+                                    <th class="py-5 px-8 text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Remarks</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -406,10 +406,10 @@ const stats = computed(() => {
                                     class="border-b border-terracotta/20 hover:bg-terracotta/5 transition-colors"
                                 >
                                     <td class="py-5 px-8">
-                                        <div class="font-bold text-warm-text dark:text-dark-text">{{ new Date(record.date).toLocaleDateString() }}</div>
-                                        <div class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted">{{ formatLongDate(record.date).split(',')[0] }}</div>
+                                        <div class="font-bold text-warm-text text-dark-text">{{ new Date(record.date).toLocaleDateString() }}</div>
+                                        <div class="text-[10px] font-black uppercase text-warm-muted text-dark-muted">{{ formatLongDate(record.date).split(',')[0] }}</div>
                                     </td>
-                                    <td class="py-5 px-8 font-medium text-warm-muted dark:text-dark-muted">Standard Academic Session</td>
+                                    <td class="py-5 px-8 font-medium text-warm-muted text-dark-muted">Standard Academic Session</td>
                                     <td class="py-5 px-8 text-center">
                                         <Badge 
                                             :class="[
@@ -420,12 +420,12 @@ const stats = computed(() => {
                                             {{ record.status }}
                                         </Badge>
                                     </td>
-                                    <td class="py-5 px-8 text-sm font-medium text-warm-muted dark:text-dark-muted italic">
+                                    <td class="py-5 px-8 text-sm font-medium text-warm-muted text-dark-muted italic">
                                         {{ record.remarks || 'No remarks provided' }}
                                     </td>
                                 </tr>
                                 <tr v-if="props.attendanceData.length === 0">
-                                    <td colspan="4" class="py-20 text-center text-warm-muted dark:text-dark-muted font-bold italic">
+                                    <td colspan="4" class="py-20 text-center text-warm-muted text-dark-muted font-bold italic">
                                         No attendance records found for the current period.
                                     </td>
                                 </tr>

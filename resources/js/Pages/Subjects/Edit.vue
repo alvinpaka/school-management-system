@@ -1,10 +1,10 @@
 <script setup>
 import { Head, useForm, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
 import { 
     ArrowLeft,
     Save,
@@ -35,13 +35,13 @@ const submit = () => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Link :href="route('subjects.index')">
-                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
+                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text text-dark-text">
                         <ArrowLeft class="w-4 h-4 mr-2" />
                         Back to Subjects
                     </Button>
                 </Link>
-                <span class="text-warm-muted dark:text-dark-muted">|</span>
-                <span class="font-semibold text-warm-text dark:text-dark-text">Edit Subject</span>
+                <span class="text-warm-muted text-dark-muted">|</span>
+                <span class="font-semibold text-warm-text text-dark-text">Edit Subject</span>
             </div>
         </template>
 
@@ -49,8 +49,8 @@ const submit = () => {
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Edit Subject</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Edit Subject</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">
                         Update subject details and type
                     </p>
                 </div>
@@ -59,8 +59,8 @@ const submit = () => {
             <!-- Form Card -->
             <div class="card-warm">
                 <div class="p-6 border-b border-terracotta/20">
-                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Edit Subject Information</h3>
-                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                    <h3 class="text-lg font-black text-warm-text text-dark-text">Edit Subject Information</h3>
+                    <p class="text-sm text-warm-muted text-dark-muted mt-1">
                         Update the subject details and type.
                     </p>
                 </div>
@@ -69,13 +69,13 @@ const submit = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Basic Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                     <BookOpen class="w-5 h-5 text-terracotta" />
                                     Basic Information
                                 </h3>
                                 
                                 <div class="space-y-2">
-                                    <Label for="name" class="text-warm-text dark:text-dark-text">Subject Name</Label>
+                                    <Label for="name" class="text-warm-text text-dark-text">Subject Name</Label>
                                     <Input
                                         id="name"
                                         v-model="form.name"
@@ -90,7 +90,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="space-y-2">
-                                    <Label for="code" class="text-warm-text dark:text-dark-text">Subject Code</Label>
+                                    <Label for="code" class="text-warm-text text-dark-text">Subject Code</Label>
                                     <Input
                                         id="code"
                                         v-model="form.code"
@@ -107,17 +107,17 @@ const submit = () => {
 
                             <!-- Subject Type -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                     <Tag class="w-5 h-5 text-terracotta" />
                                     Subject Type
                                 </h3>
                                 
                                 <div class="space-y-2">
-                                    <Label for="type" class="text-warm-text dark:text-dark-text">Type</Label>
+                                    <Label for="type" class="text-warm-text text-dark-text">Type</Label>
                                     <select
                                         id="type"
                                         v-model="form.type"
-                                        class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
+                                        class="mt-1 block w-full border border-terracotta/20 rounded-lg px-3 py-2 bg-white bg-dark-bg text-warm-text text-dark-text focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
                                         required
                                     >
                                         <option value="">Select a type</option>
@@ -131,7 +131,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="mt-4 p-4 bg-terracotta/5 border border-terracotta/20 rounded-lg">
-                                    <p class="text-sm text-warm-muted dark:text-dark-muted">
+                                    <p class="text-sm text-warm-muted text-dark-muted">
                                         <span v-if="form.type === 'theory'">
                                             Theory subjects focus on conceptual learning and theoretical knowledge.
                                         </span>

@@ -2,12 +2,12 @@
 import { Head, Link, router, usePage, useForm } from '@inertiajs/vue3';
 import { ref, watch, computed } from 'vue';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import Pagination from '@/components/ui/pagination.vue';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
+import Pagination from '@/Components/ui/pagination.vue';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
 import {
     Dialog,
     DialogContent,
@@ -16,13 +16,13 @@ import {
     DialogTitle,
     DialogTrigger,
     DialogFooter,
-} from '@/components/ui/dialog';
+} from '@/Components/ui/dialog';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/Components/ui/dropdown-menu';
 import { 
     Plus,
     Edit,
@@ -119,7 +119,7 @@ const getSubjectColor = (type) => {
                 <div class="p-2 bg-terracotta/10 rounded-lg">
                     <Layers class="w-4 h-4 text-terracotta" />
                 </div>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">
                     {{ isAdminOrTeacher ? 'Curriculum Registry' : 'My Subjects' }}
                 </span>
             </div>
@@ -134,10 +134,10 @@ const getSubjectColor = (type) => {
                 <div class="relative z-10">
                     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                         <div>
-                            <h1 class="text-4xl md:text-5xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">
+                            <h1 class="text-4xl md:text-5xl font-black text-warm-text text-dark-text mb-2 tracking-tighter">
                                 {{ isAdminOrTeacher ? 'Subjects & Electives' : 'My Academic Courses' }}
                             </h1>
-                            <p class="text-lg text-warm-muted dark:text-dark-muted font-medium">
+                            <p class="text-lg text-warm-muted text-dark-muted font-medium">
                                 {{ isAdminOrTeacher 
                                     ? 'Define and manage the educational curriculum and subject specialties.' 
                                     : 'Explore your enrolled subjects and academic course materials.' }}
@@ -147,12 +147,12 @@ const getSubjectColor = (type) => {
                         <!-- Search and Add Course on the same line -->
                         <div class="flex items-center gap-3">
                             <div class="relative group">
-                                <Search class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-muted dark:text-dark-muted group-focus-within:text-terracotta transition-colors" />
+                                <Search class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-muted text-dark-muted group-focus-within:text-terracotta transition-colors" />
                                 <input
                                     type="text"
                                     v-model="searchQuery"
                                     placeholder="Search courses..."
-                                    class="pl-11 pr-4 h-14 w-full sm:w-64 bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl text-sm font-bold focus:ring-4 focus:ring-terracotta/10 transition-all outline-none text-warm-text dark:text-dark-text"
+                                    class="pl-11 pr-4 h-14 w-full sm:w-64 bg-white bg-dark-bg border border-terracotta/20 shadow-sm rounded-2xl text-sm font-bold focus:ring-4 focus:ring-terracotta/10 transition-all outline-none text-warm-text text-dark-text"
                                 />
                             </div>
                             <Dialog v-if="isAdminOrTeacher" v-model:open="isCreateDialogOpen">
@@ -164,15 +164,15 @@ const getSubjectColor = (type) => {
                                 </DialogTrigger>
                                 <DialogContent class="w-[95vw] max-w-6xl max-h-[90vh] overflow-y-auto card-warm">
                                     <DialogHeader>
-                                        <DialogTitle class="text-2xl font-black tracking-tight text-warm-text dark:text-dark-text">Add New Course</DialogTitle>
-                                        <DialogDescription class="text-warm-muted dark:text-dark-muted">
+                                        <DialogTitle class="text-2xl font-black tracking-tight text-warm-text text-dark-text">Add New Course</DialogTitle>
+                                        <DialogDescription class="text-warm-muted text-dark-muted">
                                             Create a new subject or course for the curriculum.
                                         </DialogDescription>
                                     </DialogHeader>
                                     <form @submit.prevent="submitForm" class="space-y-6 py-4">
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div class="space-y-2">
-                                                <Label for="name" class="font-medium text-warm-text dark:text-dark-text">Subject Name *</Label>
+                                                <Label for="name" class="font-medium text-warm-text text-dark-text">Subject Name *</Label>
                                                 <Input
                                                     id="name"
                                                     v-model="form.name"
@@ -184,7 +184,7 @@ const getSubjectColor = (type) => {
                                                 <div v-if="form.errors.name" class="text-destructive text-sm">{{ form.errors.name }}</div>
                                             </div>
                                             <div class="space-y-2">
-                                                <Label for="code" class="font-medium text-warm-text dark:text-dark-text">Subject Code *</Label>
+                                                <Label for="code" class="font-medium text-warm-text text-dark-text">Subject Code *</Label>
                                                 <Input
                                                     id="code"
                                                     v-model="form.code"
@@ -197,11 +197,11 @@ const getSubjectColor = (type) => {
                                             </div>
                                         </div>
                                         <div class="space-y-2">
-                                            <Label for="type" class="font-medium text-warm-text dark:text-dark-text">Subject Type *</Label>
+                                            <Label for="type" class="font-medium text-warm-text text-dark-text">Subject Type *</Label>
                                             <select
                                                 id="type"
                                                 v-model="form.type"
-                                                class="flex h-11 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text dark:text-dark-text"
+                                                class="flex h-11 w-full rounded-md border border-terracotta/20 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30 text-warm-text text-dark-text"
                                                 required
                                             >
                                                 <option value="theory">Theory</option>
@@ -234,9 +234,9 @@ const getSubjectColor = (type) => {
                         <div class="w-12 h-12 rounded-2xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                             <BookOpen class="w-6 h-6" />
                         </div>
-                        <span class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">{{ subjects.total || 0 }}</span>
+                        <span class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">{{ subjects.total || 0 }}</span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Total Subjects</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Total Subjects</p>
                 </div>
                 
                 <div class="card-warm p-6 rounded-[2rem] group">
@@ -248,7 +248,7 @@ const getSubjectColor = (type) => {
                             {{ subjects.data.filter(s => s.type === 'Core').length }}
                         </span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Core Requirements</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Core Requirements</p>
                 </div>
 
                 <div class="card-warm p-6 rounded-[2rem] group">
@@ -260,7 +260,7 @@ const getSubjectColor = (type) => {
                             {{ subjects.data.filter(s => s.type !== 'Core').length }}
                         </span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Elective Courses</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Elective Courses</p>
                 </div>
 
                 <div class="card-warm p-6 rounded-[2rem] group">
@@ -268,9 +268,9 @@ const getSubjectColor = (type) => {
                         <div class="w-12 h-12 rounded-2xl bg-terracotta/10 flex items-center justify-center text-terracotta">
                             <Clock class="w-6 h-6" />
                         </div>
-                        <span class="text-2xl font-black tracking-tighter text-warm-text dark:text-dark-text">42h</span>
+                        <span class="text-2xl font-black tracking-tighter text-warm-text text-dark-text">42h</span>
                     </div>
-                    <p class="text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted tracking-widest">Weekly Load</p>
+                    <p class="text-[10px] font-black uppercase text-warm-muted text-dark-muted tracking-widest">Weekly Load</p>
                 </div>
             </div>
 
@@ -284,14 +284,14 @@ const getSubjectColor = (type) => {
                     <div class="p-8 pb-4 relative overflow-hidden">
                         <div class="absolute -top-10 -right-10 w-32 h-32 bg-terracotta/5 blur-[40px] rounded-full group-hover:scale-150 transition-transform duration-1000"></div>
                         <div class="flex items-start justify-between relative z-10">
-                            <div class="w-16 h-16 bg-white dark:bg-dark-bg rounded-3xl flex items-center justify-center border border-terracotta/20 shadow-lg group-hover:rotate-6 transition-transform">
+                            <div class="w-16 h-16 bg-white bg-dark-bg rounded-3xl flex items-center justify-center border border-terracotta/20 shadow-lg group-hover:rotate-6 transition-transform">
                                 <component :is="getSubjectIcon(subject.name)" class="w-8 h-8 text-terracotta" />
                             </div>
                             <div v-if="isAdminOrTeacher" class="flex items-center gap-2">
                                 <DropdownMenu>
                                     <DropdownMenuTrigger as-child>
                                         <Button variant="ghost" class="w-10 h-10 p-0 rounded-xl hover:bg-terracotta/10">
-                                            <MoreVertical class="w-4 h-4 text-warm-muted dark:text-dark-muted" />
+                                            <MoreVertical class="w-4 h-4 text-warm-muted text-dark-muted" />
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end" class="w-48 card-warm rounded-2xl p-2">
@@ -316,30 +316,30 @@ const getSubjectColor = (type) => {
                                 <Badge :class="['rounded-lg px-3 py-1 text-[10px] font-black uppercase tracking-widest border-0', getSubjectColor(subject.type)]">
                                     {{ subject.type }}
                                 </Badge>
-                                <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">ID: #{{ subject.code }}</span>
+                                <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">ID: #{{ subject.code }}</span>
                             </div>
-                            <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">{{ subject.name }}</h3>
-                            <p class="text-sm text-warm-muted dark:text-dark-muted font-medium leading-relaxed line-clamp-2">
+                            <h3 class="text-2xl font-black text-warm-text text-dark-text tracking-tighter mb-2">{{ subject.name }}</h3>
+                            <p class="text-sm text-warm-muted text-dark-muted font-medium leading-relaxed line-clamp-2">
                                 {{ subject.description || 'Comprehensive study of fundamental concepts and advanced theory in ' + subject.name + '.' }}
                             </p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4 py-6 border-t border-terracotta/20">
                             <div>
-                                <p class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest mb-1">Credits</p>
-                                <p class="text-lg font-black text-warm-text dark:text-dark-text">{{ subject.credits || 3 }} Units</p>
+                                <p class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest mb-1">Credits</p>
+                                <p class="text-lg font-black text-warm-text text-dark-text">{{ subject.credits || 3 }} Units</p>
                             </div>
                             <div>
-                                <p class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest mb-1">Status</p>
+                                <p class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest mb-1">Status</p>
                                 <div class="flex items-center gap-2">
                                     <div class="w-2 h-2 rounded-full bg-forest animate-pulse"></div>
-                                    <p class="text-sm font-bold text-warm-text dark:text-dark-text uppercase tracking-wider">Active</p>
+                                    <p class="text-sm font-bold text-warm-text text-dark-text uppercase tracking-wider">Active</p>
                                 </div>
                             </div>
                         </div>
 
                         <Link :href="route('subjects.show', subject.id)">
-                            <Button class="w-full mt-2 h-12 bg-white dark:bg-dark-bg border border-terracotta/20 shadow-sm text-warm-text dark:text-dark-text hover:text-terracotta hover:bg-terracotta/5 font-black rounded-2xl group/btn">
+                            <Button class="w-full mt-2 h-12 bg-white bg-dark-bg border border-terracotta/20 shadow-sm text-warm-text text-dark-text hover:text-terracotta hover:bg-terracotta/5 font-black rounded-2xl group/btn">
                                 Course Details
                                 <Eye class="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                             </Button>
@@ -353,8 +353,8 @@ const getSubjectColor = (type) => {
                 <div class="w-20 h-20 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-6">
                     <BookOpen class="w-10 h-10 text-terracotta/30" />
                 </div>
-                <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">No Courses Found</h3>
-                <p class="text-warm-muted dark:text-dark-muted font-medium max-w-xs mx-auto mb-8">Refine your search or add a new subject to the curriculum registry.</p>
+                <h3 class="text-2xl font-black text-warm-text text-dark-text tracking-tighter mb-2">No Courses Found</h3>
+                <p class="text-warm-muted text-dark-muted font-medium max-w-xs mx-auto mb-8">Refine your search or add a new subject to the curriculum registry.</p>
                 <Button variant="outline" class="rounded-2xl border-terracotta/20 font-bold px-8" @click="searchQuery = ''">
                     Clear Filters
                 </Button>

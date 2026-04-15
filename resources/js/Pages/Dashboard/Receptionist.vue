@@ -1,9 +1,9 @@
 <script setup>
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Separator } from '@/Components/ui/separator';
 import { Head, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import { 
@@ -182,7 +182,7 @@ const getInitials = (name) => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <DoorOpen class="w-5 h-5 text-terracotta" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Front Desk</span>
+                <span class="font-semibold text-warm-text text-dark-text">Front Desk</span>
             </div>
         </template>
 
@@ -190,7 +190,7 @@ const getInitials = (name) => {
             <!-- Professional Header Section -->
             <div class="relative overflow-hidden card-warm rounded-3xl lg:rounded-[3rem] p-6 lg:p-12">
                 <div class="flex flex-col md:flex-row items-center md:items-end gap-6 lg:gap-8">
-                    <div class="w-20 h-20 lg:w-24 lg:h-24 bg-white/50 dark:bg-dark-bg/50 rounded-2xl lg:rounded-[2.5rem] flex items-center justify-center border border-terracotta/20 shadow-inner overflow-hidden">
+                    <div class="w-20 h-20 lg:w-24 lg:h-24 bg-white/50 bg-dark-bg/50 rounded-2xl lg:rounded-[2.5rem] flex items-center justify-center border border-terracotta/20 shadow-inner overflow-hidden">
                         <Avatar class="w-full h-full rounded-none">
                             <AvatarImage 
                                 v-if="$page.props.auth.user.photo"
@@ -209,12 +209,12 @@ const getInitials = (name) => {
                             <Badge class="bg-terracotta/10 text-terracotta border-0 font-black uppercase text-[9px] tracking-widest px-3 lg:px-4 py-1 h-7">
                                 Front Desk Command
                             </Badge>
-                            <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest">Active Operations</span>
+                            <span class="text-[10px] font-black text-warm-muted text-dark-muted uppercase tracking-widest">Active Operations</span>
                         </div>
-                        <h1 class="text-3xl lg:text-5xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-tight">
+                        <h1 class="text-3xl lg:text-5xl font-black text-warm-text text-dark-text tracking-tighter leading-tight">
                             Welcome, {{ receptionist?.name || $page.props.auth.user.name }}
                         </h1>
-                        <p class="text-warm-muted dark:text-dark-muted font-bold text-xs lg:text-sm uppercase tracking-wide">
+                        <p class="text-warm-muted text-dark-muted font-bold text-xs lg:text-sm uppercase tracking-wide">
                             {{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
                         </p>
                     </div>
@@ -231,8 +231,8 @@ const getInitials = (name) => {
                         </div>
                         <Badge class="bg-terracotta text-white border-0 font-black text-[9px] uppercase tracking-widest">Today</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">New Admissions</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ todayStats.newAdmissions }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">New Admissions</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ todayStats.newAdmissions }}</h3>
                 </div>
 
                 <!-- Visitors -->
@@ -241,10 +241,10 @@ const getInitials = (name) => {
                         <div class="w-12 h-12 rounded-2xl bg-forest/10 dark:bg-forest/20 flex items-center justify-center text-forest dark:text-[#5AAA72] font-bold shadow-inner transition-transform lg:group-hover:scale-110">
                             <DoorOpen class="w-6 h-6" />
                         </div>
-                        <Badge class="bg-muted border-0 text-warm-muted dark:text-dark-muted font-black text-[9px] uppercase tracking-widest">+2 Active</Badge>
+                        <Badge class="bg-muted border-0 text-warm-muted text-dark-muted font-black text-[9px] uppercase tracking-widest">+2 Active</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Total Visitors</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ todayStats.visitors }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Total Visitors</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ todayStats.visitors }}</h3>
                 </div>
 
                 <!-- Appointments -->
@@ -255,8 +255,8 @@ const getInitials = (name) => {
                         </div>
                         <Badge class="bg-amber text-white border-0 font-black text-[9px] uppercase tracking-widest">Scheduled</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Appointments</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ todayStats.appointments }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Appointments</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ todayStats.appointments }}</h3>
                 </div>
 
                 <!-- Phone Calls -->
@@ -265,10 +265,10 @@ const getInitials = (name) => {
                         <div class="w-12 h-12 rounded-2xl bg-amber/10 dark:bg-amber/20 flex items-center justify-center text-amber font-bold shadow-inner transition-transform lg:group-hover:scale-110">
                             <Phone class="w-6 h-6" />
                         </div>
-                        <Badge class="bg-muted border-0 text-warm-muted dark:text-dark-muted font-black text-[9px] uppercase tracking-widest">Logs</Badge>
+                        <Badge class="bg-muted border-0 text-warm-muted text-dark-muted font-black text-[9px] uppercase tracking-widest">Logs</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Phone Calls</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ todayStats.phoneCalls }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Phone Calls</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ todayStats.phoneCalls }}</h3>
                 </div>
 
                 <!-- Check-ins -->
@@ -279,15 +279,15 @@ const getInitials = (name) => {
                         </div>
                         <Badge class="bg-forest text-white border-0 font-black text-[9px] uppercase tracking-widest">Completed</Badge>
                     </div>
-                    <p class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Total Check-ins</p>
-                    <h3 class="text-3xl font-black text-warm-text dark:text-dark-text tracking-tighter leading-none">{{ todayStats.checkIns }}</h3>
+                    <p class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Total Check-ins</p>
+                    <h3 class="text-3xl font-black text-warm-text text-dark-text tracking-tighter leading-none">{{ todayStats.checkIns }}</h3>
                 </div>
             </div>
 
             <!-- Operational Intelligence Tools -->
             <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                 <div class="p-6 lg:p-8 border-b border-terracotta/20 bg-terracotta/5">
-                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                    <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                         <Zap class="w-6 h-6 text-terracotta" />
                         Strategic Operational Terminal
                     </h3>
@@ -301,12 +301,12 @@ const getInitials = (name) => {
                             class="group relative p-6 rounded-[2rem] bg-terracotta/5 border border-terracotta/20 transition-all duration-300 lg:hover:border-terracotta lg:hover:shadow-lg"
                         >
                             <div class="flex flex-col items-center text-center space-y-4">
-                                <div class="w-14 h-14 rounded-2xl bg-white dark:bg-dark-bg border border-terracotta/20 flex items-center justify-center shadow-inner lg:group-hover:bg-terracotta lg:group-hover:text-white lg:group-hover:border-terracotta transition-all">
+                                <div class="w-14 h-14 rounded-2xl bg-white bg-dark-bg border border-terracotta/20 flex items-center justify-center shadow-inner lg:group-hover:bg-terracotta lg:group-hover:text-white lg:group-hover:border-terracotta transition-all">
                                     <component :is="action.icon" class="w-7 h-7 text-terracotta lg:group-hover:text-white" />
                                 </div>
                                 <div>
-                                    <h3 class="text-xs font-black text-warm-text dark:text-dark-text uppercase tracking-widest leading-none mb-1">{{ action.title }}</h3>
-                                    <p class="text-[9px] font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest opacity-60 line-clamp-1">{{ action.description }}</p>
+                                    <h3 class="text-xs font-black text-warm-text text-dark-text uppercase tracking-widest leading-none mb-1">{{ action.title }}</h3>
+                                    <p class="text-[9px] font-bold text-warm-muted text-dark-muted uppercase tracking-widest opacity-60 line-clamp-1">{{ action.description }}</p>
                                 </div>
                             </div>
                         </Link>
@@ -321,15 +321,15 @@ const getInitials = (name) => {
                     <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                                <h3 class="text-2xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                     <DoorOpen class="w-6 h-6 text-terracotta" />
                                     Active Visitor Registry
                                 </h3>
                                 <div class="flex gap-2">
-                                    <Button variant="ghost" size="sm" class="rounded-xl font-black text-[10px] uppercase tracking-widest text-warm-muted dark:text-dark-muted border border-terracotta/20">
+                                    <Button variant="ghost" size="sm" class="rounded-xl font-black text-[10px] uppercase tracking-widest text-warm-muted text-dark-muted border border-terracotta/20">
                                         <Search class="w-4 h-4 mr-2" /> Find
                                     </Button>
-                                    <Button variant="ghost" size="sm" class="rounded-xl font-black text-[10px] uppercase tracking-widest text-warm-muted dark:text-dark-muted border border-terracotta/20">
+                                    <Button variant="ghost" size="sm" class="rounded-xl font-black text-[10px] uppercase tracking-widest text-warm-muted text-dark-muted border border-terracotta/20">
                                         <Plus class="w-4 h-4 mr-2" /> New Entry
                                     </Button>
                                 </div>
@@ -337,7 +337,7 @@ const getInitials = (name) => {
                         </div>
                         <div class="p-4 lg:p-8">
                             <div class="space-y-4">
-                                <div v-for="(visitor, index) in recentVisitors" :key="index" class="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 p-4 lg:p-5 rounded-3xl lg:rounded-[2.5rem] bg-terracotta/5 border border-terracotta/20 group transition-all lg:hover:bg-white lg:hover:shadow-md">
+                                <div v-for="(visitor, index) in recentVisitors" :key="index" class="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 p-4 lg:p-5 rounded-3xl lg:rounded-[2.5rem] bg-terracotta/5 border border-terracotta/20 group transition-all lg:hover:bg-white lg:hover:bg-dark-bg lg:hover:shadow-md">
                                     <Avatar class="w-14 h-14 border-2 border-terracotta/20 lg:group-hover:scale-110 transition-transform">
                                         <AvatarFallback class="bg-terracotta/10 text-terracotta font-black text-base">
                                             {{ getInitials(visitor.name) }}
@@ -345,7 +345,7 @@ const getInitials = (name) => {
                                     </Avatar>
                                     <div class="flex-1 min-w-0">
                                         <div class="flex items-center justify-between mb-2">
-                                            <h4 class="text-lg font-black text-warm-text dark:text-dark-text tracking-tighter truncate">{{ visitor.name }}</h4>
+                                            <h4 class="text-lg font-black text-warm-text text-dark-text tracking-tighter truncate">{{ visitor.name }}</h4>
                                             <Badge :class="[
                                                 'font-black text-[10px] uppercase h-6 px-3 border-0',
                                                 visitor.status === 'completed' ? 'bg-forest/10 text-forest' : 'bg-amber/10 text-amber'
@@ -353,8 +353,8 @@ const getInitials = (name) => {
                                                 {{ visitor.status === 'completed' ? 'Cleared' : 'In Session' }}
                                             </Badge>
                                         </div>
-                                        <p class="text-sm font-bold text-warm-muted dark:text-dark-muted uppercase tracking-wide truncate mb-2">{{ visitor.purpose }}</p>
-                                        <div class="flex flex-wrap items-center gap-6 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted/80 opacity-80">
+                                        <p class="text-sm font-bold text-warm-muted text-dark-muted uppercase tracking-wide truncate mb-2">{{ visitor.purpose }}</p>
+                                        <div class="flex flex-wrap items-center gap-6 text-[10px] font-black uppercase text-warm-muted text-dark-muted/80 opacity-80">
                                             <span class="flex items-center gap-1.5"><Clock class="w-3.5 h-3.5 text-forest/60" /> {{ visitor.timeIn }} - {{ visitor.timeOut }}</span>
                                             <span class="flex items-center gap-1.5"><UserCheck class="w-3.5 h-3.5 text-terracotta/60" /> Met: {{ visitor.personMet }}</span>
                                         </div>
@@ -367,7 +367,7 @@ const getInitials = (name) => {
                     <!-- Phone log Tracking -->
                     <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20 bg-terracotta/5">
-                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text/80">
+                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text/80">
                                 <PhoneCall class="w-5 h-5 flex-shrink-0 text-terracotta" />
                                 Communication Intelligence
                             </h3>
@@ -380,8 +380,8 @@ const getInitials = (name) => {
                                             <Phone class="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <h4 class="text-sm font-black text-warm-text dark:text-dark-text tracking-tight">{{ call.name }}</h4>
-                                            <p class="text-[10px] font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest">{{ call.time }} • {{ call.duration }}</p>
+                                            <h4 class="text-sm font-black text-warm-text text-dark-text tracking-tight">{{ call.name }}</h4>
+                                            <p class="text-[10px] font-bold text-warm-muted text-dark-muted uppercase tracking-widest">{{ call.time }} • {{ call.duration }}</p>
                                         </div>
                                     </div>
                                     <Badge variant="outline" class="font-black text-[9px] h-5 border-forest/30 text-forest uppercase">
@@ -398,7 +398,7 @@ const getInitials = (name) => {
                     <!-- Scheduled Appointments -->
                     <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20">
-                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text">
+                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text">
                                 <CalendarDays class="w-6 h-6 text-amber" />
                                 Priority Meetings
                                 <Badge class="bg-amber text-white border-0 font-black text-[10px]">{{ upcomingAppointments.length }}</Badge>
@@ -409,14 +409,14 @@ const getInitials = (name) => {
                                 <div v-for="(appointment, index) in upcomingAppointments" :key="index" class="p-5 rounded-[2rem] bg-amber/5 border border-amber/20 group hover:border-amber transition-all">
                                     <div class="flex items-start justify-between mb-4">
                                         <div>
-                                            <h4 class="text-base font-black text-warm-text dark:text-dark-text tracking-tight leading-none mb-1">{{ appointment.title }}</h4>
-                                            <p class="text-[10px] font-bold text-warm-muted dark:text-dark-muted uppercase tracking-widest">{{ appointment.location }}</p>
+                                            <h4 class="text-base font-black text-warm-text text-dark-text tracking-tight leading-none mb-1">{{ appointment.title }}</h4>
+                                            <p class="text-[10px] font-bold text-warm-muted text-dark-muted uppercase tracking-widest">{{ appointment.location }}</p>
                                         </div>
                                         <Badge variant="outline" class="font-black text-[8px] h-5 border-amber/30 text-amber uppercase">
                                             {{ appointment.type }}
                                         </Badge>
                                     </div>
-                                    <div class="flex flex-wrap items-center gap-6 text-[10px] font-black uppercase text-warm-muted dark:text-dark-muted/80">
+                                    <div class="flex flex-wrap items-center gap-6 text-[10px] font-black uppercase text-warm-muted text-dark-muted/80">
                                         <span class="flex items-center gap-1.5"><Clock class="w-3.5 h-3.5 text-amber/60" /> {{ appointment.time }}</span>
                                         <span class="flex items-center gap-1.5"><Users class="w-3.5 h-3.5 text-terracotta/60" /> {{ appointment.attendees }} Attendees</span>
                                     </div>
@@ -428,7 +428,7 @@ const getInitials = (name) => {
                     <!-- Operational Analytics -->
                     <div class="card-warm rounded-3xl lg:rounded-[3rem] overflow-hidden">
                         <div class="p-6 lg:p-8 border-b border-terracotta/20">
-                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text dark:text-dark-text/80">
+                            <h3 class="text-xl font-black tracking-tighter flex items-center gap-3 text-warm-text text-dark-text/80">
                                 <BarChart3 class="w-5 h-5 text-terracotta" />
                                 Institutional Pulse
                             </h3>
@@ -441,8 +441,8 @@ const getInitials = (name) => {
                                     'Visitor Density': todayStats.visitors,
                                     'System Uptime': '99.9%'
                                 }" :key="label" class="flex flex-col sm:flex-row sm:items-center justify-between py-1 group gap-1">
-                                    <span class="text-[11px] font-black text-warm-muted dark:text-dark-muted uppercase tracking-widest lg:group-hover:text-terracotta transition-colors">{{ label }}</span>
-                                    <span class="text-sm font-black text-warm-text dark:text-dark-text tracking-tight">{{ val }}</span>
+                                    <span class="text-[11px] font-black text-warm-muted text-dark-muted uppercase tracking-widest lg:group-hover:text-terracotta transition-colors">{{ label }}</span>
+                                    <span class="text-sm font-black text-warm-text text-dark-text tracking-tight">{{ val }}</span>
                                 </div>
                             </div>
                         </div>
@@ -451,7 +451,7 @@ const getInitials = (name) => {
                     <!-- Strategic Broadcasting -->
                     <div class="accent-terracotta rounded-3xl lg:rounded-[3rem] p-8 lg:p-10 text-white shadow-2xl shadow-terracotta/30 relative overflow-hidden group">
                         <div class="relative z-10 text-center space-y-6">
-                            <div class="w-16 h-16 lg:w-20 lg:h-20 bg-white/10 rounded-2xl lg:rounded-[2rem] flex items-center justify-center mx-auto border border-white/20 lg:group-hover:scale-110 transition-transform">
+                            <div class="w-16 h-16 lg:w-20 lg:h-20 bg-white/10 dark:bg-white/5 rounded-2xl lg:rounded-[2rem] flex items-center justify-center mx-auto border border-white/20 dark:border-white/10 lg:group-hover:scale-110 transition-transform">
                                 <MessageSquare class="w-8 h-8 lg:w-10 lg:h-10 text-white" />
                             </div>
                             <div>

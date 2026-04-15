@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted } from 'vue';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/Components/ui/button';
 import { ChevronRight, ArrowRight, Star, Quote, CheckCircle2, PlayCircle, ChevronLeft } from 'lucide-vue-next';
 import { useTheme } from '@/composables/useTheme';
 

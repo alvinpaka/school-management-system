@@ -2,9 +2,9 @@
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
 import { 
     Users,
     FileText,
@@ -90,7 +90,7 @@ watch(searchQuery, (newValue) => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <FileText class="w-5 h-5 text-terracotta" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Report Cards</span>
+                <span class="font-semibold text-warm-text text-dark-text">Report Cards</span>
             </div>
         </template>
 
@@ -98,8 +98,8 @@ watch(searchQuery, (newValue) => {
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Report Cards</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">Generate and share student report cards</p>
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Report Cards</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">Generate and share student report cards</p>
                 </div>
             </div>
 
@@ -110,12 +110,12 @@ watch(searchQuery, (newValue) => {
                         <!-- Search Bar -->
                         <div class="flex-1">
                             <div class="relative">
-                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-warm-muted dark:text-dark-muted" />
+                                <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-warm-muted text-dark-muted" />
                                 <input
                                     v-model="searchQuery"
                                     type="text"
                                     placeholder="Search students by name or admission number..."
-                                    class="w-full pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white dark:bg-dark-bg text-warm-text dark:text-dark-text"
+                                    class="w-full pl-10 pr-4 py-2 border border-terracotta/20 rounded-lg focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta bg-white bg-dark-bg text-warm-text text-dark-text"
                                 />
                             </div>
                         </div>
@@ -128,7 +128,7 @@ watch(searchQuery, (newValue) => {
                                 @click="selectClass(classItem.id)"
                                 :variant="selectedClass === classItem.id ? 'default' : 'outline'"
                                 size="sm"
-                                :class="selectedClass === classItem.id ? 'accent-terracotta text-white' : 'border-terracotta/20 text-warm-muted dark:text-dark-muted hover:text-terracotta'"
+                                :class="selectedClass === classItem.id ? 'accent-terracotta text-white' : 'border-terracotta/20 text-warm-muted text-dark-muted hover:text-terracotta'"
                                 class="flex items-center space-x-2"
                             >
                                 <Users class="w-4 h-4" />
@@ -161,8 +161,8 @@ watch(searchQuery, (newValue) => {
                                 </div>
                             </div>
                             <div>
-                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text">{{ student.user?.name }}</h3>
-                                <p class="text-sm text-warm-muted dark:text-dark-muted">{{ student.admission_number }}</p>
+                                <h3 class="text-lg font-black text-warm-text text-dark-text">{{ student.user?.name }}</h3>
+                                <p class="text-sm text-warm-muted text-dark-muted">{{ student.admission_number }}</p>
                             </div>
                         </div>
                         
@@ -202,8 +202,8 @@ watch(searchQuery, (newValue) => {
                 <div class="w-20 h-20 bg-terracotta/5 rounded-3xl flex items-center justify-center mx-auto mb-4">
                     <FileText class="w-10 h-10 text-terracotta/30" />
                 </div>
-                <h3 class="text-xl font-black text-warm-text dark:text-dark-text mb-2 tracking-tighter">No students found</h3>
-                <p class="text-warm-muted dark:text-dark-muted">
+                <h3 class="text-xl font-black text-warm-text text-dark-text mb-2 tracking-tighter">No students found</h3>
+                <p class="text-warm-muted text-dark-muted">
                     {{ searchQuery ? `No students found matching "${searchQuery}"` : 'No students found in this class' }}
                 </p>
             </div>
@@ -219,7 +219,7 @@ watch(searchQuery, (newValue) => {
                         class="px-3 py-2 text-sm border border-terracotta/20 rounded-lg transition-colors"
                         :class="{
                             'bg-terracotta text-white border-terracotta': link.active,
-                            'text-warm-text dark:text-dark-text hover:bg-terracotta/10': !link.active
+                            'text-warm-text text-dark-text hover:bg-terracotta/10': !link.active
                         }"
                     />
                 </div>

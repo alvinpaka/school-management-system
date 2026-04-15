@@ -3,13 +3,13 @@ import { Head, useForm, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import axios from 'axios';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Separator } from '@/Components/ui/separator';
+import { Badge } from '@/Components/ui/badge';
 import { 
     ArrowLeft,
     Save,
@@ -183,13 +183,13 @@ const getCurrentPhoto = () => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Link :href="route('parents.show', parent.id)">
-                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
+                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text text-dark-text">
                         <ArrowLeft class="w-4 h-4" />
                         Back to Profile
                     </Button>
                 </Link>
                 <Separator orientation="vertical" class="h-6 bg-terracotta/20" />
-                <span class="font-semibold text-warm-text dark:text-dark-text">Edit Parent</span>
+                <span class="font-semibold text-warm-text text-dark-text">Edit Parent</span>
             </div>
         </template>
 
@@ -212,7 +212,7 @@ const getCurrentPhoto = () => {
                             </Avatar>
                             
                             <div class="text-center md:text-left space-y-2 mb-2">
-                                <h1 class="text-2xl md:text-3xl font-bold text-warm-text dark:text-dark-text">
+                                <h1 class="text-2xl md:text-3xl font-bold text-warm-text text-dark-text">
                                     {{ form.name || 'Parent Name' }}
                                 </h1>
                                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
@@ -234,11 +234,11 @@ const getCurrentPhoto = () => {
                 <!-- Photo Upload Card -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <Camera class="w-5 h-5 text-terracotta" />
                             Profile Photo
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Upload a new profile photo for the parent (JPG, PNG - Max 2MB)
                         </p>
                     </div>
@@ -276,7 +276,7 @@ const getCurrentPhoto = () => {
                             <!-- Upload Section -->
                             <div class="flex-1 space-y-4">
                                 <div class="border-2 border-dashed border-terracotta/30 rounded-lg p-6 text-center hover:border-terracotta transition-colors">
-                                    <Upload class="w-12 h-12 mx-auto text-warm-muted dark:text-dark-muted mb-3" />
+                                    <Upload class="w-12 h-12 mx-auto text-warm-muted text-dark-muted mb-3" />
                                     <div class="space-y-2">
                                         <Label 
                                             for="photo" 
@@ -284,10 +284,10 @@ const getCurrentPhoto = () => {
                                         >
                                             Click to upload
                                         </Label>
-                                        <p class="text-sm text-warm-muted dark:text-dark-muted">
+                                        <p class="text-sm text-warm-muted text-dark-muted">
                                             or drag and drop
                                         </p>
-                                        <p class="text-xs text-warm-muted dark:text-dark-muted">
+                                        <p class="text-xs text-warm-muted text-dark-muted">
                                             PNG, JPG or JPEG (MAX. 2MB)
                                         </p>
                                     </div>
@@ -303,7 +303,7 @@ const getCurrentPhoto = () => {
                                     <AlertCircle class="w-4 h-4" />
                                     {{ form.errors.photo }}
                                 </div>
-                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-warm-muted dark:text-dark-muted">
+                                <div v-if="photoFile" class="flex items-center gap-2 text-sm text-warm-muted text-dark-muted">
                                     <Camera class="w-4 h-4" />
                                     <span class="font-medium">{{ photoFile.name }}</span>
                                     <span class="text-xs">({{ (photoFile.size / 1024).toFixed(2) }} KB)</span>
@@ -316,18 +316,18 @@ const getCurrentPhoto = () => {
                 <!-- Personal Information -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <User class="w-5 h-5 text-terracotta" />
                             Personal Information
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Update the parent's basic personal details
                         </p>
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label for="name" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="name" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <User class="w-4 h-4 text-terracotta" />
                                     Full Name *
                                 </Label>
@@ -347,7 +347,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="email" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="email" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Mail class="w-4 h-4 text-terracotta" />
                                     Email Address *
                                 </Label>
@@ -367,7 +367,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="phone" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="phone" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Phone class="w-4 h-4 text-terracotta" />
                                     Phone Number *
                                 </Label>
@@ -386,7 +386,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2">
-                                <Label for="occupation" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="occupation" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Briefcase class="w-4 h-4 text-terracotta" />
                                     Occupation
                                 </Label>
@@ -404,7 +404,7 @@ const getCurrentPhoto = () => {
                             </div>
 
                             <div class="space-y-2 md:col-span-2">
-                                <Label for="address" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="address" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <MapPin class="w-4 h-4 text-terracotta" />
                                     Address *
                                 </Label>
@@ -428,18 +428,18 @@ const getCurrentPhoto = () => {
                 <!-- Relationship Information -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <Heart class="w-5 h-5 text-terracotta" />
                             Relationship Information
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Relationship to student and family details
                         </p>
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <Label for="relationship_to_student" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="relationship_to_student" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Users class="w-4 h-4 text-terracotta" />
                                     Relationship to Student *
                                 </Label>
@@ -462,7 +462,7 @@ const getCurrentPhoto = () => {
                             </div>
                             
                             <div class="space-y-2">
-                                <Label for="student_ids" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="student_ids" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <GraduationCap class="w-4 h-4 text-terracotta" />
                                     Search & Select Students *
                                 </Label>
@@ -487,10 +487,10 @@ const getCurrentPhoto = () => {
                                     >
                                         <div class="flex items-center justify-between">
                                             <div>
-                                                <div class="font-medium text-warm-text dark:text-dark-text">
+                                                <div class="font-medium text-warm-text text-dark-text">
                                                     {{ student.user.name }}
                                                 </div>
-                                                <div class="text-sm text-warm-muted dark:text-dark-muted">
+                                                <div class="text-sm text-warm-muted text-dark-muted">
                                                     {{ student.admission_number }} • {{ student.academic_class?.name }}
                                                 </div>
                                             </div>
@@ -502,7 +502,7 @@ const getCurrentPhoto = () => {
                             
                             <!-- Selected Students Display -->
                             <div v-if="selectedStudentsData.length > 0" class="mt-4 md:col-span-2">
-                                <div class="text-sm font-medium text-warm-text dark:text-dark-text mb-2">Selected Students:</div>
+                                <div class="text-sm font-medium text-warm-text text-dark-text mb-2">Selected Students:</div>
                                 <div class="space-y-2">
                                     <div 
                                         v-for="student in selectedStudentsData" 
@@ -510,10 +510,10 @@ const getCurrentPhoto = () => {
                                         class="flex items-center justify-between p-3 bg-forest/5 border border-forest/20 rounded-lg"
                                     >
                                         <div>
-                                            <div class="font-medium text-warm-text dark:text-dark-text">
+                                            <div class="font-medium text-warm-text text-dark-text">
                                                 {{ student.user.name }}
                                             </div>
-                                            <div class="text-sm text-warm-muted dark:text-dark-muted">
+                                            <div class="text-sm text-warm-muted text-dark-muted">
                                                 {{ student.admission_number }} • {{ student.academic_class?.name }}
                                             </div>
                                         </div>
@@ -528,7 +528,7 @@ const getCurrentPhoto = () => {
                             </div>
                             
                             <div v-else-if="studentSearch.trim() === ''" class="mt-2 p-3 bg-terracotta/5 rounded-lg border border-terracotta/20">
-                                <div class="text-sm text-warm-muted dark:text-dark-muted text-center">
+                                <div class="text-sm text-warm-muted text-dark-muted text-center">
                                     {{ selectedStudentsData.length > 0 ? 'No additional students selected. Search above to add more students.' : 'No students selected. Search above to add students.' }}
                                 </div>
                             </div>
@@ -539,11 +539,11 @@ const getCurrentPhoto = () => {
                 <!-- Security -->
                 <div class="card-warm">
                     <div class="p-6 border-b border-terracotta/20">
-                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text dark:text-dark-text">
+                        <h3 class="flex items-center gap-2 text-lg font-black text-warm-text text-dark-text">
                             <Lock class="w-5 h-5 text-terracotta" />
                             Security Settings
                         </h3>
-                        <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                        <p class="text-sm text-warm-muted text-dark-muted mt-1">
                             Update parent account password
                         </p>
                     </div>
@@ -564,7 +564,7 @@ const getCurrentPhoto = () => {
                             </div>
                             
                             <div class="space-y-2 max-w-md">
-                                <Label for="password" class="flex items-center gap-2 text-warm-text dark:text-dark-text">
+                                <Label for="password" class="flex items-center gap-2 text-warm-text text-dark-text">
                                     <Lock class="w-4 h-4 text-terracotta" />
                                     New Password
                                 </Label>
@@ -576,7 +576,7 @@ const getCurrentPhoto = () => {
                                     autocomplete="new-password"
                                     class="border-terracotta/20 focus:ring-terracotta/30"
                                 />
-                                <p class="text-xs text-warm-muted dark:text-dark-muted">
+                                <p class="text-xs text-warm-muted text-dark-muted">
                                     Minimum 8 characters recommended
                                 </p>
                                 <div v-if="form.errors.password" class="flex items-center gap-2 text-destructive text-sm">
@@ -592,7 +592,7 @@ const getCurrentPhoto = () => {
                 <div class="card-warm">
                     <div class="p-6">
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <p class="text-sm text-warm-muted dark:text-dark-muted">
+                            <p class="text-sm text-warm-muted text-dark-muted">
                                 * Required fields must be filled
                             </p>
                             <div class="flex items-center gap-3">

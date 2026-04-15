@@ -1,10 +1,10 @@
 <script setup>
 import { Head, useForm, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
 import { 
     ArrowLeft,
     Save,
@@ -48,13 +48,13 @@ const submit = () => {
         <template #header-title>
             <div class="flex items-center space-x-3">
                 <Link :href="route('classes.index')">
-                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text dark:text-dark-text">
+                    <Button variant="ghost" size="sm" class="gap-2 hover:bg-terracotta/10 text-warm-text text-dark-text">
                         <ArrowLeft class="w-4 h-4 mr-2" />
                         Back to Classes
                     </Button>
                 </Link>
-                <span class="text-warm-muted dark:text-dark-muted">|</span>
-                <span class="font-semibold text-warm-text dark:text-dark-text">Edit Class</span>
+                <span class="text-warm-muted text-dark-muted">|</span>
+                <span class="font-semibold text-warm-text text-dark-text">Edit Class</span>
             </div>
         </template>
 
@@ -62,8 +62,8 @@ const submit = () => {
             <!-- Page Header -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-2">Edit Class</h1>
-                    <p class="text-warm-muted dark:text-dark-muted font-medium">
+                    <h1 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter mb-2">Edit Class</h1>
+                    <p class="text-warm-muted text-dark-muted font-medium">
                         Update class details and sections
                     </p>
                 </div>
@@ -72,8 +72,8 @@ const submit = () => {
             <!-- Form Card -->
             <div class="card-warm">
                 <div class="p-6 border-b border-terracotta/20">
-                    <h3 class="text-lg font-black text-warm-text dark:text-dark-text">Edit Class Information</h3>
-                    <p class="text-sm text-warm-muted dark:text-dark-muted mt-1">
+                    <h3 class="text-lg font-black text-warm-text text-dark-text">Edit Class Information</h3>
+                    <p class="text-sm text-warm-muted text-dark-muted mt-1">
                         Update the class details and sections.
                     </p>
                 </div>
@@ -82,13 +82,13 @@ const submit = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Basic Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                     <BookOpen class="w-5 h-5 text-terracotta" />
                                     Basic Information
                                 </h3>
                                 
                                 <div class="space-y-2">
-                                    <Label for="name" class="text-warm-text dark:text-dark-text">Class Name</Label>
+                                    <Label for="name" class="text-warm-text text-dark-text">Class Name</Label>
                                     <Input
                                         id="name"
                                         v-model="form.name"
@@ -103,7 +103,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="space-y-2">
-                                    <Label for="code" class="text-warm-text dark:text-dark-text">Class Code</Label>
+                                    <Label for="code" class="text-warm-text text-dark-text">Class Code</Label>
                                     <Input
                                         id="code"
                                         v-model="form.code"
@@ -120,7 +120,7 @@ const submit = () => {
 
                             <!-- Sections -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-black text-warm-text dark:text-dark-text flex items-center gap-2">
+                                <h3 class="text-lg font-black text-warm-text text-dark-text flex items-center gap-2">
                                     <Grid3x3 class="w-5 h-5 text-terracotta" />
                                     Sections
                                 </h3>

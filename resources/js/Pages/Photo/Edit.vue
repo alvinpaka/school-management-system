@@ -1,9 +1,9 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
 import { ref } from 'vue';
 import { Camera, Upload, X, User } from 'lucide-vue-next';
 
@@ -134,8 +134,8 @@ const getPhotoUrl = () => {
             <div class="mb-6">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Update Photo</h2>
-                        <p class="text-gray-600 dark:text-gray-400">Upload your passport size photo</p>
+                        <h2 class="text-2xl font-bold text-foreground">Update Photo</h2>
+                        <p class="text-muted-foreground">Upload your passport size photo</p>
                     </div>
                     <div class="flex items-center space-x-3">
                         <Link :href="route('profile.edit')">
@@ -160,7 +160,7 @@ const getPhotoUrl = () => {
                         <!-- Current Photo -->
                         <div class="flex flex-col items-center">
                             <div class="relative">
-                                <div class="w-48 h-56 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600">
+                                <div class="w-48 h-56 rounded-lg overflow-hidden bg-muted border-2 border-dashed border-border">
                                     <img 
                                         v-if="getPhotoUrl()" 
                                         :src="getPhotoUrl()" 
@@ -168,7 +168,7 @@ const getPhotoUrl = () => {
                                         class="w-full h-full object-cover"
                                     />
                                     <div v-else class="flex items-center justify-center h-full">
-                                        <User class="w-16 h-16 text-gray-400" />
+                                        <User class="w-16 h-16 text-muted-foreground" />
                                     </div>
                                 </div>
                                 
@@ -183,8 +183,8 @@ const getPhotoUrl = () => {
                             </div>
                             
                             <div class="mt-4 text-center">
-                                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ user.name }}</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                <p class="text-sm font-medium text-foreground">{{ user.name }}</p>
+                                <p class="text-xs text-muted-foreground">
                                     {{ user.email }}
                                 </p>
                             </div>
@@ -194,16 +194,16 @@ const getPhotoUrl = () => {
                         <div class="border-t pt-6">
                             <div class="space-y-4">
                                 <div>
-                                    <label for="photo-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <label for="photo-input" class="block text-sm font-medium text-foreground mb-2">
                                         Select Photo
                                     </label>
                                     <div class="flex items-center justify-center w-full">
-                                        <label for="photo-input" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <Upload class="w-8 h-8 text-gray-400 mb-2" />
-                                            <span class="text-sm text-gray-600 dark:text-gray-400">
+                                        <label for="photo-input" class="flex flex-col items-center justify-center w-full h-32 border-2 border-border border-dashed rounded-lg cursor-pointer bg-muted hover:bg-muted">
+                                            <Upload class="w-8 h-8 text-muted-foreground mb-2" />
+                                            <span class="text-sm text-muted-foreground">
                                                 Click to upload or drag and drop
                                             </span>
-                                            <span class="text-xs text-gray-500">
+                                            <span class="text-xs text-muted-foreground">
                                                 PNG, JPG, JPEG up to 2MB (350x450px)
                                             </span>
                                         </label>

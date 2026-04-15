@@ -1,9 +1,9 @@
 <script setup>
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Separator } from '@/Components/ui/separator';
 import { Head, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
 import { 
@@ -115,7 +115,7 @@ const getInitials = (name) => {
                 <div class="p-2 bg-terracotta/10 rounded-lg">
                     <Heart class="w-4 h-4 text-terracotta" />
                 </div>
-                <span class="font-black text-sm uppercase tracking-wider text-warm-muted dark:text-dark-muted">Family Portal</span>
+                <span class="font-black text-sm uppercase tracking-wider text-warm-muted text-dark-muted">Family Portal</span>
             </div>
         </template>
 
@@ -138,19 +138,19 @@ const getInitials = (name) => {
                             </Avatar>
                         </div>
                         <div class="text-center md:text-left">
-                            <h1 class="text-3xl lg:text-5xl font-black text-warm-text dark:text-dark-text mb-1 lg:mb-2 tracking-tighter leading-tight">
+                            <h1 class="text-3xl lg:text-5xl font-black text-warm-text text-dark-text mb-1 lg:mb-2 tracking-tighter leading-tight">
                                 Hello, {{ $page.props.auth.user.name.split(' ')[0] }}! <span class="animate-bounce inline-block">👋</span>
                             </h1>
-                            <p class="text-base lg:text-lg text-warm-muted dark:text-dark-muted font-medium">
+                            <p class="text-base lg:text-lg text-warm-muted text-dark-muted font-medium">
                                 Stay engaged with your children's <span class="text-terracotta font-black">academic journey</span> today.
                             </p>
                         </div>
                     </div>
                 
                     <div class="flex flex-col items-start md:items-end">
-                        <div class="bg-white/50 dark:bg-dark-bg/50 px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-terracotta/20 text-left md:text-right">
+                        <div class="bg-white/50 bg-dark-bg/50 px-4 lg:px-6 py-2 lg:py-3 rounded-2xl border border-terracotta/20 text-left md:text-right">
                             <p class="text-[10px] font-black uppercase tracking-widest text-terracotta mb-1">Parental Insights</p>
-                            <p class="text-sm lg:text-base font-bold text-warm-text dark:text-dark-text">
+                            <p class="text-sm lg:text-base font-bold text-warm-text text-dark-text">
                                 {{ new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) }}
                             </p>
                         </div>
@@ -173,8 +173,8 @@ const getInitials = (name) => {
                                 </div>
                                 <Badge class="bg-terracotta/10 text-terracotta border-0 font-black">{{ children?.length || 0 }} TOTAL</Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">My Children</p>
-                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">Enrolled</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted text-dark-muted/80 mb-1">My Children</p>
+                            <h3 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter">Enrolled</h3>
                         </div>
 
                         <div class="card-warm p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] group cursor-pointer lg:hover:border-forest/30 transition-all duration-300">
@@ -184,8 +184,8 @@ const getInitials = (name) => {
                                 </div>
                                 <Badge class="bg-forest/10 text-forest border-0 font-black">75% PAID</Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">Total Fees</p>
-                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">KES 550K</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted text-dark-muted/80 mb-1">Total Fees</p>
+                            <h3 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter">KES 550K</h3>
                         </div>
 
                         <div class="card-warm p-5 lg:p-6 rounded-3xl lg:rounded-[2rem] group cursor-pointer lg:hover:border-terracotta/30 transition-all duration-300">
@@ -195,8 +195,8 @@ const getInitials = (name) => {
                                 </div>
                                 <Badge class="bg-terracotta/10 text-terracotta border-0 font-black">EXCELLENT</Badge>
                             </div>
-                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted dark:text-dark-muted/80 mb-1">Avg Attendance</p>
-                            <h3 class="text-4xl font-black text-warm-text dark:text-dark-text tracking-tighter">93.5%</h3>
+                            <p class="text-xs font-black uppercase tracking-widest text-warm-muted text-dark-muted/80 mb-1">Avg Attendance</p>
+                            <h3 class="text-4xl font-black text-warm-text text-dark-text tracking-tighter">93.5%</h3>
                         </div>
                     </div>
 
@@ -223,17 +223,17 @@ const getInitials = (name) => {
                                         </AvatarFallback>
                                     </Avatar>
                                     <div>
-                                        <h4 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter">{{ child.user?.name || 'Student' }}</h4>
+                                        <h4 class="text-xl font-black text-warm-text text-dark-text tracking-tighter">{{ child.user?.name || 'Student' }}</h4>
                                         <Badge class="bg-terracotta/10 text-terracotta border-0 font-black mt-1">{{ child.academic_class?.name || 'Class 10A' }}</Badge>
                                     </div>
                                 </div>
                                 <div class="space-y-4">
                                     <div class="flex items-center justify-between p-3 rounded-2xl bg-terracotta/5 border border-terracotta/20">
-                                        <span class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest">Attendance</span>
+                                        <span class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest">Attendance</span>
                                         <span class="text-xs font-black text-forest">95.2%</span>
                                     </div>
                                     <div class="flex items-center justify-between p-3 rounded-2xl bg-terracotta/5 border border-terracotta/20">
-                                        <span class="text-xs font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest">Academic Rank</span>
+                                        <span class="text-xs font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest">Academic Rank</span>
                                         <span class="text-xs font-black text-terracotta">Top 10%</span>
                                     </div>
                                 </div>
@@ -257,8 +257,8 @@ const getInitials = (name) => {
                                     <component :is="action.icon" class="w-7 h-7 lg:w-8 lg:h-8" />
                                 </div>
                                 <div class="flex-1">
-                                    <h4 class="text-base lg:text-lg font-black text-warm-text dark:text-dark-text tracking-tight">{{ action.title }}</h4>
-                                    <p class="text-xs lg:text-sm text-warm-muted dark:text-dark-muted font-medium">{{ action.description }}</p>
+                                    <h4 class="text-base lg:text-lg font-black text-warm-text text-dark-text tracking-tight">{{ action.title }}</h4>
+                                    <p class="text-xs lg:text-sm text-warm-muted text-dark-muted font-medium">{{ action.description }}</p>
                                 </div>
                             </div>
                         </Link>
@@ -271,41 +271,41 @@ const getInitials = (name) => {
                     <!-- Events Intelligence -->
                     <div class="card-warm rounded-3xl lg:rounded-[2.5rem] p-6 lg:p-8">
                         <div class="flex items-center justify-between mb-8">
-                            <h3 class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter">Timeline</h3>
+                            <h3 class="text-2xl font-black text-warm-text text-dark-text tracking-tighter">Timeline</h3>
                             <div class="w-10 h-10 rounded-xl bg-terracotta/5 flex items-center justify-center text-terracotta">
                                 <CalendarDays class="w-5 h-5" />
                             </div>
                         </div>
                         <div class="space-y-6">
                             <div v-for="event in upcomingEvents" :key="event.title" class="relative pl-6 border-l-2 border-dashed border-terracotta/20">
-                                <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-warm-bg dark:bg-dark-bg border-2 border-terracotta"></div>
+                                <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-warm-bg bg-dark-bg border-2 border-terracotta"></div>
                                 <div class="mb-4">
                                     <div class="flex items-center justify-between mb-2">
                                         <span :class="['px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest', event.color]">
                                             {{ event.type }}
                                         </span>
-                                        <span class="text-[10px] font-black text-warm-muted dark:text-dark-muted/80">{{ event.date }}</span>
+                                        <span class="text-[10px] font-black text-warm-muted text-dark-muted/80">{{ event.date }}</span>
                                     </div>
-                                    <h4 class="text-sm font-black text-warm-text dark:text-dark-text mb-2 leading-tight">{{ event.title }}</h4>
+                                    <h4 class="text-sm font-black text-warm-text text-dark-text mb-2 leading-tight">{{ event.title }}</h4>
                                 </div>
                             </div>
                         </div>
-                        <Button variant="outline" class="w-full mt-6 rounded-2xl border-terracotta/20 font-black h-12 text-warm-muted dark:text-dark-muted hover:text-terracotta">
+                        <Button variant="outline" class="w-full mt-6 rounded-2xl border-terracotta/20 font-black h-12 text-warm-muted text-dark-muted hover:text-terracotta">
                             View All Events
                         </Button>
                     </div>
 
                     <!-- Payment Summary -->
                     <div class="card-warm rounded-3xl lg:rounded-[2.5rem] p-6 lg:p-8 overflow-hidden relative">
-                        <h3 class="text-xl font-black text-warm-text dark:text-dark-text tracking-tighter mb-8 flex items-center gap-2">
+                        <h3 class="text-xl font-black text-warm-text text-dark-text tracking-tighter mb-8 flex items-center gap-2">
                             <CreditCard class="w-5 h-5 text-forest" />
                             Fee Intelligence
                         </h3>
                         <div class="space-y-4 mb-8">
                             <div class="flex justify-between items-end">
                                 <div>
-                                    <p class="text-[10px] font-black text-warm-muted dark:text-dark-muted/80 uppercase tracking-widest mb-1">Total Due</p>
-                                    <p class="text-2xl font-black text-warm-text dark:text-dark-text tracking-tighter">KES 750K</p>
+                                    <p class="text-[10px] font-black text-warm-muted text-dark-muted/80 uppercase tracking-widest mb-1">Total Due</p>
+                                    <p class="text-2xl font-black text-warm-text text-dark-text tracking-tighter">KES 750K</p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[10px] font-black text-forest uppercase tracking-widest mb-1">Paid</p>
@@ -324,7 +324,7 @@ const getInitials = (name) => {
                     <!-- Communication Channel -->
                     <div class="rounded-3xl lg:rounded-[2.5rem] accent-terracotta p-6 lg:p-8 text-white shadow-xl shadow-terracotta/30 relative overflow-hidden group text-center">
                         <div class="relative z-10">
-                            <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20">
+                            <div class="w-16 h-16 bg-white/10 dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20 dark:border-white/10">
                                 <MessageCircle class="w-8 h-8 text-white" />
                             </div>
                             <h4 class="text-xl font-black mb-2 tracking-tighter">Support Hub</h4>

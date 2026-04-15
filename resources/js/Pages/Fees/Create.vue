@@ -1,10 +1,10 @@
 <script setup>
 import { Head, useForm, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
 import { 
     ArrowLeft,
     Save,
@@ -43,7 +43,7 @@ const submit = () => {
                         Back to Fees
                     </Button>
                 </Link>
-                <span class="text-gray-400">|</span>
+                <span class="text-muted-foreground">|</span>
                 <span>Record New Fee</span>
             </div>
         </template>
@@ -60,14 +60,14 @@ const submit = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Basic Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Basic Information</h3>
+                                <h3 class="text-lg font-medium text-foreground">Basic Information</h3>
                                 
                                 <div>
                                     <Label for="student_id">Student</Label>
                                     <select
                                         id="student_id"
                                         v-model="form.student_id"
-                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        class="mt-1 block w-full border-border dark:bg-background dark:text-foreground rounded-lg px-3 py-2"
                                         required
                                     >
                                         <option value="">Select a student</option>
@@ -85,7 +85,7 @@ const submit = () => {
                                     <select
                                         id="fee_type"
                                         v-model="form.fee_type"
-                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        class="mt-1 block w-full border-border dark:bg-background dark:text-foreground rounded-lg px-3 py-2"
                                         required
                                     >
                                         <option value="">Select fee type</option>
@@ -122,7 +122,7 @@ const submit = () => {
 
                             <!-- Additional Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Additional Information</h3>
+                                <h3 class="text-lg font-medium text-foreground">Additional Information</h3>
                                 
                                 <div>
                                     <Label for="due_date">Due Date</Label>
@@ -143,7 +143,7 @@ const submit = () => {
                                     <textarea
                                         id="remarks"
                                         v-model="form.remarks"
-                                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg px-3 py-2"
+                                        class="mt-1 block w-full border-border dark:bg-background dark:text-foreground rounded-lg px-3 py-2"
                                         rows="4"
                                         placeholder="Additional notes or comments"
                                     ></textarea>
@@ -155,7 +155,7 @@ const submit = () => {
                         </div>
 
                         <!-- Form Actions -->
-                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-border">
                             <Link :href="route('fees.index')">
                                 <Button variant="outline" type="button">
                                     Cancel

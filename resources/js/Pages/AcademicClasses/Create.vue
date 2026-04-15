@@ -1,10 +1,10 @@
 <script setup>
 import { Head, useForm, Link } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
 import { ref } from 'vue';
 import { 
     ArrowLeft,
@@ -45,7 +45,7 @@ const submit = () => {
                         Back to Classes
                     </Button>
                 </Link>
-                <span class="text-gray-400">|</span>
+                <span class="text-muted-foreground">|</span>
                 <span>Add New Class</span>
             </div>
         </template>
@@ -62,7 +62,7 @@ const submit = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Basic Information -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Basic Information</h3>
+                                <h3 class="text-lg font-medium text-foreground">Basic Information</h3>
                                 
                                 <div>
                                     <Label for="name">Class Name</Label>
@@ -98,7 +98,7 @@ const submit = () => {
 
                             <!-- Sections -->
                             <div class="space-y-4">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Sections</h3>
+                                <h3 class="text-lg font-medium text-foreground">Sections</h3>
                                 
                                 <div class="space-y-3">
                                     <div v-for="(section, index) in form.sections" :key="index" class="flex items-center space-x-2">
@@ -136,7 +136,7 @@ const submit = () => {
                         </div>
 
                         <!-- Form Actions -->
-                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-border">
                             <Link :href="route('classes.index')">
                                 <Button variant="outline" type="button">
                                     Cancel

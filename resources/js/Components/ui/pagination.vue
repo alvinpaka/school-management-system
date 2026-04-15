@@ -1,6 +1,6 @@
 <script setup>
 import { ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/Components/ui/button';
 
 const props = defineProps({
     data: {
@@ -51,8 +51,8 @@ const getPaginationNumbers = () => {
 </script>
 
 <template>
-    <div class="flex flex-col sm:flex-row items-center justify-between px-2 py-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-        <div class="text-sm text-gray-700 dark:text-gray-300 mb-4 sm:mb-0">
+    <div class="flex flex-col sm:flex-row items-center justify-between px-2 py-4 bg-card border-t border-border">
+        <div class="text-sm text-foreground mb-4 sm:mb-0">
             Showing 
             <span class="font-medium">{{ data.from || 0 }}</span>
             to

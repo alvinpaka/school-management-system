@@ -1,8 +1,8 @@
 <script setup>
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import {
     Dialog,
     DialogContent,
@@ -10,7 +10,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/Components/ui/dialog';
 import { useForm } from '@inertiajs/vue3';
 import { nextTick, ref } from 'vue';
 
@@ -65,7 +65,7 @@ const closeModal = () => {
             <DialogContent class="card-warm rounded-[2.5rem] shadow-2xl">
                 <DialogHeader>
                     <DialogTitle class="text-2xl font-black tracking-tighter text-destructive">Are you sure you want to delete your account?</DialogTitle>
-                    <DialogDescription class="text-warm-muted dark:text-dark-muted font-medium">
+                    <DialogDescription class="text-warm-muted text-dark-muted font-medium">
                         Once your account is deleted, all of its resources and data will be permanently deleted. 
                         Please enter your password to confirm you would like to permanently delete your account.
                     </DialogDescription>
